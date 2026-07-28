@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\CreateUserAction;
 use App\Actions\Admin\UpdateUserAction;
-use App\Enums\MasterStatus;
 use App\Enums\StudentStatus;
 use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
@@ -36,7 +35,7 @@ final class StudentController extends Controller
         );
 
         $classGroups = ClassGroup::query()
-            ->where('status', MasterStatus::Active->value)
+            ->active()
             ->orderBy('class_code')
             ->get();
 
@@ -66,7 +65,9 @@ final class StudentController extends Controller
         StoreUserRequest $request,
         CreateUserAction $action,
     ): RedirectResponse {
-        $user = $action->execute($request->validated());
+        $user = $action->execute(
+            $request->validated(),
+        );
 
         $student = $user
             ->student()
@@ -103,7 +104,9 @@ final class StudentController extends Controller
         ]);
 
         return view('admin.students.edit', [
-            ...$this->formData(),
+            ...$this->formData(
+                $student->class_group_id,
+            ),
             'student' => $student,
             'user' => $student->user,
         ]);
@@ -130,15 +133,19 @@ final class StudentController extends Controller
     /**
      * 生徒登録・編集画面で利用する選択肢を返す。
      *
+     * 新規登録時は有効なクラスのみ返す。
+     * 編集時は、現在所属している無効クラスも選択肢へ残す。
+     *
      * @return array<string, mixed>
      */
-    private function formData(): array
-    {
+    private function formData(
+        ?int $currentClassGroupId = null,
+    ): array {
         return [
             'accountStatuses' => UserStatus::cases(),
             'studentStatuses' => StudentStatus::cases(),
             'classGroups' => ClassGroup::query()
-                ->where('status', MasterStatus::Active->value)
+                ->selectable($currentClassGroupId)
                 ->orderBy('class_code')
                 ->get(),
         ];

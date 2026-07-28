@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ClassGroupController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\UserController;
@@ -54,6 +55,21 @@ Route::middleware(['auth', 'active'])->group(function (): void {
                     'create',
                     'store',
                     'show',
+                    'edit',
+                    'update',
+                ]);
+
+            Route::resource(
+                'class-groups',
+                ClassGroupController::class,
+            )
+                ->parameters([
+                    'class-groups' => 'classGroup',
+                ])
+                ->only([
+                    'index',
+                    'create',
+                    'store',
                     'edit',
                     'update',
                 ]);

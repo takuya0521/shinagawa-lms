@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\MasterStatus;
 use Database\Factories\ClassGroupFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,13 +32,42 @@ final class ClassGroup extends Model
     }
 
     /**
-     * 選択可能なクラスだけを取得する。
+     * 有効なクラスだけへ絞り込む。
      */
-    public function scopeActive($query)
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where(
             'status',
             MasterStatus::Active->value,
+        );
+    }
+
+    /**
+     * 選択可能なクラスへ絞り込む。
+     *
+     * 編集中の生徒が無効なクラスへ所属している場合は、
+     * 現在の所属クラスだけ選択肢へ残す。
+     */
+    public function scopeSelectable(
+        Builder $query,
+        ?int $currentClassGroupId = null,
+    ): Builder {
+        return $query->where(
+            function (Builder $statusQuery) use (
+                $currentClassGroupId,
+            ): void {
+                $statusQuery->where(
+                    'status',
+                    MasterStatus::Active->value,
+                );
+
+                if ($currentClassGroupId !== null) {
+                    $statusQuery->orWhere(
+                        $statusQuery->getModel()->getQualifiedKeyName(),
+                        $currentClassGroupId,
+                    );
+                }
+            },
         );
     }
 
