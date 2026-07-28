@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\Admin\ChangeUserStatusAction;
 use App\Actions\Admin\CreateUserAction;
 use App\Actions\Admin\UpdateUserAction;
+use App\Enums\MasterStatus;
+use App\Enums\StudentStatus;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
@@ -12,6 +14,7 @@ use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Http\Requests\Admin\UpdateUserStatusRequest;
 use App\Http\Requests\Admin\UserIndexRequest;
+use App\Models\ClassGroup;
 use App\Models\User;
 use App\Queries\Admin\UserListQuery;
 use Illuminate\Contracts\View\View;
@@ -45,8 +48,9 @@ final class UserController extends Controller
     public function create(): View
     {
         return view('admin.users.create', [
-            'roles' => UserRole::cases(),
-            'statuses' => UserStatus::cases(),
+            ...$this->formData(),
+            'user' => new User,
+            'studentProfile' => null,
         ]);
     }
 
@@ -69,22 +73,30 @@ final class UserController extends Controller
      */
     public function edit(User $user): View
     {
+        $studentProfile = $user
+            ->student()
+            ->withTrashed()
+            ->first();
+
         return view('admin.users.edit', [
+            ...$this->formData(),
             'user' => $user,
-            'roles' => UserRole::cases(),
-            'statuses' => UserStatus::cases(),
+            'studentProfile' => $studentProfile,
         ]);
     }
 
     /**
-     * ユーザー情報を更新する。
+     * ユーザーを更新する。
      */
     public function update(
         UpdateUserRequest $request,
         User $user,
         UpdateUserAction $action,
     ): RedirectResponse {
-        $action->execute($user, $request->validated());
+        $action->execute(
+            user: $user,
+            data: $request->validated(),
+        );
 
         return redirect()
             ->route('admin.users.edit', $user)
@@ -99,13 +111,31 @@ final class UserController extends Controller
         User $user,
         ChangeUserStatusAction $action,
     ): RedirectResponse {
-        $status = $request->status();
-
-        $action->execute($user, $status);
-
-        return back()->with(
-            'success',
-            "ユーザーの利用状態を「{$status->label()}」へ変更しました。",
+        $action->execute(
+            user: $user,
+            status: $request->status(),
         );
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', '利用状態を変更しました。');
+    }
+
+    /**
+     * 登録・編集画面で利用する選択肢を返す。
+     *
+     * @return array<string, mixed>
+     */
+    private function formData(): array
+    {
+        return [
+            'roles' => UserRole::cases(),
+            'statuses' => UserStatus::cases(),
+            'studentStatuses' => StudentStatus::cases(),
+            'classGroups' => ClassGroup::query()
+                ->where('status', MasterStatus::Active->value)
+                ->orderBy('class_code')
+                ->get(),
+        ];
     }
 }

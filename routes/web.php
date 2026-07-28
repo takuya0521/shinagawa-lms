@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,11 @@ Route::middleware(['auth', 'active'])->group(function (): void {
                 '/users/{user}/status',
                 [UserController::class, 'updateStatus'],
             )->name('users.status.update');
+
+            Route::resource('students', StudentController::class)
+                ->only([
+                    'index',
+                ]);
         });
 
     Route::prefix('teacher')

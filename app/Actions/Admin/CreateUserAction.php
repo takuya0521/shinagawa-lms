@@ -3,31 +3,68 @@
 namespace App\Actions\Admin;
 
 use App\Enums\UserRole;
-use App\Enums\UserStatus;
+use App\Models\Student;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 final class CreateUserAction
 {
     /**
-     * 管理者操作によりユーザーを登録する。
+     * ユーザーと必要な関連情報を登録する。
      *
-     * @param array{
-     *     name: string,
-     *     email: string,
-     *     role: string,
-     *     status: string,
-     *     password: string
-     * } $input
+     * @param  array<string, mixed>  $data
      */
-    public function execute(array $input): User
+    public function execute(array $data): User
     {
-        return User::query()->create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-            'role' => UserRole::from($input['role']),
-            'status' => UserStatus::from($input['status']),
-        ]);
+        return DB::transaction(function () use ($data): User {
+            $user = User::query()->create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'role' => $data['role'],
+                'status' => $data['status'],
+                'password' => $data['password'],
+            ]);
+
+            if ($data['role'] === UserRole::Student->value) {
+                Student::query()->create([
+                    'user_id' => $user->id,
+                    ...$this->studentAttributes($data),
+                ]);
+            }
+
+            return $user->load('student.classGroup');
+        });
+    }
+
+    /**
+     * 生徒情報として保存する値を返す。
+     *
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function studentAttributes(array $data): array
+    {
+        return [
+            'student_no' => $this->nullableString(
+                $data['student_no'] ?? null,
+            ),
+            'student_name' => $data['student_name'],
+            'grade' => $data['grade'],
+            'affiliation' => $this->nullableString(
+                $data['affiliation'] ?? null,
+            ),
+            'partner_school' => $this->nullableString(
+                $data['partner_school'] ?? null,
+            ),
+            'class_group_id' => (int) $data['class_group_id'],
+            'status' => $data['student_status'],
+        ];
+    }
+
+    private function nullableString(mixed $value): ?string
+    {
+        return is_string($value) && $value !== ''
+            ? $value
+            : null;
     }
 }

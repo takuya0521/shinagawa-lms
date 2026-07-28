@@ -3,42 +3,97 @@
 namespace App\Actions\Admin;
 
 use App\Enums\UserRole;
-use App\Enums\UserStatus;
+use App\Models\Student;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 final class UpdateUserAction
 {
     /**
-     * 管理者操作によりユーザー情報を更新する。
+     * ユーザーと生徒情報を更新する。
      *
-     * パスワードが未入力の場合は、現在のパスワードを維持する。
-     *
-     * @param array{
-     *     name: string,
-     *     email: string,
-     *     role: string,
-     *     status: string,
-     *     password?: string|null
-     * } $input
+     * @param  array<string, mixed>  $data
      */
-    public function execute(User $user, array $input): User
+    public function execute(User $user, array $data): User
     {
-        $attributes = [
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'role' => UserRole::from($input['role']),
-            'status' => UserStatus::from($input['status']),
-        ];
+        return DB::transaction(function () use ($user, $data): User {
+            $userAttributes = [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'role' => $data['role'],
+                'status' => $data['status'],
+            ];
 
-        $password = $input['password'] ?? null;
+            if (
+                isset($data['password'])
+                && is_string($data['password'])
+                && $data['password'] !== ''
+            ) {
+                $userAttributes['password'] = $data['password'];
+            }
 
-        if (is_string($password) && $password !== '') {
-            $attributes['password'] = Hash::make($password);
+            $user->update($userAttributes);
+
+            $this->synchronizeStudent(
+                user: $user,
+                data: $data,
+            );
+
+            return $user
+                ->refresh()
+                ->load('student.classGroup');
+        });
+    }
+
+    /**
+     * ロールに応じて生徒情報を作成・更新・論理削除する。
+     *
+     * @param  array<string, mixed>  $data
+     */
+    private function synchronizeStudent(
+        User $user,
+        array $data,
+    ): void {
+        $student = Student::withTrashed()
+            ->firstOrNew([
+                'user_id' => $user->id,
+            ]);
+
+        if ($data['role'] !== UserRole::Student->value) {
+            if ($student->exists && ! $student->trashed()) {
+                $student->delete();
+            }
+
+            return;
         }
 
-        $user->update($attributes);
+        if ($student->exists && $student->trashed()) {
+            $student->restore();
+        }
 
-        return $user->refresh();
+        $student->fill([
+            'student_no' => $this->nullableString(
+                $data['student_no'] ?? null,
+            ),
+            'student_name' => $data['student_name'],
+            'grade' => $data['grade'],
+            'affiliation' => $this->nullableString(
+                $data['affiliation'] ?? null,
+            ),
+            'partner_school' => $this->nullableString(
+                $data['partner_school'] ?? null,
+            ),
+            'class_group_id' => (int) $data['class_group_id'],
+            'status' => $data['student_status'],
+        ]);
+
+        $student->save();
+    }
+
+    private function nullableString(mixed $value): ?string
+    {
+        return is_string($value) && $value !== ''
+            ? $value
+            : null;
     }
 }
