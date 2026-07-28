@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,15 +15,30 @@ Route::middleware(['auth', 'active'])->group(function (): void {
     Route::get('/dashboard', DashboardController::class)
         ->name('dashboard');
 
-    Route::view('/admin/dashboard', 'dashboard.admin')
+    Route::prefix('admin')
+        ->name('admin.')
         ->middleware('role:admin')
-        ->name('admin.dashboard');
+        ->group(function (): void {
+            Route::view('/dashboard', 'dashboard.admin')
+                ->name('dashboard');
 
-    Route::view('/teacher/dashboard', 'dashboard.teacher')
+            Route::get('/users', [UserController::class, 'index'])
+                ->name('users.index');
+        });
+
+    Route::prefix('teacher')
+        ->name('teacher.')
         ->middleware('role:teacher')
-        ->name('teacher.dashboard');
+        ->group(function (): void {
+            Route::view('/dashboard', 'dashboard.teacher')
+                ->name('dashboard');
+        });
 
-    Route::view('/student/dashboard', 'dashboard.student')
+    Route::prefix('student')
+        ->name('student.')
         ->middleware('role:student')
-        ->name('student.dashboard');
+        ->group(function (): void {
+            Route::view('/dashboard', 'dashboard.student')
+                ->name('dashboard');
+        });
 });
