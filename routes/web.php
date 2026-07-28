@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,11 @@ Route::middleware(['auth', 'active'])->group(function (): void {
                     'show',
                     'edit',
                     'update',
+                ]);
+
+            Route::resource('teachers', TeacherController::class)
+                ->only([
+                    'index',
                 ]);
         });
 

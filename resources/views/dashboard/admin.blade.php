@@ -10,7 +10,7 @@
         </h1>
 
         <p class="mt-3 text-slate-600">
-            ユーザー、授業、時間割、出欠、評価を管理します。
+            ユーザー、生徒、教員、授業、時間割、出欠、評価を管理します。
         </p>
 
         <div class="mt-6 flex flex-wrap gap-3">
@@ -26,6 +26,13 @@
                 class="rounded-lg border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-50"
             >
                 生徒管理
+            </a>
+
+            <a
+                href="{{ route('admin.teachers.index') }}"
+                class="rounded-lg border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-50"
+            >
+                教員管理
             </a>
         </div>
     </section>
