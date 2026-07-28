@@ -101,10 +101,7 @@ final class UpdateUserAction
     }
 
     /**
-     * ロールに応じて教員情報を作成・復元・論理削除する。
-     *
-     * ユーザー編集では教員固有情報を変更せず、
-     * 教員管理画面で変更する。
+     * ロールに応じて教員情報を作成・更新・論理削除する。
      *
      * @param  array<string, mixed>  $data
      */
@@ -132,8 +129,18 @@ final class UpdateUserAction
         if (! $teacher->exists) {
             $teacher->fill([
                 'subject_notes' => null,
-                'status' => MasterStatus::Active,
+                'status' => MasterStatus::Active->value,
             ]);
+        }
+
+        if (array_key_exists('subject_notes', $data)) {
+            $teacher->subject_notes = $this->nullableString(
+                $data['subject_notes'],
+            );
+        }
+
+        if (array_key_exists('teacher_status', $data)) {
+            $teacher->status = $data['teacher_status'];
         }
 
         $teacher->save();

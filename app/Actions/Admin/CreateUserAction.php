@@ -37,8 +37,11 @@ final class CreateUserAction
             if ($data['role'] === UserRole::Teacher->value) {
                 Teacher::query()->create([
                     'user_id' => $user->id,
-                    'subject_notes' => null,
-                    'status' => MasterStatus::Active,
+                    'subject_notes' => $this->nullableString(
+                        $data['subject_notes'] ?? null,
+                    ),
+                    'status' => $data['teacher_status']
+                        ?? MasterStatus::Active->value,
                 ]);
             }
 

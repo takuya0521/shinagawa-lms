@@ -20,9 +20,18 @@
                 </p>
             </div>
 
-            <p class="text-sm text-slate-500">
-                {{ number_format($teachers->total()) }}件
-            </p>
+            <div class="flex items-center gap-4">
+                <p class="text-sm text-slate-500">
+                    {{ number_format($teachers->total()) }}件
+                </p>
+
+                <a
+                    href="{{ route('admin.teachers.create') }}"
+                    class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+                >
+                    教員登録
+                </a>
+            </div>
         </header>
 
         <section class="rounded-2xl bg-white p-6 shadow-sm">
@@ -204,15 +213,27 @@
                                 </td>
 
                                 <td class="whitespace-nowrap px-5 py-4 text-sm">
-                                    <a
-                                        href="{{ route(
-                                            'admin.users.edit',
-                                            $teacher->user,
-                                        ) }}"
-                                        class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
-                                    >
-                                        アカウント編集
-                                    </a>
+                                    <div class="flex items-center gap-3">
+                                        <a
+                                            href="{{ route(
+                                                'admin.teachers.show',
+                                                $teacher,
+                                            ) }}"
+                                            class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
+                                        >
+                                            詳細
+                                        </a>
+
+                                        <a
+                                            href="{{ route(
+                                                'admin.teachers.edit',
+                                                $teacher,
+                                            ) }}"
+                                            class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
+                                        >
+                                            編集
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

@@ -51,6 +51,11 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             Route::resource('teachers', TeacherController::class)
                 ->only([
                     'index',
+                    'create',
+                    'store',
+                    'show',
+                    'edit',
+                    'update',
                 ]);
         });
 
