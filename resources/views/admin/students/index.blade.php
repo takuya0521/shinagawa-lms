@@ -194,6 +194,10 @@
                             <th class="px-5 py-3 text-left text-sm font-semibold">
                                 在籍状態
                             </th>
+
+                            <th class="px-5 py-3 text-left text-sm font-semibold">
+                                操作
+                            </th>
                         </tr>
                     </thead>
 
@@ -230,19 +234,34 @@
 
                                 <td class="whitespace-nowrap px-5 py-4">
                                     <span
-                                        class="inline-flex rounded-full px-3 py-1 text-xs font-semibold
-                                            {{ $student->status === \App\Enums\StudentStatus::Active
-                                                ? 'bg-emerald-100 text-emerald-700'
-                                                : 'bg-slate-200 text-slate-600' }}"
+                                        @class([
+                                            'inline-flex rounded-full px-3 py-1 text-xs font-semibold',
+                                            'bg-emerald-100 text-emerald-700' => $student->status === \App\Enums\StudentStatus::Active,
+                                            'bg-amber-100 text-amber-700' => $student->status === \App\Enums\StudentStatus::Suspended,
+                                            'bg-blue-100 text-blue-700' => $student->status === \App\Enums\StudentStatus::Graduated,
+                                            'bg-rose-100 text-rose-700' => $student->status === \App\Enums\StudentStatus::Withdrawn,
+                                        ])
                                     >
                                         {{ $student->status->label() }}
                                     </span>
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    <a
+                                        href="{{ route(
+                                            'admin.students.show',
+                                            $student,
+                                        ) }}"
+                                        class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
+                                    >
+                                        詳細
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td
-                                    colspan="8"
+                                    colspan="9"
                                     class="px-6 py-12 text-center text-slate-500"
                                 >
                                     条件に一致する生徒はいません。

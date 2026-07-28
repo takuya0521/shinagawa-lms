@@ -7,6 +7,7 @@ use App\Enums\StudentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StudentIndexRequest;
 use App\Models\ClassGroup;
+use App\Models\Student;
 use App\Queries\Admin\StudentListQuery;
 use Illuminate\Contracts\View\View;
 
@@ -36,6 +37,21 @@ final class StudentController extends Controller
             'students' => $students,
             'classGroups' => $classGroups,
             'statuses' => StudentStatus::cases(),
+        ]);
+    }
+
+    /**
+     * 管理者向け生徒詳細を表示する。
+     */
+    public function show(Student $student): View
+    {
+        $student->loadMissing([
+            'user',
+            'classGroup',
+        ]);
+
+        return view('admin.students.show', [
+            'student' => $student,
         ]);
     }
 }
