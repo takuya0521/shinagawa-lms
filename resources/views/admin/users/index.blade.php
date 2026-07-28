@@ -16,13 +16,22 @@
                 </h1>
 
                 <p class="mt-2 text-sm text-slate-600">
-                    管理者、教員、生徒のアカウントを確認します。
+                    管理者、教員、生徒のアカウントを管理します。
                 </p>
             </div>
 
-            <p class="text-sm text-slate-500">
-                {{ number_format($users->total()) }}件
-            </p>
+            <div class="flex items-center gap-4">
+                <p class="text-sm text-slate-500">
+                    {{ number_format($users->total()) }}件
+                </p>
+
+                <a
+                    href="{{ route('admin.users.create') }}"
+                    class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+                >
+                    ユーザー登録
+                </a>
+            </div>
         </header>
 
         <section class="rounded-2xl bg-white p-6 shadow-sm">
@@ -143,6 +152,10 @@
                             <th class="px-6 py-3 text-left text-sm font-semibold">
                                 利用状態
                             </th>
+
+                            <th class="px-6 py-3 text-left text-sm font-semibold">
+                                操作
+                            </th>
                         </tr>
                     </thead>
 
@@ -175,11 +188,56 @@
                                         {{ $user->status->label() }}
                                     </span>
                                 </td>
+
+                                <td class="whitespace-nowrap px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <a
+                                            href="{{ route('admin.users.edit', $user) }}"
+                                            class="font-semibold text-slate-700 underline underline-offset-4"
+                                        >
+                                            編集
+                                        </a>
+
+                                        @if ($user->is(auth()->user()))
+                                            <span class="text-sm text-slate-400">
+                                                ログイン中
+                                            </span>
+                                        @else
+                                            <form
+                                                method="POST"
+                                                action="{{ route('admin.users.status.update', $user) }}"
+                                            >
+                                                @csrf
+                                                @method('PATCH')
+
+                                                <input
+                                                    type="hidden"
+                                                    name="status"
+                                                    value="{{ $user->status === \App\Enums\UserStatus::Active
+                                                        ? \App\Enums\UserStatus::Suspended->value
+                                                        : \App\Enums\UserStatus::Active->value }}"
+                                                >
+
+                                                <button
+                                                    type="submit"
+                                                    class="text-sm font-semibold
+                                                        {{ $user->status === \App\Enums\UserStatus::Active
+                                                            ? 'text-red-700'
+                                                            : 'text-emerald-700' }}"
+                                                >
+                                                    {{ $user->status === \App\Enums\UserStatus::Active
+                                                        ? '利用停止'
+                                                        : '利用再開' }}
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
                                 <td
-                                    colspan="5"
+                                    colspan="6"
                                     class="px-6 py-12 text-center text-slate-500"
                                 >
                                     条件に一致するユーザーはいません。

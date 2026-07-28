@@ -22,8 +22,19 @@ Route::middleware(['auth', 'active'])->group(function (): void {
             Route::view('/dashboard', 'dashboard.admin')
                 ->name('dashboard');
 
-            Route::get('/users', [UserController::class, 'index'])
-                ->name('users.index');
+            Route::resource('users', UserController::class)
+                ->only([
+                    'index',
+                    'create',
+                    'store',
+                    'edit',
+                    'update',
+                ]);
+
+            Route::patch(
+                '/users/{user}/status',
+                [UserController::class, 'updateStatus'],
+            )->name('users.status.update');
         });
 
     Route::prefix('teacher')
