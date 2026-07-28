@@ -2,8 +2,10 @@
 
 namespace App\Actions\Admin;
 
+use App\Enums\MasterStatus;
 use App\Enums\UserRole;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +34,18 @@ final class CreateUserAction
                 ]);
             }
 
-            return $user->load('student.classGroup');
+            if ($data['role'] === UserRole::Teacher->value) {
+                Teacher::query()->create([
+                    'user_id' => $user->id,
+                    'subject_notes' => null,
+                    'status' => MasterStatus::Active,
+                ]);
+            }
+
+            return $user->load([
+                'student.classGroup',
+                'teacher',
+            ]);
         });
     }
 

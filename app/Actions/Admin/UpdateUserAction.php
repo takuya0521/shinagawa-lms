@@ -2,15 +2,17 @@
 
 namespace App\Actions\Admin;
 
+use App\Enums\MasterStatus;
 use App\Enums\UserRole;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 final class UpdateUserAction
 {
     /**
-     * ユーザーと生徒情報を更新する。
+     * ユーザーと関連情報を更新する。
      *
      * @param  array<string, mixed>  $data
      */
@@ -39,9 +41,17 @@ final class UpdateUserAction
                 data: $data,
             );
 
+            $this->synchronizeTeacher(
+                user: $user,
+                data: $data,
+            );
+
             return $user
                 ->refresh()
-                ->load('student.classGroup');
+                ->load([
+                    'student.classGroup',
+                    'teacher',
+                ]);
         });
     }
 
@@ -88,6 +98,45 @@ final class UpdateUserAction
         ]);
 
         $student->save();
+    }
+
+    /**
+     * ロールに応じて教員情報を作成・復元・論理削除する。
+     *
+     * ユーザー編集では教員固有情報を変更せず、
+     * 教員管理画面で変更する。
+     *
+     * @param  array<string, mixed>  $data
+     */
+    private function synchronizeTeacher(
+        User $user,
+        array $data,
+    ): void {
+        $teacher = Teacher::withTrashed()
+            ->firstOrNew([
+                'user_id' => $user->id,
+            ]);
+
+        if ($data['role'] !== UserRole::Teacher->value) {
+            if ($teacher->exists && ! $teacher->trashed()) {
+                $teacher->delete();
+            }
+
+            return;
+        }
+
+        if ($teacher->exists && $teacher->trashed()) {
+            $teacher->restore();
+        }
+
+        if (! $teacher->exists) {
+            $teacher->fill([
+                'subject_notes' => null,
+                'status' => MasterStatus::Active,
+            ]);
+        }
+
+        $teacher->save();
     }
 
     private function nullableString(mixed $value): ?string

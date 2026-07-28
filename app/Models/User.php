@@ -47,6 +47,16 @@ class User extends Authenticatable
     }
 
     /**
+     * ユーザーに紐付く教員情報を返す。
+     *
+     * @return HasOne<Teacher, $this>
+     */
+    public function teacher(): HasOne
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    /**
      * モデル属性のキャスト定義を返す。
      *
      * @return array<string, string>
