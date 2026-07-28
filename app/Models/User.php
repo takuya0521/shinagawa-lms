@@ -8,6 +8,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -27,9 +28,22 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    /**
+     * ユーザーが利用可能な状態か判定する。
+     */
     public function isActive(): bool
     {
         return $this->status->canLogin();
+    }
+
+    /**
+     * ユーザーに紐付く生徒情報を返す。
+     *
+     * @return HasOne<Student, $this>
+     */
+    public function student(): HasOne
+    {
+        return $this->hasOne(Student::class);
     }
 
     /**
