@@ -23,8 +23,8 @@
             <div class="flex flex-wrap gap-3">
                 <a
                     href="{{ route(
-                        'admin.users.edit',
-                        $student->user,
+                        'admin.students.edit',
+                        $student,
                     ) }}"
                     class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
                 >

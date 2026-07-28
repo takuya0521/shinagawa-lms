@@ -113,7 +113,7 @@ final class StoreUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => '氏名',
+            'name' => 'アカウント氏名',
             'email' => 'メールアドレス',
             'role' => 'ロール',
             'status' => '利用状態',
@@ -129,7 +129,7 @@ final class StoreUserRequest extends FormRequest
     }
 
     /**
-     * 検証前に文字列を正規化する。
+     * 検証前に文字列と生徒ロールを正規化する。
      */
     protected function prepareForValidation(): void
     {
@@ -153,6 +153,11 @@ final class StoreUserRequest extends FormRequest
 
         if (isset($values['email'])) {
             $values['email'] = mb_strtolower($values['email']);
+        }
+
+        // 生徒管理画面では入力値にかかわらず生徒ロールへ固定する。
+        if ($this->routeIs('admin.students.store')) {
+            $values['role'] = UserRole::Student->value;
         }
 
         $this->merge($values);

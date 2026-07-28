@@ -30,13 +30,19 @@ final class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $user = $this->route('user');
+        $user = $this->targetUser();
 
         $studentId = $user instanceof User
             ? Student::withTrashed()
                 ->where('user_id', $user->id)
                 ->value('id')
             : null;
+
+        $emailRule = Rule::unique('users', 'email');
+
+        if ($user instanceof User) {
+            $emailRule->ignore($user);
+        }
 
         return [
             'name' => [
@@ -49,7 +55,7 @@ final class UpdateUserRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore($user),
+                $emailRule,
             ],
             'role' => [
                 'required',
@@ -126,7 +132,7 @@ final class UpdateUserRequest extends FormRequest
     {
         return [
             function (Validator $validator): void {
-                $targetUser = $this->route('user');
+                $targetUser = $this->targetUser();
                 $authenticatedUser = $this->user();
 
                 if (
@@ -162,7 +168,7 @@ final class UpdateUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => '氏名',
+            'name' => 'アカウント氏名',
             'email' => 'メールアドレス',
             'role' => 'ロール',
             'status' => '利用状態',
@@ -178,7 +184,7 @@ final class UpdateUserRequest extends FormRequest
     }
 
     /**
-     * 検証前に文字列を正規化する。
+     * 検証前に文字列と生徒ロールを正規化する。
      */
     protected function prepareForValidation(): void
     {
@@ -204,11 +210,36 @@ final class UpdateUserRequest extends FormRequest
             $values['email'] = mb_strtolower($values['email']);
         }
 
+        // 生徒管理画面ではロール変更を許可せず、生徒へ固定する。
+        if ($this->routeIs('admin.students.update')) {
+            $values['role'] = UserRole::Student->value;
+        }
+
         $this->merge($values);
     }
 
     private function isStudentRole(): bool
     {
         return $this->input('role') === UserRole::Student->value;
+    }
+
+    /**
+     * ユーザー管理または生徒管理のルートから対象ユーザーを取得する。
+     */
+    private function targetUser(): ?User
+    {
+        $user = $this->route('user');
+
+        if ($user instanceof User) {
+            return $user;
+        }
+
+        $student = $this->route('student');
+
+        if ($student instanceof Student) {
+            return $student->user;
+        }
+
+        return null;
     }
 }
