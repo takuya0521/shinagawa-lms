@@ -32,6 +32,16 @@ final class ClassGroup extends Model
     }
 
     /**
+     * このクラスを対象とする授業を返す。
+     *
+     * @return HasMany<Course, $this>
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    /**
      * 有効なクラスだけへ絞り込む。
      */
     public function scopeActive(Builder $query): Builder
@@ -63,7 +73,9 @@ final class ClassGroup extends Model
 
                 if ($currentClassGroupId !== null) {
                     $statusQuery->orWhere(
-                        $statusQuery->getModel()->getQualifiedKeyName(),
+                        $statusQuery
+                            ->getModel()
+                            ->getQualifiedKeyName(),
                         $currentClassGroupId,
                     );
                 }
