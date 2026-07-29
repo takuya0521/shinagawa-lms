@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ClassGroupController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
@@ -66,6 +67,18 @@ Route::middleware(['auth', 'active'])->group(function (): void {
                 ->parameters([
                     'class-groups' => 'classGroup',
                 ])
+                ->only([
+                    'index',
+                    'create',
+                    'store',
+                    'edit',
+                    'update',
+                ]);
+
+            Route::resource(
+                'subjects',
+                SubjectController::class,
+            )
                 ->only([
                     'index',
                     'create',
