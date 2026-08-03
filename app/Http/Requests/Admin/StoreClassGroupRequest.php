@@ -10,6 +10,8 @@ final class StoreClassGroupRequest extends FormRequest
 {
     /**
      * 管理者権限の判定はルートMiddlewareで実施する。
+     *
+     * @return bool 判定結果
      */
     public function authorize(): bool
     {
@@ -77,6 +79,8 @@ final class StoreClassGroupRequest extends FormRequest
 
     /**
      * 検証前に入力文字列を正規化する。
+     *
+     * @return void 戻り値なし
      */
     protected function prepareForValidation(): void
     {

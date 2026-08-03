@@ -1,0 +1,10 @@
+@import '../../../patterns/detail.css';
+
+/*
+ * 生徒詳細画面専用
+ *
+ * 情報量に応じた閲覧幅をこの画面内だけで調整し、長い値でも読み順を崩さない。
+ */
+.page-admin-students-show {
+    --page-detail-max-width: 76rem;
+}

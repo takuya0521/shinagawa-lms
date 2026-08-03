@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/users/create.css')
+@section('page-class', 'page-pattern-form page-admin-users-create')
+
 @section('title', 'ユーザー登録')
 @section('header-title', 'ユーザー登録')
 

@@ -10,7 +10,17 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property int $course_id
+ * @property DayOfWeek $day_of_week
+ * @property int $period_no
+ * @property string|null $start_time
+ * @property string|null $end_time
+ * @property MasterStatus $status
+ */
 #[Fillable([
     'course_id',
     'day_of_week',
@@ -35,7 +45,20 @@ final class TimetableSlot extends Model
     }
 
     /**
+     * この時間割枠から発生した授業実施日を返す。
+     *
+     * @return HasMany<LessonSession, $this>
+     */
+    public function lessonSessions(): HasMany
+    {
+        return $this->hasMany(LessonSession::class);
+    }
+
+    /**
      * 有効な時間割枠だけへ絞り込む。
+     *
+     * @param  Builder<TimetableSlot>  $query
+     * @return Builder<TimetableSlot>
      */
     public function scopeActive(Builder $query): Builder
     {
@@ -47,6 +70,9 @@ final class TimetableSlot extends Model
 
     /**
      * 曜日・時限順へ並べる。
+     *
+     * @param  Builder<TimetableSlot>  $query
+     * @return Builder<TimetableSlot>
      */
     public function scopeTimetableOrder(Builder $query): Builder
     {

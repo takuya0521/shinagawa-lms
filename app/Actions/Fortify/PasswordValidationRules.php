@@ -8,9 +8,9 @@ use Illuminate\Validation\Rules\Password;
 trait PasswordValidationRules
 {
     /**
-     * Get the validation rules used to validate passwords.
+     * パスワード検証に使用するルールを返す。
      *
-     * @return array<int, Rule|array<mixed>|string>
+     * @return array<int, Rule|array<mixed>|string> パスワードに適用する検証ルール
      */
     protected function passwordRules(): array
     {

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/teachers/create.css')
+@section('page-class', 'page-pattern-form page-admin-teachers-create')
+
 @section('title', '教員登録')
 @section('header-title', '教員登録')
 

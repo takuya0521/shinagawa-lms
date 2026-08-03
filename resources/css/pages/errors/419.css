@@ -1,0 +1,10 @@
+@import '../../patterns/error.css';
+
+/*
+ * HTTP 419画面専用
+ *
+ * 再ログインが必要な状態を警告色で示す。
+ */
+.error-page-419 {
+    --error-accent: #b45309;
+}

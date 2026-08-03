@@ -1,0 +1,10 @@
+@import '../../../patterns/attendance-entry.css';
+
+/*
+ * 管理者向け日別出欠修正画面専用
+ *
+ * 生徒と出欠入力欄の対応を維持するため、出欠入力専用の表幅を適用する。
+ */
+.page-admin-attendance-edit {
+    --page-table-min-width: 72rem;
+}

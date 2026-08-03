@@ -1,3 +1,4 @@
+{-- 登録画面と編集画面でアカウント情報と学籍情報を一体管理し、項目対応のずれを防ぐ。 --}
 @php
     $selectedAccountStatus = old(
         'status',
@@ -87,15 +88,30 @@
                     <span class="text-red-600">*</span>
                 </label>
 
-                <input
+                <select
                     id="grade"
                     name="grade"
-                    type="text"
-                    value="{{ old('grade', $student->grade) }}"
-                    placeholder="例：1"
                     required
                     class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
+                    <option value="">
+                        選択してください
+                    </option>
+
+                    @foreach ($grades as $grade)
+                        <option
+                            value="{{ $grade->value }}"
+                            @selected(
+                                old(
+                                    'grade',
+                                    $student->grade?->value,
+                                ) === $grade->value
+                            )
+                        >
+                            {{ $grade->label() }}
+                        </option>
+                    @endforeach
+                </select>
 
                 @error('grade')
                     <p class="mt-1 text-sm text-red-600">

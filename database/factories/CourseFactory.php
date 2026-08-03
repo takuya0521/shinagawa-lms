@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Grade;
 use App\Enums\MasterStatus;
 use App\Models\ClassGroup;
 use App\Models\Course;
@@ -23,7 +24,7 @@ final class CourseFactory extends Factory
         return [
             'subject_id' => Subject::factory(),
             'class_group_id' => ClassGroup::factory(),
-            'grade' => (string) fake()->numberBetween(1, 3),
+            'grade' => fake()->randomElement(Grade::cases()),
             'teacher_id' => null,
             'course_name' => fake()->words(3, true),
             'academic_year' => now()->year,

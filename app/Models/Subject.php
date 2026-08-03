@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property MasterStatus $status
+ */
 #[Fillable([
     'subject_code',
     'subject_name',
@@ -32,6 +35,9 @@ final class Subject extends Model
 
     /**
      * 有効な科目だけへ絞り込む。
+     *
+     * @param  Builder<Subject>  $query
+     * @return Builder<Subject>
      */
     public function scopeActive(Builder $query): Builder
     {

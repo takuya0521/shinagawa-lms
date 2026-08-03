@@ -7,13 +7,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Database Connection Name
+    | 既定のデータベース接続
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which of the database connections below you wish
-    | to use as your default connection for database operations. This is
-    | the connection which will be utilized unless another connection
-    | is explicitly specified when you execute a query / statement.
+    | 接続先が未指定のデータベース操作で使用する接続名を指定する。
     |
     */
 
@@ -21,12 +18,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Database Connections
+    | データベース接続
     |--------------------------------------------------------------------------
     |
-    | Below are all of the database connections defined for your application.
-    | An example configuration is provided for each database system which
-    | is supported by Laravel. You're free to add / remove connections.
+    | アプリケーションで利用できる各データベース接続を定義する。
     |
     */
 
@@ -118,12 +113,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Migration Repository Table
+    | マイグレーション管理テーブル
     |--------------------------------------------------------------------------
     |
-    | This table keeps track of all the migrations that have already run for
-    | your application. Using this information, we can determine which of
-    | the migrations on disk haven't actually been run on the database.
+    | 実行済みマイグレーションを記録するテーブルと更新方式を指定する。
     |
     */
 
@@ -134,12 +127,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Redis Databases
+    | Redis接続
     |--------------------------------------------------------------------------
     |
-    | Redis is an open source, fast, and advanced key-value store that also
-    | provides a richer body of commands than a typical key-value system
-    | such as Memcached. You may define your connection settings here.
+    | Redisのクライアント、接続情報、キー接頭辞を指定する。
     |
     */
 

@@ -1,0 +1,10 @@
+@import '../../../patterns/form.css';
+
+/*
+ * 科目編集画面専用
+ *
+ * 入力項目数に応じたフォーム幅をこの画面内だけで調整し、登録・編集時の視認性を保つ。
+ */
+.page-admin-subjects-edit {
+    --page-form-max-width: 54rem;
+}

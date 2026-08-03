@@ -1,0 +1,14 @@
+/*
+ * 詳細画面共通パターン
+ *
+ * 閲覧情報と操作ボタンを同じ視線内へ収め、更新画面との役割を明確に分ける。
+ */
+.page-pattern-detail .lms-content > .space-y-6,
+.page-pattern-detail .lms-content > section {
+    width: min(100%, var(--page-detail-max-width, 72rem));
+    margin-inline: auto;
+}
+
+.page-pattern-detail .lms-content dl {
+    overflow-wrap: anywhere;
+}

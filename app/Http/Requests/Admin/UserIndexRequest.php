@@ -11,6 +11,8 @@ final class UserIndexRequest extends FormRequest
 {
     /**
      * 管理者制御はルートMiddlewareで実施する。
+     *
+     * @return bool 判定結果
      */
     public function authorize(): bool
     {
@@ -41,6 +43,11 @@ final class UserIndexRequest extends FormRequest
         ];
     }
 
+    /**
+     * 検索キーワードを取得する。
+     *
+     * @return ?string 取得した文字列。未指定時はnull
+     */
     public function keyword(): ?string
     {
         $keyword = $this->validated('keyword');
@@ -50,6 +57,11 @@ final class UserIndexRequest extends FormRequest
             : null;
     }
 
+    /**
+     * 対象ロールを取得する。
+     *
+     * @return ?UserRole 処理結果。取得できない場合はnull
+     */
     public function role(): ?UserRole
     {
         $role = $this->validated('role');
@@ -59,6 +71,11 @@ final class UserIndexRequest extends FormRequest
             : null;
     }
 
+    /**
+     * 指定された状態を取得する。
+     *
+     * @return ?UserStatus 処理結果。取得できない場合はnull
+     */
     public function status(): ?UserStatus
     {
         $status = $this->validated('status');
@@ -68,6 +85,11 @@ final class UserIndexRequest extends FormRequest
             : null;
     }
 
+    /**
+     * 入力検証前にリクエスト値を正規化する。
+     *
+     * @return void 戻り値なし
+     */
     protected function prepareForValidation(): void
     {
         $keyword = $this->input('keyword');

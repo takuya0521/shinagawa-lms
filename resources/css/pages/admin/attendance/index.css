@@ -1,0 +1,10 @@
+@import '../../../patterns/list.css';
+
+/*
+ * 管理者向け出欠一覧・集計画面専用
+ *
+ * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
+ */
+.page-admin-attendance-index {
+    --page-table-min-width: 74rem;
+}

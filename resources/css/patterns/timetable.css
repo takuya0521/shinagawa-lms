@@ -1,0 +1,15 @@
+/*
+ * 時間割画面共通パターン
+ *
+ * 曜日と時限の交点を確認する画面のため、表を縮小せず見出し位置を維持する。
+ */
+.page-pattern-timetable .lms-content table {
+    min-width: var(--page-table-min-width, 66rem);
+}
+
+.page-pattern-timetable .lms-content th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--lms-surface-subtle);
+}

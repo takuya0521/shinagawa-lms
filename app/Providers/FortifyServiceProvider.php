@@ -16,6 +16,8 @@ class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * アプリケーションサービスを登録する。
+     *
+     * @return void 戻り値なし
      */
     public function register(): void
     {
@@ -24,6 +26,8 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * 認証機能を初期化する。
+     *
+     * @return void 戻り値なし
      */
     public function boot(): void
     {

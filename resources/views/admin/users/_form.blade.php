@@ -1,3 +1,4 @@
+{-- 登録画面と編集画面でロール別アカウント項目を共有し、権限変更時の入力漏れを防ぐ。 --}
 @php
     $selectedRole = old(
         'role',
@@ -271,18 +272,30 @@
                     <span class="text-red-600">*</span>
                 </label>
 
-                <input
+                <select
                     id="grade"
                     name="grade"
-                    type="text"
-                    value="{{ old(
-                        'grade',
-                        $studentProfile?->grade,
-                    ) }}"
-                    placeholder="例：1"
                     data-student-required
                     class="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2"
                 >
+                    <option value="">
+                        選択してください
+                    </option>
+
+                    @foreach ($grades as $grade)
+                        <option
+                            value="{{ $grade->value }}"
+                            @selected(
+                                old(
+                                    'grade',
+                                    $studentProfile?->grade?->value,
+                                ) === $grade->value
+                            )
+                        >
+                            {{ $grade->label() }}
+                        </option>
+                    @endforeach
+                </select>
 
                 @error('grade')
                     <p class="mt-1 text-sm text-red-600">

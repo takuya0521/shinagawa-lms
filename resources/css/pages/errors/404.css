@@ -1,0 +1,10 @@
+@import '../../patterns/error.css';
+
+/*
+ * HTTP 404画面専用
+ *
+ * 未検出ページは通常の案内色で表示する。
+ */
+.error-page-404 {
+    --error-accent: #2563eb;
+}

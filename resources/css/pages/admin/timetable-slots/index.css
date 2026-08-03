@@ -1,0 +1,10 @@
+@import '../../../patterns/timetable.css';
+
+/*
+ * 時間割一覧画面専用
+ *
+ * 曜日と時限の対応を維持するため、時間割専用の表幅と固定見出しを適用する。
+ */
+.page-admin-timetable-slots-index {
+    --page-table-min-width: 74rem;
+}

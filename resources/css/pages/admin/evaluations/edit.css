@@ -1,0 +1,10 @@
+@import '../../../patterns/form.css';
+
+/*
+ * 管理者向け成績修正画面専用
+ *
+ * 入力項目数に応じたフォーム幅をこの画面内だけで調整し、登録・編集時の視認性を保つ。
+ */
+.page-admin-evaluations-edit {
+    --page-form-max-width: 68rem;
+}

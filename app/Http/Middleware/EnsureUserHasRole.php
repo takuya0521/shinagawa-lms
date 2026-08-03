@@ -12,6 +12,11 @@ final class EnsureUserHasRole
 {
     /**
      * 指定されたロールを持つユーザーだけ後続処理へ進める。
+     *
+     * @param Request $request HTTPリクエスト
+     * @param Closure $next 後続処理
+     * @param string $roles 許可するロール
+     * @return Response 処理結果
      */
     public function handle(
         Request $request,

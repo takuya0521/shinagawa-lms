@@ -5,6 +5,7 @@ namespace Tests\Feature\Admin;
 use App\Enums\MasterStatus;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -101,6 +102,36 @@ final class TeacherUserSynchronizationTest extends TestCase
 
         $this->assertSoftDeleted('teachers', [
             'id' => $teacher->id,
+        ]);
+    }
+
+    public function test_teacher_courses_are_unassigned_when_role_changes(): void
+    {
+        $admin = $this->createAdmin();
+
+        $teacher = Teacher::factory()->create();
+        $course = Course::factory()->create([
+            'teacher_id' => $teacher->id,
+        ]);
+
+        $response = $this
+            ->actingAs($admin)
+            ->put(route('admin.users.update', $teacher->user), [
+                'name' => $teacher->user->name,
+                'email' => $teacher->user->email,
+                'role' => UserRole::Admin->value,
+                'status' => UserStatus::Active->value,
+                'password' => null,
+                'password_confirmation' => null,
+            ]);
+
+        $response->assertRedirect(
+            route('admin.users.edit', $teacher->user),
+        );
+
+        $this->assertDatabaseHas('courses', [
+            'id' => $course->id,
+            'teacher_id' => null,
         ]);
     }
 

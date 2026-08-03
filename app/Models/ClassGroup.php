@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property MasterStatus $status
+ */
 #[Fillable([
     'class_code',
     'class_name',
@@ -43,6 +46,9 @@ final class ClassGroup extends Model
 
     /**
      * 有効なクラスだけへ絞り込む。
+     *
+     * @param  Builder<ClassGroup>  $query
+     * @return Builder<ClassGroup>
      */
     public function scopeActive(Builder $query): Builder
     {
@@ -57,6 +63,11 @@ final class ClassGroup extends Model
      *
      * 編集中の生徒が無効なクラスへ所属している場合は、
      * 現在の所属クラスだけ選択肢へ残す。
+     *
+     * @param  Builder<ClassGroup>  $query
+     *
+     * @param ?int $currentClassGroupId 現在所属しているクラスID
+     * @return Builder<ClassGroup>
      */
     public function scopeSelectable(
         Builder $query,

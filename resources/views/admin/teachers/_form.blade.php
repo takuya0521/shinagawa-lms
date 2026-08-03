@@ -1,3 +1,4 @@
+{-- 登録画面と編集画面で教員情報とアカウント情報を共有し、更新項目の差異を防ぐ。 --}
 @php
     $selectedTeacherStatus = old(
         'teacher_status',

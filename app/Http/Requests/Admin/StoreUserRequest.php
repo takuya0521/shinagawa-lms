@@ -2,169 +2,34 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Enums\MasterStatus;
-use App\Enums\StudentStatus;
-use App\Enums\UserRole;
-use App\Enums\UserStatus;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
+use App\Models\User;
 
-final class StoreUserRequest extends FormRequest
+/**
+ * ユーザー登録時の入力を検証する。
+ */
+final class StoreUserRequest extends BaseUserRequest
 {
     /**
-     * 管理者権限の判定はルートMiddlewareで実施する。
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * ユーザー登録時の入力規則を返す。
+     * 登録時のパスワード検証規則を返す。
      *
-     * @return array<string, list<mixed>>
+     * @return list<mixed> 必須・確認入力・強度を確認する規則
      */
-    public function rules(): array
+    protected function passwordRules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:100',
-            ],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email'),
-            ],
-            'role' => [
-                'required',
-                Rule::enum(UserRole::class),
-            ],
-            'status' => [
-                'required',
-                Rule::enum(UserStatus::class),
-            ],
-            'password' => [
-                'required',
-                'confirmed',
-                Password::min(12)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols(),
-            ],
-            'student_no' => [
-                'nullable',
-                'string',
-                'max:50',
-                Rule::unique('students', 'student_no'),
-            ],
-            'student_name' => [
-                Rule::requiredIf($this->isStudentRole()),
-                'nullable',
-                'string',
-                'max:100',
-            ],
-            'grade' => [
-                Rule::requiredIf($this->isStudentRole()),
-                'nullable',
-                'string',
-                'max:20',
-            ],
-            'affiliation' => [
-                'nullable',
-                'string',
-                'max:100',
-            ],
-            'partner_school' => [
-                'nullable',
-                'string',
-                'max:100',
-            ],
-            'class_group_id' => [
-                Rule::requiredIf($this->isStudentRole()),
-                'nullable',
-                'integer',
-                Rule::exists('class_groups', 'id')
-                    ->where(
-                        fn ($query) => $query->where(
-                            'status',
-                            MasterStatus::Active->value,
-                        ),
-                    ),
-            ],
-            'student_status' => [
-                Rule::requiredIf($this->isStudentRole()),
-                'nullable',
-                Rule::enum(StudentStatus::class),
-            ],
+            'required',
+            'confirmed',
+            $this->strongPasswordRule(),
         ];
     }
 
     /**
-     * 入力項目の日本語名称を返す。
+     * 登録時は更新対象ユーザーが存在しないためnullを返す。
      *
-     * @return array<string, string>
+     * @return User|null 常にnull
      */
-    public function attributes(): array
+    protected function currentUser(): ?User
     {
-        return [
-            'name' => 'アカウント氏名',
-            'email' => 'メールアドレス',
-            'role' => 'ロール',
-            'status' => '利用状態',
-            'password' => 'パスワード',
-            'student_no' => '生徒番号',
-            'student_name' => '生徒氏名',
-            'grade' => '学年',
-            'affiliation' => '所属',
-            'partner_school' => '提携校',
-            'class_group_id' => 'クラス',
-            'student_status' => '在籍状態',
-        ];
-    }
-
-    /**
-     * 検証前に文字列と生徒ロールを正規化する。
-     */
-    protected function prepareForValidation(): void
-    {
-        $values = [];
-
-        foreach ([
-            'name',
-            'email',
-            'student_no',
-            'student_name',
-            'grade',
-            'affiliation',
-            'partner_school',
-        ] as $key) {
-            $value = $this->input($key);
-
-            if (is_string($value)) {
-                $values[$key] = trim($value);
-            }
-        }
-
-        if (isset($values['email'])) {
-            $values['email'] = mb_strtolower($values['email']);
-        }
-
-        // 生徒管理画面では入力値にかかわらず生徒ロールへ固定する。
-        if ($this->routeIs('admin.students.store')) {
-            $values['role'] = UserRole::Student->value;
-        }
-
-        $this->merge($values);
-    }
-
-    private function isStudentRole(): bool
-    {
-        return $this->input('role') === UserRole::Student->value;
+        return null;
     }
 }

@@ -12,6 +12,8 @@ final class SubjectListQuery
     /**
      * 管理画面へ表示する科目一覧を取得する。
      *
+     * @param string $keyword 検索キーワード
+     * @param ?MasterStatus $status 設定する状態
      * @return LengthAwarePaginator<int, Subject>
      */
     public function execute(

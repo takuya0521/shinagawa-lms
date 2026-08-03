@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Grade;
 use App\Enums\StudentStatus;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
@@ -29,11 +30,7 @@ final class StudentFactory extends Factory
             ]),
             'student_no' => fake()->unique()->numerify('STU-####'),
             'student_name' => fake()->name(),
-            'grade' => fake()->randomElement([
-                '1',
-                '2',
-                '3',
-            ]),
+            'grade' => fake()->randomElement(Grade::cases()),
             'affiliation' => null,
             'partner_school' => null,
             'class_group_id' => ClassGroup::factory(),

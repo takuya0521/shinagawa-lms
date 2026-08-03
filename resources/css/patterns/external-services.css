@@ -1,0 +1,13 @@
+/*
+ * 生徒向け外部サービス画面共通パターン
+ *
+ * LMS外へ遷移する機能であることを明確にするため、リンクをカード単位で表示する。
+ */
+.page-pattern-external-services .lms-content a[target='_blank'] {
+    min-height: var(--external-service-card-min-height, 10rem);
+    overflow-wrap: anywhere;
+}
+
+.page-pattern-external-services .lms-content .grid {
+    align-items: stretch;
+}

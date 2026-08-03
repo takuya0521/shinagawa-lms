@@ -1,0 +1,784 @@
+/*
+ * 生徒トップ専用
+ *
+ * お知らせ・Google連携・評価・出欠を一画面で確認するため、他画面とは異なるカード構成を持つ。
+ */
+:root {
+    --student-surface: #ffffff;
+    --student-surface-sub: #f8fafc;
+    --student-border: #dce3ee;
+    --student-border-strong: #cbd5e1;
+    --student-text: #172033;
+    --student-muted: #64748b;
+    --student-muted-light: #94a3b8;
+    --student-primary: #2563eb;
+    --student-primary-dark: #1d4ed8;
+    --student-primary-soft: #eff6ff;
+    --student-danger: #dc2626;
+    --student-danger-soft: #fef2f2;
+    --student-warning: #d97706;
+    --student-warning-soft: #fffbeb;
+    --student-success: #16a34a;
+    --student-success-soft: #f0fdf4;
+    --student-purple: #7c3aed;
+    --student-purple-soft: #f5f3ff;
+    --student-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+}
+
+.student-dashboard-content {
+    display: grid;
+    gap: 20px;
+}
+
+.student-panel {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid var(--student-border);
+    border-radius: 20px;
+    background: var(--student-surface);
+    box-shadow: var(--student-shadow);
+}
+
+.student-panel--wide {
+    width: 100%;
+}
+
+.student-panel__head {
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.student-section-label {
+    margin: 0 0 5px;
+    color: var(--student-muted-light);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.student-panel__head h2 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.35;
+    letter-spacing: -0.04em;
+}
+
+.student-panel__head > a {
+    color: var(--student-primary);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.student-panel__head > a:hover {
+    text-decoration: underline;
+}
+
+.student-panel__year {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eef2f7;
+    color: var(--student-muted);
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.student-two-column-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+/* お知らせは重要度と公開順を同時に把握できる二段構成にする。 */
+.student-notice-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+    gap: 16px;
+}
+
+.student-notice-board__main {
+    min-height: 218px;
+    padding: 20px;
+    border: 1px solid #bfdbfe;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: var(--student-primary-soft);
+    text-decoration: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.student-notice-board__main:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 12px 26px rgba(37, 99, 235, 0.08);
+    transform: translateY(-1px);
+}
+
+.student-notice-board__main--important {
+    border-color: #fecaca;
+    background: linear-gradient(145deg, var(--student-danger-soft), #ffffff 120%);
+}
+
+.student-notice-board__main--important:hover {
+    border-color: #fca5a5;
+    box-shadow: 0 12px 26px rgba(220, 38, 38, 0.07);
+}
+
+.student-notice-category {
+    width: fit-content;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--student-primary);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.student-notice-board__main--important .student-notice-category {
+    background: var(--student-danger);
+}
+
+.student-featured-notice-date {
+    margin: 0 0 8px;
+    color: var(--student-primary);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.student-notice-board__main--important .student-featured-notice-date {
+    color: var(--student-danger);
+}
+
+.student-notice-board__main h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.04em;
+}
+
+.student-notice-board__main p:last-child {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.student-notice-board__list {
+    display: grid;
+    gap: 12px;
+}
+
+.student-notice-item {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--student-border);
+    border-radius: 15px;
+    background: var(--student-surface-sub);
+    text-decoration: none;
+    transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.student-notice-item:hover {
+    border-color: var(--student-border-strong);
+    background: #ffffff;
+    transform: translateY(-1px);
+}
+
+.student-notice-date {
+    height: 30px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: #eef2f7;
+    color: var(--student-muted);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.student-notice-item__meta {
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.student-notice-item__meta span {
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--student-danger-soft);
+    color: var(--student-danger);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.student-notice-item__meta small {
+    color: var(--student-muted-light);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.student-notice-item h3 {
+    margin: 4px 0 5px;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-notice-item p {
+    margin: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    color: var(--student-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.student-notice-empty,
+.student-summary-empty {
+    min-height: 170px;
+    padding: 28px;
+    border: 1px dashed var(--student-border-strong);
+    border-radius: 18px;
+    display: grid;
+    place-content: center;
+    gap: 8px;
+    background: var(--student-surface-sub);
+    text-align: center;
+}
+
+.student-notice-empty strong,
+.student-summary-empty strong {
+    font-size: 15px;
+}
+
+.student-notice-empty p,
+.student-summary-empty p {
+    margin: 0;
+    color: var(--student-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.student-notice-empty--compact {
+    min-height: 80px;
+    padding: 18px;
+    color: var(--student-muted);
+    font-size: 13px;
+}
+
+/* 外部サービスは遷移先を識別しやすいカード形式で表示する。 */
+.student-tool-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.student-tool-card {
+    min-height: 174px;
+    padding: 16px;
+    border: 1px solid var(--student-border);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--student-surface-sub);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.student-tool-card:hover {
+    border-color: var(--student-border-strong);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+    transform: translateY(-2px);
+}
+
+.student-tool-card__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+}
+
+.student-tool-card--blue .student-tool-card__icon {
+    background: var(--student-primary);
+}
+
+.student-tool-card--green .student-tool-card__icon {
+    background: var(--student-success);
+}
+
+.student-tool-card--orange .student-tool-card__icon {
+    background: var(--student-warning);
+}
+
+.student-tool-card--purple .student-tool-card__icon {
+    background: var(--student-purple);
+}
+
+.student-tool-card h3 {
+    margin: 0 0 5px;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.student-tool-card p {
+    margin: 0;
+    color: var(--student-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.student-tool-card > a {
+    margin-top: auto;
+    min-height: 38px;
+    border: 1px solid var(--student-border-strong);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: #ffffff;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+    transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.student-tool-card > a:hover {
+    border-color: var(--student-primary);
+    background: var(--student-primary);
+    color: #ffffff;
+}
+
+/* 評価は平均値であることを明示し、確定済みデータだけを可視化する。 */
+.student-grade-summary {
+    display: grid;
+    gap: 16px;
+}
+
+.student-grade-score {
+    padding: 22px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: var(--student-success-soft);
+}
+
+.student-grade-score span,
+.student-grade-score p,
+.student-grade-score small {
+    color: var(--student-muted);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.student-grade-score p {
+    margin: 8px 0 0;
+}
+
+.student-grade-score small {
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.student-grade-score strong {
+    margin-top: 4px;
+    color: var(--student-success);
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.student-grade-breakdown {
+    display: grid;
+    gap: 12px;
+}
+
+.student-metric-row {
+    display: grid;
+    gap: 8px;
+}
+
+.student-metric-row > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #334155;
+    font-size: 14px;
+}
+
+.student-metric-row strong {
+    color: var(--student-primary);
+}
+
+/* インラインstyleを使用せず、HTMLのvalue属性から進捗を表示する。 */
+.student-progress-bar {
+    width: 100%;
+    height: 10px;
+    border: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    appearance: none;
+    background: #e5eaf2;
+}
+
+.student-progress-bar::-webkit-progress-bar {
+    border-radius: 999px;
+    background: #e5eaf2;
+}
+
+.student-progress-bar::-webkit-progress-value {
+    border-radius: 999px;
+    background: var(--student-primary);
+}
+
+.student-progress-bar::-moz-progress-bar {
+    border-radius: 999px;
+    background: var(--student-primary);
+}
+
+/* 出欠は授業単位の記録件数として表示し、登校日数と誤認させない。 */
+.student-attendance-box {
+    display: grid;
+    gap: 16px;
+}
+
+.student-attendance-rate {
+    padding: 30px 22px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: var(--student-primary-soft);
+}
+
+.student-attendance-rate strong {
+    color: var(--student-primary);
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.student-attendance-rate small {
+    margin-top: 8px;
+    color: var(--student-muted);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.student-attendance-detail {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.student-attendance-detail div {
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--student-border);
+    border-radius: 14px;
+    background: var(--student-surface-sub);
+}
+
+.student-attendance-detail dt {
+    margin-bottom: 5px;
+    color: var(--student-muted);
+    font-size: 12px;
+}
+
+.student-attendance-detail dd {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.student-helper-text {
+    margin: 0;
+    padding: 11px 12px;
+    border-radius: 12px;
+    background: var(--student-warning-soft);
+    color: var(--student-warning);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.student-summary-empty {
+    min-height: 286px;
+    border-color: #bbf7d0;
+    background: var(--student-success-soft);
+}
+
+.student-summary-empty--blue {
+    border-color: #bfdbfe;
+    background: var(--student-primary-soft);
+}
+
+
+@media (max-width: 1180px) {
+    .student-tool-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1120px) {
+    .student-notice-board {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 920px) {
+    .student-two-column-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .student-panel {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .student-panel__head h2 {
+        font-size: 18px;
+    }
+
+    .student-notice-board__main {
+        min-height: auto;
+    }
+
+    .student-notice-item {
+        grid-template-columns: 1fr;
+    }
+
+    .student-notice-date {
+        width: fit-content;
+        min-width: 56px;
+        padding: 0 10px;
+    }
+
+    .student-tool-grid,
+    .student-attendance-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .student-tool-card {
+        min-height: 160px;
+    }
+
+    .student-grade-score strong {
+        font-size: 48px;
+    }
+
+    .student-attendance-rate strong {
+        font-size: 44px;
+    }
+}
+
+/*
+ * 生徒台帳上の氏名・所属をトップ画面で確認できるようにする。
+ * 共通ヘッダーにはログインアカウント名が表示されるため、プロフィール情報は独立した領域で示す。
+ */
+.student-profile-summary {
+    padding: 24px;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff 0%, var(--student-primary-soft) 100%);
+    box-shadow: var(--student-shadow);
+}
+
+.student-profile-summary__body {
+    min-width: 0;
+}
+
+.student-profile-summary__body h2 {
+    margin: 0;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.4;
+    letter-spacing: -0.04em;
+}
+
+.student-profile-summary__body > p:last-child {
+    margin: 8px 0 0;
+    color: var(--student-muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.student-profile-summary__details {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.student-profile-summary__details div {
+    min-width: 110px;
+    padding: 13px 15px;
+    border: 1px solid rgba(191, 219, 254, 0.9);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.student-profile-summary__details dt {
+    margin-bottom: 5px;
+    color: var(--student-muted);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.student-profile-summary__details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+/*
+ * トップ画面では週間時間割の全表を再掲せず、本人対象の授業だけを要約表示する。
+ * 詳細確認や年度切替は専用の週間時間割画面へ集約する。
+ */
+.student-schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.student-schedule-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--student-border);
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    background: var(--student-surface-sub);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.student-schedule-card:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.07);
+    transform: translateY(-1px);
+}
+
+.student-schedule-card__time {
+    min-width: 58px;
+    padding: 9px 8px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    background: var(--student-primary-soft);
+    color: var(--student-primary);
+    text-align: center;
+}
+
+.student-schedule-card__time span {
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.student-schedule-card__time strong {
+    font-size: 13px;
+}
+
+.student-schedule-card__body {
+    min-width: 0;
+}
+
+.student-schedule-card__body h3 {
+    margin: 0 0 5px;
+    overflow: hidden;
+    font-size: 15px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-schedule-card__body p {
+    margin: 0;
+    color: var(--student-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.student-schedule-card__body small {
+    display: block;
+    margin-top: 6px;
+    color: var(--student-muted-light);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.student-schedule-card__classroom {
+    grid-column: 2;
+    width: fit-content;
+    color: var(--student-primary);
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.student-schedule-card__classroom:hover {
+    text-decoration: underline;
+}
+
+.student-summary-empty--schedule {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 1180px) {
+    .student-schedule-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 920px) {
+    .student-profile-summary {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .student-profile-summary__details {
+        width: 100%;
+    }
+}
+
+@media (max-width: 680px) {
+    .student-profile-summary__details,
+    .student-schedule-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-profile-summary__details div {
+        min-width: 0;
+    }
+}

@@ -2,6 +2,7 @@
 
 namespace App\Queries\Admin;
 
+use App\Enums\Grade;
 use App\Enums\StudentStatus;
 use App\Models\Student;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -12,11 +13,16 @@ final class StudentListQuery
     /**
      * 管理者向け生徒一覧を取得する。
      *
+     * @param ?string $keyword 検索キーワード
+     * @param ?Grade $grade 学年
+     * @param ?string $affiliation 所属条件
+     * @param ?int $classGroupId 対象データの識別子
+     * @param ?StudentStatus $status 設定する状態
      * @return LengthAwarePaginator<int, Student>
      */
     public function execute(
         ?string $keyword,
-        ?string $grade,
+        ?Grade $grade,
         ?string $affiliation,
         ?int $classGroupId,
         ?StudentStatus $status,
@@ -65,7 +71,7 @@ final class StudentListQuery
                 $grade !== null,
                 fn (Builder $query): Builder => $query->where(
                     'grade',
-                    $grade,
+                    $grade->value,
                 ),
             )
             ->when(

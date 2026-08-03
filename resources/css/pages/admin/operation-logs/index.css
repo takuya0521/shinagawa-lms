@@ -1,0 +1,10 @@
+@import '../../../patterns/list.css';
+
+/*
+ * 操作ログ一覧画面専用
+ *
+ * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
+ */
+.page-admin-operation-logs-index {
+    --page-table-min-width: 82rem;
+}

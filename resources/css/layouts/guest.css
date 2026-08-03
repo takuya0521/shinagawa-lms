@@ -1,0 +1,8 @@
+/*
+ * 未認証画面の共通レイアウト。
+ */
+.guest-body {
+    min-height: 100svh;
+    margin: 0;
+    background: var(--lms-surface-soft, #f8fafc);
+}

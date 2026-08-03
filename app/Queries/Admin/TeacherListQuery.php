@@ -13,6 +13,9 @@ final class TeacherListQuery
     /**
      * 管理者向け教員一覧を取得する。
      *
+     * @param ?string $keyword 検索キーワード
+     * @param ?MasterStatus $teacherStatus 教員状態
+     * @param ?UserStatus $accountStatus アカウント状態
      * @return LengthAwarePaginator<int, Teacher>
      */
     public function execute(

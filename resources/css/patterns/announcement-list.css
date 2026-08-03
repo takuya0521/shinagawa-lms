@@ -1,0 +1,17 @@
+/*
+ * お知らせ一覧共通パターン
+ *
+ * 重要区分・公開日・対象を比較しやすくし、長い件名でもカード幅を崩さない。
+ */
+.page-pattern-announcement-list .lms-content article,
+.page-pattern-announcement-list .lms-content a {
+    overflow-wrap: anywhere;
+}
+
+.page-pattern-announcement-list .lms-content form[method='GET'] {
+    scroll-margin-top: 7rem;
+}
+
+.page-pattern-announcement-list .lms-content .grid {
+    gap: var(--announcement-card-gap, 0.75rem);
+}

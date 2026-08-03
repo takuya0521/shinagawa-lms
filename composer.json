@@ -43,12 +43,9 @@
     },
     "scripts": {
         "setup": [
-            "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate",
-            "@php artisan migrate --force",
-            "npm install",
-            "npm run build"
+            "@php artisan key:generate --ansi",
+            "@php -r \"fwrite(STDOUT, '環境変数を設定後、composer setup:local を実行してください。'.PHP_EOL);\""
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
@@ -62,6 +59,10 @@
         ],
         "ci:check": [
             "Composer\\Config::disableProcessTimeout",
+            "@comments:check",
+            "@docs:check",
+            "@frontend:check",
+            "@views:check",
             "@test"
         ],
         "types:check": [
@@ -90,7 +91,16 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ]
+        ],
+        "frontend:check": "@php scripts/check_frontend_structure.php",
+        "setup:local": [
+            "@php artisan app:setup-local",
+            "npm ci",
+            "npm run build"
+        ],
+        "views:check": "@php scripts/check_view_consistency.php",
+        "comments:check": "@php scripts/check_japanese_comments.php",
+        "docs:check": "@php scripts/check_phpdoc_completeness.php"
     },
     "extra": {
         "laravel": {

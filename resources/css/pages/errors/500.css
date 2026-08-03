@@ -1,0 +1,10 @@
+@import '../../patterns/error.css';
+
+/*
+ * HTTP 500画面専用
+ *
+ * システム障害を危険色で示し、操作継続を促さない。
+ */
+.error-page-500 {
+    --error-accent: #dc2626;
+}

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/teachers/show.css')
+@section('page-class', 'page-pattern-detail page-admin-teachers-show')
+
 @section('title', '教員詳細')
 @section('header-title', '教員詳細')
 
@@ -21,6 +24,16 @@
             </div>
 
             <div class="flex flex-wrap gap-3">
+                <a
+                    href="{{ route('admin.course-teacher-assignments.index', [
+                        'keyword' => $teacher->user->name,
+                        'academic_year' => '',
+                    ]) }}"
+                    class="rounded-lg border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+                >
+                    担当授業を設定
+                </a>
+
                 <a
                     href="{{ route('admin.teachers.edit', $teacher) }}"
                     class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
@@ -133,6 +146,116 @@
                     </dd>
                 </div>
             </dl>
+        </section>
+
+        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">担当授業・対象生徒</h2>
+                    <p class="mt-1 text-sm text-slate-500">
+                        現在この教員へ設定されている授業を最大20件表示します。
+                    </p>
+                </div>
+
+                <a
+                    href="{{ route('admin.course-teacher-assignments.index', [
+                        'keyword' => $teacher->user->name,
+                        'academic_year' => '',
+                    ]) }}"
+                    class="text-sm font-semibold text-blue-700 hover:text-blue-900"
+                >
+                    担当教員設定を開く
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">年度・対象</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">授業・科目</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">時間割</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">対象生徒</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">外部リンク</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        @forelse ($assignedCourses as $course)
+                            @php
+                                $targetStudents = $targetStudentsByCourse[$course->id] ?? collect();
+                            @endphp
+
+                            <tr class="align-top hover:bg-slate-50">
+                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    <p class="font-semibold text-slate-900">{{ $course->academic_year }}年度</p>
+                                    <p class="mt-1 text-xs text-slate-500">
+                                        {{ $course->grade->label() }} / {{ $course->classGroup->class_code }}・{{ $course->classGroup->class_name }}
+                                    </p>
+                                </td>
+
+                                <td class="px-5 py-4 text-sm">
+                                    <a
+                                        href="{{ route('admin.courses.edit', $course) }}"
+                                        class="font-semibold text-blue-700 hover:text-blue-900"
+                                    >
+                                        {{ $course->course_name }}
+                                    </a>
+                                    <p class="mt-1 text-xs text-slate-500">
+                                        {{ $course->subject->subject_code }} / {{ $course->subject->subject_name }}
+                                    </p>
+                                </td>
+
+                                <td class="px-5 py-4 text-sm text-slate-700">
+                                    @forelse ($course->timetableSlots as $slot)
+                                        <span class="mr-1 inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                                            {{ $slot->day_of_week->shortLabel() }}曜 {{ $slot->period_no }}時限
+                                        </span>
+                                    @empty
+                                        <span class="text-slate-400">未設定</span>
+                                    @endforelse
+                                </td>
+
+                                <td class="min-w-64 px-5 py-4 text-sm">
+                                    <p class="font-semibold text-slate-900">{{ $targetStudents->count() }}名</p>
+
+                                    @if ($targetStudents->isNotEmpty())
+                                        <p class="mt-1 text-xs leading-5 text-slate-500">
+                                            {{ $targetStudents->take(5)->pluck('student_name')->join('、') }}
+                                            @if ($targetStudents->count() > 5)
+                                                ほか{{ $targetStudents->count() - 5 }}名
+                                            @endif
+                                        </p>
+                                    @else
+                                        <p class="mt-1 text-xs text-slate-400">対象となる在籍生徒はいません。</p>
+                                    @endif
+                                </td>
+
+                                <td class="px-5 py-4 text-sm">
+                                    @if ($course->google_classroom_url !== null)
+                                        <a
+                                            href="{{ $course->google_classroom_url }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="font-semibold text-blue-700 hover:text-blue-900"
+                                        >
+                                            Classroomを開く
+                                        </a>
+                                    @else
+                                        <span class="text-slate-400">未設定</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-10 text-center text-sm text-slate-500">
+                                    担当授業は設定されていません。
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <section class="rounded-2xl bg-white p-6 shadow-sm">

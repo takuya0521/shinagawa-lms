@@ -1,0 +1,20 @@
+/*
+ * ダッシュボード共通パターン
+ *
+ * 集計カードはリンク全体を操作対象とし、キーボード操作でも現在位置を把握しやすくする。
+ */
+.page-pattern-dashboard .lms-content > .space-y-6 {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.page-pattern-dashboard .lms-content a.rounded-2xl:focus-visible,
+.page-pattern-dashboard .lms-content a.rounded-xl:focus-visible {
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-pattern-dashboard .lms-content a {
+        transition: none;
+    }
+}

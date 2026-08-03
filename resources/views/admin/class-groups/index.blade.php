@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/class-groups/index.css')
+@section('page-class', 'page-pattern-list page-admin-class-groups-index')
+
 @section('title', 'クラス管理')
 @section('header-title', 'クラス管理')
 

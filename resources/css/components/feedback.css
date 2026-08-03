@@ -1,0 +1,23 @@
+/*
+ * 認証後共通レイアウトの処理結果を同じ位置と配色に統一する。
+ */
+.lms-flash {
+    margin-bottom: 18px;
+    padding: 13px 16px;
+    border: 1px solid;
+    border-radius: 13px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lms-flash--success {
+    color: var(--lms-success);
+    background: var(--lms-success-soft);
+    border-color: #bbf7d0;
+}
+
+.lms-flash--error {
+    color: var(--lms-danger);
+    background: var(--lms-danger-soft);
+    border-color: #fecaca;
+}

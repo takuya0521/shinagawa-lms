@@ -12,6 +12,8 @@ final class UpdateUserStatusRequest extends FormRequest
 {
     /**
      * 管理者制御はルートMiddlewareで実施する。
+     *
+     * @return bool 判定結果
      */
     public function authorize(): bool
     {
@@ -35,6 +37,9 @@ final class UpdateUserStatusRequest extends FormRequest
 
     /**
      * ログイン中の管理者自身が利用停止されないことを検証する。
+     *
+     * @param Validator $validator 検証処理
+     * @return void 戻り値なし
      */
     public function withValidator(Validator $validator): void
     {
@@ -61,6 +66,8 @@ final class UpdateUserStatusRequest extends FormRequest
 
     /**
      * 検証済みの利用状態をEnumとして返す。
+     *
+     * @return UserStatus 処理結果
      */
     public function status(): UserStatus
     {

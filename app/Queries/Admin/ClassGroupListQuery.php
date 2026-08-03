@@ -12,6 +12,8 @@ final class ClassGroupListQuery
     /**
      * 管理者向けクラス一覧を取得する。
      *
+     * @param ?string $keyword 検索キーワード
+     * @param ?MasterStatus $status 設定する状態
      * @return LengthAwarePaginator<int, ClassGroup>
      */
     public function execute(

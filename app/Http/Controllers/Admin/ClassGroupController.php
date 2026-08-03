@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreClassGroupRequest;
 use App\Http\Requests\Admin\UpdateClassGroupRequest;
 use App\Models\ClassGroup;
+use App\Models\User;
 use App\Queries\Admin\ClassGroupListQuery;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,6 +19,10 @@ final class ClassGroupController extends Controller
 {
     /**
      * 管理者向けクラス一覧を表示する。
+     *
+     * @param Request $request HTTPリクエスト
+     * @param ClassGroupListQuery $query 検索処理
+     * @return View 表示する画面
      */
     public function index(
         Request $request,
@@ -47,6 +52,8 @@ final class ClassGroupController extends Controller
 
     /**
      * クラス登録画面を表示する。
+     *
+     * @return View 表示する画面
      */
     public function create(): View
     {
@@ -58,13 +65,22 @@ final class ClassGroupController extends Controller
 
     /**
      * クラスを登録する。
+     *
+     * @param StoreClassGroupRequest $request HTTPリクエスト
+     * @param CreateClassGroupAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
         StoreClassGroupRequest $request,
         CreateClassGroupAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $classGroup = $action->execute(
-            $request->validated(),
+            data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         return redirect()
@@ -77,6 +93,9 @@ final class ClassGroupController extends Controller
 
     /**
      * クラス編集画面を表示する。
+     *
+     * @param ClassGroup $classGroup 対象クラス
+     * @return View 表示する画面
      */
     public function edit(ClassGroup $classGroup): View
     {
@@ -88,15 +107,25 @@ final class ClassGroupController extends Controller
 
     /**
      * クラスを更新する。
+     *
+     * @param UpdateClassGroupRequest $request HTTPリクエスト
+     * @param ClassGroup $classGroup 対象クラス
+     * @param UpdateClassGroupAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
         UpdateClassGroupRequest $request,
         ClassGroup $classGroup,
         UpdateClassGroupAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $action->execute(
             classGroup: $classGroup,
             data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         return redirect()

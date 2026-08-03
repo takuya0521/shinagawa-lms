@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property MasterStatus $status
+ */
 #[Fillable([
     'user_id',
     'subject_notes',
@@ -39,6 +42,16 @@ final class Teacher extends Model
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
+    }
+
+    /**
+     * この教員が担当した面談記録を返す。
+     *
+     * @return HasMany<InterviewRecord, $this>
+     */
+    public function interviewRecords(): HasMany
+    {
+        return $this->hasMany(InterviewRecord::class);
     }
 
     /**

@@ -1,0 +1,495 @@
+/*
+ * 認証後画面の共通レイアウト
+ *
+ * サイドバーとヘッダーは全ロールで共通利用するため、各ページCSSから分離する。
+ */
+.lms-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05), transparent 28rem),
+        var(--lms-bg);
+}
+
+.lms-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 276px minmax(0, 1fr);
+}
+
+.lms-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    height: 100vh;
+    min-height: 640px;
+    padding: 20px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 25% -10%, rgba(59, 130, 246, 0.28), transparent 16rem),
+        linear-gradient(180deg, #111827 0%, #0f172a 100%);
+    box-shadow: 12px 0 40px rgba(15, 23, 42, 0.08);
+}
+
+.lms-brand {
+    min-height: 66px;
+    padding: 8px 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.lms-brand__mark {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    color: #111827;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.lms-brand__text {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+}
+
+.lms-brand__text small {
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.lms-brand__text strong {
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lms-nav {
+    min-height: 0;
+    margin: 12px -4px 12px 0;
+    padding: 2px 8px 18px 0;
+    display: grid;
+    align-content: start;
+    gap: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
+.lms-nav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lms-nav::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.lms-nav-section {
+    display: grid;
+    gap: 7px;
+}
+
+.lms-nav-section__label {
+    margin: 0;
+    padding: 0 11px;
+    color: #6b7280;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.lms-nav-section__items {
+    display: grid;
+    gap: 4px;
+}
+
+.lms-nav-link {
+    min-height: 43px;
+    padding: 9px 11px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--lms-sidebar-text);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.lms-nav-link:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.075);
+    border-color: rgba(255, 255, 255, 0.04);
+    transform: translateX(2px);
+}
+
+.lms-nav-link.is-active {
+    color: #111827;
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+}
+
+.lms-nav-link.is-active .lms-nav-icon {
+    color: var(--lms-primary);
+}
+
+.lms-nav-icon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    color: #9ca3af;
+}
+
+.lms-sidebar__footer {
+    margin-top: auto;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(10px);
+}
+
+.lms-sidebar-user {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lms-sidebar-user__avatar,
+.lms-user-chip__avatar {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+    font-weight: 900;
+}
+
+.lms-sidebar-user__avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 13px;
+}
+
+.lms-sidebar-user__body {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+}
+
+.lms-sidebar-user__body strong {
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lms-sidebar-user__body small {
+    color: #9ca3af;
+    font-size: 10px;
+}
+
+.lms-sidebar-actions {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: grid;
+    gap: 5px;
+}
+
+.lms-sidebar-actions a,
+.lms-sidebar-actions button {
+    width: 100%;
+    min-height: 34px;
+    padding: 7px 8px;
+    border: 0;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #cbd5e1;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.16s ease, background 0.16s ease;
+}
+
+.lms-sidebar-actions a:hover,
+.lms-sidebar-actions a.is-active,
+.lms-sidebar-actions button:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.lms-sidebar-actions .lms-nav-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.lms-sidebar-actions form {
+    margin: 0;
+}
+
+.lms-logout-icon {
+    width: 15px;
+    display: inline-grid;
+    place-items: center;
+    font-size: 14px;
+    transform: rotate(45deg);
+}
+
+.lms-main {
+    min-width: 0;
+}
+
+.lms-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    min-height: 84px;
+    padding: 16px clamp(20px, 2.4vw, 36px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: rgba(243, 246, 251, 0.9);
+    border-bottom: 1px solid rgba(203, 213, 225, 0.82);
+    backdrop-filter: blur(16px);
+}
+
+.lms-topbar__title-group {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.lms-page-kicker {
+    margin: 0 0 4px;
+    color: var(--lms-muted);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.lms-topbar h1 {
+    margin: 0;
+    color: var(--lms-text);
+    font-size: clamp(22px, 2vw, 27px);
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+}
+
+.lms-page-description {
+    max-width: 760px;
+    margin: 5px 0 0;
+    color: var(--lms-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.lms-menu-button {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--lms-border);
+    border-radius: 12px;
+    display: none;
+    place-items: center;
+    align-content: center;
+    gap: 4px;
+    background: #ffffff;
+    box-shadow: var(--lms-shadow-soft);
+    cursor: pointer;
+}
+
+.lms-menu-button > span:not(.sr-only) {
+    width: 18px;
+    height: 2px;
+    border-radius: 99px;
+    background: #334155;
+}
+
+.lms-user-chip {
+    flex: 0 0 auto;
+    min-height: 50px;
+    padding: 5px 13px 5px 5px;
+    border: 1px solid var(--lms-border);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    box-shadow: var(--lms-shadow-soft);
+}
+
+.lms-user-chip__avatar {
+    width: 39px;
+    height: 39px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+
+.lms-user-chip > span:last-child {
+    min-width: 0;
+    display: grid;
+    gap: 1px;
+}
+
+.lms-user-chip strong {
+    max-width: 190px;
+    overflow: hidden;
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lms-user-chip small {
+    color: var(--lms-muted);
+    font-size: 10px;
+}
+
+.lms-content {
+    width: 100%;
+    max-width: 1580px;
+    margin: 0 auto;
+    padding: 28px clamp(20px, 2.4vw, 36px) 48px;
+}
+
+.lms-sidebar-overlay {
+    display: none;
+}
+
+
+/* 画面幅が狭い場合でも、主要メニューを操作できる状態を維持する。 */
+@media (max-width: 1180px) {
+    .lms-shell {
+        grid-template-columns: 248px minmax(0, 1fr);
+    }
+
+    .lms-sidebar {
+        padding-inline: 13px;
+    }
+
+    .lms-nav-link {
+        font-size: 12px;
+    }
+}
+
+/* タブレット以下では、本文幅を確保するためサイドバーをドロワー表示へ切り替える。 */
+@media (max-width: 1023px) {
+    body.is-menu-locked {
+        overflow: hidden;
+    }
+
+    .lms-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .lms-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: min(310px, 88vw);
+        min-height: 100vh;
+        transform: translateX(-104%);
+        transition: transform 0.22s ease;
+    }
+
+    .lms-shell.is-sidebar-open .lms-sidebar {
+        transform: translateX(0);
+    }
+
+    .lms-sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 35;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        background: rgba(15, 23, 42, 0.46);
+        backdrop-filter: blur(3px);
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .lms-shell.is-sidebar-open .lms-sidebar-overlay {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .lms-menu-button {
+        display: grid;
+    }
+
+    .lms-topbar {
+        min-height: 78px;
+    }
+}
+
+/* スマートフォンでは、氏名表示と余白を圧縮して本文領域を優先する。 */
+@media (max-width: 680px) {
+    .lms-topbar {
+        padding: 13px 16px;
+    }
+
+    .lms-page-kicker,
+    .lms-user-chip small {
+        display: none;
+    }
+
+    .lms-topbar h1 {
+        font-size: 20px;
+    }
+
+    .lms-user-chip {
+        min-height: 43px;
+        padding-right: 8px;
+    }
+
+    .lms-user-chip__avatar {
+        width: 33px;
+        height: 33px;
+    }
+
+    .lms-user-chip strong {
+        max-width: 92px;
+        font-size: 11px;
+    }
+
+    .lms-content {
+        padding: 20px 15px 36px;
+    }
+}

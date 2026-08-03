@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/students/show.css')
+@section('page-class', 'page-pattern-detail page-admin-students-show')
+
 @section('title', '生徒詳細')
 @section('header-title', '生徒詳細')
 
@@ -21,6 +24,32 @@
             </div>
 
             <div class="flex flex-wrap gap-3">
+                <a
+                    href="{{ route('admin.students.attendance.show', $student) }}"
+                    class="rounded-lg border border-blue-300 px-5 py-3 font-semibold text-blue-700 hover:bg-blue-50"
+                >
+                    出欠詳細
+                </a>
+
+                <a
+                    href="{{ route('admin.evaluations.index', [
+                        'student_id' => $student->id,
+                    ]) }}"
+                    class="rounded-lg border border-violet-300 px-5 py-3 font-semibold text-violet-700 hover:bg-violet-50"
+                >
+                    成績詳細
+                </a>
+
+
+                <a
+                    href="{{ route('admin.interviews.index', [
+                        'student_id' => $student->id,
+                    ]) }}"
+                    class="rounded-lg border border-amber-300 px-5 py-3 font-semibold text-amber-700 hover:bg-amber-50"
+                >
+                    面談履歴
+                </a>
+
                 <a
                     href="{{ route(
                         'admin.students.edit',
@@ -94,7 +123,7 @@
                     </dt>
 
                     <dd class="mt-2 text-slate-900">
-                        {{ $student->grade }}
+                        {{ $student->grade->label() }}
                     </dd>
                 </div>
 
@@ -138,6 +167,186 @@
                     </dd>
                 </div>
             </dl>
+        </section>
+
+        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">
+                        成績概要
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-600">
+                        確定済みを優先して、直近10件の最終評価を表示します。
+                    </p>
+                </div>
+
+                <a
+                    href="{{ route('admin.evaluations.index', [
+                        'student_id' => $student->id,
+                    ]) }}"
+                    class="text-sm font-semibold text-blue-700 hover:text-blue-900"
+                >
+                    成績一覧を開く
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">年度・期間</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">授業・科目</th>
+                            <th class="px-5 py-3 text-right text-xs font-semibold text-slate-500">総合点</th>
+                            <th class="px-5 py-3 text-center text-xs font-semibold text-slate-500">5段階</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">状態</th>
+                            <th class="px-5 py-3 text-right text-xs font-semibold text-slate-500">操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-slate-200">
+                        @forelse ($recentEvaluations as $evaluation)
+                            <tr>
+                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    {{ $evaluation->academic_year }}年度 / {{ $evaluation->term_name->label() }}
+                                </td>
+
+                                <td class="px-5 py-4 text-sm">
+                                    <p class="font-semibold text-slate-900">
+                                        {{ $evaluation->course->course_name }}
+                                    </p>
+
+                                    <p class="mt-1 text-xs text-slate-500">
+                                        {{ $evaluation->course->subject->subject_name }}
+                                    </p>
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm font-semibold">
+                                    {{ number_format((float) $evaluation->total_score, 2) }}
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm font-semibold">
+                                    {{ $evaluation->grade_level ?? '-' }}
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    <span
+                                        @class([
+                                            'inline-flex rounded-full px-3 py-1 text-xs font-semibold',
+                                            'bg-emerald-100 text-emerald-800' => $evaluation->status === \App\Enums\EvaluationStatus::Confirmed,
+                                            'bg-amber-100 text-amber-800' => $evaluation->status === \App\Enums\EvaluationStatus::Draft,
+                                        ])
+                                    >
+                                        {{ $evaluation->status->label() }}
+                                    </span>
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                    <a
+                                        href="{{ route('admin.evaluations.edit', $evaluation) }}"
+                                        class="font-semibold text-blue-700 hover:text-blue-900"
+                                    >
+                                        詳細・修正
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td
+                                    colspan="6"
+                                    class="px-6 py-10 text-center text-sm text-slate-500"
+                                >
+                                    登録済みの最終評価はありません。
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+            <div class="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900">
+                        面談履歴
+                    </h2>
+
+                    <p class="mt-1 text-sm text-slate-600">
+                        直近10件の面談記録を表示します。
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <a
+                        href="{{ route('admin.interviews.create', ['student_id' => $student->id]) }}"
+                        class="text-sm font-semibold text-blue-700 hover:text-blue-900"
+                    >
+                        面談記録を登録
+                    </a>
+
+                    <a
+                        href="{{ route('admin.interviews.index', ['student_id' => $student->id]) }}"
+                        class="text-sm font-semibold text-blue-700 hover:text-blue-900"
+                    >
+                        面談履歴を開く
+                    </a>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">面談日・種別</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">担当教員</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">次回対応</th>
+                            <th class="px-5 py-3 text-right text-xs font-semibold text-slate-500">操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-slate-200">
+                        @forelse ($recentInterviews as $interviewRecord)
+                            <tr>
+                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    <p class="font-semibold text-slate-900">
+                                        {{ $interviewRecord->interview_date->format('Y/m/d') }}
+                                    </p>
+
+                                    <p class="mt-1 text-xs text-slate-500">
+                                        {{ $interviewRecord->interview_type ?? '種別未設定' }}
+                                    </p>
+                                </td>
+
+                                <td class="px-5 py-4 text-sm text-slate-700">
+                                    {{ $interviewRecord->teacher?->user?->name ?? '未設定' }}
+                                </td>
+
+                                <td class="max-w-md px-5 py-4 text-sm text-slate-700">
+                                    {{ $interviewRecord->next_action !== null
+                                        ? \Illuminate\Support\Str::limit($interviewRecord->next_action, 100)
+                                        : '-' }}
+                                </td>
+
+                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                    <a
+                                        href="{{ route('admin.interviews.edit', $interviewRecord) }}"
+                                        class="font-semibold text-blue-700 hover:text-blue-900"
+                                    >
+                                        詳細・編集
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="px-6 py-10 text-center text-sm text-slate-500">
+                                    登録済みの面談記録はありません。
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <section class="overflow-hidden rounded-2xl bg-white shadow-sm">

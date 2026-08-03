@@ -9,6 +9,8 @@ enum UserStatus: string
 
     /**
      * 画面表示用の利用状態名を返す。
+     *
+     * @return string 取得した文字列
      */
     public function label(): string
     {
@@ -20,6 +22,8 @@ enum UserStatus: string
 
     /**
      * ログイン可能な利用状態か判定する。
+     *
+     * @return bool 判定結果
      */
     public function canLogin(): bool
     {

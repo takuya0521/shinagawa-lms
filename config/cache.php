@@ -6,12 +6,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Cache Store
+    | 既定のキャッシュストア
     |--------------------------------------------------------------------------
     |
-    | This option controls the default cache store that will be used by the
-    | framework. This connection is utilized if another isn't explicitly
-    | specified when running a cache operation inside the application.
+    | キャッシュ操作で保存先が未指定の場合に使用するストアを指定する。
     |
     */
 
@@ -19,16 +17,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cache Stores
+    | キャッシュストア
     |--------------------------------------------------------------------------
     |
-    | Here you may define all of the cache "stores" for your application as
-    | well as their drivers. You may even define multiple stores for the
-    | same cache driver to group types of items stored in your caches.
-    |
-    | Supported drivers: "array", "database", "file", "memcached",
-    |                    "redis", "dynamodb", "storage", "octane",
-    |                    "session", "failover", "null"
+    | 利用可能なキャッシュドライバと接続設定を定義する。
     |
     */
 
@@ -109,12 +101,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cache Key Prefix
+    | キャッシュキー接頭辞
     |--------------------------------------------------------------------------
     |
-    | When utilizing the APC, database, memcached, Redis, and DynamoDB cache
-    | stores, there might be other applications using the same cache. For
-    | that reason, you may prefix every cache key to avoid collisions.
+    | 他アプリケーションとのキー衝突を避けるための接頭辞を指定する。
     |
     */
 
@@ -122,12 +112,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Serializable Classes
+    | シリアライズ許可クラス
     |--------------------------------------------------------------------------
     |
-    | This value determines the classes that can be unserialized from cache
-    | storage. By default, no PHP classes will be unserialized from your
-    | cache to prevent gadget chain attacks if your APP_KEY is leaked.
+    | キャッシュへ保存できるPHPクラスを制限する。安全上、必要なクラスだけを指定する。
     |
     */
 

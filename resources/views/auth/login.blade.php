@@ -1,106 +1,80 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
+@extends('layouts.guest')
 
-    <title>ログイン | 品川高等学院 LMS</title>
+@section('title', 'ログイン')
+@section('page-style', 'resources/css/pages/auth/login.css')
+@section('page-class', 'auth-page')
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('content')
+    <main class="auth-shell">
+        {{-- 学校名とLMSの用途を先に示し、利用者が正しいシステムへアクセスしたことを確認できるようにする。 --}}
+        <section class="auth-visual" aria-label="品川高等学院 LMS">
+            <div class="auth-brand">
+                <span class="auth-brand__mark" aria-hidden="true">LMS</span>
+                <span>
+                    <small>SHINAGAWA HIGH SCHOOL</small>
+                    <strong>品川高等学院 LMS</strong>
+                </span>
+            </div>
 
-<body class="min-h-screen bg-slate-100 text-slate-900">
-    <main class="flex min-h-screen items-center justify-center px-4 py-12">
-        <section class="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
-            <header class="mb-8 text-center">
-                <p class="text-sm font-semibold tracking-wider text-slate-500">
-                    SHINAGAWA HIGH SCHOOL
-                </p>
+            <div class="auth-message">
+                <p>Learning Management System</p>
+                <h1>学校生活に必要な情報を、ひとつの場所に。</h1>
+                <small>授業、出欠、評価、面談、お知らせ、Googleサービスを、権限に応じて安全に利用できます。</small>
+            </div>
+        </section>
 
-                <h1 class="mt-2 text-2xl font-bold">
-                    品川高等学院 LMS
-                </h1>
+        <section class="auth-form-area">
+            <div class="auth-card">
+                <header class="auth-card__header">
+                    <p>Sign in</p>
+                    <h2>ログイン</h2>
+                    <small>登録されているメールアドレスとパスワードを入力してください。</small>
+                </header>
 
-                <p class="mt-3 text-sm text-slate-600">
-                    メールアドレスとパスワードを入力してください。
-                </p>
-            </header>
+                <form method="POST" action="{{ route('login') }}" class="auth-form">
+                    @csrf
 
-            <form method="POST" action="/login" class="space-y-6">
-                @csrf
+                    <div class="auth-field">
+                        <label for="email">メールアドレス</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value="{{ old('email') }}"
+                            autocomplete="username"
+                            inputmode="email"
+                            @error('email') aria-invalid="true" aria-describedby="email-error" @enderror
+                            required
+                            autofocus
+                        >
+                        @error('email')
+                            <p id="email-error" class="auth-error">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <div>
-                    <label
-                        for="email"
-                        class="block text-sm font-medium text-slate-700"
-                    >
-                        メールアドレス
+                    <div class="auth-field">
+                        <label for="password">パスワード</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            @error('password') aria-invalid="true" aria-describedby="password-error" @enderror
+                            required
+                        >
+                        @error('password')
+                            <p id="password-error" class="auth-error">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <label class="auth-remember">
+                        <input name="remember" type="checkbox" value="1">
+                        <span>ログイン状態を保持する</span>
                     </label>
 
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value="{{ old('email') }}"
-                        autocomplete="username"
-                        required
-                        autofocus
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-700 focus:ring-2 focus:ring-slate-200"
-                    >
-
-                    @error('email')
-                        <p class="mt-2 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label
-                        for="password"
-                        class="block text-sm font-medium text-slate-700"
-                    >
-                        パスワード
-                    </label>
-
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autocomplete="current-password"
-                        required
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-700 focus:ring-2 focus:ring-slate-200"
-                    >
-
-                    @error('password')
-                        <p class="mt-2 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
-                <label class="flex items-center gap-2 text-sm text-slate-700">
-                    <input
-                        name="remember"
-                        type="checkbox"
-                        value="1"
-                        class="rounded border-slate-300"
-                    >
-
-                    ログイン状態を保持する
-                </label>
-
-                <button
-                    type="submit"
-                    class="w-full rounded-lg bg-slate-900 px-4 py-3 font-semibold text-white transition hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-                >
-                    ログイン
-                </button>
-            </form>
+                    <button type="submit" class="auth-submit">ログイン</button>
+                </form>
+            </div>
         </section>
     </main>
-</body>
-</html>
+@endsection

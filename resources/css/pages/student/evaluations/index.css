@@ -1,0 +1,10 @@
+@import '../../../patterns/list.css';
+
+/*
+ * 生徒向け成績一覧画面専用
+ *
+ * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
+ */
+.page-student-evaluations-index {
+    --page-table-min-width: 68rem;
+}

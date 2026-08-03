@@ -1,0 +1,10 @@
+@import '../../../patterns/form.css';
+
+/*
+ * 外部リンク登録画面専用
+ *
+ * 入力項目数に応じたフォーム幅をこの画面内だけで調整し、登録・編集時の視認性を保つ。
+ */
+.page-admin-external-links-create {
+    --page-form-max-width: 58rem;
+}

@@ -8,7 +8,7 @@ use Laravel\Passkeys\Passkeys;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * マイグレーションを実行する。
      */
     public function up(): void
     {
@@ -26,7 +26,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * マイグレーションを元に戻す。
      */
     public function down(): void
     {

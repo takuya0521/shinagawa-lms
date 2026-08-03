@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('student_name', 100)
                 ->comment('氏名');
 
-            // 学年の正式コードが未決のため、現段階では文字列として保持する。
+            // 学年コードは1・2・3のいずれかを保持する。
             $table->string('grade', 20)
                 ->comment('学年');
 

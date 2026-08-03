@@ -24,7 +24,7 @@ return new class extends Migration
                 ->restrictOnDelete();
 
             $table->string('grade', 20)
-                ->comment('対象学年');
+                ->comment('対象学年コード: 1 / 2 / 3');
 
             $table->foreignId('teacher_id')
                 ->nullable()

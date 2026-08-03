@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/users/index.css')
+@section('page-class', 'page-pattern-list page-admin-users-index')
+
 @section('title', 'ユーザー管理')
 @section('header-title', 'ユーザー管理')
 

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/students/index.css')
+@section('page-class', 'page-pattern-list page-admin-students-index')
+
 @section('title', '生徒管理')
 @section('header-title', '生徒管理')
 
@@ -66,14 +69,26 @@
                         学年
                     </label>
 
-                    <input
+                    <select
                         id="grade"
                         name="grade"
-                        type="text"
-                        value="{{ request('grade') }}"
-                        placeholder="例：1"
                         class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                     >
+                        <option value="">
+                            すべて
+                        </option>
+
+                        @foreach ($grades as $grade)
+                            <option
+                                value="{{ $grade->value }}"
+                                @selected(
+                                    request('grade') === $grade->value
+                                )
+                            >
+                                {{ $grade->label() }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
@@ -226,7 +241,7 @@
                                 </td>
 
                                 <td class="whitespace-nowrap px-5 py-4 text-sm">
-                                    {{ $student->grade }}
+                                    {{ $student->grade->label() }}
                                 </td>
 
                                 <td class="whitespace-nowrap px-5 py-4 text-sm">

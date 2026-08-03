@@ -1,0 +1,10 @@
+@import '../../../patterns/announcement-detail.css';
+
+/*
+ * 生徒向けお知らせ詳細画面専用
+ *
+ * 長文本文を安全に表示するため、お知らせ詳細専用の折り返し規則を適用する。
+ */
+.page-student-announcements-show {
+    --announcement-detail-max-width: 68rem;
+}

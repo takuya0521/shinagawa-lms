@@ -1,0 +1,29 @@
+/*
+ * LMS全画面で使用するデザイントークン
+ *
+ * 色・影・境界線を一元管理し、画面ごとの独自値が増えることを防ぐ。
+ */
+:root {
+    --lms-bg: #f3f6fb;
+    --lms-surface: #ffffff;
+    --lms-surface-subtle: #f8fafc;
+    --lms-border: #dce4ef;
+    --lms-border-strong: #cbd5e1;
+    --lms-text: #172033;
+    --lms-muted: #64748b;
+    --lms-muted-light: #94a3b8;
+    --lms-primary: #2563eb;
+    --lms-primary-dark: #1d4ed8;
+    --lms-primary-soft: #eff6ff;
+    --lms-danger: #dc2626;
+    --lms-danger-soft: #fef2f2;
+    --lms-success: #15803d;
+    --lms-success-soft: #f0fdf4;
+    --lms-warning: #b45309;
+    --lms-warning-soft: #fffbeb;
+    --lms-sidebar: #111827;
+    --lms-sidebar-subtle: #1f2937;
+    --lms-sidebar-text: #d1d5db;
+    --lms-shadow: 0 18px 45px rgba(15, 23, 42, 0.07);
+    --lms-shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.05);
+}

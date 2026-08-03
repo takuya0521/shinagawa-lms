@@ -1,0 +1,10 @@
+@import '../../../patterns/timetable.css';
+
+/*
+ * 生徒向け週間時間割画面専用
+ *
+ * 曜日と時限の対応を維持するため、時間割専用の表幅と固定見出しを適用する。
+ */
+.page-student-timetable-index {
+    --page-table-min-width: 68rem;
+}

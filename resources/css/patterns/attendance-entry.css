@@ -1,0 +1,12 @@
+/*
+ * 出欠入力画面共通パターン
+ *
+ * 生徒名と入力欄の対応が崩れないよう、入力表は最小幅を保って横スクロールさせる。
+ */
+.page-pattern-attendance-entry .lms-content table {
+    min-width: var(--page-table-min-width, 64rem);
+}
+
+.page-pattern-attendance-entry .lms-content select {
+    min-width: 8rem;
+}

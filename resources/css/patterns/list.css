@@ -1,0 +1,23 @@
+/*
+ * 一覧画面共通パターン
+ *
+ * 列数が多い業務一覧は無理に縮小せず、横スクロールで項目名と値の対応を維持する。
+ */
+.page-pattern-list .lms-content .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: var(--lms-border-strong) transparent;
+}
+
+.page-pattern-list .lms-content table {
+    min-width: var(--page-table-min-width, 54rem);
+}
+
+.page-pattern-list .lms-content form[method='GET'] {
+    scroll-margin-top: 7rem;
+}
+
+@media (max-width: 680px) {
+    .page-pattern-list .lms-content table {
+        font-size: 0.75rem;
+    }
+}

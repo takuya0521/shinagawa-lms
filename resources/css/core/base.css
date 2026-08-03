@@ -1,0 +1,56 @@
+/*
+ * ブラウザ差異を抑えるための全画面共通基盤
+ *
+ * 個別画面の見た目はここへ追加せず、必ず該当するページCSSへ記述する。
+ */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    background: var(--lms-bg);
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--lms-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline-offset: 2px;
+}
+
+/* 画面表示は維持したまま、読み上げソフトへ補足情報を提供する。 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

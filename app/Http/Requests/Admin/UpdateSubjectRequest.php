@@ -11,6 +11,8 @@ final class UpdateSubjectRequest extends FormRequest
 {
     /**
      * 認証・権限制御はルートの管理者ミドルウェアで行う。
+     *
+     * @return bool 判定結果
      */
     public function authorize(): bool
     {
@@ -66,6 +68,8 @@ final class UpdateSubjectRequest extends FormRequest
 
     /**
      * 科目コードを比較可能な形式へ統一する。
+     *
+     * @return void 戻り値なし
      */
     protected function prepareForValidation(): void
     {

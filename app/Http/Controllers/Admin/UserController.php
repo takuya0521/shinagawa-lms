@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\Admin\ChangeUserStatusAction;
 use App\Actions\Admin\CreateUserAction;
 use App\Actions\Admin\UpdateUserAction;
+use App\Enums\Grade;
 use App\Enums\MasterStatus;
 use App\Enums\StudentStatus;
 use App\Enums\UserRole;
@@ -24,6 +25,10 @@ final class UserController extends Controller
 {
     /**
      * 管理者向けユーザー一覧を表示する。
+     *
+     * @param UserIndexRequest $request HTTPリクエスト
+     * @param UserListQuery $query 検索処理
+     * @return View 表示する画面
      */
     public function index(
         UserIndexRequest $request,
@@ -44,6 +49,8 @@ final class UserController extends Controller
 
     /**
      * ユーザー登録画面を表示する。
+     *
+     * @return View 表示する画面
      */
     public function create(): View
     {
@@ -56,12 +63,23 @@ final class UserController extends Controller
 
     /**
      * ユーザーを登録する。
+     *
+     * @param StoreUserRequest $request HTTPリクエスト
+     * @param CreateUserAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
         StoreUserRequest $request,
         CreateUserAction $action,
     ): RedirectResponse {
-        $user = $action->execute($request->validated());
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
+        $user = $action->execute(
+            data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
+        );
 
         return redirect()
             ->route('admin.users.edit', $user)
@@ -70,6 +88,9 @@ final class UserController extends Controller
 
     /**
      * ユーザー編集画面を表示する。
+     *
+     * @param User $user 対象ユーザー
+     * @return View 表示する画面
      */
     public function edit(User $user): View
     {
@@ -87,15 +108,25 @@ final class UserController extends Controller
 
     /**
      * ユーザーを更新する。
+     *
+     * @param UpdateUserRequest $request HTTPリクエスト
+     * @param User $user 対象ユーザー
+     * @param UpdateUserAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
         UpdateUserRequest $request,
         User $user,
         UpdateUserAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $action->execute(
             user: $user,
             data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         return redirect()
@@ -105,15 +136,25 @@ final class UserController extends Controller
 
     /**
      * ユーザーの利用状態を変更する。
+     *
+     * @param UpdateUserStatusRequest $request HTTPリクエスト
+     * @param User $user 対象ユーザー
+     * @param ChangeUserStatusAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function updateStatus(
         UpdateUserStatusRequest $request,
         User $user,
         ChangeUserStatusAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $action->execute(
             user: $user,
             status: $request->status(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         return redirect()
@@ -131,6 +172,7 @@ final class UserController extends Controller
         return [
             'roles' => UserRole::cases(),
             'statuses' => UserStatus::cases(),
+            'grades' => Grade::cases(),
             'studentStatuses' => StudentStatus::cases(),
             'classGroups' => ClassGroup::query()
                 ->where('status', MasterStatus::Active->value)

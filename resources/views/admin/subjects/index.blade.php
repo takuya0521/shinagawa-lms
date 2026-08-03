@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/subjects/index.css')
+@section('page-class', 'page-pattern-list page-admin-subjects-index')
+
 @section('title', '科目管理')
 @section('header-title', '科目管理')
 
@@ -24,11 +27,6 @@
             </a>
         </div>
 
-        @if (session('status'))
-            <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                {{ session('status') }}
-            </div>
-        @endif
 
         <div class="rounded-2xl bg-white p-6 shadow-sm">
             <form

@@ -1,0 +1,10 @@
+@import '../../patterns/error.css';
+
+/*
+ * HTTP 503画面専用
+ *
+ * 計画停止中であることを中立色で示す。
+ */
+.error-page-503 {
+    --error-accent: #64748b;
+}

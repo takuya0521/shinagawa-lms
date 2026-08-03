@@ -1,0 +1,10 @@
+@import '../../../patterns/announcement-list.css';
+
+/*
+ * 生徒向けお知らせ一覧画面専用
+ *
+ * 重要度と公開情報を比較する画面のため、お知らせ一覧専用の表示規則を適用する。
+ */
+.page-student-announcements-index {
+    --announcement-card-gap: 0.875rem;
+}

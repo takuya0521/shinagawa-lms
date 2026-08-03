@@ -1,0 +1,10 @@
+@import '../../../patterns/external-services.css';
+
+/*
+ * 生徒向け外部サービス画面専用
+ *
+ * 外部遷移であることを明確にするため、サービス一覧専用の表示規則を適用する。
+ */
+.page-student-external-services-index {
+    --external-service-card-min-height: 10rem;
+}

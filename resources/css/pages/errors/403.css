@@ -1,0 +1,10 @@
+@import '../../patterns/error.css';
+
+/*
+ * HTTP 403画面専用
+ *
+ * 権限不足を警告色で示し、通常エラーと区別する。
+ */
+.error-page-403 {
+    --error-accent: #b45309;
+}

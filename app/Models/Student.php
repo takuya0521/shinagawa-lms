@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\Grade;
 use App\Enums\StudentStatus;
 use Database\Factories\StudentFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property Grade $grade
+ * @property StudentStatus $status
+ */
 #[Fillable([
     'user_id',
     'student_no',
@@ -46,6 +52,36 @@ final class Student extends Model
     }
 
     /**
+     * この生徒の出欠記録を返す。
+     *
+     * @return HasMany<AttendanceRecord, $this>
+     */
+    public function attendanceRecords(): HasMany
+    {
+        return $this->hasMany(AttendanceRecord::class);
+    }
+
+    /**
+     * この生徒に登録された最終評価を返す。
+     *
+     * @return HasMany<FinalEvaluation, $this>
+     */
+    public function finalEvaluations(): HasMany
+    {
+        return $this->hasMany(FinalEvaluation::class);
+    }
+
+    /**
+     * この生徒に登録された面談記録を返す。
+     *
+     * @return HasMany<InterviewRecord, $this>
+     */
+    public function interviewRecords(): HasMany
+    {
+        return $this->hasMany(InterviewRecord::class);
+    }
+
+    /**
      * モデル属性のキャスト定義を返す。
      *
      * @return array<string, string>
@@ -53,6 +89,7 @@ final class Student extends Model
     protected function casts(): array
     {
         return [
+            'grade' => Grade::class,
             'status' => StudentStatus::class,
             'deleted_at' => 'datetime',
         ];

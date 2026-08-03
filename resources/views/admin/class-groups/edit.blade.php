@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('page-style', 'resources/css/pages/admin/class-groups/edit.css')
+@section('page-class', 'page-pattern-form page-admin-class-groups-edit')
+
 @section('title', 'クラス編集')
 @section('header-title', 'クラス編集')
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Admin\CreateUserAction;
 use App\Actions\Admin\UpdateUserAction;
+use App\Enums\Grade;
 use App\Enums\StudentStatus;
 use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,7 @@ use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\ClassGroup;
 use App\Models\Student;
 use App\Models\User;
+use App\Queries\Admin\StudentDetailQuery;
 use App\Queries\Admin\StudentListQuery;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +23,10 @@ final class StudentController extends Controller
 {
     /**
      * 管理者向け生徒一覧を表示する。
+     *
+     * @param StudentIndexRequest $request HTTPリクエスト
+     * @param StudentListQuery $query 検索処理
+     * @return View 表示する画面
      */
     public function index(
         StudentIndexRequest $request,
@@ -41,6 +47,7 @@ final class StudentController extends Controller
 
         return view('admin.students.index', [
             'students' => $students,
+            'grades' => Grade::cases(),
             'classGroups' => $classGroups,
             'statuses' => StudentStatus::cases(),
         ]);
@@ -48,6 +55,8 @@ final class StudentController extends Controller
 
     /**
      * 生徒登録画面を表示する。
+     *
+     * @return View 表示する画面
      */
     public function create(): View
     {
@@ -60,13 +69,22 @@ final class StudentController extends Controller
 
     /**
      * 生徒とログインアカウントを登録する。
+     *
+     * @param StoreUserRequest $request HTTPリクエスト
+     * @param CreateUserAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
         StoreUserRequest $request,
         CreateUserAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $user = $action->execute(
-            $request->validated(),
+            data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         $student = $user
@@ -80,9 +98,15 @@ final class StudentController extends Controller
 
     /**
      * 管理者向け生徒詳細を表示する。
+     *
+     * @param Student $student 対象生徒
+     * @param StudentDetailQuery $detailQuery データ取得処理
+     * @return View 表示する画面
      */
-    public function show(Student $student): View
-    {
+    public function show(
+        Student $student,
+        StudentDetailQuery $detailQuery,
+    ): View {
         $student->loadMissing([
             'user',
             'classGroup',
@@ -90,11 +114,15 @@ final class StudentController extends Controller
 
         return view('admin.students.show', [
             'student' => $student,
+            ...$detailQuery->execute($student),
         ]);
     }
 
     /**
      * 生徒編集画面を表示する。
+     *
+     * @param Student $student 対象生徒
+     * @return View 表示する画面
      */
     public function edit(Student $student): View
     {
@@ -114,15 +142,25 @@ final class StudentController extends Controller
 
     /**
      * 生徒とログインアカウントを更新する。
+     *
+     * @param UpdateUserRequest $request HTTPリクエスト
+     * @param Student $student 対象生徒
+     * @param UpdateUserAction $action 業務処理
+     * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
         UpdateUserRequest $request,
         Student $student,
         UpdateUserAction $action,
     ): RedirectResponse {
+        $actor = $request->user();
+        abort_unless($actor instanceof User, 403);
+
         $action->execute(
             user: $student->user,
             data: $request->validated(),
+            actor: $actor,
+            ipAddress: $request->ip(),
         );
 
         return redirect()
@@ -136,6 +174,7 @@ final class StudentController extends Controller
      * 新規登録時は有効なクラスのみ返す。
      * 編集時は、現在所属している無効クラスも選択肢へ残す。
      *
+     * @param ?int $currentClassGroupId 現在所属しているクラスID
      * @return array<string, mixed>
      */
     private function formData(
@@ -144,6 +183,7 @@ final class StudentController extends Controller
         return [
             'accountStatuses' => UserStatus::cases(),
             'studentStatuses' => StudentStatus::cases(),
+            'grades' => Grade::cases(),
             'classGroups' => ClassGroup::query()
                 ->selectable($currentClassGroupId)
                 ->orderBy('class_code')

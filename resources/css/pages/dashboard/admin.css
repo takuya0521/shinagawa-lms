@@ -1,0 +1,14 @@
+@import '../../patterns/dashboard.css';
+
+/*
+ * 管理者ダッシュボード画面専用
+ *
+ * 集計値と日次業務への導線を優先し、カードの高さを同一行で揃える。
+ */
+.page-dashboard-admin .lms-content section.grid > a {
+    height: 100%;
+}
+
+.page-dashboard-admin .lms-content section.grid > a p:last-child {
+    overflow-wrap: anywhere;
+}

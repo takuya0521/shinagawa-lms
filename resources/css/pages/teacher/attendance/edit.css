@@ -1,0 +1,10 @@
+@import '../../../patterns/attendance-entry.css';
+
+/*
+ * 教員向け出欠登録画面専用
+ *
+ * 生徒と出欠入力欄の対応を維持するため、出欠入力専用の表幅を適用する。
+ */
+.page-teacher-attendance-edit {
+    --page-table-min-width: 68rem;
+}

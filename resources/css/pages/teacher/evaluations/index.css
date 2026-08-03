@@ -1,0 +1,10 @@
+@import '../../../patterns/list.css';
+
+/*
+ * 教員向け評価一覧画面専用
+ *
+ * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
+ */
+.page-teacher-evaluations-index {
+    --page-table-min-width: 72rem;
+}

@@ -11,6 +11,8 @@ final class TeacherIndexRequest extends FormRequest
 {
     /**
      * 管理者権限の判定はルートMiddlewareで実施する。
+     *
+     * @return bool 判定結果
      */
     public function authorize(): bool
     {
@@ -43,6 +45,8 @@ final class TeacherIndexRequest extends FormRequest
 
     /**
      * 検索キーワードを返す。
+     *
+     * @return ?string 取得した文字列。未指定時はnull
      */
     public function keyword(): ?string
     {
@@ -55,6 +59,8 @@ final class TeacherIndexRequest extends FormRequest
 
     /**
      * 教員情報の状態を返す。
+     *
+     * @return ?MasterStatus 処理結果。取得できない場合はnull
      */
     public function teacherStatus(): ?MasterStatus
     {
@@ -67,6 +73,8 @@ final class TeacherIndexRequest extends FormRequest
 
     /**
      * アカウントの利用状態を返す。
+     *
+     * @return ?UserStatus 処理結果。取得できない場合はnull
      */
     public function accountStatus(): ?UserStatus
     {
@@ -79,6 +87,8 @@ final class TeacherIndexRequest extends FormRequest
 
     /**
      * 検証前に検索文字列を正規化する。
+     *
+     * @return void 戻り値なし
      */
     protected function prepareForValidation(): void
     {

@@ -14,6 +14,8 @@ enum DayOfWeek: int
 
     /**
      * 曜日の日本語名称を返す。
+     *
+     * @return string 取得した文字列
      */
     public function label(): string
     {
@@ -30,6 +32,8 @@ enum DayOfWeek: int
 
     /**
      * 週間時間割で使用する短縮名称を返す。
+     *
+     * @return string 取得した文字列
      */
     public function shortLabel(): string
     {

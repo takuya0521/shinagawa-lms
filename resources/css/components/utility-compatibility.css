@@ -1,0 +1,63 @@
+/*
+ * Tailwindユーティリティで実装済みの画面を共通デザインへ揃える互換層
+ *
+ * 既存機能を壊さず段階的に画面専用クラスへ移行できるよう、認証後画面内だけへ適用する。
+ */
+.lms-content .rounded-2xl.bg-white,
+.lms-content .rounded-xl.bg-white,
+.lms-content section.bg-white,
+.lms-content article.bg-white {
+    border: 1px solid var(--lms-border);
+    box-shadow: var(--lms-shadow-soft);
+}
+
+.lms-content .shadow-sm,
+.lms-content .shadow-md,
+.lms-content .shadow-lg {
+    box-shadow: var(--lms-shadow-soft);
+}
+
+.lms-content .bg-slate-900 {
+    background-color: var(--lms-primary);
+}
+
+.lms-content .hover\:bg-slate-700:hover,
+.lms-content .hover\:bg-slate-800:hover,
+.lms-content .hover\:bg-slate-900:hover {
+    background-color: var(--lms-primary-dark);
+}
+
+.lms-content .text-blue-700,
+.lms-content .text-blue-600 {
+    color: var(--lms-primary-dark);
+}
+
+.lms-content input:not([type='checkbox']):not([type='radio']),
+.lms-content select,
+.lms-content textarea {
+    min-height: 42px;
+    border-color: var(--lms-border-strong);
+    background: #ffffff;
+}
+
+.lms-content textarea {
+    min-height: 120px;
+}
+
+.lms-content table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.lms-content thead th {
+    color: #475569;
+    font-weight: 800;
+}
+
+.lms-content tbody tr {
+    transition: background 0.14s ease;
+}
+
+.lms-content tbody tr:hover {
+    background: rgba(248, 250, 252, 0.78);
+}

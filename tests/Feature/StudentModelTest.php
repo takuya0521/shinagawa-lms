@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Grade;
 use App\Enums\StudentStatus;
 use App\Enums\UserRole;
 use App\Models\ClassGroup;
@@ -44,6 +45,18 @@ final class StudentModelTest extends TestCase
 
         $this->assertTrue(
             $student->is($studentFromUser),
+        );
+    }
+
+    public function test_student_grade_is_cast_to_enum(): void
+    {
+        $student = Student::factory()->create([
+            'grade' => Grade::Second,
+        ]);
+
+        $this->assertSame(
+            Grade::Second,
+            $student->grade,
         );
     }
 

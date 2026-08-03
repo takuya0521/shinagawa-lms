@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\DayOfWeek;
+use App\Enums\Grade;
 use App\Enums\MasterStatus;
 use App\Models\ClassGroup;
 use App\Models\Course;
@@ -64,6 +65,18 @@ final class TimetableModelTest extends TestCase
 
         $this->assertTrue(
             $teacher->courses->contains($course),
+        );
+    }
+
+    public function test_course_grade_is_cast_to_enum(): void
+    {
+        $course = Course::factory()->create([
+            'grade' => Grade::Third,
+        ]);
+
+        $this->assertSame(
+            Grade::Third,
+            $course->grade,
         );
     }
 

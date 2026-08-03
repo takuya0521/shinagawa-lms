@@ -1,0 +1,14 @@
+/*
+ * お知らせ詳細共通パターン
+ *
+ * 本文の改行と長いURLを保持しながら、画面外へのはみ出しを防ぐ。
+ */
+.page-pattern-announcement-detail .lms-content article {
+    width: min(100%, var(--announcement-detail-max-width, 72rem));
+    margin-inline: auto;
+    overflow-wrap: anywhere;
+}
+
+.page-pattern-announcement-detail .lms-content article p {
+    white-space: pre-wrap;
+}
