@@ -123,10 +123,9 @@ final class Course extends Model
      * 指定された年度・学年・クラスの授業へ絞り込む。
      *
      * @param  Builder<Course>  $query
-     *
-     * @param int $academicYear 対象年度
-     * @param Grade $grade 学年
-     * @param int $classGroupId 対象データの識別子
+     * @param  int  $academicYear  対象年度
+     * @param  Grade  $grade  学年
+     * @param  int  $classGroupId  対象データの識別子
      * @return Builder<Course>
      */
     public function scopeForTarget(

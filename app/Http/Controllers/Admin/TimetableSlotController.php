@@ -26,8 +26,8 @@ final class TimetableSlotController extends Controller
     /**
      * 時間割一覧を表示する。
      *
-     * @param Request $request 検索条件を含むHTTPリクエスト
-     * @param TimetableSlotIndexDataQuery $timetableSlotIndexDataQuery 一覧画面表示データの検索処理
+     * @param  Request  $request  検索条件を含むHTTPリクエスト
+     * @param  TimetableSlotIndexDataQuery  $timetableSlotIndexDataQuery  一覧画面表示データの検索処理
      * @return View 時間割一覧画面
      */
     public function index(
@@ -66,8 +66,8 @@ final class TimetableSlotController extends Controller
     /**
      * 時間割登録画面を表示する。
      *
-     * @param Request $request 初期選択値を含むHTTPリクエスト
-     * @param TimetableSlotFormDataQuery $timetableSlotFormDataQuery フォーム選択肢の検索処理
+     * @param  Request  $request  初期選択値を含むHTTPリクエスト
+     * @param  TimetableSlotFormDataQuery  $timetableSlotFormDataQuery  フォーム選択肢の検索処理
      * @return View 時間割登録画面
      */
     public function create(
@@ -98,8 +98,8 @@ final class TimetableSlotController extends Controller
     /**
      * 時間割枠を登録する。
      *
-     * @param StoreTimetableSlotRequest $request 検証済みの時間割入力
-     * @param CreateTimetableSlotAction $createTimetableSlotAction 時間割登録処理
+     * @param  StoreTimetableSlotRequest  $request  検証済みの時間割入力
+     * @param  CreateTimetableSlotAction  $createTimetableSlotAction  時間割登録処理
      * @return RedirectResponse 時間割一覧へのリダイレクト
      */
     public function store(
@@ -123,8 +123,8 @@ final class TimetableSlotController extends Controller
     /**
      * 時間割編集画面を表示する。
      *
-     * @param TimetableSlot $timetableSlot 編集対象の時間割枠
-     * @param TimetableSlotFormDataQuery $timetableSlotFormDataQuery フォーム選択肢の検索処理
+     * @param  TimetableSlot  $timetableSlot  編集対象の時間割枠
+     * @param  TimetableSlotFormDataQuery  $timetableSlotFormDataQuery  フォーム選択肢の検索処理
      * @return View 時間割編集画面
      */
     public function edit(
@@ -147,9 +147,9 @@ final class TimetableSlotController extends Controller
     /**
      * 時間割枠を更新する。
      *
-     * @param UpdateTimetableSlotRequest $request 検証済みの時間割入力
-     * @param TimetableSlot $timetableSlot 更新対象の時間割枠
-     * @param UpdateTimetableSlotAction $updateTimetableSlotAction 時間割更新処理
+     * @param  UpdateTimetableSlotRequest  $request  検証済みの時間割入力
+     * @param  TimetableSlot  $timetableSlot  更新対象の時間割枠
+     * @param  UpdateTimetableSlotAction  $updateTimetableSlotAction  時間割更新処理
      * @return RedirectResponse 時間割一覧へのリダイレクト
      */
     public function update(
@@ -175,7 +175,7 @@ final class TimetableSlotController extends Controller
     /**
      * 正の整数だけを検索条件または初期値として採用する。
      *
-     * @param int $value 入力された整数値
+     * @param  int  $value  入力された整数値
      * @return int|null 正の整数。0以下の場合はnull
      */
     private function positiveIntegerOrNull(int $value): ?int

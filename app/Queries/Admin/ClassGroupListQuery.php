@@ -12,8 +12,8 @@ final class ClassGroupListQuery
     /**
      * 管理者向けクラス一覧を取得する。
      *
-     * @param ?string $keyword 検索キーワード
-     * @param ?MasterStatus $status 設定する状態
+     * @param  ?string  $keyword  検索キーワード
+     * @param  ?MasterStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, ClassGroup>
      */
     public function execute(
@@ -30,19 +30,16 @@ final class ClassGroupListQuery
                             $keyword,
                         ): void {
                             $searchQuery
-                                ->where(
+                                ->whereLike(
                                     'class_code',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'class_name',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'description',
-                                    'like',
                                     '%'.$keyword.'%',
                                 );
                         },

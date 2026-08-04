@@ -16,8 +16,8 @@ final class EvaluationCorrectionController extends Controller
     /**
      * 生徒別成績詳細・修正画面を表示する。
      *
-     * @param FinalEvaluation $finalEvaluation 対象の最終評価
-     * @param EvaluationCalculator $evaluationCalculator 評価計算サービス
+     * @param  FinalEvaluation  $finalEvaluation  対象の最終評価
+     * @param  EvaluationCalculator  $evaluationCalculator  評価計算サービス
      * @return View 表示する画面
      */
     public function edit(
@@ -42,9 +42,9 @@ final class EvaluationCorrectionController extends Controller
     /**
      * 管理者による評価修正を保存する。
      *
-     * @param CorrectFinalEvaluationRequest $request HTTPリクエスト
-     * @param FinalEvaluation $finalEvaluation 対象の最終評価
-     * @param CorrectFinalEvaluationAction $correctFinalEvaluationAction 業務処理
+     * @param  CorrectFinalEvaluationRequest  $request  HTTPリクエスト
+     * @param  FinalEvaluation  $finalEvaluation  対象の最終評価
+     * @param  CorrectFinalEvaluationAction  $correctFinalEvaluationAction  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

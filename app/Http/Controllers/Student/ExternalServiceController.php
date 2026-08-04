@@ -17,8 +17,8 @@ final class ExternalServiceController extends Controller
     /**
      * 年間予定・学校行事のGoogle Calendarリンクを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param ExternalLinkResolver $externalLinkResolver 外部リンク解決処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  ExternalLinkResolver  $externalLinkResolver  外部リンク解決処理
      * @return View 表示する画面
      */
     public function calendar(
@@ -43,8 +43,8 @@ final class ExternalServiceController extends Controller
     /**
      * 面談希望申込のGoogle Formsリンクを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param ExternalLinkResolver $externalLinkResolver 外部リンク解決処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  ExternalLinkResolver  $externalLinkResolver  外部リンク解決処理
      * @return View 表示する画面
      */
     public function interviewForm(
@@ -68,8 +68,8 @@ final class ExternalServiceController extends Controller
     /**
      * 生徒向けのGoogle Chat・Driveリンクを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param ExternalLinkResolver $externalLinkResolver 外部リンク解決処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  ExternalLinkResolver  $externalLinkResolver  外部リンク解決処理
      * @return View 表示する画面
      */
     public function resources(
@@ -103,7 +103,7 @@ final class ExternalServiceController extends Controller
     /**
      * ログインユーザーに紐付く生徒情報を返す。
      *
-     * @param Request $request HTTPリクエスト
+     * @param  Request  $request  HTTPリクエスト
      * @return Student 処理結果
      */
     private function resolveStudent(Request $request): Student
@@ -123,7 +123,6 @@ final class ExternalServiceController extends Controller
      * 埋め込み表示可能なGoogle Calendar URLを返す。
      *
      * @param  Collection<int, ExternalLink>  $links
-     *
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function embeddableCalendar(Collection $links): ?string

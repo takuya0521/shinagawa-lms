@@ -14,7 +14,7 @@ final class AttendanceStatisticsQuery
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param TargetStudentQuery $targetStudentQuery データ取得処理
+     * @param  TargetStudentQuery  $targetStudentQuery  データ取得処理
      */
     public function __construct(
         private readonly TargetStudentQuery $targetStudentQuery,
@@ -27,8 +27,7 @@ final class AttendanceStatisticsQuery
      * それらが含まれる場合は出席率を確定しない。
      *
      * @param  Collection<int, LessonSession>  $lessonSessions
-     *
-     * @param ?Student $student 対象生徒
+     * @param  ?Student  $student  対象生徒
      * @return AttendanceStatistics 処理結果
      */
     public function execute(
@@ -124,8 +123,7 @@ final class AttendanceStatisticsQuery
      * 指定された出欠区分の件数を返す。
      *
      * @param  Collection<int, AttendanceRecord>  $records
-     *
-     * @param AttendanceStatus $status 設定する状態
+     * @param  AttendanceStatus  $status  設定する状態
      * @return int 取得した整数
      */
     private function countStatus(

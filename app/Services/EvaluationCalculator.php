@@ -10,9 +10,9 @@ final class EvaluationCalculator
     /**
      * 教員入力値と自動算出した出欠点から評価を計算する。
      *
-     * @param float $submissionScore 提出物点
-     * @param AttendanceScoreResult $attendance 出欠評価結果
-     * @param float $attitudeScore 授業態度点
+     * @param  float  $submissionScore  提出物点
+     * @param  AttendanceScoreResult  $attendance  出欠評価結果
+     * @param  float  $attitudeScore  授業態度点
      * @return EvaluationCalculation 処理結果
      */
     public function calculate(
@@ -57,9 +57,9 @@ final class EvaluationCalculator
     /**
      * 管理者が指定した3項目点から評価を再計算する。
      *
-     * @param float $submissionScore 提出物点
-     * @param float $attendanceScore 出欠点
-     * @param float $attitudeScore 授業態度点
+     * @param  float  $submissionScore  提出物点
+     * @param  float  $attendanceScore  出欠点
+     * @param  float  $attitudeScore  授業態度点
      * @return EvaluationCalculation 処理結果
      */
     public function calculateFromScores(
@@ -154,7 +154,7 @@ final class EvaluationCalculator
      *
      * 未設定時は下書きプレビュー用として四捨五入し、確定は別途禁止する。
      *
-     * @param float $score 得点
+     * @param  float  $score  得点
      * @return float 算出した数値
      */
     private function applyRounding(float $score): float
@@ -172,7 +172,7 @@ final class EvaluationCalculator
     /**
      * 設定された閾値から5段階評価を返す。
      *
-     * @param float $totalScore 合計点
+     * @param  float  $totalScore  合計点
      * @return int 取得した整数
      */
     private function resolveGradeLevel(float $totalScore): int

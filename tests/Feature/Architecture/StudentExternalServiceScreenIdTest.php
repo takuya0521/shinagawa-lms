@@ -11,10 +11,22 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
+/**
+ * 生徒向け外部サービス共通画面の画面IDを確認するアーキテクチャテスト。
+ *
+ * 年間予定、面談申込、外部サービスの各ルートで設計書どおりの画面IDが表示されることを検証する。
+ */
 final class StudentExternalServiceScreenIdTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 生徒向け外部サービス共通画面がルートごとに定義された画面IDを表示することを確認する。
+     *
+     * 前提: 生徒、外部リンクなど、検証に必要なテストデータを準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     #[DataProvider('externalServiceScreens')]
     public function test_shared_external_service_screen_displays_its_defined_screen_id(
         string $routeName,
@@ -41,7 +53,7 @@ final class StudentExternalServiceScreenIdTest extends TestCase
     }
 
     /**
-     * 生徒向け外部サービス画面のテストデータを返します。
+     * 生徒向け外部サービス画面のルート、画面ID、リンク種別、URLを返す。
      *
      * @return iterable<string, array{string, string, ExternalLinkType, string}>
      */

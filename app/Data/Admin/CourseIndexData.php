@@ -18,16 +18,16 @@ final readonly class CourseIndexData
     /**
      * 授業一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, Course> $courses 授業一覧
-     * @param Collection<int, int> $academicYears 年度選択肢
-     * @param list<Grade> $grades 学年選択肢
-     * @param EloquentCollection<int, ClassGroup> $classGroups クラス選択肢
-     * @param list<MasterStatus> $statuses 状態選択肢
-     * @param string $keyword キーワード
-     * @param int|null $selectedAcademicYear 選択中の年度
-     * @param Grade|null $selectedGrade 選択中の学年
-     * @param int|null $selectedClassGroupId 選択中のクラスID
-     * @param MasterStatus|null $selectedStatus 選択中の状態
+     * @param  LengthAwarePaginator<int, Course>  $courses  授業一覧
+     * @param  Collection<int, int>  $academicYears  年度選択肢
+     * @param  list<Grade>  $grades  学年選択肢
+     * @param  EloquentCollection<int, ClassGroup>  $classGroups  クラス選択肢
+     * @param  list<MasterStatus>  $statuses  状態選択肢
+     * @param  string  $keyword  キーワード
+     * @param  int|null  $selectedAcademicYear  選択中の年度
+     * @param  Grade|null  $selectedGrade  選択中の学年
+     * @param  int|null  $selectedClassGroupId  選択中のクラスID
+     * @param  MasterStatus|null  $selectedStatus  選択中の状態
      */
     public function __construct(
         public LengthAwarePaginator $courses,

@@ -16,11 +16,11 @@ final class AssignedCourseListQuery
     /**
      * ログイン教員の担当授業一覧を取得する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param ?int $academicYear 対象年度
-     * @param ?Grade $grade 学年
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?int $subjectId 対象データの識別子
+     * @param  Teacher  $teacher  対象教員
+     * @param  ?int  $academicYear  対象年度
+     * @param  ?Grade  $grade  学年
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?int  $subjectId  対象データの識別子
      * @return LengthAwarePaginator<int, Course>
      */
     public function execute(

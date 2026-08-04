@@ -18,11 +18,11 @@ final class StudentAttendanceListQuery
     /**
      * 生徒別の出欠履歴を取得する。
      *
-     * @param Student $student 対象生徒
-     * @param CarbonInterface $dateFrom 検索開始日
-     * @param CarbonInterface $dateTo 検索終了日
-     * @param ?int $courseId 対象授業ID
-     * @param ?AttendanceStatus $attendanceStatus 出欠状態
+     * @param  Student  $student  対象生徒
+     * @param  CarbonInterface  $dateFrom  検索開始日
+     * @param  CarbonInterface  $dateTo  検索終了日
+     * @param  ?int  $courseId  対象授業ID
+     * @param  ?AttendanceStatus  $attendanceStatus  出欠状態
      * @return LengthAwarePaginator<int, AttendanceRecord>
      */
     public function execute(
@@ -88,10 +88,10 @@ final class StudentAttendanceListQuery
     /**
      * 生徒別KPI集計対象の授業実施日を取得する。
      *
-     * @param Student $student 対象生徒
-     * @param CarbonInterface $dateFrom 検索開始日
-     * @param CarbonInterface $dateTo 検索終了日
-     * @param ?int $courseId 対象授業ID
+     * @param  Student  $student  対象生徒
+     * @param  CarbonInterface  $dateFrom  検索開始日
+     * @param  CarbonInterface  $dateTo  検索終了日
+     * @param  ?int  $courseId  対象授業ID
      * @return Collection<int, LessonSession>
      */
     public function sessionsForStatistics(

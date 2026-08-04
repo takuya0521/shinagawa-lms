@@ -13,10 +13,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 生徒向けお知らせ閲覧機能を確認するフィーチャーテスト。
+ *
+ * 生徒のロール・学年・クラス等に一致するお知らせだけが表示され、プロフィール欠損時は閲覧できないことを検証する。
+ */
 final class AnnouncementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 生徒に一致する公開対象のお知らせだけが表示されることを確認する。
+     *
+     * 前提: クラス、生徒など、検証に必要なテストデータを準備する。
+     * 処理: `student.announcements.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_student_sees_matching_announcements_only(): void
     {
         $classGroup = ClassGroup::factory()->create();
@@ -58,6 +70,13 @@ final class AnnouncementTest extends TestCase
             ->assertDontSeeText('下書き');
     }
 
+    /**
+     * 生徒が自身に公開されたお知らせ詳細を閲覧できることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `student.announcements.show`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_student_can_open_matching_announcement_detail(): void
     {
         $student = Student::factory()->create();
@@ -75,6 +94,13 @@ final class AnnouncementTest extends TestCase
             ->assertSeeText($announcement->body);
     }
 
+    /**
+     * 生徒プロフィールがないユーザーはお知らせを閲覧できないことを確認する。
+     *
+     * 前提: ユーザーなど、検証に必要なテストデータを準備する。
+     * 処理: `student.announcements.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_student_without_profile_cannot_view_announcements(): void
     {
         $user = User::factory()->create([
@@ -88,6 +114,9 @@ final class AnnouncementTest extends TestCase
             ->assertDontSeeText('全員向け');
     }
 
+    /**
+     * 指定した公開対象を持つテスト用お知らせを作成して返す。
+     */
     private function announcement(
         string $title,
         AnnouncementTargetType $targetType,

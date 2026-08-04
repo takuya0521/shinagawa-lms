@@ -27,9 +27,9 @@ final class SaveEvaluationBulkAction
     /**
      * 最終評価一括保存処理を生成する。
      *
-     * @param TargetStudentQuery $targetStudentQuery 授業の評価対象生徒を取得するQuery
-     * @param AttendanceScoreQuery $attendanceScoreQuery 生徒ごとの出欠点を算出するQuery
-     * @param EvaluationCalculator $evaluationCalculator 最終評価を計算するサービス
+     * @param  TargetStudentQuery  $targetStudentQuery  授業の評価対象生徒を取得するQuery
+     * @param  AttendanceScoreQuery  $attendanceScoreQuery  生徒ごとの出欠点を算出するQuery
+     * @param  EvaluationCalculator  $evaluationCalculator  最終評価を計算するサービス
      */
     public function __construct(
         private readonly TargetStudentQuery $targetStudentQuery,
@@ -40,13 +40,14 @@ final class SaveEvaluationBulkAction
     /**
      * 担当授業の対象生徒全員について最終評価を一括保存する。
      *
-     * @param Course $course 保存対象の授業
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
-     * @param EvaluationStatus $status 保存する評価状態
-     * @param list<array{student_id: int, submission_score: float, attitude_score: float}> $rows 評価入力一覧
-     * @param User $user 保存を実行する教員
+     * @param  Course  $course  保存対象の授業
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
+     * @param  EvaluationStatus  $status  保存する評価状態
+     * @param  list<array{student_id: int, submission_score: float, attitude_score: float}>  $rows  評価入力一覧
+     * @param  User  $user  保存を実行する教員
      * @return EvaluationBulkSaveResult 保存結果
+     *
      * @throws ValidationException 授業または評価入力が保存条件を満たさない場合
      */
     public function execute(
@@ -109,7 +110,7 @@ final class SaveEvaluationBulkAction
     /**
      * 授業を排他ロックして返す。
      *
-     * @param Course $course 保存対象の授業
+     * @param  Course  $course  保存対象の授業
      * @return Course 排他ロック済みの授業
      */
     private function lockCourse(Course $course): Course
@@ -122,9 +123,10 @@ final class SaveEvaluationBulkAction
     /**
      * 授業が評価対象として有効で、評価年度と一致することを確認する。
      *
-     * @param Course $course 排他ロック済みの授業
-     * @param int $academicYear 評価年度
+     * @param  Course  $course  排他ロック済みの授業
+     * @param  int  $academicYear  評価年度
      * @return void 戻り値なし
+     *
      * @throws ValidationException 評価対象として利用できない場合
      */
     private function assertCourseCanBeEvaluated(
@@ -146,9 +148,10 @@ final class SaveEvaluationBulkAction
     /**
      * 送信された生徒一覧が授業の評価対象生徒一覧と一致することを確認する。
      *
-     * @param Collection<int, Student> $students 評価対象生徒一覧
-     * @param list<array{student_id: int, submission_score: float, attitude_score: float}> $rows 評価入力一覧
+     * @param  Collection<int, Student>  $students  評価対象生徒一覧
+     * @param  list<array{student_id: int, submission_score: float, attitude_score: float}>  $rows  評価入力一覧
      * @return void 戻り値なし
+     *
      * @throws ValidationException 生徒一覧が一致しない場合
      */
     private function assertSubmittedStudentsMatch(
@@ -180,10 +183,10 @@ final class SaveEvaluationBulkAction
     /**
      * 既存の最終評価を排他ロックして生徒IDごとに返す。
      *
-     * @param Course $course 保存対象の授業
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
-     * @param Collection<int, Student> $students 評価対象生徒一覧
+     * @param  Course  $course  保存対象の授業
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
+     * @param  Collection<int, Student>  $students  評価対象生徒一覧
      * @return Collection<int, FinalEvaluation> 生徒IDをキーにした既存評価一覧
      */
     private function lockExistingEvaluations(
@@ -205,15 +208,16 @@ final class SaveEvaluationBulkAction
     /**
      * 評価入力一覧を保存する。
      *
-     * @param Course $course 保存対象の授業
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
-     * @param EvaluationStatus $status 保存する評価状態
-     * @param list<array{student_id: int, submission_score: float, attitude_score: float}> $rows 評価入力一覧
-     * @param User $user 保存を実行する教員
-     * @param Collection<int, FinalEvaluation> $existingEvaluations 生徒IDをキーにした既存評価一覧
-     * @param array<int, AttendanceScoreResult> $attendanceScores 生徒IDごとの出欠点算出結果
+     * @param  Course  $course  保存対象の授業
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
+     * @param  EvaluationStatus  $status  保存する評価状態
+     * @param  list<array{student_id: int, submission_score: float, attitude_score: float}>  $rows  評価入力一覧
+     * @param  User  $user  保存を実行する教員
+     * @param  Collection<int, FinalEvaluation>  $existingEvaluations  生徒IDをキーにした既存評価一覧
+     * @param  array<int, AttendanceScoreResult>  $attendanceScores  生徒IDごとの出欠点算出結果
      * @return void 戻り値なし
+     *
      * @throws ValidationException 評価を確定できない場合
      */
     private function saveRows(
@@ -260,10 +264,11 @@ final class SaveEvaluationBulkAction
     /**
      * 評価確定時に計算結果が確定条件を満たすことを確認する。
      *
-     * @param EvaluationStatus $status 保存する評価状態
-     * @param EvaluationCalculation $calculation 評価計算結果
-     * @param int $rowIndex 評価入力一覧内の行番号
+     * @param  EvaluationStatus  $status  保存する評価状態
+     * @param  EvaluationCalculation  $calculation  評価計算結果
+     * @param  int  $rowIndex  評価入力一覧内の行番号
      * @return void 戻り値なし
+     *
      * @throws ValidationException 評価を確定できない場合
      */
     private function assertEvaluationCanBeSaved(
@@ -287,15 +292,14 @@ final class SaveEvaluationBulkAction
     /**
      * 生徒1名分の最終評価を登録または更新する。
      *
-     * @param Course $course 保存対象の授業
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
-     * @param EvaluationStatus $status 保存する評価状態
-     * @param array{student_id: int, submission_score: float, attitude_score: float} $row 評価入力
-     * @param User $user 保存を実行する教員
-     * @param FinalEvaluation|null $existingEvaluation 既存の最終評価
-     * @param EvaluationCalculation $calculation 評価計算結果
-     *
+     * @param  Course  $course  保存対象の授業
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
+     * @param  EvaluationStatus  $status  保存する評価状態
+     * @param  array{student_id: int, submission_score: float, attitude_score: float}  $row  評価入力
+     * @param  User  $user  保存を実行する教員
+     * @param  FinalEvaluation|null  $existingEvaluation  既存の最終評価
+     * @param  EvaluationCalculation  $calculation  評価計算結果
      * @return void 戻り値なし
      */
     private function saveEvaluation(

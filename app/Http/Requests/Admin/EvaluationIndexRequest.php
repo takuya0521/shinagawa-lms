@@ -64,7 +64,7 @@ final class EvaluationIndexRequest extends FormRequest
     /**
      * 指定項目のIDを取得する。
      *
-     * @param string $key 取得対象のキー
+     * @param  string  $key  取得対象のキー
      * @return ?int 取得した整数。未指定時はnull
      */
     public function nullableId(string $key): ?int

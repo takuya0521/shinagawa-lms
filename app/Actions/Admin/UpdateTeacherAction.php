@@ -11,7 +11,7 @@ final class UpdateTeacherAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param UpdateUserAction $updateUserAction 業務処理
+     * @param  UpdateUserAction  $updateUserAction  業務処理
      */
     public function __construct(
         private readonly UpdateUserAction $updateUserAction,
@@ -21,10 +21,9 @@ final class UpdateTeacherAction
      * 教員アカウントと教員情報を更新する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param Teacher $teacher 対象教員
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  Teacher  $teacher  対象教員
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return Teacher 処理結果
      */
     public function execute(

@@ -16,10 +16,10 @@ final class StudentAttendanceController extends Controller
     /**
      * 生徒別出欠詳細画面を表示する。
      *
-     * @param StudentAttendanceIndexRequest $request HTTPリクエスト
-     * @param Student $student 対象生徒
-     * @param StudentAttendanceListQuery $studentAttendanceListQuery データ取得処理
-     * @param AttendanceStatisticsQuery $attendanceStatisticsQuery データ取得処理
+     * @param  StudentAttendanceIndexRequest  $request  HTTPリクエスト
+     * @param  Student  $student  対象生徒
+     * @param  StudentAttendanceListQuery  $studentAttendanceListQuery  データ取得処理
+     * @param  AttendanceStatisticsQuery  $attendanceStatisticsQuery  データ取得処理
      * @return View 表示する画面
      */
     public function show(

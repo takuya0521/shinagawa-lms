@@ -26,8 +26,8 @@ final class UserController extends Controller
     /**
      * 管理者向けユーザー一覧を表示する。
      *
-     * @param UserIndexRequest $request HTTPリクエスト
-     * @param UserListQuery $query 検索処理
+     * @param  UserIndexRequest  $request  HTTPリクエスト
+     * @param  UserListQuery  $query  検索処理
      * @return View 表示する画面
      */
     public function index(
@@ -64,8 +64,8 @@ final class UserController extends Controller
     /**
      * ユーザーを登録する。
      *
-     * @param StoreUserRequest $request HTTPリクエスト
-     * @param CreateUserAction $action 業務処理
+     * @param  StoreUserRequest  $request  HTTPリクエスト
+     * @param  CreateUserAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
@@ -89,7 +89,7 @@ final class UserController extends Controller
     /**
      * ユーザー編集画面を表示する。
      *
-     * @param User $user 対象ユーザー
+     * @param  User  $user  対象ユーザー
      * @return View 表示する画面
      */
     public function edit(User $user): View
@@ -109,9 +109,9 @@ final class UserController extends Controller
     /**
      * ユーザーを更新する。
      *
-     * @param UpdateUserRequest $request HTTPリクエスト
-     * @param User $user 対象ユーザー
-     * @param UpdateUserAction $action 業務処理
+     * @param  UpdateUserRequest  $request  HTTPリクエスト
+     * @param  User  $user  対象ユーザー
+     * @param  UpdateUserAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
@@ -137,9 +137,9 @@ final class UserController extends Controller
     /**
      * ユーザーの利用状態を変更する。
      *
-     * @param UpdateUserStatusRequest $request HTTPリクエスト
-     * @param User $user 対象ユーザー
-     * @param ChangeUserStatusAction $action 業務処理
+     * @param  UpdateUserStatusRequest  $request  HTTPリクエスト
+     * @param  User  $user  対象ユーザー
+     * @param  ChangeUserStatusAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function updateStatus(

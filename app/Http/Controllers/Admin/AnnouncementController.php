@@ -25,8 +25,8 @@ final class AnnouncementController extends Controller
     /**
      * 管理者向けお知らせ一覧を表示する。
      *
-     * @param AnnouncementIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param AnnouncementIndexDataQuery $indexDataQuery 一覧画面の表示データ取得処理
+     * @param  AnnouncementIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  AnnouncementIndexDataQuery  $indexDataQuery  一覧画面の表示データ取得処理
      * @return View お知らせ一覧画面
      */
     public function index(
@@ -44,7 +44,7 @@ final class AnnouncementController extends Controller
     /**
      * お知らせ登録画面を表示する。
      *
-     * @param AnnouncementFormDataQuery $formDataQuery フォーム表示データ取得処理
+     * @param  AnnouncementFormDataQuery  $formDataQuery  フォーム表示データ取得処理
      * @return View お知らせ登録画面
      */
     public function create(
@@ -59,8 +59,8 @@ final class AnnouncementController extends Controller
     /**
      * お知らせを登録する。
      *
-     * @param StoreAnnouncementRequest $request 検証済みお知らせ情報を含むリクエスト
-     * @param CreateAnnouncementAction $createAnnouncementAction お知らせ登録処理
+     * @param  StoreAnnouncementRequest  $request  検証済みお知らせ情報を含むリクエスト
+     * @param  CreateAnnouncementAction  $createAnnouncementAction  お知らせ登録処理
      * @return RedirectResponse 登録後のお知らせ編集画面へのリダイレクト
      */
     public function store(
@@ -85,8 +85,8 @@ final class AnnouncementController extends Controller
     /**
      * お知らせ編集画面を表示する。
      *
-     * @param Announcement $announcement 編集対象のお知らせ
-     * @param AnnouncementFormDataQuery $formDataQuery フォーム表示データ取得処理
+     * @param  Announcement  $announcement  編集対象のお知らせ
+     * @param  AnnouncementFormDataQuery  $formDataQuery  フォーム表示データ取得処理
      * @return View お知らせ編集画面
      */
     public function edit(
@@ -102,9 +102,9 @@ final class AnnouncementController extends Controller
     /**
      * お知らせを更新する。
      *
-     * @param UpdateAnnouncementRequest $request 検証済みお知らせ情報を含むリクエスト
-     * @param Announcement $announcement 更新対象のお知らせ
-     * @param UpdateAnnouncementAction $updateAnnouncementAction お知らせ更新処理
+     * @param  UpdateAnnouncementRequest  $request  検証済みお知らせ情報を含むリクエスト
+     * @param  Announcement  $announcement  更新対象のお知らせ
+     * @param  UpdateAnnouncementAction  $updateAnnouncementAction  お知らせ更新処理
      * @return RedirectResponse 更新後のお知らせ編集画面へのリダイレクト
      */
     public function update(
@@ -131,9 +131,9 @@ final class AnnouncementController extends Controller
     /**
      * お知らせを論理削除する。
      *
-     * @param Request $request 操作者と操作元IPアドレスを含むHTTPリクエスト
-     * @param Announcement $announcement 削除対象のお知らせ
-     * @param DeleteAnnouncementAction $deleteAnnouncementAction お知らせ削除処理
+     * @param  Request  $request  操作者と操作元IPアドレスを含むHTTPリクエスト
+     * @param  Announcement  $announcement  削除対象のお知らせ
+     * @param  DeleteAnnouncementAction  $deleteAnnouncementAction  お知らせ削除処理
      * @return RedirectResponse お知らせ一覧画面へのリダイレクト
      */
     public function destroy(

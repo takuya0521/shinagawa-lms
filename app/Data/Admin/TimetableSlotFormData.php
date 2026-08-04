@@ -15,13 +15,13 @@ final readonly class TimetableSlotFormData
     /**
      * 時間割フォームの表示データを生成する。
      *
-     * @param Collection<int, Course> $courses 授業選択肢
-     * @param list<DayOfWeek> $daysOfWeek 曜日選択肢
-     * @param list<int> $periods 時限選択肢
-     * @param list<MasterStatus> $statuses 状態選択肢
-     * @param int|null $selectedCourseId 選択中の授業ID
-     * @param DayOfWeek|null $preferredDayOfWeek 初期表示する曜日
-     * @param int|null $preferredPeriodNo 初期表示する時限
+     * @param  Collection<int, Course>  $courses  授業選択肢
+     * @param  list<DayOfWeek>  $daysOfWeek  曜日選択肢
+     * @param  list<int>  $periods  時限選択肢
+     * @param  list<MasterStatus>  $statuses  状態選択肢
+     * @param  int|null  $selectedCourseId  選択中の授業ID
+     * @param  DayOfWeek|null  $preferredDayOfWeek  初期表示する曜日
+     * @param  int|null  $preferredPeriodNo  初期表示する時限
      */
     public function __construct(
         public Collection $courses,

@@ -12,7 +12,7 @@ final class UpdateExternalLinkAction
     /**
      * 操作ログ記録サービスを受け取る。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -22,10 +22,9 @@ final class UpdateExternalLinkAction
      * 外部リンクを更新し、変更前後を操作ログへ保存する。
      *
      * @param  array<string, mixed>  $attributes
-     *
-     * @param ExternalLink $externalLink 対象外部リンク
-     * @param User $user 対象ユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  ExternalLink  $externalLink  対象外部リンク
+     * @param  User  $user  対象ユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return ExternalLink 処理結果
      */
     public function execute(

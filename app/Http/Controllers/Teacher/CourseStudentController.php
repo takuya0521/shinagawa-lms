@@ -16,10 +16,10 @@ final class CourseStudentController extends Controller
     /**
      * 担当授業の対象生徒一覧を表示する。
      *
-     * @param CourseStudentIndexRequest $request HTTPリクエスト
-     * @param Course $course 対象授業
-     * @param CourseStudentListQuery $courseStudentListQuery データ取得処理
-     * @param TeacherContextService $teacherContextService 共通サービス
+     * @param  CourseStudentIndexRequest  $request  HTTPリクエスト
+     * @param  Course  $course  対象授業
+     * @param  CourseStudentListQuery  $courseStudentListQuery  データ取得処理
+     * @param  TeacherContextService  $teacherContextService  共通サービス
      * @return View 表示する画面
      */
     public function index(

@@ -20,8 +20,8 @@ final class CourseTeacherAssignmentController extends Controller
     /**
      * 担当教員設定画面を表示する。
      *
-     * @param CourseTeacherAssignmentIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param CourseTeacherAssignmentIndexDataQuery $indexDataQuery 一覧画面の表示データ取得処理
+     * @param  CourseTeacherAssignmentIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  CourseTeacherAssignmentIndexDataQuery  $indexDataQuery  一覧画面の表示データ取得処理
      * @return View 担当教員設定画面
      */
     public function index(
@@ -39,9 +39,9 @@ final class CourseTeacherAssignmentController extends Controller
     /**
      * 授業の担当教員を設定または解除する。
      *
-     * @param UpdateCourseTeacherAssignmentRequest $request 検証済みの担当教員と検索条件を含むリクエスト
-     * @param Course $course 担当教員を変更する授業
-     * @param AssignCourseTeacherAction $assignCourseTeacherAction 担当教員変更処理
+     * @param  UpdateCourseTeacherAssignmentRequest  $request  検証済みの担当教員と検索条件を含むリクエスト
+     * @param  Course  $course  担当教員を変更する授業
+     * @param  AssignCourseTeacherAction  $assignCourseTeacherAction  担当教員変更処理
      * @return RedirectResponse 処理結果を付与した一覧画面へのリダイレクト
      */
     public function update(

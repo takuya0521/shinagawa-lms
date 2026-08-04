@@ -39,7 +39,7 @@ enum UserRole: string
     /**
      * 外部リンクの内部IDからロールを返す。
      *
-     * @param int $scopeId 対象データの識別子
+     * @param  int  $scopeId  対象データの識別子
      * @return ?self 処理結果。取得できない場合はnull
      */
     public static function fromScopeId(int $scopeId): ?self

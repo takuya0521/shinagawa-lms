@@ -17,9 +17,9 @@ final class DashboardController extends Controller
     /**
      * 教員ダッシュボードを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param TeacherContextService $teacherContextService ログインユーザーに紐付く教員を解決するサービス
-     * @param TeacherDashboardQuery $dashboardQuery 教員ダッシュボード表示データの検索処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  TeacherContextService  $teacherContextService  ログインユーザーに紐付く教員を解決するサービス
+     * @param  TeacherDashboardQuery  $dashboardQuery  教員ダッシュボード表示データの検索処理
      * @return View 教員ダッシュボード画面
      */
     public function __invoke(

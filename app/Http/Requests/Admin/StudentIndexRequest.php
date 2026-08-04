@@ -136,7 +136,7 @@ final class StudentIndexRequest extends FormRequest
     /**
      * 指定項目を文字列として取得する。
      *
-     * @param string $key 取得対象のキー
+     * @param  string  $key  取得対象のキー
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function stringValue(string $key): ?string

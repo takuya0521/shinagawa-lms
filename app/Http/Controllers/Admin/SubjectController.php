@@ -20,8 +20,8 @@ final class SubjectController extends Controller
     /**
      * 科目一覧を表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param SubjectListQuery $subjectListQuery データ取得処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  SubjectListQuery  $subjectListQuery  データ取得処理
      * @return View 表示する画面
      */
     public function index(
@@ -62,8 +62,8 @@ final class SubjectController extends Controller
     /**
      * 科目を登録する。
      *
-     * @param StoreSubjectRequest $request HTTPリクエスト
-     * @param CreateSubjectAction $createSubjectAction 業務処理
+     * @param  StoreSubjectRequest  $request  HTTPリクエスト
+     * @param  CreateSubjectAction  $createSubjectAction  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
@@ -90,7 +90,7 @@ final class SubjectController extends Controller
     /**
      * 科目編集画面を表示する。
      *
-     * @param Subject $subject 対象科目
+     * @param  Subject  $subject  対象科目
      * @return View 表示する画面
      */
     public function edit(Subject $subject): View
@@ -104,9 +104,9 @@ final class SubjectController extends Controller
     /**
      * 科目を更新する。
      *
-     * @param UpdateSubjectRequest $request HTTPリクエスト
-     * @param Subject $subject 対象科目
-     * @param UpdateSubjectAction $updateSubjectAction 業務処理
+     * @param  UpdateSubjectRequest  $request  HTTPリクエスト
+     * @param  Subject  $subject  対象科目
+     * @param  UpdateSubjectAction  $updateSubjectAction  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

@@ -12,7 +12,7 @@ final class DeleteAnnouncementAction
     /**
      * 操作ログ記録サービスを受け取る。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -21,9 +21,9 @@ final class DeleteAnnouncementAction
     /**
      * お知らせを論理削除し、操作履歴を保存する。
      *
-     * @param Announcement $announcement 対象お知らせ
-     * @param User $user 対象ユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  Announcement  $announcement  対象お知らせ
+     * @param  User  $user  対象ユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return void 戻り値なし
      */
     public function execute(

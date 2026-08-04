@@ -13,10 +13,10 @@ final readonly class AdminDashboardData
     /**
      * 管理者ダッシュボードの表示データを生成する。
      *
-     * @param TodayLessonSummary $todayLessonSummary 当日の授業・出欠集計
-     * @param int $unconfirmedEvaluationCount 未確定評価数
-     * @param int $suspendedUserCount 利用停止中のユーザー数
-     * @param Collection<int, Announcement> $importantAnnouncements 重要なお知らせ一覧
+     * @param  TodayLessonSummary  $todayLessonSummary  当日の授業・出欠集計
+     * @param  int  $unconfirmedEvaluationCount  未確定評価数
+     * @param  int  $suspendedUserCount  利用停止中のユーザー数
+     * @param  Collection<int, Announcement>  $importantAnnouncements  重要なお知らせ一覧
      */
     public function __construct(
         public TodayLessonSummary $todayLessonSummary,

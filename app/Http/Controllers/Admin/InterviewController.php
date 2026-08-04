@@ -24,9 +24,9 @@ final class InterviewController extends Controller
     /**
      * 全生徒の面談記録一覧を表示する。
      *
-     * @param InterviewIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param InterviewRecordListQuery $interviewRecordListQuery 面談記録一覧の検索処理
-     * @param InterviewFormDataQuery $formDataQuery 面談記録フォームの表示データ取得処理
+     * @param  InterviewIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  InterviewRecordListQuery  $interviewRecordListQuery  面談記録一覧の検索処理
+     * @param  InterviewFormDataQuery  $formDataQuery  面談記録フォームの表示データ取得処理
      * @return View 面談記録一覧画面
      */
     public function index(
@@ -56,8 +56,8 @@ final class InterviewController extends Controller
     /**
      * 管理者向け面談記録登録画面を表示する。
      *
-     * @param Request $request 初期選択する生徒IDと教員IDを含むリクエスト
-     * @param InterviewFormDataQuery $formDataQuery 面談記録フォームの表示データ取得処理
+     * @param  Request  $request  初期選択する生徒IDと教員IDを含むリクエスト
+     * @param  InterviewFormDataQuery  $formDataQuery  面談記録フォームの表示データ取得処理
      * @return View 面談記録登録画面
      */
     public function create(
@@ -82,8 +82,8 @@ final class InterviewController extends Controller
     /**
      * 管理者として面談記録を登録する。
      *
-     * @param StoreInterviewRequest $request 検証済み面談記録を含むリクエスト
-     * @param CreateInterviewRecordAction $createInterviewRecordAction 面談記録登録処理
+     * @param  StoreInterviewRequest  $request  検証済み面談記録を含むリクエスト
+     * @param  CreateInterviewRecordAction  $createInterviewRecordAction  面談記録登録処理
      * @return RedirectResponse 登録後の面談記録編集画面へのリダイレクト
      */
     public function store(
@@ -107,8 +107,8 @@ final class InterviewController extends Controller
     /**
      * 管理者向け面談記録詳細・編集画面を表示する。
      *
-     * @param InterviewRecord $interviewRecord 編集対象の面談記録
-     * @param InterviewFormDataQuery $formDataQuery 面談記録フォームの表示データ取得処理
+     * @param  InterviewRecord  $interviewRecord  編集対象の面談記録
+     * @param  InterviewFormDataQuery  $formDataQuery  面談記録フォームの表示データ取得処理
      * @return View 面談記録編集画面
      */
     public function edit(
@@ -133,9 +133,9 @@ final class InterviewController extends Controller
     /**
      * 管理者として面談記録を更新する。
      *
-     * @param UpdateInterviewRequest $request 検証済み面談記録を含むリクエスト
-     * @param InterviewRecord $interviewRecord 更新対象の面談記録
-     * @param UpdateInterviewRecordAction $updateInterviewRecordAction 面談記録更新処理
+     * @param  UpdateInterviewRequest  $request  検証済み面談記録を含むリクエスト
+     * @param  InterviewRecord  $interviewRecord  更新対象の面談記録
+     * @param  UpdateInterviewRecordAction  $updateInterviewRecordAction  面談記録更新処理
      * @return RedirectResponse 更新後の面談記録編集画面へのリダイレクト
      */
     public function update(

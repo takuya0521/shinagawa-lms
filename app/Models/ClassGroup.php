@@ -65,8 +65,7 @@ final class ClassGroup extends Model
      * 現在の所属クラスだけ選択肢へ残す。
      *
      * @param  Builder<ClassGroup>  $query
-     *
-     * @param ?int $currentClassGroupId 現在所属しているクラスID
+     * @param  ?int  $currentClassGroupId  現在所属しているクラスID
      * @return Builder<ClassGroup>
      */
     public function scopeSelectable(

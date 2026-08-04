@@ -13,7 +13,7 @@ final class AcademicYear
      *
      * 4月から12月は暦年、1月から3月は前年を年度とする。
      *
-     * @param ?CarbonInterface $date 基準日
+     * @param  ?CarbonInterface  $date  基準日
      * @return int 取得した整数
      */
     public static function forDate(?CarbonInterface $date = null): int

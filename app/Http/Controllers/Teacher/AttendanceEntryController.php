@@ -24,10 +24,10 @@ final class AttendanceEntryController extends Controller
     /**
      * 担当授業の出欠登録画面を表示する。
      *
-     * @param AttendanceEntryRequest $request HTTPリクエスト
-     * @param TeacherContextService $teacherContextService 共通サービス
-     * @param EnsureLessonSessionAction $ensureLessonSessionAction 業務処理
-     * @param TargetStudentQuery $targetStudentQuery データ取得処理
+     * @param  AttendanceEntryRequest  $request  HTTPリクエスト
+     * @param  TeacherContextService  $teacherContextService  共通サービス
+     * @param  EnsureLessonSessionAction  $ensureLessonSessionAction  業務処理
+     * @param  TargetStudentQuery  $targetStudentQuery  データ取得処理
      * @return View 表示する画面
      */
     public function edit(
@@ -103,10 +103,10 @@ final class AttendanceEntryController extends Controller
     /**
      * 担当授業の出欠を一括保存する。
      *
-     * @param SaveAttendanceRequest $request HTTPリクエスト
-     * @param LessonSession $lessonSession 対象授業実施
-     * @param TeacherContextService $teacherContextService 共通サービス
-     * @param SaveAttendanceBulkAction $saveAttendanceBulkAction 業務処理
+     * @param  SaveAttendanceRequest  $request  HTTPリクエスト
+     * @param  LessonSession  $lessonSession  対象授業実施
+     * @param  TeacherContextService  $teacherContextService  共通サービス
+     * @param  SaveAttendanceBulkAction  $saveAttendanceBulkAction  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

@@ -13,11 +13,11 @@ final class CourseListQuery
     /**
      * 管理画面へ表示する授業一覧を取得する。
      *
-     * @param string $keyword 検索キーワード
-     * @param ?int $academicYear 対象年度
-     * @param ?Grade $grade 学年
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?MasterStatus $status 設定する状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ?int  $academicYear  対象年度
+     * @param  ?Grade  $grade  学年
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?MasterStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, Course>
      */
     public function execute(
@@ -43,14 +43,12 @@ final class CourseListQuery
                             Builder $keywordQuery,
                         ) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'course_name',
-                                    'like',
                                     "%{$keyword}%",
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'google_classroom_id',
-                                    'like',
                                     "%{$keyword}%",
                                 )
                                 ->orWhereHas(
@@ -59,14 +57,12 @@ final class CourseListQuery
                                         Builder $subjectQuery,
                                     ) use ($keyword): void {
                                         $subjectQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'subject_code',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'subject_name',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },
@@ -77,14 +73,12 @@ final class CourseListQuery
                                         Builder $userQuery,
                                     ) use ($keyword): void {
                                         $userQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'name',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'email',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },

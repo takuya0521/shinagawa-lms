@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 /**
- * ローカル・テスト環境だけで初期DBを再構築する。
+ * PostgreSQLを使用するローカル・テスト環境だけで初期DBを再構築する。
  */
 final class SetupLocalCommand extends Command
 {
@@ -21,10 +21,10 @@ final class SetupLocalCommand extends Command
      *
      * @var string
      */
-    protected $description = 'ローカル環境のデータベースを初期化し、初期データを登録します。';
+    protected $description = 'PostgreSQLのローカルデータベースを初期化し、初期データを登録します。';
 
     /**
-     * ローカル・テスト環境でのみDBを再構築する。
+     * ローカル・テスト環境かつPostgreSQL接続でのみDBを再構築する。
      *
      * @return int コマンド終了コード
      */
@@ -38,8 +38,24 @@ final class SetupLocalCommand extends Command
             return self::FAILURE;
         }
 
+        if (config('database.default') !== 'pgsql') {
+            $this->error(
+                'DB_CONNECTIONをpgsqlに設定してから実行してください。',
+            );
+
+            return self::FAILURE;
+        }
+
+        if (! extension_loaded('pdo_pgsql')) {
+            $this->error(
+                'PHP拡張pdo_pgsqlを有効化してから実行してください。',
+            );
+
+            return self::FAILURE;
+        }
+
         $this->warn(
-            '接続先データベースの全テーブルを削除して再作成します。',
+            '接続先PostgreSQLデータベースの全テーブルを削除して再作成します。',
         );
 
         $exitCode = $this->call('migrate:fresh', [
@@ -50,7 +66,7 @@ final class SetupLocalCommand extends Command
             return self::FAILURE;
         }
 
-        $this->info('ローカル環境のデータベース初期化が完了しました。');
+        $this->info('PostgreSQLデータベースの初期化が完了しました。');
 
         return self::SUCCESS;
     }

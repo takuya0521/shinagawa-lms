@@ -15,7 +15,7 @@ final class AvailableTeacher implements ValidationRule
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param ?int $currentTeacherId 対象データの識別子
+     * @param  ?int  $currentTeacherId  対象データの識別子
      */
     public function __construct(
         private readonly ?int $currentTeacherId = null,
@@ -27,9 +27,9 @@ final class AvailableTeacher implements ValidationRule
      * 編集中の授業で現在設定されている教員だけは、
      * 教員情報が無効またはアカウントが利用停止でも保持を許可する。
      *
-     * @param string $attribute 検証対象の項目名
-     * @param mixed $value 処理対象値
-     * @param Closure $fail 検証失敗時の通知処理
+     * @param  string  $attribute  検証対象の項目名
+     * @param  mixed  $value  処理対象値
+     * @param  Closure  $fail  検証失敗時の通知処理
      * @return void 戻り値なし
      */
     public function validate(

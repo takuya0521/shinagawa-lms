@@ -20,7 +20,7 @@ final class SaveAttendanceBulkAction
     /**
      * 出欠一括保存処理を生成する。
      *
-     * @param TargetStudentQuery $targetStudentQuery 授業の出欠対象生徒を取得するQuery
+     * @param  TargetStudentQuery  $targetStudentQuery  授業の出欠対象生徒を取得するQuery
      */
     public function __construct(
         private readonly TargetStudentQuery $targetStudentQuery,
@@ -29,11 +29,12 @@ final class SaveAttendanceBulkAction
     /**
      * 対象生徒全員の出欠を一括保存する。
      *
-     * @param LessonSession $lessonSession 保存対象の授業実施日
-     * @param list<array{student_id: int, attendance_status: string, note: string|null}> $records 出欠入力一覧
-     * @param User $user 保存を実行するユーザー
-     * @param bool $isAdminCorrection 管理者による修正の場合はtrue
+     * @param  LessonSession  $lessonSession  保存対象の授業実施日
+     * @param  list<array{student_id: int, attendance_status: string, note: string|null}>  $records  出欠入力一覧
+     * @param  User  $user  保存を実行するユーザー
+     * @param  bool  $isAdminCorrection  管理者による修正の場合はtrue
      * @return AttendanceBulkSaveResult 保存結果
+     *
      * @throws ValidationException 送信された生徒一覧が対象生徒と一致しない場合
      */
     public function execute(
@@ -74,7 +75,7 @@ final class SaveAttendanceBulkAction
     /**
      * 授業実施日を排他ロックして返す。
      *
-     * @param LessonSession $lessonSession 保存対象の授業実施日
+     * @param  LessonSession  $lessonSession  保存対象の授業実施日
      * @return LessonSession 排他ロック済みの授業実施日
      */
     private function lockLessonSession(
@@ -89,9 +90,10 @@ final class SaveAttendanceBulkAction
     /**
      * 送信された生徒一覧が授業の対象生徒一覧と一致することを確認する。
      *
-     * @param LessonSession $lessonSession 排他ロック済みの授業実施日
-     * @param list<array{student_id: int, attendance_status: string, note: string|null}> $records 出欠入力一覧
+     * @param  LessonSession  $lessonSession  排他ロック済みの授業実施日
+     * @param  list<array{student_id: int, attendance_status: string, note: string|null}>  $records  出欠入力一覧
      * @return void 戻り値なし
+     *
      * @throws ValidationException 生徒一覧が一致しない場合
      */
     private function assertSubmittedStudentsMatch(
@@ -124,7 +126,7 @@ final class SaveAttendanceBulkAction
     /**
      * 既存の出欠記録を排他ロックして生徒IDごとに返す。
      *
-     * @param LessonSession $lessonSession 排他ロック済みの授業実施日
+     * @param  LessonSession  $lessonSession  排他ロック済みの授業実施日
      * @return Collection<int, AttendanceRecord> 生徒IDをキーにした出欠記録一覧
      */
     private function lockExistingRecords(
@@ -140,12 +142,11 @@ final class SaveAttendanceBulkAction
     /**
      * 送信された出欠入力を既存記録へ反映する。
      *
-     * @param LessonSession $lessonSession 保存対象の授業実施日
-     * @param Collection<int, AttendanceRecord> $existingRecords 生徒IDをキーにした既存記録
-     * @param list<array{student_id: int, attendance_status: string, note: string|null}> $records 出欠入力一覧
-     * @param User $user 保存を実行するユーザー
-     * @param bool $isAdminCorrection 管理者による修正の場合はtrue
-     *
+     * @param  LessonSession  $lessonSession  保存対象の授業実施日
+     * @param  Collection<int, AttendanceRecord>  $existingRecords  生徒IDをキーにした既存記録
+     * @param  list<array{student_id: int, attendance_status: string, note: string|null}>  $records  出欠入力一覧
+     * @param  User  $user  保存を実行するユーザー
+     * @param  bool  $isAdminCorrection  管理者による修正の場合はtrue
      * @return void 戻り値なし
      */
     private function saveRecords(
@@ -183,11 +184,10 @@ final class SaveAttendanceBulkAction
     /**
      * 既存の出欠記録を更新する。
      *
-     * @param AttendanceRecord $attendanceRecord 更新対象の出欠記録
-     * @param array{student_id: int, attendance_status: string, note: string|null} $recordInput 出欠入力
-     * @param User $user 更新を実行するユーザー
-     * @param bool $isAdminCorrection 管理者による修正の場合はtrue
-     *
+     * @param  AttendanceRecord  $attendanceRecord  更新対象の出欠記録
+     * @param  array{student_id: int, attendance_status: string, note: string|null}  $recordInput  出欠入力
+     * @param  User  $user  更新を実行するユーザー
+     * @param  bool  $isAdminCorrection  管理者による修正の場合はtrue
      * @return void 戻り値なし
      */
     private function updateRecord(
@@ -213,11 +213,10 @@ final class SaveAttendanceBulkAction
     /**
      * 新しい出欠記録を作成する。
      *
-     * @param LessonSession $lessonSession 保存対象の授業実施日
-     * @param array{student_id: int, attendance_status: string, note: string|null} $recordInput 出欠入力
-     * @param User $user 登録を実行するユーザー
-     * @param bool $isAdminCorrection 管理者による修正の場合はtrue
-     *
+     * @param  LessonSession  $lessonSession  保存対象の授業実施日
+     * @param  array{student_id: int, attendance_status: string, note: string|null}  $recordInput  出欠入力
+     * @param  User  $user  登録を実行するユーザー
+     * @param  bool  $isAdminCorrection  管理者による修正の場合はtrue
      * @return void 戻り値なし
      */
     private function createRecord(
@@ -239,8 +238,7 @@ final class SaveAttendanceBulkAction
     /**
      * 休講以外の授業実施日を実施済みへ更新する。
      *
-     * @param LessonSession $lessonSession 更新対象の授業実施日
-     *
+     * @param  LessonSession  $lessonSession  更新対象の授業実施日
      * @return void 戻り値なし
      */
     private function completeLessonSession(

@@ -15,12 +15,12 @@ final class InterviewRecordListQuery
     /**
      * 管理者向け面談記録一覧を取得する。
      *
-     * @param CarbonImmutable $dateFrom 検索開始日
-     * @param CarbonImmutable $dateTo 検索終了日
-     * @param string|null $keyword キーワード
-     * @param int|null $studentId 生徒ID
-     * @param int|null $teacherId 教員ID
-     * @param string|null $interviewType 面談種別
+     * @param  CarbonImmutable  $dateFrom  検索開始日
+     * @param  CarbonImmutable  $dateTo  検索終了日
+     * @param  string|null  $keyword  キーワード
+     * @param  int|null  $studentId  生徒ID
+     * @param  int|null  $teacherId  教員ID
+     * @param  string|null  $interviewType  面談種別
      * @return LengthAwarePaginator<int, InterviewRecord> 面談記録一覧
      */
     public function execute(
@@ -50,8 +50,8 @@ final class InterviewRecordListQuery
     /**
      * 期間と関連情報読込を設定した基礎クエリを返す。
      *
-     * @param CarbonImmutable $dateFrom 検索開始日
-     * @param CarbonImmutable $dateTo 検索終了日
+     * @param  CarbonImmutable  $dateFrom  検索開始日
+     * @param  CarbonImmutable  $dateTo  検索終了日
      * @return Builder<InterviewRecord> 面談記録の基礎クエリ
      */
     private function baseQuery(
@@ -80,9 +80,8 @@ final class InterviewRecordListQuery
     /**
      * 面談内容、生徒、教員に対するキーワード検索を適用する。
      *
-     * @param Builder<InterviewRecord> $query 面談記録クエリ
-     * @param string|null $keyword キーワード
-     *
+     * @param  Builder<InterviewRecord>  $query  面談記録クエリ
+     * @param  string|null  $keyword  キーワード
      * @return void 戻り値なし
      */
     private function applyKeyword(
@@ -96,17 +95,16 @@ final class InterviewRecordListQuery
         $query->where(
             function (Builder $keywordQuery) use ($keyword): void {
                 $keywordQuery
-                    ->where('interview_type', 'like', '%'.$keyword.'%')
-                    ->orWhere('memo', 'like', '%'.$keyword.'%')
-                    ->orWhere('next_action', 'like', '%'.$keyword.'%')
+                    ->whereLike('interview_type', '%'.$keyword.'%')
+                    ->orWhereLike('memo', '%'.$keyword.'%')
+                    ->orWhereLike('next_action', '%'.$keyword.'%')
                     ->orWhereHas(
                         'student',
                         function (Builder $studentQuery) use ($keyword): void {
                             $studentQuery
-                                ->where('student_no', 'like', '%'.$keyword.'%')
-                                ->orWhere(
+                                ->whereLike('student_no', '%'.$keyword.'%')
+                                ->orWhereLike(
                                     'student_name',
-                                    'like',
                                     '%'.$keyword.'%',
                                 );
                         },
@@ -115,8 +113,8 @@ final class InterviewRecordListQuery
                         'teacher.user',
                         function (Builder $userQuery) use ($keyword): void {
                             $userQuery
-                                ->where('name', 'like', '%'.$keyword.'%')
-                                ->orWhere('email', 'like', '%'.$keyword.'%');
+                                ->whereLike('name', '%'.$keyword.'%')
+                                ->orWhereLike('email', '%'.$keyword.'%');
                         },
                     );
             },
@@ -126,11 +124,10 @@ final class InterviewRecordListQuery
     /**
      * 生徒、教員、面談種別の検索条件を適用する。
      *
-     * @param Builder<InterviewRecord> $query 面談記録クエリ
-     * @param int|null $studentId 生徒ID
-     * @param int|null $teacherId 教員ID
-     * @param string|null $interviewType 面談種別
-     *
+     * @param  Builder<InterviewRecord>  $query  面談記録クエリ
+     * @param  int|null  $studentId  生徒ID
+     * @param  int|null  $teacherId  教員ID
+     * @param  string|null  $interviewType  面談種別
      * @return void 戻り値なし
      */
     private function applyExactFilters(
@@ -148,9 +145,8 @@ final class InterviewRecordListQuery
         }
 
         if ($interviewType !== null) {
-            $query->where(
+            $query->whereLike(
                 'interview_type',
-                'like',
                 '%'.$interviewType.'%',
             );
         }

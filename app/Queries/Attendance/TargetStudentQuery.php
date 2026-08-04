@@ -12,7 +12,7 @@ final class TargetStudentQuery
     /**
      * 授業の学年・クラスに一致する在籍生徒を取得する。
      *
-     * @param Course $course 対象授業
+     * @param  Course  $course  対象授業
      * @return Collection<int, Student>
      */
     public function execute(Course $course): Collection
@@ -43,7 +43,7 @@ final class TargetStudentQuery
     /**
      * 授業の学年・クラスに一致する在籍生徒数を返す。
      *
-     * @param Course $course 対象授業
+     * @param  Course  $course  対象授業
      * @return int 取得した整数
      */
     public function count(Course $course): int

@@ -19,7 +19,7 @@ final readonly class ExternalLinkIndexDataQuery
     /**
      * 外部リンク一覧の検索処理を受け取る。
      *
-     * @param ExternalLinkListQuery $listQuery 外部リンク一覧の検索処理
+     * @param  ExternalLinkListQuery  $listQuery  外部リンク一覧の検索処理
      */
     public function __construct(
         private ExternalLinkListQuery $listQuery,
@@ -28,10 +28,10 @@ final readonly class ExternalLinkIndexDataQuery
     /**
      * 外部リンク一覧画面の表示データを取得する。
      *
-     * @param string $keyword 検索キーワード
-     * @param ExternalLinkType|null $linkType 外部リンク種別
-     * @param ExternalLinkScopeType|null $scopeType 公開範囲種別
-     * @param MasterStatus|null $status 状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ExternalLinkType|null  $linkType  外部リンク種別
+     * @param  ExternalLinkScopeType|null  $scopeType  公開範囲種別
+     * @param  MasterStatus|null  $status  状態
      * @return ExternalLinkIndexData 外部リンク一覧画面の表示データ
      */
     public function execute(

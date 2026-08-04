@@ -13,11 +13,11 @@ final class StudentListQuery
     /**
      * 管理者向け生徒一覧を取得する。
      *
-     * @param ?string $keyword 検索キーワード
-     * @param ?Grade $grade 学年
-     * @param ?string $affiliation 所属条件
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?StudentStatus $status 設定する状態
+     * @param  ?string  $keyword  検索キーワード
+     * @param  ?Grade  $grade  学年
+     * @param  ?string  $affiliation  所属条件
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?StudentStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, Student>
      */
     public function execute(
@@ -38,27 +38,23 @@ final class StudentListQuery
                     $query->where(
                         function (Builder $keywordQuery) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'student_no',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'student_name',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'partner_school',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
                                 ->orWhereHas(
                                     'user',
                                     function (Builder $userQuery) use ($keyword): void {
-                                        $userQuery->where(
+                                        $userQuery->whereLike(
                                             'email',
-                                            'like',
                                             '%'.$keyword.'%',
                                         );
                                     },
@@ -76,9 +72,8 @@ final class StudentListQuery
             )
             ->when(
                 $affiliation !== null,
-                fn (Builder $query): Builder => $query->where(
+                fn (Builder $query): Builder => $query->whereLike(
                     'affiliation',
-                    'like',
                     '%'.$affiliation.'%',
                 ),
             )

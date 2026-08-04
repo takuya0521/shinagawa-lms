@@ -13,8 +13,8 @@ final class TimetableQuery
     /**
      * 生徒本人の学年・クラスに対応する週間時間割を取得する。
      *
-     * @param Student $student 対象生徒
-     * @param int $academicYear 対象年度
+     * @param  Student  $student  対象生徒
+     * @param  int  $academicYear  対象年度
      * @return Collection<int, TimetableSlot>
      */
     public function execute(

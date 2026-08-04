@@ -17,7 +17,7 @@ final readonly class CourseIndexDataQuery
     /**
      * 授業一覧検索処理を受け取る。
      *
-     * @param CourseListQuery $courseListQuery 授業一覧の検索処理
+     * @param  CourseListQuery  $courseListQuery  授業一覧の検索処理
      */
     public function __construct(
         private CourseListQuery $courseListQuery,
@@ -26,11 +26,11 @@ final readonly class CourseIndexDataQuery
     /**
      * 指定された検索条件で授業一覧画面の表示データを取得する。
      *
-     * @param string $keyword キーワード
-     * @param int|null $academicYear 年度
-     * @param Grade|null $grade 学年
-     * @param int|null $classGroupId クラスID
-     * @param MasterStatus|null $status 状態
+     * @param  string  $keyword  キーワード
+     * @param  int|null  $academicYear  年度
+     * @param  Grade|null  $grade  学年
+     * @param  int|null  $classGroupId  クラスID
+     * @param  MasterStatus|null  $status  状態
      * @return CourseIndexData 授業一覧画面の表示データ
      */
     public function execute(

@@ -17,7 +17,7 @@ final class VisibleAnnouncementQuery
     /**
      * 閲覧範囲を適用する処理を受け取る。
      *
-     * @param AnnouncementVisibilityScope $visibilityScope ユーザー別の公開対象条件を適用する処理
+     * @param  AnnouncementVisibilityScope  $visibilityScope  ユーザー別の公開対象条件を適用する処理
      */
     public function __construct(
         private readonly AnnouncementVisibilityScope $visibilityScope,
@@ -26,11 +26,11 @@ final class VisibleAnnouncementQuery
     /**
      * ログインユーザーが閲覧できる掲載中のお知らせを取得する。
      *
-     * @param User $user 閲覧するログインユーザー
-     * @param string $keyword タイトル・本文を対象とする検索語
-     * @param AnnouncementNoticeType|null $noticeType お知らせ種別
-     * @param bool|null $importantOnly 重要なお知らせだけを表示するか
-     * @param int $perPage 1ページの表示件数
+     * @param  User  $user  閲覧するログインユーザー
+     * @param  string  $keyword  タイトル・本文を対象とする検索語
+     * @param  AnnouncementNoticeType|null  $noticeType  お知らせ種別
+     * @param  bool|null  $importantOnly  重要なお知らせだけを表示するか
+     * @param  int  $perPage  1ページの表示件数
      * @return LengthAwarePaginator<int, Announcement> 閲覧可能なお知らせ一覧
      */
     public function paginate(
@@ -71,8 +71,8 @@ final class VisibleAnnouncementQuery
     /**
      * ダッシュボード表示用の最新お知らせを取得する。
      *
-     * @param User $user 閲覧するログインユーザー
-     * @param int $limit 取得上限件数
+     * @param  User  $user  閲覧するログインユーザー
+     * @param  int  $limit  取得上限件数
      * @return Collection<int, Announcement> 閲覧可能な最新のお知らせ一覧
      */
     public function latest(
@@ -90,8 +90,8 @@ final class VisibleAnnouncementQuery
     /**
      * ログインユーザーが閲覧可能な単一のお知らせを取得する。
      *
-     * @param User $user 閲覧するログインユーザー
-     * @param int $announcementId 取得するお知らせID
+     * @param  User  $user  閲覧するログインユーザー
+     * @param  int  $announcementId  取得するお知らせID
      * @return Announcement 閲覧可能なお知らせ
      */
     public function findOrFail(
@@ -106,7 +106,7 @@ final class VisibleAnnouncementQuery
     /**
      * 公開期間とユーザー別公開対象条件を適用した基礎クエリを生成する。
      *
-     * @param User $user 閲覧するログインユーザー
+     * @param  User  $user  閲覧するログインユーザー
      * @return Builder<Announcement> 閲覧可能なお知らせの基礎クエリ
      */
     private function baseQuery(User $user): Builder
@@ -121,9 +121,8 @@ final class VisibleAnnouncementQuery
     /**
      * タイトルと本文へキーワード条件を適用する。
      *
-     * @param Builder<Announcement> $query お知らせ検索クエリ
-     * @param string $keyword 検索語
-     *
+     * @param  Builder<Announcement>  $query  お知らせ検索クエリ
+     * @param  string  $keyword  検索語
      * @return void 戻り値なし
      */
     private function applyKeywordFilter(
@@ -133,8 +132,8 @@ final class VisibleAnnouncementQuery
         $query->where(
             static function (Builder $keywordQuery) use ($keyword): void {
                 $keywordQuery
-                    ->where('title', 'like', "%{$keyword}%")
-                    ->orWhere('body', 'like', "%{$keyword}%");
+                    ->whereLike('title', "%{$keyword}%")
+                    ->orWhereLike('body', "%{$keyword}%");
             },
         );
     }

@@ -9,14 +9,18 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
+ * 授業実施モデルのテストデータを生成するFactory。
+ *
+ * 各テストで再現性のある標準値を用意し、必要に応じて属性を上書きして使用する。
+ *
  * @extends Factory<LessonSession>
  */
 final class LessonSessionFactory extends Factory
 {
     /**
-     * 授業実施日の初期値を返す。
+     * 授業実施の標準的なテストデータを返す。
      *
-     * @return array<string, mixed>
+     * @return array<string, mixed> モデル作成時に使用する属性値
      */
     public function definition(): array
     {

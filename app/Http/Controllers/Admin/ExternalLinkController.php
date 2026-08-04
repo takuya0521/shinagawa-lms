@@ -23,8 +23,8 @@ final class ExternalLinkController extends Controller
     /**
      * 外部リンク管理一覧を表示する。
      *
-     * @param ExternalLinkIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param ExternalLinkIndexDataQuery $indexDataQuery 一覧画面の表示データ取得処理
+     * @param  ExternalLinkIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  ExternalLinkIndexDataQuery  $indexDataQuery  一覧画面の表示データ取得処理
      * @return View 外部リンク一覧画面
      */
     public function index(
@@ -45,7 +45,7 @@ final class ExternalLinkController extends Controller
     /**
      * 外部リンク登録画面を表示する。
      *
-     * @param ExternalLinkFormDataQuery $formDataQuery フォーム表示データ取得処理
+     * @param  ExternalLinkFormDataQuery  $formDataQuery  フォーム表示データ取得処理
      * @return View 外部リンク登録画面
      */
     public function create(
@@ -60,8 +60,8 @@ final class ExternalLinkController extends Controller
     /**
      * 外部リンクを登録する。
      *
-     * @param StoreExternalLinkRequest $request 検証済み外部リンク情報を含むリクエスト
-     * @param CreateExternalLinkAction $createExternalLinkAction 外部リンク登録処理
+     * @param  StoreExternalLinkRequest  $request  検証済み外部リンク情報を含むリクエスト
+     * @param  CreateExternalLinkAction  $createExternalLinkAction  外部リンク登録処理
      * @return RedirectResponse 登録後の外部リンク編集画面へのリダイレクト
      */
     public function store(
@@ -85,8 +85,8 @@ final class ExternalLinkController extends Controller
     /**
      * 外部リンク編集画面を表示する。
      *
-     * @param ExternalLink $externalLink 編集対象の外部リンク
-     * @param ExternalLinkFormDataQuery $formDataQuery フォーム表示データ取得処理
+     * @param  ExternalLink  $externalLink  編集対象の外部リンク
+     * @param  ExternalLinkFormDataQuery  $formDataQuery  フォーム表示データ取得処理
      * @return View 外部リンク編集画面
      */
     public function edit(
@@ -102,9 +102,9 @@ final class ExternalLinkController extends Controller
     /**
      * 外部リンクを更新する。
      *
-     * @param UpdateExternalLinkRequest $request 検証済み外部リンク情報を含むリクエスト
-     * @param ExternalLink $externalLink 更新対象の外部リンク
-     * @param UpdateExternalLinkAction $updateExternalLinkAction 外部リンク更新処理
+     * @param  UpdateExternalLinkRequest  $request  検証済み外部リンク情報を含むリクエスト
+     * @param  ExternalLink  $externalLink  更新対象の外部リンク
+     * @param  UpdateExternalLinkAction  $updateExternalLinkAction  外部リンク更新処理
      * @return RedirectResponse 更新後の外部リンク編集画面へのリダイレクト
      */
     public function update(

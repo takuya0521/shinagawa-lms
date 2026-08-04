@@ -15,7 +15,7 @@ final class UpdateUserAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -25,10 +25,9 @@ final class UpdateUserAction
      * ユーザーと関連情報を更新する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param User $user 対象ユーザー
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  User  $user  対象ユーザー
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return User 処理結果
      */
     public function execute(
@@ -104,8 +103,7 @@ final class UpdateUserAction
      * ロールに応じて生徒情報を作成・更新・論理削除する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param User $user 対象ユーザー
+     * @param  User  $user  対象ユーザー
      * @return void 戻り値なし
      */
     private function synchronizeStudent(
@@ -152,8 +150,7 @@ final class UpdateUserAction
      * ロールに応じて教員情報を作成・更新・論理削除する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param User $user 対象ユーザー
+     * @param  User  $user  対象ユーザー
      * @return void 戻り値なし
      */
     private function synchronizeTeacher(
@@ -205,7 +202,7 @@ final class UpdateUserAction
     /**
      * パスワードを含めず、監査用のユーザー状態を返す。
      *
-     * @param User $user 対象ユーザー
+     * @param  User  $user  対象ユーザー
      * @return array<string, mixed>
      */
     private function snapshot(User $user): array
@@ -238,7 +235,7 @@ final class UpdateUserAction
     /**
      * 指定値を空文字を除外した文字列として取得する。
      *
-     * @param mixed $value 処理対象値
+     * @param  mixed  $value  処理対象値
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableString(mixed $value): ?string

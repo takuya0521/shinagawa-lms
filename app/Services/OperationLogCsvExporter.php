@@ -17,8 +17,8 @@ final class OperationLogCsvExporter
      *
      * @param  resource  $stream
      * @param  iterable<OperationLog>  $operationLogs
-     *
      * @return void 戻り値なし
+     *
      * @throws JsonException
      */
     public function write(
@@ -113,7 +113,7 @@ final class OperationLogCsvExporter
     /**
      * Excel数式として解釈され得る値を文字列へ固定する。
      *
-     * @param string $value 処理対象値
+     * @param  string  $value  処理対象値
      * @return string 取得した文字列
      */
     private function safeCell(

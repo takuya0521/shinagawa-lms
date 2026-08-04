@@ -19,13 +19,13 @@ final readonly class CourseTeacherAssignmentIndexData
     /**
      * 担当教員設定一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, Course> $courses 担当教員設定対象の授業一覧
-     * @param EloquentCollection<int, Teacher> $teachers 選択可能な教員一覧
-     * @param Collection<int, int> $academicYears 年度選択肢
-     * @param list<Grade> $grades 学年選択肢
-     * @param EloquentCollection<int, ClassGroup> $classGroups クラス選択肢
-     * @param EloquentCollection<int, Subject> $subjects 科目選択肢
-     * @param CourseTeacherAssignmentFilters $filters 選択中の検索条件
+     * @param  LengthAwarePaginator<int, Course>  $courses  担当教員設定対象の授業一覧
+     * @param  EloquentCollection<int, Teacher>  $teachers  選択可能な教員一覧
+     * @param  Collection<int, int>  $academicYears  年度選択肢
+     * @param  list<Grade>  $grades  学年選択肢
+     * @param  EloquentCollection<int, ClassGroup>  $classGroups  クラス選択肢
+     * @param  EloquentCollection<int, Subject>  $subjects  科目選択肢
+     * @param  CourseTeacherAssignmentFilters  $filters  選択中の検索条件
      */
     public function __construct(
         public LengthAwarePaginator $courses,

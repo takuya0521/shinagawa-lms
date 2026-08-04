@@ -21,20 +21,20 @@ final readonly class AttendanceIndexData
     /**
      * 出欠一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, AttendanceRecord> $attendanceRecords 出欠記録一覧
-     * @param AttendanceStatistics $statistics 指定条件の出欠集計
-     * @param Collection<int, Student> $students 生徒選択肢
-     * @param Collection<int, Course> $courses 授業選択肢
-     * @param Collection<int, ClassGroup> $classGroups クラス選択肢
-     * @param list<Grade> $grades 学年選択肢
-     * @param list<AttendanceStatus> $attendanceStatuses 出欠区分選択肢
-     * @param CarbonImmutable $dateFrom 集計開始日
-     * @param CarbonImmutable $dateTo 集計終了日
-     * @param int|null $selectedStudentId 選択中の生徒ID
-     * @param int|null $selectedCourseId 選択中の授業ID
-     * @param Grade|null $selectedGrade 選択中の学年
-     * @param int|null $selectedClassGroupId 選択中のクラスID
-     * @param AttendanceStatus|null $selectedAttendanceStatus 選択中の出欠区分
+     * @param  LengthAwarePaginator<int, AttendanceRecord>  $attendanceRecords  出欠記録一覧
+     * @param  AttendanceStatistics  $statistics  指定条件の出欠集計
+     * @param  Collection<int, Student>  $students  生徒選択肢
+     * @param  Collection<int, Course>  $courses  授業選択肢
+     * @param  Collection<int, ClassGroup>  $classGroups  クラス選択肢
+     * @param  list<Grade>  $grades  学年選択肢
+     * @param  list<AttendanceStatus>  $attendanceStatuses  出欠区分選択肢
+     * @param  CarbonImmutable  $dateFrom  集計開始日
+     * @param  CarbonImmutable  $dateTo  集計終了日
+     * @param  int|null  $selectedStudentId  選択中の生徒ID
+     * @param  int|null  $selectedCourseId  選択中の授業ID
+     * @param  Grade|null  $selectedGrade  選択中の学年
+     * @param  int|null  $selectedClassGroupId  選択中のクラスID
+     * @param  AttendanceStatus|null  $selectedAttendanceStatus  選択中の出欠区分
      */
     public function __construct(
         public LengthAwarePaginator $attendanceRecords,

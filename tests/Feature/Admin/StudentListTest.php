@@ -11,10 +11,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け生徒一覧画面を確認するフィーチャーテスト。
+ *
+ * 一覧表示、キーワード検索、クラス・状態絞り込み、権限制御を検証する。
+ */
 final class StudentListTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が生徒一覧を閲覧できることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれることを確認する。
+     */
     public function test_admin_can_view_student_list(): void
     {
         $admin = $this->createAdmin();
@@ -33,6 +45,13 @@ final class StudentListTest extends TestCase
             ->assertSee($student->user->email);
     }
 
+    /**
+     * 教員が管理者向け生徒一覧を閲覧できないことを確認する。
+     *
+     * 前提: ユーザーなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.index`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_view_student_list(): void
     {
         $teacher = User::factory()->create([
@@ -47,6 +66,13 @@ final class StudentListTest extends TestCase
         $response->assertForbidden();
     }
 
+    /**
+     * 管理者が氏名や生徒番号のキーワードで生徒を検索できることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれる、表示対象外の内容がレスポンスに含まれないことを確認する。
+     */
     public function test_admin_can_search_student_by_keyword(): void
     {
         $admin = $this->createAdmin();
@@ -73,6 +99,13 @@ final class StudentListTest extends TestCase
             ->assertDontSee('別の生徒');
     }
 
+    /**
+     * 管理者がクラスで生徒を絞り込めることを確認する。
+     *
+     * 前提: クラス、生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれる、表示対象外の内容がレスポンスに含まれないことを確認する。
+     */
     public function test_admin_can_filter_students_by_class_group(): void
     {
         $admin = $this->createAdmin();
@@ -109,6 +142,13 @@ final class StudentListTest extends TestCase
             ->assertDontSee('午後クラス生徒');
     }
 
+    /**
+     * 管理者が在籍状態で生徒を絞り込めることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれる、表示対象外の内容がレスポンスに含まれないことを確認する。
+     */
     public function test_admin_can_filter_students_by_status(): void
     {
         $admin = $this->createAdmin();
@@ -135,6 +175,9 @@ final class StudentListTest extends TestCase
             ->assertDontSee('在籍中生徒');
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function createAdmin(): User
     {
         return User::factory()->create([

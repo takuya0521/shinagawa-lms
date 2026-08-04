@@ -9,9 +9,10 @@ use App\Enums\MasterStatus;
 use App\Models\LessonSession;
 use App\Models\TimetableSlot;
 use App\Queries\Attendance\TargetStudentQuery;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * 当日の時間割と出欠登録状況を取得する。
@@ -21,7 +22,7 @@ final readonly class TodayLessonSummaryQuery
     /**
      * 必要な検索処理を受け取る。
      *
-     * @param TargetStudentQuery $targetStudentQuery 授業対象の在籍生徒数を取得する検索処理
+     * @param  TargetStudentQuery  $targetStudentQuery  授業対象の在籍生徒数を取得する検索処理
      */
     public function __construct(
         private TargetStudentQuery $targetStudentQuery,
@@ -30,9 +31,9 @@ final readonly class TodayLessonSummaryQuery
     /**
      * 指定日の授業と出欠登録状況を集計する。
      *
-     * @param CarbonInterface $today 集計対象日
-     * @param int $academicYear 集計対象日が属する年度
-     * @param int|null $teacherId 指定時は担当教員の授業だけへ絞り込む
+     * @param  CarbonInterface  $today  集計対象日
+     * @param  int  $academicYear  集計対象日が属する年度
+     * @param  int|null  $teacherId  指定時は担当教員の授業だけへ絞り込む
      * @return TodayLessonSummary 当日の授業集計結果
      */
     public function execute(
@@ -88,16 +89,16 @@ final readonly class TodayLessonSummaryQuery
     /**
      * 指定日の有効な時間割枠を取得する。
      *
-     * @param CarbonInterface $today 集計対象日
-     * @param int $academicYear 集計対象日が属する年度
-     * @param int|null $teacherId 指定時は担当教員の授業だけへ絞り込む
-     * @return \Illuminate\Database\Eloquent\Collection<int, TimetableSlot> 時限順の時間割枠一覧
+     * @param  CarbonInterface  $today  集計対象日
+     * @param  int  $academicYear  集計対象日が属する年度
+     * @param  int|null  $teacherId  指定時は担当教員の授業だけへ絞り込む
+     * @return Collection<int, TimetableSlot> 時限順の時間割枠一覧
      */
     private function slots(
         CarbonInterface $today,
         int $academicYear,
         ?int $teacherId,
-    ): \Illuminate\Database\Eloquent\Collection {
+    ): Collection {
         $dayOfWeek = DayOfWeek::tryFrom($today->dayOfWeekIso);
 
         return TimetableSlot::query()

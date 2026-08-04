@@ -15,12 +15,12 @@ final class TimetableSlotListQuery
     /**
      * 管理画面へ表示する時間割一覧を取得する。
      *
-     * @param string $keyword 検索キーワード
-     * @param ?int $academicYear 対象年度
-     * @param ?Grade $grade 学年
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?DayOfWeek $dayOfWeek 曜日
-     * @param ?MasterStatus $status 設定する状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ?int  $academicYear  対象年度
+     * @param  ?Grade  $grade  学年
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?DayOfWeek  $dayOfWeek  曜日
+     * @param  ?MasterStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, TimetableSlot>
      */
     public function execute(
@@ -53,9 +53,9 @@ final class TimetableSlotListQuery
     /**
      * 指定された年度・学年・クラスの週間時間割を取得する。
      *
-     * @param int $academicYear 対象年度
-     * @param Grade $grade 学年
-     * @param int $classGroupId 対象データの識別子
+     * @param  int  $academicYear  対象年度
+     * @param  Grade  $grade  学年
+     * @param  int  $classGroupId  対象データの識別子
      * @return Collection<int, TimetableSlot>
      */
     public function weekly(
@@ -81,12 +81,12 @@ final class TimetableSlotListQuery
     /**
      * 時間割の絞り込み条件を適用したクエリを返す。
      *
-     * @param string $keyword 検索キーワード
-     * @param ?int $academicYear 対象年度
-     * @param ?Grade $grade 学年
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?DayOfWeek $dayOfWeek 曜日
-     * @param ?MasterStatus $status 設定する状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ?int  $academicYear  対象年度
+     * @param  ?Grade  $grade  学年
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?DayOfWeek  $dayOfWeek  曜日
+     * @param  ?MasterStatus  $status  設定する状態
      * @return Builder<TimetableSlot>
      */
     private function filteredQuery(
@@ -119,9 +119,8 @@ final class TimetableSlotListQuery
                             Builder $keywordQuery,
                         ) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'courses.course_name',
-                                    'like',
                                     "%{$keyword}%",
                                 )
                                 ->orWhereHas(
@@ -130,14 +129,12 @@ final class TimetableSlotListQuery
                                         Builder $subjectQuery,
                                     ) use ($keyword): void {
                                         $subjectQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'subject_code',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'subject_name',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },
@@ -148,14 +145,12 @@ final class TimetableSlotListQuery
                                         Builder $userQuery,
                                     ) use ($keyword): void {
                                         $userQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'name',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'email',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },

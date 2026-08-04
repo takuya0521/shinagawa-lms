@@ -18,9 +18,9 @@ final class EvaluationController extends Controller
     /**
      * 担当授業の評価一覧を表示する。
      *
-     * @param EvaluationIndexRequest $request HTTPリクエスト
-     * @param TeacherContextService $teacherContextService 共通サービス
-     * @param FinalEvaluationListQuery $finalEvaluationListQuery データ取得処理
+     * @param  EvaluationIndexRequest  $request  HTTPリクエスト
+     * @param  TeacherContextService  $teacherContextService  共通サービス
+     * @param  FinalEvaluationListQuery  $finalEvaluationListQuery  データ取得処理
      * @return View 表示する画面
      */
     public function index(

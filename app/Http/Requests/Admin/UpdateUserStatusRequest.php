@@ -38,7 +38,7 @@ final class UpdateUserStatusRequest extends FormRequest
     /**
      * ログイン中の管理者自身が利用停止されないことを検証する。
      *
-     * @param Validator $validator 検証処理
+     * @param  Validator  $validator  検証処理
      * @return void 戻り値なし
      */
     public function withValidator(Validator $validator): void

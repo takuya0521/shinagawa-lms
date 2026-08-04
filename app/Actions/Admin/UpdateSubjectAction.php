@@ -12,7 +12,7 @@ final class UpdateSubjectAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -22,10 +22,9 @@ final class UpdateSubjectAction
      * 科目を更新する。
      *
      * @param  array<string, mixed>  $attributes
-     *
-     * @param Subject $subject 対象科目
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  Subject  $subject  対象科目
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return Subject 処理結果
      */
     public function execute(
@@ -66,7 +65,7 @@ final class UpdateSubjectAction
     /**
      * 操作ログへ記録するスナップショットを生成する。
      *
-     * @param Subject $subject 対象科目
+     * @param  Subject  $subject  対象科目
      * @return array<string, mixed>
      */
     private function snapshot(Subject $subject): array

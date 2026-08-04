@@ -13,7 +13,7 @@ final class StudentDetailQuery
     /**
      * 生徒詳細画面に表示する直近情報を取得する。
      *
-     * @param Student $student 対象生徒
+     * @param  Student  $student  対象生徒
      * @return array{
      *     recentEvaluations: Collection<int, FinalEvaluation>,
      *     recentInterviews: Collection<int, InterviewRecord>

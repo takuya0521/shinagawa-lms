@@ -14,10 +14,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け授業管理機能を確認するフィーチャーテスト。
+ *
+ * 画面表示、登録・更新、検索・絞り込み、マスタ選択制御、URL検証、権限制御を検証する。
+ */
 final class CourseManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が授業一覧を閲覧できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_course_list(): void
     {
         $admin = $this->createUser(
@@ -48,6 +60,13 @@ final class CourseManagementTest extends TestCase
             );
     }
 
+    /**
+     * 管理者が授業登録画面を表示できることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.courses.create`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_course_create_page(): void
     {
         $admin = $this->createUser(
@@ -63,6 +82,13 @@ final class CourseManagementTest extends TestCase
             ->assertSeeText('担当教員');
     }
 
+    /**
+     * 管理者が授業編集画面を表示できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.edit`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、必要な内容がレスポンスに含まれることを確認する。
+     */
     public function test_admin_can_view_course_edit_page(): void
     {
         $admin = $this->createUser(
@@ -86,6 +112,13 @@ final class CourseManagementTest extends TestCase
             ->assertSee($course->course_name);
     }
 
+    /**
+     * 管理者が授業を登録できることを確認する。
+     *
+     * 前提: 科目、クラス、教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_create_course(): void
     {
         $admin = $this->createUser(
@@ -134,6 +167,13 @@ final class CourseManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 同一対象の授業を重複登録できないことを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_duplicate_course_cannot_be_created(): void
     {
         $admin = $this->createUser(
@@ -170,6 +210,13 @@ final class CourseManagementTest extends TestCase
             );
     }
 
+    /**
+     * 授業登録時に無効な科目を選択できないことを確認する。
+     *
+     * 前提: 科目、クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_inactive_subject_cannot_be_selected_when_creating_course(): void
     {
         $admin = $this->createUser(
@@ -198,6 +245,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * 授業登録時に無効なクラスを選択できないことを確認する。
+     *
+     * 前提: 科目、クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_inactive_class_group_cannot_be_selected_when_creating_course(): void
     {
         $admin = $this->createUser(
@@ -225,6 +279,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * 授業登録時に無効な教員を選択できないことを確認する。
+     *
+     * 前提: 科目、クラス、教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_inactive_teacher_cannot_be_selected_when_creating_course(): void
     {
         $admin = $this->createUser(
@@ -254,6 +315,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * 授業登録時に利用停止中の教員を選択できないことを確認する。
+     *
+     * 前提: 科目、クラス、教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_suspended_teacher_cannot_be_selected_when_creating_course(): void
     {
         $admin = $this->createUser(
@@ -285,6 +353,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * 授業登録時に論理削除済みの教員を選択できないことを確認する。
+     *
+     * 前提: 科目、クラス、教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_soft_deleted_teacher_cannot_be_selected_when_creating_course(): void
     {
         $admin = $this->createUser(
@@ -314,6 +389,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * Google Classroom以外の不正なURLを授業へ登録できないことを確認する。
+     *
+     * 前提: 科目、クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_invalid_google_classroom_url_cannot_be_registered(): void
     {
         $admin = $this->createUser(
@@ -343,6 +425,13 @@ final class CourseManagementTest extends TestCase
         );
     }
 
+    /**
+     * 管理者が授業情報を更新できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_update_course(): void
     {
         $admin = $this->createUser(
@@ -394,6 +483,13 @@ final class CourseManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 授業更新時は現在設定中の無効マスタを保持できることを確認する。
+     *
+     * 前提: 科目、クラス、教員、授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_current_inactive_masters_can_be_retained_when_updating(): void
     {
         $admin = $this->createUser(
@@ -460,6 +556,13 @@ final class CourseManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者がキーワードで授業を検索できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_admin_can_search_courses_by_keyword(): void
     {
         $admin = $this->createUser(
@@ -490,6 +593,13 @@ final class CourseManagementTest extends TestCase
             );
     }
 
+    /**
+     * 管理者が年度・学年・クラス等で授業を絞り込めることを確認する。
+     *
+     * 前提: クラス、授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_admin_can_filter_courses(): void
     {
         $admin = $this->createUser(
@@ -534,6 +644,13 @@ final class CourseManagementTest extends TestCase
             );
     }
 
+    /**
+     * 教員が授業管理機能を利用できないことを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.courses.index`へGETリクエスト、`admin.courses.create`へGETリクエスト、`admin.courses.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_courses(): void
     {
         $teacherUser = $this->createUser(
@@ -592,7 +709,7 @@ final class CourseManagementTest extends TestCase
     }
 
     /**
-     * 授業登録で利用する有効な入力値を返す。
+     * 授業登録・更新リクエストで使用する標準入力値を組み立てて返す。
      *
      * @param  array<string, mixed>  $overrides
      * @return array<string, mixed>
@@ -617,6 +734,9 @@ final class CourseManagementTest extends TestCase
         ];
     }
 
+    /**
+     * 指定したロールと状態を持つテスト用ユーザーを作成して返す。
+     */
     private function createUser(
         UserRole $role,
     ): User {

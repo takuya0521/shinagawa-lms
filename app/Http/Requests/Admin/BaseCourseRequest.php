@@ -146,8 +146,8 @@ abstract class BaseCourseRequest extends FormRequest
     /**
      * 有効なマスタ、または更新前に選択されていたマスタを許可する存在確認規則を返す。
      *
-     * @param string $table 確認対象のテーブル名
-     * @param int|null $currentId 更新前に選択されていたID
+     * @param  string  $table  確認対象のテーブル名
+     * @param  int|null  $currentId  更新前に選択されていたID
      * @return Exists 存在確認規則
      */
     private function activeMasterExistsRule(
@@ -175,7 +175,7 @@ abstract class BaseCourseRequest extends FormRequest
     /**
      * 年度・クラス・学年・科目内で授業名が重複しないことを確認する規則を返す。
      *
-     * @param Course|null $course 更新対象の授業。登録時はnull
+     * @param  Course|null  $course  更新対象の授業。登録時はnull
      * @return Unique 一意性確認規則
      */
     private function courseNameUniqueRule(?Course $course): Unique
@@ -198,7 +198,7 @@ abstract class BaseCourseRequest extends FormRequest
     /**
      * 入力値の前後空白を除去し、空文字の場合はnullを返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return string|null 整形後の文字列
      */
     private function nullableTrimmed(string $key): ?string

@@ -16,10 +16,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
+/**
+ * 生徒向け外部リンク表示機能を確認するフィーチャーテスト。
+ *
+ * 全体・ロール・クラス・授業・個人の公開範囲、専用リンク画面、権限制御を検証する。
+ */
 final class ExternalLinkTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * テストで変更した固定日時などのグローバル状態を元に戻す。
+     */
     protected function tearDown(): void
     {
         Carbon::setTestNow();
@@ -27,6 +35,13 @@ final class ExternalLinkTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * 生徒に全体・ロール・クラス・授業・個人の公開範囲に一致する外部リンクが表示されることを確認する。
+     *
+     * 前提: クラス、生徒、授業など、検証に必要なテストデータを準備する。
+     * 処理: `student.external-resources`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_student_sees_links_matching_global_role_class_course_and_student_scopes(): void
     {
         Carbon::setTestNow('2026-07-29 10:00:00');
@@ -70,6 +85,13 @@ final class ExternalLinkTest extends TestCase
             ->assertDontSeeText('無効Chat');
     }
 
+    /**
+     * 生徒が年間予定と面談申込フォームのリンクを閲覧できることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `student.annual-schedule`へGETリクエスト、`student.interview-request`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、必要な内容がレスポンスに含まれることを確認する。
+     */
     public function test_student_can_view_calendar_and_interview_form_links(): void
     {
         $student = Student::factory()->create();
@@ -105,6 +127,13 @@ final class ExternalLinkTest extends TestCase
             ->assertSee($form->url, false);
     }
 
+    /**
+     * 教員が生徒向け外部サービス画面へアクセスできないことを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `student.annual-schedule`へGETリクエスト、`student.interview-request`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_access_student_external_services(): void
     {
         $teacher = Teacher::factory()->create();
@@ -117,6 +146,9 @@ final class ExternalLinkTest extends TestCase
             ->assertForbidden();
     }
 
+    /**
+     * 指定した公開範囲とリンク種別を持つテスト用外部リンクを作成して返す。
+     */
     private function link(
         string $name,
         ExternalLinkType $linkType,

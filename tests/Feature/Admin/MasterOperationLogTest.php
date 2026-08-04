@@ -19,10 +19,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 各種マスタ操作の監査ログを確認するフィーチャーテスト。
+ *
+ * ユーザー、クラス、科目、授業、時間割の登録・更新・状態変更が安全に記録されることを検証する。
+ */
 final class MasterOperationLogTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * ユーザーの登録・更新・状態変更が、パスワードを含めず操作ログへ記録されることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.users.store`へPOSTリクエスト、`admin.users.update`へPUTリクエスト、`admin.users.status.update`へPATCHリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、取得値が期待値と一致する、対象条件が偽になることを確認する。
+     */
     public function test_user_create_update_and_status_change_are_logged_without_password(): void
     {
         $admin = $this->admin();
@@ -115,6 +127,13 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * 生徒プロフィールの変更内容がユーザー更新ログへ含まれることを確認する。
+     *
+     * 前提: クラス、生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、取得値が期待値と一致することを確認する。
+     */
     public function test_student_profile_update_is_included_in_user_log(): void
     {
         $admin = $this->admin();
@@ -164,6 +183,13 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * 教員プロフィールの変更内容がユーザー更新ログへ含まれることを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.teachers.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、取得値が期待値と一致することを確認する。
+     */
     public function test_teacher_profile_update_is_included_in_user_log(): void
     {
         $admin = $this->admin();
@@ -205,6 +231,13 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * クラスの登録・更新が操作ログへ記録されることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.class-groups.store`へPOSTリクエスト、`admin.class-groups.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、取得値が期待値と一致することを確認する。
+     */
     public function test_class_group_create_and_update_are_logged(): void
     {
         $admin = $this->admin();
@@ -255,6 +288,13 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * 科目と授業の登録・更新が操作ログへ記録されることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.subjects.store`へPOSTリクエスト、`admin.subjects.update`へPUTリクエスト、`admin.courses.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、取得値が期待値と一致することを確認する。
+     */
     public function test_subject_and_course_create_update_are_logged(): void
     {
         $admin = $this->admin();
@@ -349,6 +389,13 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * 時間割枠の登録・更新が操作ログへ記録されることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエスト、`admin.timetable-slots.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、取得値が期待値と一致することを確認する。
+     */
     public function test_timetable_slot_create_and_update_are_logged(): void
     {
         $admin = $this->admin();
@@ -407,6 +454,9 @@ final class MasterOperationLogTest extends TestCase
         );
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([

@@ -19,13 +19,13 @@ final readonly class ExternalLinkFormData
     /**
      * 外部リンクフォームの表示データを生成する。
      *
-     * @param list<ExternalLinkType> $linkTypes 外部リンク種別選択肢
-     * @param list<ExternalLinkScopeType> $scopeTypes 公開範囲種別選択肢
-     * @param list<MasterStatus> $statuses 状態選択肢
-     * @param list<UserRole> $roles ロール選択肢
-     * @param Collection<int, ClassGroup> $classGroups クラス選択肢
-     * @param Collection<int, Course> $courses 授業選択肢
-     * @param Collection<int, Student> $students 生徒選択肢
+     * @param  list<ExternalLinkType>  $linkTypes  外部リンク種別選択肢
+     * @param  list<ExternalLinkScopeType>  $scopeTypes  公開範囲種別選択肢
+     * @param  list<MasterStatus>  $statuses  状態選択肢
+     * @param  list<UserRole>  $roles  ロール選択肢
+     * @param  Collection<int, ClassGroup>  $classGroups  クラス選択肢
+     * @param  Collection<int, Course>  $courses  授業選択肢
+     * @param  Collection<int, Student>  $students  生徒選択肢
      */
     public function __construct(
         public array $linkTypes,

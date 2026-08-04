@@ -3,6 +3,7 @@
 use App\Enums\MasterStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->string('course_name', 100)
                 ->comment('授業名');
 
-            $table->year('academic_year')
+            $table->smallInteger('academic_year')
                 ->comment('年度');
 
             $table->string('google_classroom_url', 500)
@@ -83,6 +84,11 @@ return new class extends Migration
                 'idx_courses_teacher_year',
             );
         });
+
+        // 画面入力規則と同じ年度範囲をDB側でも保証する。
+        DB::statement(
+            'ALTER TABLE courses ADD CONSTRAINT chk_courses_academic_year CHECK (academic_year BETWEEN 2000 AND 2100)',
+        );
     }
 
     /**

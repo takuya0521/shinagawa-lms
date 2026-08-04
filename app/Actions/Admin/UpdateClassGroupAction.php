@@ -12,7 +12,7 @@ final class UpdateClassGroupAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -22,10 +22,9 @@ final class UpdateClassGroupAction
      * クラスグループを更新する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param ClassGroup $classGroup 対象クラス
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  ClassGroup  $classGroup  対象クラス
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return ClassGroup 処理結果
      */
     public function execute(
@@ -71,7 +70,7 @@ final class UpdateClassGroupAction
     /**
      * 操作ログへ記録するスナップショットを生成する。
      *
-     * @param ClassGroup $classGroup 対象クラス
+     * @param  ClassGroup  $classGroup  対象クラス
      * @return array<string, mixed>
      */
     private function snapshot(ClassGroup $classGroup): array
@@ -87,7 +86,7 @@ final class UpdateClassGroupAction
     /**
      * 指定値を空文字を除外した文字列として取得する。
      *
-     * @param mixed $value 処理対象値
+     * @param  mixed  $value  処理対象値
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableString(mixed $value): ?string

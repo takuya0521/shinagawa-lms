@@ -4,8 +4,20 @@ namespace Tests\Feature\Architecture;
 
 use Tests\TestCase;
 
+/**
+ * 共通フィードバック表示の重複を防止するアーキテクチャテスト。
+ *
+ * 成功・状態メッセージが共通レイアウトだけで描画され、各画面に重複実装がないことを検証する。
+ */
 final class FeedbackRenderingConsistencyTest extends TestCase
 {
+    /**
+     * 状態・成功メッセージが共通レイアウトだけで描画されることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 取得値が期待値と一致することを確認する。
+     */
     public function test_status_and_success_flash_messages_are_rendered_only_by_the_common_layout(): void
     {
         $violations = [];

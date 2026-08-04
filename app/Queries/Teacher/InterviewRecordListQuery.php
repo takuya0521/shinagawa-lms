@@ -14,7 +14,7 @@ final class InterviewRecordListQuery
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param AssignedStudentQuery $assignedStudentQuery データ取得処理
+     * @param  AssignedStudentQuery  $assignedStudentQuery  データ取得処理
      */
     public function __construct(
         private readonly AssignedStudentQuery $assignedStudentQuery,
@@ -23,12 +23,12 @@ final class InterviewRecordListQuery
     /**
      * ログイン教員の担当生徒に関する面談履歴を取得する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param CarbonImmutable $dateFrom 検索開始日
-     * @param CarbonImmutable $dateTo 検索終了日
-     * @param ?string $keyword 検索キーワード
-     * @param ?int $studentId 対象生徒ID
-     * @param ?string $interviewType 面談種別
+     * @param  Teacher  $teacher  対象教員
+     * @param  CarbonImmutable  $dateFrom  検索開始日
+     * @param  CarbonImmutable  $dateTo  検索終了日
+     * @param  ?string  $keyword  検索キーワード
+     * @param  ?int  $studentId  対象生徒ID
+     * @param  ?string  $interviewType  面談種別
      * @return LengthAwarePaginator<int, InterviewRecord>
      */
     public function execute(
@@ -68,33 +68,28 @@ final class InterviewRecordListQuery
                     $query->where(
                         function (Builder $keywordQuery) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'interview_type',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'memo',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'next_action',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
                                 ->orWhereHas(
                                     'student',
                                     function (Builder $studentQuery) use ($keyword): void {
                                         $studentQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'student_no',
-                                                'like',
                                                 '%'.$keyword.'%',
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'student_name',
-                                                'like',
                                                 '%'.$keyword.'%',
                                             );
                                     },
@@ -112,9 +107,8 @@ final class InterviewRecordListQuery
             )
             ->when(
                 $interviewType !== null,
-                fn (Builder $query): Builder => $query->where(
+                fn (Builder $query): Builder => $query->whereLike(
                     'interview_type',
-                    'like',
                     '%'.$interviewType.'%',
                 ),
             )

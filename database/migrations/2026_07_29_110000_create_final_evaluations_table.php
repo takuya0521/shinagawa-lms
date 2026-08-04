@@ -4,6 +4,7 @@ use App\Enums\EvaluationStatus;
 use App\Enums\EvaluationTerm;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,7 +25,7 @@ return new class extends Migration
                 ->constrained()
                 ->restrictOnDelete();
 
-            $table->year('academic_year');
+            $table->smallInteger('academic_year');
 
             $table->string('term_name', 30)
                 ->default(EvaluationTerm::Annual->value)
@@ -46,7 +47,7 @@ return new class extends Migration
                 ->default(0)
                 ->comment('総合点');
 
-            $table->unsignedTinyInteger('grade_level')
+            $table->smallInteger('grade_level')
                 ->nullable()
                 ->comment('5段階評価');
 
@@ -91,6 +92,26 @@ return new class extends Migration
                 'idx_evaluations_student_year',
             );
         });
+
+        // 評価年度、各得点、5段階評価の許容範囲をDB側でも保証する。
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_academic_year CHECK (academic_year BETWEEN 2000 AND 2100)',
+        );
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_submission_score CHECK (submission_score BETWEEN 0 AND 100)',
+        );
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_attendance_score CHECK (attendance_score BETWEEN 0 AND 100)',
+        );
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_attitude_score CHECK (attitude_score BETWEEN 0 AND 100)',
+        );
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_total_score CHECK (total_score BETWEEN 0 AND 100)',
+        );
+        DB::statement(
+            'ALTER TABLE final_evaluations ADD CONSTRAINT chk_evaluations_grade_level CHECK (grade_level IS NULL OR grade_level BETWEEN 1 AND 5)',
+        );
     }
 
     /**

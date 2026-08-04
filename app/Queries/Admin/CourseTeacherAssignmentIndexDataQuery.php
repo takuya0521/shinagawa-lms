@@ -23,7 +23,7 @@ final class CourseTeacherAssignmentIndexDataQuery
     /**
      * 表示データ取得処理を生成する。
      *
-     * @param CourseTeacherAssignmentListQuery $listQuery 授業一覧の検索処理
+     * @param  CourseTeacherAssignmentListQuery  $listQuery  授業一覧の検索処理
      */
     public function __construct(
         private readonly CourseTeacherAssignmentListQuery $listQuery,
@@ -32,7 +32,7 @@ final class CourseTeacherAssignmentIndexDataQuery
     /**
      * 担当教員設定一覧画面の表示データを取得する。
      *
-     * @param CourseTeacherAssignmentFilters $filters 検索条件
+     * @param  CourseTeacherAssignmentFilters  $filters  検索条件
      * @return CourseTeacherAssignmentIndexData 担当教員設定一覧画面の表示データ
      */
     public function execute(
@@ -81,7 +81,7 @@ final class CourseTeacherAssignmentIndexDataQuery
     /**
      * 既存授業年度と現在年度周辺をまとめた年度選択肢を取得する。
      *
-     * @param int|null $selectedAcademicYear 現在選択中の年度
+     * @param  int|null  $selectedAcademicYear  現在選択中の年度
      * @return Collection<int, int> 降順に並べた年度一覧
      */
     private function academicYears(

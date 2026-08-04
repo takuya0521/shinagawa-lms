@@ -14,10 +14,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け外部リンク管理機能を確認するフィーチャーテスト。
+ *
+ * 一覧表示、公開範囲別登録、URL・公開範囲検証、更新、権限制御を検証する。
+ */
 final class ExternalLinkManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が外部リンク一覧を閲覧できることを確認する。
+     *
+     * 前提: 外部リンクなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.external-links.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_external_link_list(): void
     {
         $admin = $this->admin();
@@ -33,6 +45,13 @@ final class ExternalLinkManagementTest extends TestCase
             ->assertSeeText($externalLink->link_name);
     }
 
+    /**
+     * 管理者が全体公開の外部リンクを登録できることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.external-links.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_create_global_external_link(): void
     {
         $admin = $this->admin();
@@ -76,6 +95,13 @@ final class ExternalLinkManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者がロール単位・クラス単位の外部リンクを登録できることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.external-links.store`へPOSTリクエストを送信する。
+     * 期待結果: バリデーションエラーが発生しない、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_create_role_and_class_scoped_links(): void
     {
         $admin = $this->admin();
@@ -117,6 +143,13 @@ final class ExternalLinkManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * HTTPS以外のURLと不正な公開範囲が拒否されることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.external-links.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_non_https_url_and_invalid_scope_are_rejected(): void
     {
         $admin = $this->admin();
@@ -140,6 +173,13 @@ final class ExternalLinkManagementTest extends TestCase
             ]);
     }
 
+    /**
+     * 管理者が外部リンクを更新できることを確認する。
+     *
+     * 前提: 外部リンクなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.external-links.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_update_external_link(): void
     {
         $admin = $this->admin();
@@ -174,6 +214,13 @@ final class ExternalLinkManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 教員が外部リンク管理機能を利用できないことを確認する。
+     *
+     * 前提: 教員、外部リンクなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.external-links.index`へGETリクエスト、`admin.external-links.create`へGETリクエスト、`admin.external-links.edit`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_external_links(): void
     {
         $teacher = Teacher::factory()->create();
@@ -190,6 +237,9 @@ final class ExternalLinkManagementTest extends TestCase
             ->assertForbidden();
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([

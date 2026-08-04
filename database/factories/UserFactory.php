@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
+ * ユーザーモデルのテストデータを生成するFactory。
+ *
+ * 各テストで再現性のある標準値を用意し、必要に応じて属性を上書きして使用する。
+ *
  * @extends Factory<User>
  */
 class UserFactory extends Factory
@@ -20,9 +24,9 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
-     * モデル生成時の既定値を定義する。
+     * ユーザーの標準的なテストデータを返す。
      *
-     * @return array<string, mixed>
+     * @return array<string, mixed> モデル作成時に使用する属性値
      */
     public function definition(): array
     {

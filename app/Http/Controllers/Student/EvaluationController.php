@@ -16,8 +16,8 @@ final class EvaluationController extends Controller
     /**
      * 本人の確定済み成績一覧を表示する。
      *
-     * @param EvaluationIndexRequest $request HTTPリクエスト
-     * @param FinalEvaluationListQuery $finalEvaluationListQuery データ取得処理
+     * @param  EvaluationIndexRequest  $request  HTTPリクエスト
+     * @param  FinalEvaluationListQuery  $finalEvaluationListQuery  データ取得処理
      * @return View 表示する画面
      */
     public function index(

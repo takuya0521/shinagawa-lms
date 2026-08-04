@@ -42,7 +42,7 @@ final class AttendanceIndexRequest extends FormRequest
     /**
      * 基本検証後に追加の整合性検証を登録する。
      *
-     * @param Validator $validator 検証処理
+     * @param  Validator  $validator  検証処理
      * @return void 戻り値なし
      */
     public function withValidator(Validator $validator): void

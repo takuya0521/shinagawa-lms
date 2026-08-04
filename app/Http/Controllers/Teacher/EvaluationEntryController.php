@@ -22,10 +22,10 @@ final class EvaluationEntryController extends Controller
     /**
      * 担当授業の最終評価入力画面を表示する。
      *
-     * @param EvaluationEntryRequest $request HTTPリクエスト
-     * @param TeacherContextService $teacherContextService 共通サービス
-     * @param EvaluationEntryQuery $evaluationEntryQuery データ取得処理
-     * @param EvaluationCalculator $evaluationCalculator 評価計算サービス
+     * @param  EvaluationEntryRequest  $request  HTTPリクエスト
+     * @param  TeacherContextService  $teacherContextService  共通サービス
+     * @param  EvaluationEntryQuery  $evaluationEntryQuery  データ取得処理
+     * @param  EvaluationCalculator  $evaluationCalculator  評価計算サービス
      * @return View 表示する画面
      */
     public function edit(
@@ -94,9 +94,9 @@ final class EvaluationEntryController extends Controller
     /**
      * 担当授業の最終評価を一括保存する。
      *
-     * @param SaveEvaluationRequest $request HTTPリクエスト
-     * @param TeacherContextService $teacherContextService 共通サービス
-     * @param SaveEvaluationBulkAction $saveEvaluationBulkAction 業務処理
+     * @param  SaveEvaluationRequest  $request  HTTPリクエスト
+     * @param  TeacherContextService  $teacherContextService  共通サービス
+     * @param  SaveEvaluationBulkAction  $saveEvaluationBulkAction  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

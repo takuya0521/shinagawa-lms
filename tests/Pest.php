@@ -26,5 +26,6 @@ pest()->extend(TestCase::class)
 */
 
 expect()->extend('toBeOne', function () {
+    // 実値が整数1であることを共通の期待値として検証する。
     return $this->toBe(1);
 });

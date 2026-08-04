@@ -18,9 +18,9 @@ final class OperationLogCsvDownloadService
     /**
      * CSVダウンロード処理を生成する。
      *
-     * @param OperationLogListQuery $listQuery 操作ログ検索処理
-     * @param OperationLogCsvExporter $csvExporter CSV書き込み処理
-     * @param OperationLogWriter $operationLogWriter CSV出力の監査ログ記録処理
+     * @param  OperationLogListQuery  $listQuery  操作ログ検索処理
+     * @param  OperationLogCsvExporter  $csvExporter  CSV書き込み処理
+     * @param  OperationLogWriter  $operationLogWriter  CSV出力の監査ログ記録処理
      */
     public function __construct(
         private readonly OperationLogListQuery $listQuery,
@@ -31,10 +31,11 @@ final class OperationLogCsvDownloadService
     /**
      * 操作ログCSVのダウンロード応答を生成する。
      *
-     * @param User $actor CSV出力を実行した管理者
-     * @param OperationLogFilters $filters CSV出力へ適用する検索条件
-     * @param string|null $ipAddress 操作元IPアドレス
+     * @param  User  $actor  CSV出力を実行した管理者
+     * @param  OperationLogFilters  $filters  CSV出力へ適用する検索条件
+     * @param  string|null  $ipAddress  操作元IPアドレス
      * @return StreamedResponse CSVダウンロード応答
+     *
      * @throws ValidationException 出力上限を超えた場合
      */
     public function download(

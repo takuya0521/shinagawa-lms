@@ -14,11 +14,11 @@ final readonly class TeacherDashboardData
     /**
      * 教員ダッシュボードの表示データを生成する。
      *
-     * @param Teacher $teacher ログインユーザーに紐付く教員
-     * @param TodayLessonSummary $todayLessonSummary 当日の授業・出欠集計
-     * @param int $assignedCourseCount 担当中の有効な授業数
-     * @param int $evaluationPendingCount 未確定評価数
-     * @param Collection<int, Announcement> $announcements 閲覧可能な最新のお知らせ一覧
+     * @param  Teacher  $teacher  ログインユーザーに紐付く教員
+     * @param  TodayLessonSummary  $todayLessonSummary  当日の授業・出欠集計
+     * @param  int  $assignedCourseCount  担当中の有効な授業数
+     * @param  int  $evaluationPendingCount  未確定評価数
+     * @param  Collection<int, Announcement>  $announcements  閲覧可能な最新のお知らせ一覧
      */
     public function __construct(
         public Teacher $teacher,

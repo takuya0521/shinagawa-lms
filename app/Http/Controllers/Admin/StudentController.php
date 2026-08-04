@@ -24,8 +24,8 @@ final class StudentController extends Controller
     /**
      * 管理者向け生徒一覧を表示する。
      *
-     * @param StudentIndexRequest $request HTTPリクエスト
-     * @param StudentListQuery $query 検索処理
+     * @param  StudentIndexRequest  $request  HTTPリクエスト
+     * @param  StudentListQuery  $query  検索処理
      * @return View 表示する画面
      */
     public function index(
@@ -70,8 +70,8 @@ final class StudentController extends Controller
     /**
      * 生徒とログインアカウントを登録する。
      *
-     * @param StoreUserRequest $request HTTPリクエスト
-     * @param CreateUserAction $action 業務処理
+     * @param  StoreUserRequest  $request  HTTPリクエスト
+     * @param  CreateUserAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
@@ -99,8 +99,8 @@ final class StudentController extends Controller
     /**
      * 管理者向け生徒詳細を表示する。
      *
-     * @param Student $student 対象生徒
-     * @param StudentDetailQuery $detailQuery データ取得処理
+     * @param  Student  $student  対象生徒
+     * @param  StudentDetailQuery  $detailQuery  データ取得処理
      * @return View 表示する画面
      */
     public function show(
@@ -121,7 +121,7 @@ final class StudentController extends Controller
     /**
      * 生徒編集画面を表示する。
      *
-     * @param Student $student 対象生徒
+     * @param  Student  $student  対象生徒
      * @return View 表示する画面
      */
     public function edit(Student $student): View
@@ -143,9 +143,9 @@ final class StudentController extends Controller
     /**
      * 生徒とログインアカウントを更新する。
      *
-     * @param UpdateUserRequest $request HTTPリクエスト
-     * @param Student $student 対象生徒
-     * @param UpdateUserAction $action 業務処理
+     * @param  UpdateUserRequest  $request  HTTPリクエスト
+     * @param  Student  $student  対象生徒
+     * @param  UpdateUserAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
@@ -174,7 +174,7 @@ final class StudentController extends Controller
      * 新規登録時は有効なクラスのみ返す。
      * 編集時は、現在所属している無効クラスも選択肢へ残す。
      *
-     * @param ?int $currentClassGroupId 現在所属しているクラスID
+     * @param  ?int  $currentClassGroupId  現在所属しているクラスID
      * @return array<string, mixed>
      */
     private function formData(

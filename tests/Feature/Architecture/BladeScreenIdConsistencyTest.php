@@ -5,8 +5,20 @@ namespace Tests\Feature\Architecture;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
+/**
+ * Blade画面と設計書の画面ID対応を確認するアーキテクチャテスト。
+ *
+ * 各Bladeの表示IDが設計マップと一致し、表示IDを持つ画面が漏れなく管理されていることを検証する。
+ */
 final class BladeScreenIdConsistencyTest extends TestCase
 {
+    /**
+     * 各Bladeに設計書で定義された画面IDが1件だけ表示されることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 取得値が期待値と一致することを確認する。
+     */
     #[DataProvider('screenIdProvider')]
     public function test_blade_displays_the_screen_id_defined_by_the_design(
         string $relativePath,
@@ -28,6 +40,13 @@ final class BladeScreenIdConsistencyTest extends TestCase
         );
     }
 
+    /**
+     * 画面IDを表示する全Bladeが設計マップへ登録されていることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 取得値が期待値と一致することを確認する。
+     */
     public function test_every_blade_with_a_visible_screen_id_is_in_the_design_map(): void
     {
         $expectedPaths = array_keys(self::screenIdMap());
@@ -62,6 +81,8 @@ final class BladeScreenIdConsistencyTest extends TestCase
     }
 
     /**
+     * 設計書の画面IDマップをデータプロバイダー形式で1件ずつ返す。
+     *
      * @return iterable<string, array{string, string}>
      */
     public static function screenIdProvider(): iterable
@@ -72,6 +93,8 @@ final class BladeScreenIdConsistencyTest extends TestCase
     }
 
     /**
+     * Bladeファイルの相対パスと設計書上の画面IDの対応表を返す。
+     *
      * @return array<string, string>
      */
     private static function screenIdMap(): array

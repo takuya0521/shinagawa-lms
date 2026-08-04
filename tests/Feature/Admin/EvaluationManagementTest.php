@@ -16,10 +16,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け評価管理機能を確認するフィーチャーテスト。
+ *
+ * 評価済み・未評価一覧、絞り込み、訂正理由、操作ログ、権限制御を検証する。
+ */
 final class EvaluationManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が評価済みと未評価の生徒を一覧で確認できることを確認する。
+     *
+     * 前提: 最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `admin.evaluations.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_evaluated_and_missing_students(): void
     {
         [$course, $evaluatedStudent, $missingStudent, $teacher] = $this->evaluationContext();
@@ -44,6 +56,13 @@ final class EvaluationManagementTest extends TestCase
             ->assertSeeText('未入力');
     }
 
+    /**
+     * 管理者が未評価データだけを絞り込めることを確認する。
+     *
+     * 前提: 最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `admin.evaluations.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれる、表示対象外の内容がレスポンスに含まれないことを確認する。
+     */
     public function test_admin_can_filter_missing_evaluations(): void
     {
         [$course, $evaluatedStudent, $missingStudent, $teacher] = $this->evaluationContext();
@@ -79,6 +98,13 @@ final class EvaluationManagementTest extends TestCase
             );
     }
 
+    /**
+     * 管理者が最終評価を訂正する際に訂正理由が必須であることを確認する。
+     *
+     * 前提: 最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `admin.evaluations.update`へPUTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_admin_correction_requires_reason(): void
     {
         $evaluation = FinalEvaluation::factory()->create();
@@ -95,6 +121,13 @@ final class EvaluationManagementTest extends TestCase
             ->assertSessionHasErrors('correction_reason');
     }
 
+    /**
+     * 管理者が最終評価を訂正し、操作ログが記録されることを確認する。
+     *
+     * 前提: 最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `admin.evaluations.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、取得値が期待値と一致することを確認する。
+     */
     public function test_admin_can_correct_evaluation_and_operation_log_is_created(): void
     {
         $this->configureGrading();
@@ -142,6 +175,13 @@ final class EvaluationManagementTest extends TestCase
         $this->assertSame('90.00', $log->detail['after']['total_score']);
     }
 
+    /**
+     * 教員が管理者向け評価管理画面へアクセスできないことを確認する。
+     *
+     * 前提: 教員、最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `admin.evaluations.index`へGETリクエスト、`admin.evaluations.edit`へGETリクエスト、`admin.evaluations.update`へPUTリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_access_admin_evaluation_pages(): void
     {
         $teacher = Teacher::factory()->create();
@@ -168,7 +208,9 @@ final class EvaluationManagementTest extends TestCase
             ->assertForbidden();
     }
 
-    /** @return array{0: Course, 1: Student, 2: Student, 3: Teacher} */
+    /**
+     * 評価管理テストに必要な授業、担当教員、生徒、評価データをまとめて作成する。
+     */
     private function evaluationContext(): array
     {
         $teacher = Teacher::factory()->create();
@@ -193,6 +235,9 @@ final class EvaluationManagementTest extends TestCase
         return [$course, $evaluatedStudent, $missingStudent, $teacher];
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([
@@ -201,6 +246,9 @@ final class EvaluationManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 評価確定テストで使用する出欠・評価基準の設定値を構成する。
+     */
     private function configureGrading(): void
     {
         config()->set('lms.evaluation.rounding_mode', 'round');

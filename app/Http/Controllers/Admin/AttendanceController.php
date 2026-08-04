@@ -15,8 +15,8 @@ final class AttendanceController extends Controller
     /**
      * 管理者向け出欠一覧・集計画面を表示する。
      *
-     * @param AttendanceIndexRequest $request 検証済みの検索条件
-     * @param AttendanceIndexDataQuery $attendanceIndexDataQuery 画面表示データの検索処理
+     * @param  AttendanceIndexRequest  $request  検証済みの検索条件
+     * @param  AttendanceIndexDataQuery  $attendanceIndexDataQuery  画面表示データの検索処理
      * @return View 出欠一覧画面
      */
     public function index(

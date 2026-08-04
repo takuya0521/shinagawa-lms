@@ -18,8 +18,8 @@ final readonly class AdminDashboardQuery
     /**
      * 必要な検索処理を受け取る。
      *
-     * @param TodayLessonSummaryQuery $todayLessonSummaryQuery 当日の授業・出欠集計処理
-     * @param PendingEvaluationCountQuery $pendingEvaluationCountQuery 未確定評価数の集計処理
+     * @param  TodayLessonSummaryQuery  $todayLessonSummaryQuery  当日の授業・出欠集計処理
+     * @param  PendingEvaluationCountQuery  $pendingEvaluationCountQuery  未確定評価数の集計処理
      */
     public function __construct(
         private TodayLessonSummaryQuery $todayLessonSummaryQuery,
@@ -29,7 +29,7 @@ final readonly class AdminDashboardQuery
     /**
      * 管理者ダッシュボードの表示データを取得する。
      *
-     * @param CarbonInterface $today 基準日
+     * @param  CarbonInterface  $today  基準日
      * @return AdminDashboardData 管理者ダッシュボードの表示データ
      */
     public function execute(CarbonInterface $today): AdminDashboardData

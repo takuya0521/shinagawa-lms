@@ -17,7 +17,7 @@ final class OperationLogIndexDataQuery
     /**
      * 表示データ取得処理を生成する。
      *
-     * @param OperationLogListQuery $listQuery 操作ログ一覧の検索処理
+     * @param  OperationLogListQuery  $listQuery  操作ログ一覧の検索処理
      */
     public function __construct(
         private readonly OperationLogListQuery $listQuery,
@@ -26,7 +26,7 @@ final class OperationLogIndexDataQuery
     /**
      * 操作ログ一覧画面の表示データを取得する。
      *
-     * @param OperationLogFilters $filters 検索条件
+     * @param  OperationLogFilters  $filters  検索条件
      * @return OperationLogIndexData 操作ログ一覧画面の表示データ
      */
     public function execute(

@@ -26,10 +26,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
+/**
+ * 各ロールのダッシュボード表示内容を確認するフィーチャーテスト。
+ *
+ * 当日情報、重要なお知らせ、担当授業、外部リンク、集計情報がロール別に表示されることを検証する。
+ */
 final class DashboardCompletionTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * テストで変更した固定日時などのグローバル状態を元に戻す。
+     */
     protected function tearDown(): void
     {
         Carbon::setTestNow();
@@ -37,6 +45,13 @@ final class DashboardCompletionTest extends TestCase
         parent::tearDown();
     }
 
+    /**
+     * 管理者ダッシュボードに当日の指標と重要なお知らせが表示されることを確認する。
+     *
+     * 前提: ユーザー、時間割枠、お知らせなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.dashboard`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_dashboard_shows_today_metrics_and_important_announcement(): void
     {
         Carbon::setTestNow('2026-07-27 09:00:00');
@@ -70,6 +85,13 @@ final class DashboardCompletionTest extends TestCase
             ->assertSeeText($announcement->title);
     }
 
+    /**
+     * 教員ダッシュボードに担当授業と閲覧可能なお知らせが表示されることを確認する。
+     *
+     * 前提: 時間割枠、お知らせなど、検証に必要なテストデータを準備する。
+     * 処理: `teacher.dashboard`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_teacher_dashboard_shows_assigned_lesson_and_visible_announcement(): void
     {
         Carbon::setTestNow('2026-07-27 09:00:00');
@@ -98,6 +120,13 @@ final class DashboardCompletionTest extends TestCase
             ->assertSeeText($announcement->title);
     }
 
+    /**
+     * 生徒ダッシュボードにプロフィール、お知らせ、外部リンク、各種集計が表示されることを確認する。
+     *
+     * 前提: 時間割枠、お知らせ、外部リンク、最終評価、授業実施など、検証に必要なテストデータを準備する。
+     * 処理: `student.dashboard`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_student_dashboard_shows_profile_announcements_links_and_summaries(): void
     {
         Carbon::setTestNow('2026-07-27 09:00:00');
@@ -163,7 +192,9 @@ final class DashboardCompletionTest extends TestCase
             ->assertSeeText('67%');
     }
 
-    /** @return array{0: Course, 1: Teacher, 2: Student} */
+    /**
+     * ダッシュボードテストで使用する授業、時間割、担当教員、生徒を作成する。
+     */
     private function courseContext(): array
     {
         $teacher = Teacher::factory()->create();

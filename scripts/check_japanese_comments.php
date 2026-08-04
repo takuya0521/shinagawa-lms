@@ -16,7 +16,7 @@ $errors = [];
 /**
  * 指定ディレクトリ配下の確認対象ファイルを取得する。
  *
- * @param string $directory 確認対象ディレクトリ
+ * @param  string  $directory  確認対象ディレクトリ
  * @return list<string> 確認対象ファイル一覧
  */
 function collectCommentTargetFiles(string $directory): array
@@ -61,7 +61,7 @@ function collectCommentTargetFiles(string $directory): array
 /**
  * コメント内に日本語の文字が含まれているかを判定する。
  *
- * @param string $comment 確認対象コメント
+ * @param  string  $comment  確認対象コメント
  * @return bool 日本語を含む場合はtrue
  */
 function containsJapanese(string $comment): bool
@@ -72,7 +72,7 @@ function containsJapanese(string $comment): bool
 /**
  * PHPDocタグや静的解析指示だけのコメントかを判定する。
  *
- * @param string $comment 確認対象コメント
+ * @param  string  $comment  確認対象コメント
  * @return bool 説明文を含まない技術コメントの場合はtrue
  */
 function isTechnicalOnlyComment(string $comment): bool
@@ -115,7 +115,7 @@ function isTechnicalOnlyComment(string $comment): bool
 /**
  * 英語だけで記載された人間向けコメントかを判定する。
  *
- * @param string $comment 確認対象コメント
+ * @param  string  $comment  確認対象コメント
  * @return bool 英語だけの説明コメントの場合はtrue
  */
 function isEnglishOnlyHumanComment(string $comment): bool
@@ -130,7 +130,7 @@ function isEnglishOnlyHumanComment(string $comment): bool
 /**
  * PHPファイルからコメントと行番号を取得する。
  *
- * @param string $contents PHPファイル内容
+ * @param  string  $contents  PHPファイル内容
  * @return list<array{line: int, comment: string}> コメント一覧
  */
 function phpComments(string $contents): array
@@ -158,7 +158,7 @@ function phpComments(string $contents): array
 /**
  * CSS・JavaScript・Bladeファイルからコメントと行番号を取得する。
  *
- * @param string $contents ファイル内容
+ * @param  string  $contents  ファイル内容
  * @return list<array{line: int, comment: string}> コメント一覧
  */
 function textComments(string $contents): array

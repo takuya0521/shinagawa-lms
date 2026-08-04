@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+/**
+ * アプリケーション全体の初期データ登録順序を管理するSeeder。
+ */
 final class DatabaseSeeder extends Seeder
 {
     /**

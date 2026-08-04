@@ -12,7 +12,7 @@ final class TeacherAssignedCourseQuery
     /**
      * 教員が担当する授業を取得する。
      *
-     * @param Teacher $teacher 対象教員
+     * @param  Teacher  $teacher  対象教員
      * @return Collection<int, Course>
      */
     public function execute(Teacher $teacher): Collection

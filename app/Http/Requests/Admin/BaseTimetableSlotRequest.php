@@ -98,8 +98,7 @@ abstract class BaseTimetableSlotRequest extends FormRequest
     /**
      * クラスおよび担当教員の時間割重複を検証する。
      *
-     * @param Validator $validator Laravelの入力検証器
-     *
+     * @param  Validator  $validator  Laravelの入力検証器
      * @return void 戻り値なし
      */
     final public function withValidator(Validator $validator): void
@@ -182,7 +181,7 @@ abstract class BaseTimetableSlotRequest extends FormRequest
     /**
      * 有効な授業、または更新前に選択されていた授業を許可する存在確認規則を返す。
      *
-     * @param TimetableSlot|null $timetableSlot 更新対象の時間割枠
+     * @param  TimetableSlot|null  $timetableSlot  更新対象の時間割枠
      * @return Exists 存在確認規則
      */
     private function availableCourseExistsRule(
@@ -213,7 +212,7 @@ abstract class BaseTimetableSlotRequest extends FormRequest
     /**
      * 同一授業・曜日・時限の重複を確認する規則を返す。
      *
-     * @param TimetableSlot|null $timetableSlot 更新対象の時間割枠
+     * @param  TimetableSlot|null  $timetableSlot  更新対象の時間割枠
      * @return Unique 一意性確認規則
      */
     private function slotUniqueRule(
@@ -235,7 +234,7 @@ abstract class BaseTimetableSlotRequest extends FormRequest
     /**
      * 入力値の前後空白を除去し、空文字の場合はnullを返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return string|null 整形後の文字列
      */
     private function nullableTrimmed(string $key): ?string

@@ -12,11 +12,11 @@ final readonly class CourseTeacherAssignmentResult
     /**
      * 変更結果を生成する。
      *
-     * @param Course $course 変更後の関連情報を読み込んだ授業
-     * @param bool $changed 担当教員が実際に変更されたか
-     * @param string|null $action 操作ログへ記録した操作名。未変更時はnull
-     * @param int $pendingLessonSessions 担当解除時に残っている未完了の授業実施日数
-     * @param int $draftEvaluations 担当解除時に残っている下書き評価数
+     * @param  Course  $course  変更後の関連情報を読み込んだ授業
+     * @param  bool  $changed  担当教員が実際に変更されたか
+     * @param  string|null  $action  操作ログへ記録した操作名。未変更時はnull
+     * @param  int  $pendingLessonSessions  担当解除時に残っている未完了の授業実施日数
+     * @param  int  $draftEvaluations  担当解除時に残っている下書き評価数
      */
     public function __construct(
         public Course $course,
@@ -29,7 +29,7 @@ final readonly class CourseTeacherAssignmentResult
     /**
      * 担当教員が変更されなかった結果を生成する。
      *
-     * @param Course $course 関連情報を読み込んだ授業
+     * @param  Course  $course  関連情報を読み込んだ授業
      * @return self 未変更を表す結果
      */
     public static function unchanged(Course $course): self
@@ -46,10 +46,10 @@ final readonly class CourseTeacherAssignmentResult
     /**
      * 担当教員が変更された結果を生成する。
      *
-     * @param Course $course 変更後の関連情報を読み込んだ授業
-     * @param string $action 操作ログへ記録した操作名
-     * @param int $pendingLessonSessions 担当解除時に残っている未完了の授業実施日数
-     * @param int $draftEvaluations 担当解除時に残っている下書き評価数
+     * @param  Course  $course  変更後の関連情報を読み込んだ授業
+     * @param  string  $action  操作ログへ記録した操作名
+     * @param  int  $pendingLessonSessions  担当解除時に残っている未完了の授業実施日数
+     * @param  int  $draftEvaluations  担当解除時に残っている下書き評価数
      * @return self 変更済みを表す結果
      */
     public static function changed(

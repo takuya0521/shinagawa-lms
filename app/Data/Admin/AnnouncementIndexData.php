@@ -15,12 +15,12 @@ final readonly class AnnouncementIndexData
     /**
      * お知らせ一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, Announcement> $announcements お知らせ一覧
-     * @param list<AnnouncementNoticeType> $noticeTypes お知らせ種別選択肢
-     * @param list<AnnouncementStatus> $statuses 公開状態選択肢
-     * @param array<string, string> $targetOptions 公開対象選択肢
-     * @param array<int, string> $classGroupNames クラスIDをキーとするクラス名一覧
-     * @param AnnouncementIndexFilters $filters 選択中の検索条件
+     * @param  LengthAwarePaginator<int, Announcement>  $announcements  お知らせ一覧
+     * @param  list<AnnouncementNoticeType>  $noticeTypes  お知らせ種別選択肢
+     * @param  list<AnnouncementStatus>  $statuses  公開状態選択肢
+     * @param  array<string, string>  $targetOptions  公開対象選択肢
+     * @param  array<int, string>  $classGroupNames  クラスIDをキーとするクラス名一覧
+     * @param  AnnouncementIndexFilters  $filters  選択中の検索条件
      */
     public function __construct(
         public LengthAwarePaginator $announcements,

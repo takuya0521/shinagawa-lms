@@ -9,7 +9,7 @@ $errors = [];
 /**
  * トークン配列へ開始位置を付与する。
  *
- * @param string $source PHPソースコード
+ * @param  string  $source  PHPソースコード
  * @return list<array{id: int|null, text: string, line: int}> 解析用トークン一覧
  */
 function phpDocTokens(string $source): array
@@ -38,8 +38,8 @@ function phpDocTokens(string $source): array
 /**
  * メソッドシグネチャからメソッド名、引数名、戻り値型を取得する。
  *
- * @param list<array{id: int|null, text: string, line: int}> $tokens 解析対象トークン一覧
- * @param int $functionIndex T_FUNCTIONトークンの位置
+ * @param  list<array{id: int|null, text: string, line: int}>  $tokens  解析対象トークン一覧
+ * @param  int  $functionIndex  T_FUNCTIONトークンの位置
  * @return array{name: string, parameters: list<string>, returnType: string}|null メソッド情報。無名関数の場合はnull
  */
 function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
@@ -49,9 +49,19 @@ function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
 
     while ($nameIndex < $count) {
         $id = $tokens[$nameIndex]['id'];
-        if (! in_array($id, [T_WHITESPACE, T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG, T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG], true)) {
+
+        if (! in_array(
+            $id,
+            [
+                T_WHITESPACE,
+                T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG,
+                T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG,
+            ],
+            true,
+        )) {
             break;
         }
+
         $nameIndex++;
     }
 
@@ -60,6 +70,7 @@ function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
     }
 
     $openIndex = $nameIndex + 1;
+
     while ($openIndex < $count && $tokens[$openIndex]['text'] !== '(') {
         $openIndex++;
     }
@@ -70,18 +81,25 @@ function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
 
     for ($index = $openIndex; $index < $count; $index++) {
         $text = $tokens[$index]['text'];
+
         if ($text === '(') {
             $depth++;
+
             continue;
         }
+
         if ($text === ')') {
             $depth--;
+
             if ($depth === 0) {
                 $closeIndex = $index;
+
                 break;
             }
+
             continue;
         }
+
         if ($depth === 1 && $tokens[$index]['id'] === T_VARIABLE) {
             $parameters[] = ltrim($text, '$');
         }
@@ -89,18 +107,23 @@ function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
 
     $returnType = 'mixed';
     $index = $closeIndex + 1;
+
     while ($index < $count && $tokens[$index]['id'] === T_WHITESPACE) {
         $index++;
     }
+
     if ($index < $count && $tokens[$index]['text'] === ':') {
         $parts = [];
         $index++;
+
         while ($index < $count && ! in_array($tokens[$index]['text'], ['{', ';'], true)) {
             if ($tokens[$index]['id'] !== T_WHITESPACE) {
                 $parts[] = $tokens[$index]['text'];
             }
+
             $index++;
         }
+
         $returnType = implode('', $parts) ?: 'mixed';
     }
 
@@ -111,23 +134,42 @@ function phpDocMethodSignature(array $tokens, int $functionIndex): ?array
     ];
 }
 
+/**
+ * 戻り値に関するPHPDocの記載が必要か判定する。
+ *
+ * voidおよびneverは値を返さないため、@returnタグを必須としない。
+ *
+ * @param  string  $returnType  メソッドの戻り値型
+ * @return bool @returnタグが必要な場合はtrue
+ */
+function phpDocRequiresReturnTag(string $returnType): bool
+{
+    $normalizedReturnType = strtolower(ltrim($returnType, '\\'));
+
+    return ! in_array($normalizedReturnType, ['void', 'never'], true);
+}
+
 $files = [];
 $iterator = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator($appRoot, FilesystemIterator::SKIP_DOTS),
 );
+
 foreach ($iterator as $file) {
     if ($file->isFile() && $file->getExtension() === 'php') {
         $files[] = $file->getPathname();
     }
 }
+
 sort($files);
 
 $methodCount = 0;
 
 foreach ($files as $path) {
     $source = file_get_contents($path);
+
     if (! is_string($source)) {
         $errors[] = "ファイルを読み込めません: {$path}";
+
         continue;
     }
 
@@ -145,36 +187,65 @@ foreach ($files as $path) {
             } elseif ($text === ']') {
                 $attributeDepth--;
             }
+
             continue;
         }
 
         if ($id === T_DOC_COMMENT) {
             $candidateDoc = $text;
+
             continue;
         }
 
         if ($id === T_ATTRIBUTE) {
             $attributeDepth = 1;
+
             continue;
         }
 
-        if (in_array($id, [T_WHITESPACE, T_COMMENT, T_PUBLIC, T_PROTECTED, T_PRIVATE, T_STATIC, T_FINAL, T_ABSTRACT, T_READONLY], true)) {
+        if (in_array(
+            $id,
+            [
+                T_WHITESPACE,
+                T_COMMENT,
+                T_PUBLIC,
+                T_PROTECTED,
+                T_PRIVATE,
+                T_STATIC,
+                T_FINAL,
+                T_ABSTRACT,
+                T_READONLY,
+            ],
+            true,
+        )) {
             continue;
         }
 
         if ($id === T_FUNCTION) {
             $signature = phpDocMethodSignature($tokens, $index);
+
             if ($signature === null) {
                 $candidateDoc = null;
+
                 continue;
             }
 
             $methodCount++;
-            $relativePath = str_replace('\\', '/', substr($path, strlen($projectRoot) + 1));
-            $location = sprintf('%s:%d %s()', $relativePath, $token['line'], $signature['name']);
+            $relativePath = str_replace(
+                '\\',
+                '/',
+                substr($path, strlen($projectRoot) + 1),
+            );
+            $location = sprintf(
+                '%s:%d %s()',
+                $relativePath,
+                $token['line'],
+                $signature['name'],
+            );
 
             if ($candidateDoc === null) {
                 $errors[] = "PHPDocがありません: {$location}";
+
                 continue;
             }
 
@@ -183,17 +254,26 @@ foreach ($files as $path) {
             }
 
             foreach ($signature['parameters'] as $parameter) {
-                if (preg_match('/@param\s+[^\n]*\$'.preg_quote($parameter, '/').'\b/', $candidateDoc) !== 1) {
+                if (
+                    preg_match(
+                        '/@param\s+[^\n]*\$'.preg_quote($parameter, '/').'\b/',
+                        $candidateDoc,
+                    ) !== 1
+                ) {
                     $errors[] = "引数の説明がありません: {$location} \${$parameter}";
                 }
             }
 
-            if ($signature['name'] !== '__construct'
-                && preg_match('/@return\b/', $candidateDoc) !== 1) {
+            if (
+                $signature['name'] !== '__construct'
+                && phpDocRequiresReturnTag($signature['returnType'])
+                && preg_match('/@return\b/', $candidateDoc) !== 1
+            ) {
                 $errors[] = "戻り値の説明がありません: {$location} 戻り値型={$signature['returnType']}";
             }
 
             $candidateDoc = null;
+
             continue;
         }
 
@@ -203,6 +283,7 @@ foreach ($files as $path) {
 
 if ($errors !== []) {
     fwrite(STDERR, implode(PHP_EOL, $errors).PHP_EOL);
+
     exit(1);
 }
 

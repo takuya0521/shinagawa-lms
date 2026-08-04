@@ -16,11 +16,11 @@ final readonly class OperationLogIndexData
     /**
      * 操作ログ一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, OperationLog> $operationLogs 操作ログ一覧
-     * @param EloquentCollection<int, User> $users 操作者選択肢
-     * @param Collection<int, array{value: string, label: string}> $actions 操作コード選択肢
-     * @param Collection<int, array{value: string, label: string}> $targetTables 対象テーブル選択肢
-     * @param OperationLogFilters $filters 選択中の検索条件
+     * @param  LengthAwarePaginator<int, OperationLog>  $operationLogs  操作ログ一覧
+     * @param  EloquentCollection<int, User>  $users  操作者選択肢
+     * @param  Collection<int, array{value: string, label: string}>  $actions  操作コード選択肢
+     * @param  Collection<int, array{value: string, label: string}>  $targetTables  対象テーブル選択肢
+     * @param  OperationLogFilters  $filters  選択中の検索条件
      */
     public function __construct(
         public LengthAwarePaginator $operationLogs,

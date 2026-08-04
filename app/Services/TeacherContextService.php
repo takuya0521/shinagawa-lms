@@ -13,7 +13,7 @@ final class TeacherContextService
     /**
      * ログインユーザーに紐付く有効な教員情報を返す。
      *
-     * @param User $user 対象ユーザー
+     * @param  User  $user  対象ユーザー
      * @return Teacher 処理結果
      */
     public function resolveTeacher(User $user): Teacher
@@ -34,8 +34,8 @@ final class TeacherContextService
     /**
      * ログイン教員が担当する授業であることを確認する。
      *
-     * @param User $user 対象ユーザー
-     * @param Course $course 対象授業
+     * @param  User  $user  対象ユーザー
+     * @param  Course  $course  対象授業
      * @return Teacher 処理結果
      */
     public function assertAssignedCourse(
@@ -55,8 +55,8 @@ final class TeacherContextService
     /**
      * ログイン教員が担当する時間割枠であることを確認する。
      *
-     * @param User $user 対象ユーザー
-     * @param TimetableSlot $timetableSlot 対象時間割
+     * @param  User  $user  対象ユーザー
+     * @param  TimetableSlot  $timetableSlot  対象時間割
      * @return Teacher 処理結果
      */
     public function assertAssignedSlot(

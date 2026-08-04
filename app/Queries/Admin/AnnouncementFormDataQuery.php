@@ -35,7 +35,7 @@ final class AnnouncementFormDataQuery
     /**
      * お知らせ編集画面の表示データを取得する。
      *
-     * @param Announcement $announcement 編集対象のお知らせ
+     * @param  Announcement  $announcement  編集対象のお知らせ
      * @return AnnouncementEditorData お知らせ編集画面の表示データ
      */
     public function forEdit(

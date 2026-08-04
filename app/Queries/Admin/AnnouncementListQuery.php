@@ -15,7 +15,7 @@ final class AnnouncementListQuery
     /**
      * 管理者向けお知らせ一覧を取得する。
      *
-     * @param AnnouncementIndexFilters $filters 検索条件
+     * @param  AnnouncementIndexFilters  $filters  検索条件
      * @return LengthAwarePaginator<int, Announcement> 1ページ20件のお知らせ一覧
      */
     public function execute(
@@ -92,9 +92,8 @@ final class AnnouncementListQuery
     /**
      * タイトルと本文へキーワード条件を適用する。
      *
-     * @param Builder<Announcement> $query お知らせ検索クエリ
-     * @param string $keyword 検索語
-     *
+     * @param  Builder<Announcement>  $query  お知らせ検索クエリ
+     * @param  string  $keyword  検索語
      * @return void 戻り値なし
      */
     private function applyKeywordFilter(
@@ -104,8 +103,8 @@ final class AnnouncementListQuery
         $query->where(
             static function (Builder $keywordQuery) use ($keyword): void {
                 $keywordQuery
-                    ->where('title', 'like', "%{$keyword}%")
-                    ->orWhere('body', 'like', "%{$keyword}%");
+                    ->whereLike('title', "%{$keyword}%")
+                    ->orWhereLike('body', "%{$keyword}%");
             },
         );
     }
@@ -113,9 +112,8 @@ final class AnnouncementListQuery
     /**
      * 公開対象条件を適用する。
      *
-     * @param Builder<Announcement> $query お知らせ検索クエリ
-     * @param string $target 公開対象を表す「種別:値」形式の文字列
-     *
+     * @param  Builder<Announcement>  $query  お知らせ検索クエリ
+     * @param  string  $target  公開対象を表す「種別:値」形式の文字列
      * @return void 戻り値なし
      */
     private function applyTargetFilter(

@@ -217,7 +217,7 @@ class StoreAnnouncementRequest extends FormRequest
     /**
      * 指定された公開対象が存在するか確認する。
      *
-     * @param string $target 公開対象指定値
+     * @param  string  $target  公開対象指定値
      * @return bool 判定結果
      */
     private function targetExists(string $target): bool
@@ -248,9 +248,8 @@ class StoreAnnouncementRequest extends FormRequest
     /**
      * 指定値を空文字を除外した文字列として取得する。
      *
-     * @param array<string, mixed> $validated
-     *
-     * @param string $key 取得対象のキー
+     * @param  array<string, mixed>  $validated
+     * @param  string  $key  取得対象のキー
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableString(
@@ -267,7 +266,7 @@ class StoreAnnouncementRequest extends FormRequest
     /**
      * 指定値を前後の空白を除去した文字列として取得する。
      *
-     * @param string $key 取得対象のキー
+     * @param  string  $key  取得対象のキー
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableTrimmed(string $key): ?string

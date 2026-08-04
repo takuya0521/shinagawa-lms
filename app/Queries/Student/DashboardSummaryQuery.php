@@ -15,8 +15,8 @@ final class DashboardSummaryQuery
     /**
      * 生徒トップに表示する評価・出欠サマリーを取得する。
      *
-     * @param Student $student 対象生徒
-     * @param int $academicYear 対象年度
+     * @param  Student  $student  対象生徒
+     * @param  int  $academicYear  対象年度
      * @return array{
      *     evaluation: array{
      *         count: int,
@@ -122,7 +122,7 @@ final class DashboardSummaryQuery
     /**
      * 集計値を画面表示用の小数1桁へ丸める。
      *
-     * @param mixed $value 処理対象値
+     * @param  mixed  $value  処理対象値
      * @return ?float 算出した数値。未算出時はnull
      */
     private function average(mixed $value): ?float

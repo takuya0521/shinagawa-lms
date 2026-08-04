@@ -15,9 +15,9 @@ class UpdateUserPassword implements UpdatesUserPasswords
     /**
      * 入力内容を検証し、ユーザーのパスワードを更新する。
      *
-     * @param User $user パスワードを変更するユーザー
-     * @param array<string, string> $input 現在のパスワード、新しいパスワード、確認入力
-     * @return void
+     * @param  User  $user  パスワードを変更するユーザー
+     * @param  array<string, string>  $input  現在のパスワード、新しいパスワード、確認入力
+     *
      * @throws ValidationException 現在のパスワードが一致しない、または新しいパスワードが条件を満たさない場合
      */
     public function update(User $user, array $input): void

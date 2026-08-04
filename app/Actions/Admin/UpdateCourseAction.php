@@ -12,7 +12,7 @@ final class UpdateCourseAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -22,10 +22,9 @@ final class UpdateCourseAction
      * 授業を更新する。
      *
      * @param  array<string, mixed>  $attributes
-     *
-     * @param Course $course 対象授業
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  Course  $course  対象授業
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return Course 処理結果
      */
     public function execute(
@@ -63,7 +62,7 @@ final class UpdateCourseAction
     /**
      * 操作ログへ記録するスナップショットを生成する。
      *
-     * @param Course $course 対象授業
+     * @param  Course  $course  対象授業
      * @return array<string, mixed>
      */
     private function snapshot(Course $course): array

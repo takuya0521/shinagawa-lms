@@ -15,7 +15,7 @@ final class AssignedStudentQuery
     /**
      * 教員の有効な担当授業に含まれる在籍生徒のクエリを返す。
      *
-     * @param Teacher $teacher 対象教員
+     * @param  Teacher  $teacher  対象教員
      * @return Builder<Student>
      */
     public function builder(Teacher $teacher): Builder
@@ -51,7 +51,7 @@ final class AssignedStudentQuery
     /**
      * 教員が現在担当する生徒を選択肢用に取得する。
      *
-     * @param Teacher $teacher 対象教員
+     * @param  Teacher  $teacher  対象教員
      * @return Collection<int, Student>
      */
     public function get(Teacher $teacher): Collection
@@ -67,8 +67,8 @@ final class AssignedStudentQuery
     /**
      * 生徒が教員の現在の担当範囲に含まれるか判定する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param Student $student 対象生徒
+     * @param  Teacher  $teacher  対象教員
+     * @param  Student  $student  対象生徒
      * @return bool 判定結果
      */
     public function contains(

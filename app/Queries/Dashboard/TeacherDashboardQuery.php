@@ -18,9 +18,9 @@ final readonly class TeacherDashboardQuery
     /**
      * 必要な検索処理を受け取る。
      *
-     * @param TodayLessonSummaryQuery $todayLessonSummaryQuery 当日の授業・出欠集計処理
-     * @param PendingEvaluationCountQuery $pendingEvaluationCountQuery 未確定評価数の集計処理
-     * @param VisibleAnnouncementQuery $visibleAnnouncementQuery 閲覧可能なお知らせの検索処理
+     * @param  TodayLessonSummaryQuery  $todayLessonSummaryQuery  当日の授業・出欠集計処理
+     * @param  PendingEvaluationCountQuery  $pendingEvaluationCountQuery  未確定評価数の集計処理
+     * @param  VisibleAnnouncementQuery  $visibleAnnouncementQuery  閲覧可能なお知らせの検索処理
      */
     public function __construct(
         private TodayLessonSummaryQuery $todayLessonSummaryQuery,
@@ -31,9 +31,9 @@ final readonly class TeacherDashboardQuery
     /**
      * 教員ダッシュボードの表示データを取得する。
      *
-     * @param Teacher $teacher ログインユーザーに紐付く教員
-     * @param User $user ログインユーザー
-     * @param CarbonInterface $today 基準日
+     * @param  Teacher  $teacher  ログインユーザーに紐付く教員
+     * @param  User  $user  ログインユーザー
+     * @param  CarbonInterface  $today  基準日
      * @return TeacherDashboardData 教員ダッシュボードの表示データ
      */
     public function execute(

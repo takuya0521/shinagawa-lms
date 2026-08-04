@@ -6,6 +6,9 @@ use App\Enums\MasterStatus;
 use App\Models\ClassGroup;
 use Illuminate\Database\Seeder;
 
+/**
+ * 初期クラスデータを登録するSeeder。
+ */
 final class ClassGroupSeeder extends Seeder
 {
     /**

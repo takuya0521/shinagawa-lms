@@ -13,9 +13,9 @@ final class CourseStudentListQuery
     /**
      * 授業の対象となる生徒一覧を取得する。
      *
-     * @param Course $course 対象授業
-     * @param ?string $keyword 検索キーワード
-     * @param ?StudentStatus $status 設定する状態
+     * @param  Course  $course  対象授業
+     * @param  ?string  $keyword  検索キーワード
+     * @param  ?StudentStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, Student>
      */
     public function execute(
@@ -42,14 +42,12 @@ final class CourseStudentListQuery
                     $query->where(
                         function (Builder $keywordQuery) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'student_no',
-                                    'like',
                                     '%'.$keyword.'%',
                                 )
-                                ->orWhere(
+                                ->orWhereLike(
                                     'student_name',
-                                    'like',
                                     '%'.$keyword.'%',
                                 );
                         },

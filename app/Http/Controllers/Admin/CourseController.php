@@ -25,8 +25,8 @@ final class CourseController extends Controller
     /**
      * 授業一覧を表示する。
      *
-     * @param Request $request 検索条件を含むHTTPリクエスト
-     * @param CourseIndexDataQuery $courseIndexDataQuery 一覧画面表示データの検索処理
+     * @param  Request  $request  検索条件を含むHTTPリクエスト
+     * @param  CourseIndexDataQuery  $courseIndexDataQuery  一覧画面表示データの検索処理
      * @return View 授業一覧画面
      */
     public function index(
@@ -61,7 +61,7 @@ final class CourseController extends Controller
     /**
      * 授業登録画面を表示する。
      *
-     * @param CourseFormDataQuery $courseFormDataQuery フォーム選択肢の検索処理
+     * @param  CourseFormDataQuery  $courseFormDataQuery  フォーム選択肢の検索処理
      * @return View 授業登録画面
      */
     public function create(
@@ -76,8 +76,8 @@ final class CourseController extends Controller
     /**
      * 授業を登録する。
      *
-     * @param StoreCourseRequest $request 検証済みの授業入力
-     * @param CreateCourseAction $createCourseAction 授業登録処理
+     * @param  StoreCourseRequest  $request  検証済みの授業入力
+     * @param  CreateCourseAction  $createCourseAction  授業登録処理
      * @return RedirectResponse 授業一覧へのリダイレクト
      */
     public function store(
@@ -101,8 +101,8 @@ final class CourseController extends Controller
     /**
      * 授業編集画面を表示する。
      *
-     * @param Course $course 編集対象の授業
-     * @param CourseFormDataQuery $courseFormDataQuery フォーム選択肢の検索処理
+     * @param  Course  $course  編集対象の授業
+     * @param  CourseFormDataQuery  $courseFormDataQuery  フォーム選択肢の検索処理
      * @return View 授業編集画面
      */
     public function edit(
@@ -124,9 +124,9 @@ final class CourseController extends Controller
     /**
      * 授業を更新する。
      *
-     * @param UpdateCourseRequest $request 検証済みの授業入力
-     * @param Course $course 更新対象の授業
-     * @param UpdateCourseAction $updateCourseAction 授業更新処理
+     * @param  UpdateCourseRequest  $request  検証済みの授業入力
+     * @param  Course  $course  更新対象の授業
+     * @param  UpdateCourseAction  $updateCourseAction  授業更新処理
      * @return RedirectResponse 授業一覧へのリダイレクト
      */
     public function update(
@@ -152,7 +152,7 @@ final class CourseController extends Controller
     /**
      * 正の整数だけを検索条件として採用する。
      *
-     * @param int $value 入力された整数値
+     * @param  int  $value  入力された整数値
      * @return int|null 正の整数。0以下の場合はnull
      */
     private function positiveIntegerOrNull(int $value): ?int

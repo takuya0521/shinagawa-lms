@@ -8,12 +8,22 @@ use App\Enums\MasterStatus;
 use App\Models\ExternalLink;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/** @extends Factory<ExternalLink> */
+/**
+ * 外部リンクモデルのテストデータを生成するFactory。
+ *
+ * 各テストで再現性のある標準値を用意し、必要に応じて属性を上書きして使用する。
+ *
+ * @extends Factory<ExternalLink>
+ */
 final class ExternalLinkFactory extends Factory
 {
     protected $model = ExternalLink::class;
 
-    /** @return array<string, mixed> */
+    /**
+     * 外部リンクの標準的なテストデータを返す。
+     *
+     * @return array<string, mixed> モデル作成時に使用する属性値
+     */
     public function definition(): array
     {
         return [

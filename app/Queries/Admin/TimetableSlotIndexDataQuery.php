@@ -19,7 +19,7 @@ final readonly class TimetableSlotIndexDataQuery
     /**
      * 時間割一覧検索処理を受け取る。
      *
-     * @param TimetableSlotListQuery $timetableSlotListQuery 時間割一覧の検索処理
+     * @param  TimetableSlotListQuery  $timetableSlotListQuery  時間割一覧の検索処理
      */
     public function __construct(
         private TimetableSlotListQuery $timetableSlotListQuery,
@@ -28,12 +28,12 @@ final readonly class TimetableSlotIndexDataQuery
     /**
      * 指定された検索条件で時間割一覧画面の表示データを取得する。
      *
-     * @param string $keyword キーワード
-     * @param int|null $academicYear 年度
-     * @param Grade|null $grade 学年
-     * @param int|null $classGroupId クラスID
-     * @param DayOfWeek|null $dayOfWeek 曜日
-     * @param MasterStatus|null $status 状態
+     * @param  string  $keyword  キーワード
+     * @param  int|null  $academicYear  年度
+     * @param  Grade|null  $grade  学年
+     * @param  int|null  $classGroupId  クラスID
+     * @param  DayOfWeek|null  $dayOfWeek  曜日
+     * @param  MasterStatus|null  $status  状態
      * @return TimetableSlotIndexData 時間割一覧画面の表示データ
      */
     public function execute(
@@ -78,9 +78,9 @@ final readonly class TimetableSlotIndexDataQuery
     /**
      * 年度・学年・クラスが指定された場合に週間表示用データを取得する。
      *
-     * @param int|null $academicYear 年度
-     * @param Grade|null $grade 学年
-     * @param int|null $classGroupId クラスID
+     * @param  int|null  $academicYear  年度
+     * @param  Grade|null  $grade  学年
+     * @param  int|null  $classGroupId  クラスID
      * @return Collection<string, Collection<int, TimetableSlot>> 時限・曜日単位でまとめた時間割
      */
     private function weeklySlots(

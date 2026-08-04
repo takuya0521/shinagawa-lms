@@ -19,8 +19,8 @@ final readonly class AttendanceIndexDataQuery
     /**
      * 必要な検索処理を受け取る。
      *
-     * @param AttendanceRecordListQuery $attendanceRecordListQuery 出欠記録一覧と集計対象授業日の検索処理
-     * @param AttendanceStatisticsQuery $attendanceStatisticsQuery 出欠集計処理
+     * @param  AttendanceRecordListQuery  $attendanceRecordListQuery  出欠記録一覧と集計対象授業日の検索処理
+     * @param  AttendanceStatisticsQuery  $attendanceStatisticsQuery  出欠集計処理
      */
     public function __construct(
         private AttendanceRecordListQuery $attendanceRecordListQuery,
@@ -30,13 +30,13 @@ final readonly class AttendanceIndexDataQuery
     /**
      * 指定された検索条件で出欠一覧画面の表示データを取得する。
      *
-     * @param CarbonImmutable $dateFrom 集計開始日
-     * @param CarbonImmutable $dateTo 集計終了日
-     * @param int|null $studentId 生徒ID
-     * @param int|null $courseId 授業ID
-     * @param Grade|null $grade 学年
-     * @param int|null $classGroupId クラスID
-     * @param AttendanceStatus|null $attendanceStatus 出欠区分
+     * @param  CarbonImmutable  $dateFrom  集計開始日
+     * @param  CarbonImmutable  $dateTo  集計終了日
+     * @param  int|null  $studentId  生徒ID
+     * @param  int|null  $courseId  授業ID
+     * @param  Grade|null  $grade  学年
+     * @param  int|null  $classGroupId  クラスID
+     * @param  AttendanceStatus|null  $attendanceStatus  出欠区分
      * @return AttendanceIndexData 出欠一覧画面の表示データ
      */
     public function execute(

@@ -12,7 +12,7 @@ final class CreateInterviewRecordAction
     /**
      * 操作ログ記録サービスを受け取る。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -22,9 +22,8 @@ final class CreateInterviewRecordAction
      * 面談記録を登録し、操作ログへ記録する。
      *
      * @param  array<string, mixed>  $attributes
-     *
-     * @param User $user 対象ユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  User  $user  対象ユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return InterviewRecord 処理結果
      */
     public function execute(
@@ -60,7 +59,7 @@ final class CreateInterviewRecordAction
     /**
      * 操作ログへ保存する面談記録の内容を返す。
      *
-     * @param InterviewRecord $interviewRecord 対象面談記録
+     * @param  InterviewRecord  $interviewRecord  対象面談記録
      * @return array<string, mixed>
      */
     private static function snapshot(

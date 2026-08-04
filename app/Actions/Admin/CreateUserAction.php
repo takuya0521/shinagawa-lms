@@ -15,7 +15,7 @@ final class CreateUserAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -25,9 +25,8 @@ final class CreateUserAction
      * ユーザーと必要な関連情報を登録する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return User 処理結果
      */
     public function execute(
@@ -118,7 +117,7 @@ final class CreateUserAction
     /**
      * 指定値を空文字を除外した文字列として取得する。
      *
-     * @param mixed $value 処理対象値
+     * @param  mixed  $value  処理対象値
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableString(mixed $value): ?string

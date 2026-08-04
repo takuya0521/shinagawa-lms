@@ -3,6 +3,7 @@
 use App\Enums\MasterStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -19,10 +20,10 @@ return new class extends Migration
                 ->constrained()
                 ->restrictOnDelete();
 
-            $table->unsignedTinyInteger('day_of_week')
+            $table->smallInteger('day_of_week')
                 ->comment('曜日: 1=月曜日〜7=日曜日');
 
-            $table->unsignedTinyInteger('period_no')
+            $table->smallInteger('period_no')
                 ->comment('時限');
 
             $table->time('start_time')
@@ -58,6 +59,14 @@ return new class extends Migration
                 'idx_timetable_day_period',
             );
         });
+
+        // 曜日と時限の許容範囲をDB側でも保証する。
+        DB::statement(
+            'ALTER TABLE timetable_slots ADD CONSTRAINT chk_timetable_day CHECK (day_of_week BETWEEN 1 AND 7)',
+        );
+        DB::statement(
+            'ALTER TABLE timetable_slots ADD CONSTRAINT chk_timetable_period CHECK (period_no BETWEEN 1 AND 6)',
+        );
     }
 
     /**

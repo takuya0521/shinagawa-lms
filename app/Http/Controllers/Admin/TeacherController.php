@@ -23,8 +23,8 @@ final class TeacherController extends Controller
     /**
      * 管理者向け教員一覧を表示する。
      *
-     * @param TeacherIndexRequest $request HTTPリクエスト
-     * @param TeacherListQuery $query 検索処理
+     * @param  TeacherIndexRequest  $request  HTTPリクエスト
+     * @param  TeacherListQuery  $query  検索処理
      * @return View 表示する画面
      */
     public function index(
@@ -61,8 +61,8 @@ final class TeacherController extends Controller
     /**
      * 教員とログインアカウントを登録する。
      *
-     * @param StoreTeacherRequest $request HTTPリクエスト
-     * @param CreateTeacherAction $action 業務処理
+     * @param  StoreTeacherRequest  $request  HTTPリクエスト
+     * @param  CreateTeacherAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
@@ -86,9 +86,9 @@ final class TeacherController extends Controller
     /**
      * 管理者向け教員詳細を表示する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param TeacherAssignedCourseQuery $assignedCourseQuery データ取得処理
-     * @param TeacherTargetStudentQuery $targetStudentQuery データ取得処理
+     * @param  Teacher  $teacher  対象教員
+     * @param  TeacherAssignedCourseQuery  $assignedCourseQuery  データ取得処理
+     * @param  TeacherTargetStudentQuery  $targetStudentQuery  データ取得処理
      * @return View 表示する画面
      */
     public function show(
@@ -112,7 +112,7 @@ final class TeacherController extends Controller
     /**
      * 教員編集画面を表示する。
      *
-     * @param Teacher $teacher 対象教員
+     * @param  Teacher  $teacher  対象教員
      * @return View 表示する画面
      */
     public function edit(Teacher $teacher): View
@@ -129,9 +129,9 @@ final class TeacherController extends Controller
     /**
      * 教員とログインアカウントを更新する。
      *
-     * @param UpdateTeacherRequest $request HTTPリクエスト
-     * @param Teacher $teacher 対象教員
-     * @param UpdateTeacherAction $action 業務処理
+     * @param  UpdateTeacherRequest  $request  HTTPリクエスト
+     * @param  Teacher  $teacher  対象教員
+     * @param  UpdateTeacherAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(
@@ -167,4 +167,3 @@ final class TeacherController extends Controller
         ];
     }
 }
-

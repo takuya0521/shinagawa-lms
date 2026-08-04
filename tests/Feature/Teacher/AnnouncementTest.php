@@ -13,10 +13,22 @@ use App\Models\Teacher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 教員向けお知らせ閲覧機能を確認するフィーチャーテスト。
+ *
+ * 全体・ロール・担当授業対象のお知らせだけが表示され、無関係なお知らせへアクセスできないことを検証する。
+ */
 final class AnnouncementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 教員に全体・教員ロール・担当対象のお知らせだけが表示されることを確認する。
+     *
+     * 前提: 教員、クラス、授業など、検証に必要なテストデータを準備する。
+     * 処理: `teacher.announcements.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_teacher_sees_all_role_and_assigned_target_announcements_only(): void
     {
         $teacher = Teacher::factory()->create();
@@ -66,6 +78,13 @@ final class AnnouncementTest extends TestCase
             ->assertDontSeeText('掲載終了');
     }
 
+    /**
+     * 教員が自身と無関係なお知らせ詳細を閲覧できないことを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `teacher.announcements.show`へGETリクエストを送信する。
+     * 期待結果: 対象なしとしてHTTP 404を返すことを確認する。
+     */
     public function test_teacher_cannot_open_unrelated_announcement(): void
     {
         $teacher = Teacher::factory()->create();
@@ -81,6 +100,9 @@ final class AnnouncementTest extends TestCase
             ->assertNotFound();
     }
 
+    /**
+     * 指定した公開対象を持つテスト用お知らせを作成して返す。
+     */
     private function announcement(
         string $title,
         AnnouncementTargetType $targetType,

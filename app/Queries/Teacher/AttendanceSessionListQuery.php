@@ -19,7 +19,7 @@ final class AttendanceSessionListQuery
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param TargetStudentQuery $targetStudentQuery データ取得処理
+     * @param  TargetStudentQuery  $targetStudentQuery  データ取得処理
      */
     public function __construct(
         private readonly TargetStudentQuery $targetStudentQuery,
@@ -28,10 +28,10 @@ final class AttendanceSessionListQuery
     /**
      * 担当授業の授業実施日へ登録状況を付与して取得する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param CarbonInterface $dateFrom 検索開始日
-     * @param CarbonInterface $dateTo 検索終了日
-     * @param ?int $courseId 対象授業ID
+     * @param  Teacher  $teacher  対象教員
+     * @param  CarbonInterface  $dateFrom  検索開始日
+     * @param  CarbonInterface  $dateTo  検索終了日
+     * @param  ?int  $courseId  対象授業ID
      * @return Collection<int, LessonSession>
      */
     public function summaries(
@@ -95,12 +95,12 @@ final class AttendanceSessionListQuery
     /**
      * 担当授業の授業実施日と出欠登録状況を取得する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param CarbonInterface $dateFrom 検索開始日
-     * @param CarbonInterface $dateTo 検索終了日
-     * @param ?int $courseId 対象授業ID
-     * @param ?AttendanceStatus $attendanceStatus 出欠状態
-     * @param bool $missingOnly 未登録のみを対象とするフラグ
+     * @param  Teacher  $teacher  対象教員
+     * @param  CarbonInterface  $dateFrom  検索開始日
+     * @param  CarbonInterface  $dateTo  検索終了日
+     * @param  ?int  $courseId  対象授業ID
+     * @param  ?AttendanceStatus  $attendanceStatus  出欠状態
+     * @param  bool  $missingOnly  未登録のみを対象とするフラグ
      * @return LengthAwarePaginator<int, LessonSession>
      */
     public function execute(
@@ -145,8 +145,7 @@ final class AttendanceSessionListQuery
      * コレクションをLengthAwarePaginatorへ変換する。
      *
      * @param  Collection<int, LessonSession>  $items
-     *
-     * @param int $perPage 1ページ当たりの表示件数
+     * @param  int  $perPage  1ページ当たりの表示件数
      * @return LengthAwarePaginator<int, LessonSession>
      */
     private function paginate(

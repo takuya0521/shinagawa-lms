@@ -20,9 +20,9 @@ final class AssignedCourseController extends Controller
     /**
      * 教員の担当授業一覧を表示する。
      *
-     * @param AssignedCourseIndexRequest $request HTTPリクエスト
-     * @param AssignedCourseListQuery $assignedCourseListQuery データ取得処理
-     * @param TeacherContextService $teacherContextService 共通サービス
+     * @param  AssignedCourseIndexRequest  $request  HTTPリクエスト
+     * @param  AssignedCourseListQuery  $assignedCourseListQuery  データ取得処理
+     * @param  TeacherContextService  $teacherContextService  共通サービス
      * @return View 表示する画面
      */
     public function index(

@@ -13,7 +13,7 @@ final class UpdateAnnouncementAction
     /**
      * 操作ログ記録サービスを受け取る。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -24,10 +24,9 @@ final class UpdateAnnouncementAction
      *
      * @param  array<string, mixed>  $attributes
      * @param  list<array{target_type: string, target_value: string|null}>  $targets
-     *
-     * @param Announcement $announcement 対象お知らせ
-     * @param User $user 対象ユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  Announcement  $announcement  対象お知らせ
+     * @param  User  $user  対象ユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return Announcement 処理結果
      */
     public function execute(

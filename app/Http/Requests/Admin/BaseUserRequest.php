@@ -222,7 +222,7 @@ abstract class BaseUserRequest extends FormRequest
     /**
      * 更新対象ユーザーに紐付く生徒IDを返す。
      *
-     * @param User|null $user 更新対象のユーザー
+     * @param  User|null  $user  更新対象のユーザー
      * @return int|null 生徒ID。生徒情報がない場合はnull
      */
     private function currentStudentId(?User $user): ?int
@@ -241,7 +241,7 @@ abstract class BaseUserRequest extends FormRequest
     /**
      * メールアドレスの一意性確認規則を返す。
      *
-     * @param User|null $user 更新対象のユーザー
+     * @param  User|null  $user  更新対象のユーザー
      * @return Unique 一意性確認規則
      */
     private function emailUniqueRule(?User $user): Unique
@@ -254,7 +254,7 @@ abstract class BaseUserRequest extends FormRequest
     /**
      * 生徒番号の一意性確認規則を返す。
      *
-     * @param int|null $studentId 更新対象の生徒ID
+     * @param  int|null  $studentId  更新対象の生徒ID
      * @return Unique 一意性確認規則
      */
     private function studentNumberUniqueRule(?int $studentId): Unique

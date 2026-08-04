@@ -19,10 +19,10 @@ final class AttendanceController extends Controller
     /**
      * 担当授業別の出欠履歴と未登録件数を表示する。
      *
-     * @param AttendanceIndexRequest $request HTTPリクエスト
-     * @param AttendanceRecordListQuery $attendanceRecordListQuery データ取得処理
-     * @param AttendanceSessionListQuery $attendanceSessionListQuery データ取得処理
-     * @param TeacherContextService $teacherContextService 共通サービス
+     * @param  AttendanceIndexRequest  $request  HTTPリクエスト
+     * @param  AttendanceRecordListQuery  $attendanceRecordListQuery  データ取得処理
+     * @param  AttendanceSessionListQuery  $attendanceSessionListQuery  データ取得処理
+     * @param  TeacherContextService  $teacherContextService  共通サービス
      * @return View 表示する画面
      */
     public function index(

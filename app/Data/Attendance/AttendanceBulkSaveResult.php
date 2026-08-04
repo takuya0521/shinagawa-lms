@@ -12,8 +12,8 @@ final readonly class AttendanceBulkSaveResult
     /**
      * 出欠一括保存結果を生成する。
      *
-     * @param LessonSession $lessonSession 保存対象の授業実施日
-     * @param int $savedCount 保存した出欠記録数
+     * @param  LessonSession  $lessonSession  保存対象の授業実施日
+     * @param  int  $savedCount  保存した出欠記録数
      */
     public function __construct(
         public LessonSession $lessonSession,

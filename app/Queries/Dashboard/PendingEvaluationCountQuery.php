@@ -17,7 +17,7 @@ final readonly class PendingEvaluationCountQuery
     /**
      * 必要な検索処理を受け取る。
      *
-     * @param TargetStudentQuery $targetStudentQuery 授業対象の在籍生徒数を取得する検索処理
+     * @param  TargetStudentQuery  $targetStudentQuery  授業対象の在籍生徒数を取得する検索処理
      */
     public function __construct(
         private TargetStudentQuery $targetStudentQuery,
@@ -26,8 +26,8 @@ final readonly class PendingEvaluationCountQuery
     /**
      * 対象授業における年間評価の未確定件数を返す。
      *
-     * @param Collection<int, Course> $courses 集計対象の授業一覧
-     * @param int $academicYear 集計対象年度
+     * @param  Collection<int, Course>  $courses  集計対象の授業一覧
+     * @param  int  $academicYear  集計対象年度
      * @return int 対象生徒数から確定済み評価数を差し引いた合計
      */
     public function execute(

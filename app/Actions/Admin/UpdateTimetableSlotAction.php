@@ -17,8 +17,8 @@ final class UpdateTimetableSlotAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param TimetableConflictQuery $conflictQuery データ取得処理
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  TimetableConflictQuery  $conflictQuery  データ取得処理
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly TimetableConflictQuery $conflictQuery,
@@ -29,10 +29,9 @@ final class UpdateTimetableSlotAction
      * 時間割枠を更新する。
      *
      * @param  array<string, mixed>  $attributes
-     *
-     * @param TimetableSlot $timetableSlot 対象時間割
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  TimetableSlot  $timetableSlot  対象時間割
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return TimetableSlot 処理結果
      */
     public function execute(
@@ -120,11 +119,11 @@ final class UpdateTimetableSlotAction
     /**
      * 更新直前に時間割の重複を再検証する。
      *
-     * @param TimetableSlot $timetableSlot 対象時間割
-     * @param Course $course 対象授業
-     * @param DayOfWeek $dayOfWeek 曜日
-     * @param int $periodNo 時限番号
-     * @param MasterStatus $status 設定する状態
+     * @param  TimetableSlot  $timetableSlot  対象時間割
+     * @param  Course  $course  対象授業
+     * @param  DayOfWeek  $dayOfWeek  曜日
+     * @param  int  $periodNo  時限番号
+     * @param  MasterStatus  $status  設定する状態
      * @return void 戻り値なし
      */
     private function ensureNoConflict(
@@ -181,7 +180,7 @@ final class UpdateTimetableSlotAction
     /**
      * 操作ログへ記録するスナップショットを生成する。
      *
-     * @param TimetableSlot $timetableSlot 対象時間割
+     * @param  TimetableSlot  $timetableSlot  対象時間割
      * @return array<string, mixed>
      */
     private function snapshot(TimetableSlot $timetableSlot): array

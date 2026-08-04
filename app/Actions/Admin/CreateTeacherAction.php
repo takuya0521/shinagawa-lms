@@ -11,7 +11,7 @@ final class CreateTeacherAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param CreateUserAction $createUserAction 業務処理
+     * @param  CreateUserAction  $createUserAction  業務処理
      */
     public function __construct(
         private readonly CreateUserAction $createUserAction,
@@ -21,9 +21,8 @@ final class CreateTeacherAction
      * 教員アカウントと教員情報を登録する。
      *
      * @param  array<string, mixed>  $data
-     *
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return Teacher 処理結果
      */
     public function execute(

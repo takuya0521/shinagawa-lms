@@ -10,10 +10,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け教員一覧画面を確認するフィーチャーテスト。
+ *
+ * 一覧表示、キーワード検索、教員状態・アカウント状態絞り込み、権限制御を検証する。
+ */
 final class TeacherListTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が教員一覧を閲覧できることを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.teachers.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_teacher_list(): void
     {
         $admin = $this->createAdmin();
@@ -39,6 +51,13 @@ final class TeacherListTest extends TestCase
             ->assertSeeText('数学を担当');
     }
 
+    /**
+     * 教員が管理者向け教員一覧を閲覧できないことを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.teachers.index`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_view_teacher_list(): void
     {
         $teacher = $this->createTeacherUser(
@@ -53,6 +72,13 @@ final class TeacherListTest extends TestCase
         $response->assertForbidden();
     }
 
+    /**
+     * 管理者が氏名等のキーワードで教員を検索できることを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.teachers.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_admin_can_search_teacher_by_keyword(): void
     {
         $admin = $this->createAdmin();
@@ -89,6 +115,13 @@ final class TeacherListTest extends TestCase
             ->assertDontSeeText('別の教員');
     }
 
+    /**
+     * 管理者が教員プロフィールの状態で教員を絞り込めることを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.teachers.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_admin_can_filter_teachers_by_teacher_status(): void
     {
         $admin = $this->createAdmin();
@@ -125,6 +158,13 @@ final class TeacherListTest extends TestCase
             ->assertDontSeeText('有効教員');
     }
 
+    /**
+     * 管理者がアカウント状態で教員を絞り込めることを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.teachers.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_admin_can_filter_teachers_by_account_status(): void
     {
         $admin = $this->createAdmin();
@@ -161,6 +201,9 @@ final class TeacherListTest extends TestCase
             ->assertDontSeeText('利用中教員');
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function createAdmin(): User
     {
         return User::factory()->create([
@@ -169,6 +212,9 @@ final class TeacherListTest extends TestCase
         ]);
     }
 
+    /**
+     * 指定した状態を持つ教員ユーザーと教員プロフィールを作成して返す。
+     */
     private function createTeacherUser(
         string $name,
         string $email,

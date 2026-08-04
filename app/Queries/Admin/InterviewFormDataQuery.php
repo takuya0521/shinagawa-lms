@@ -15,7 +15,7 @@ final readonly class InterviewFormDataQuery
     /**
      * 面談種別選択肢の取得処理を受け取る。
      *
-     * @param InterviewTypeOptionsQuery $interviewTypeOptionsQuery 面談種別選択肢の取得処理
+     * @param  InterviewTypeOptionsQuery  $interviewTypeOptionsQuery  面談種別選択肢の取得処理
      */
     public function __construct(
         private InterviewTypeOptionsQuery $interviewTypeOptionsQuery,

@@ -7,15 +7,15 @@ final readonly class AttendanceStatistics
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param int $lessonCount 授業実施件数
-     * @param int $expectedRecordCount 登録対象件数
-     * @param int $recordedCount 登録済み件数
-     * @param int $missingCount 未登録件数
-     * @param int $presentCount 出席件数
-     * @param int $absentCount 欠席件数
-     * @param int $lateCount 遅刻件数
-     * @param int $earlyLeaveCount 早退件数
-     * @param ?float $attendanceRate 出席率
+     * @param  int  $lessonCount  授業実施件数
+     * @param  int  $expectedRecordCount  登録対象件数
+     * @param  int  $recordedCount  登録済み件数
+     * @param  int  $missingCount  未登録件数
+     * @param  int  $presentCount  出席件数
+     * @param  int  $absentCount  欠席件数
+     * @param  int  $lateCount  遅刻件数
+     * @param  int  $earlyLeaveCount  早退件数
+     * @param  ?float  $attendanceRate  出席率
      */
     public function __construct(
         public int $lessonCount,

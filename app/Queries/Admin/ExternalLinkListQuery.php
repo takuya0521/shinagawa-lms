@@ -14,10 +14,10 @@ final class ExternalLinkListQuery
     /**
      * 管理者向けの外部リンク一覧を検索する。
      *
-     * @param string $keyword 検索キーワード
-     * @param ?ExternalLinkType $linkType 外部リンク種別
-     * @param ?ExternalLinkScopeType $scopeType 公開範囲種別
-     * @param ?MasterStatus $status 設定する状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ?ExternalLinkType  $linkType  外部リンク種別
+     * @param  ?ExternalLinkScopeType  $scopeType  公開範囲種別
+     * @param  ?MasterStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, ExternalLink>
      */
     public function execute(
@@ -33,8 +33,8 @@ final class ExternalLinkListQuery
                     $query->where(
                         static function (Builder $keywordQuery) use ($keyword): void {
                             $keywordQuery
-                                ->where('link_name', 'like', "%{$keyword}%")
-                                ->orWhere('url', 'like', "%{$keyword}%");
+                                ->whereLike('link_name', "%{$keyword}%")
+                                ->orWhereLike('url', "%{$keyword}%");
                         },
                     );
                 },

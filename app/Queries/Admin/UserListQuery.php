@@ -13,9 +13,9 @@ final class UserListQuery
     /**
      * 管理者向けユーザー一覧を取得する。
      *
-     * @param ?string $keyword 検索キーワード
-     * @param ?UserRole $role ロール
-     * @param ?UserStatus $status 設定する状態
+     * @param  ?string  $keyword  検索キーワード
+     * @param  ?UserRole  $role  ロール
+     * @param  ?UserStatus  $status  設定する状態
      * @return LengthAwarePaginator<int, User>
      */
     public function execute(
@@ -30,8 +30,8 @@ final class UserListQuery
                     $query->where(
                         function (Builder $keywordQuery) use ($keyword): void {
                             $keywordQuery
-                                ->where('name', 'like', '%'.$keyword.'%')
-                                ->orWhere('email', 'like', '%'.$keyword.'%');
+                                ->whereLike('name', '%'.$keyword.'%')
+                                ->orWhereLike('email', '%'.$keyword.'%');
                         },
                     );
                 },

@@ -16,9 +16,9 @@ final class EnsureLessonSessionAction
     /**
      * 時間割枠と日付から授業実施日を取得し、未作成の場合は生成する。
      *
-     * @param TimetableSlot $timetableSlot 対象時間割
-     * @param CarbonInterface $lessonDate 授業日
-     * @param User $createdBy 作成者
+     * @param  TimetableSlot  $timetableSlot  対象時間割
+     * @param  CarbonInterface  $lessonDate  授業日
+     * @param  User  $createdBy  作成者
      * @return LessonSession 処理結果
      */
     public function execute(

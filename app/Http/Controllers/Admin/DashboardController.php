@@ -16,8 +16,8 @@ final class DashboardController extends Controller
     /**
      * 管理者ダッシュボードを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param AdminDashboardQuery $dashboardQuery 管理者ダッシュボード表示データの検索処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  AdminDashboardQuery  $dashboardQuery  管理者ダッシュボード表示データの検索処理
      * @return View 管理者ダッシュボード画面
      */
     public function __invoke(

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,8 +18,8 @@ return new class extends Migration
             $table->string('link_name', 100);
             $table->string('url', 500);
             $table->string('scope_type', 30)->default('global');
-            $table->unsignedBigInteger('scope_id')->nullable();
-            $table->unsignedInteger('display_order')->default(0);
+            $table->bigInteger('scope_id')->nullable();
+            $table->integer('display_order')->default(0);
             $table->string('status', 20)->default('active');
             $table->timestamps();
 
@@ -31,6 +32,14 @@ return new class extends Migration
                 'idx_external_links_display',
             );
         });
+
+        // 公開対象IDと表示順の許容範囲をDB側でも保証する。
+        DB::statement(
+            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_scope_id CHECK (scope_id IS NULL OR scope_id > 0)',
+        );
+        DB::statement(
+            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_display_order CHECK (display_order BETWEEN 0 AND 9999)',
+        );
     }
 
     /**

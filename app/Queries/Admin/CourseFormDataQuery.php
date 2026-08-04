@@ -24,7 +24,7 @@ final class CourseFormDataQuery
      *
      * 無効化済みの現在値は編集時に限って選択肢へ残す。
      *
-     * @param Course|null $course 編集対象の授業。登録時はnull
+     * @param  Course|null  $course  編集対象の授業。登録時はnull
      * @return CourseFormData 授業フォームの表示データ
      */
     public function execute(?Course $course = null): CourseFormData
@@ -45,7 +45,7 @@ final class CourseFormDataQuery
     /**
      * DB登録済み年度と現在年度周辺をまとめた年度選択肢を返す。
      *
-     * @param int|null $currentAcademicYear 編集対象に設定されている年度
+     * @param  int|null  $currentAcademicYear  編集対象に設定されている年度
      * @return Collection<int, int> 降順の年度選択肢
      */
     private function academicYears(?int $currentAcademicYear): Collection
@@ -67,7 +67,7 @@ final class CourseFormDataQuery
     /**
      * 有効な科目と編集前に選択されていた科目を返す。
      *
-     * @param int|null $currentSubjectId 編集前の科目ID
+     * @param  int|null  $currentSubjectId  編集前の科目ID
      * @return \Illuminate\Database\Eloquent\Collection<int, Subject> 科目選択肢
      */
     private function subjects(
@@ -90,7 +90,7 @@ final class CourseFormDataQuery
     /**
      * 利用可能な教員と編集前に選択されていた教員を返す。
      *
-     * @param int|null $currentTeacherId 編集前の担当教員ID
+     * @param  int|null  $currentTeacherId  編集前の担当教員ID
      * @return \Illuminate\Database\Eloquent\Collection<int, Teacher> 担当教員選択肢
      */
     private function teachers(

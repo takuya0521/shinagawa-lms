@@ -121,7 +121,7 @@ final class OperationLogIndexRequest extends FormRequest
     /**
      * 指定項目をnullableなIDとして返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return int|null 数値へ変換したID。未指定の場合はnull
      */
     public function nullableId(
@@ -137,7 +137,7 @@ final class OperationLogIndexRequest extends FormRequest
     /**
      * 指定項目をnullableな文字列として返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return string|null 入力文字列。未指定の場合はnull
      */
     public function nullableString(
@@ -179,7 +179,7 @@ final class OperationLogIndexRequest extends FormRequest
     /**
      * 指定項目をtrimし、空文字をnullへ変換する。
      *
-     * @param string $key 正規化する入力項目名
+     * @param  string  $key  正規化する入力項目名
      * @return string|null 正規化後の文字列
      */
     private function nullableTrimmed(

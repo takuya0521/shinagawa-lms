@@ -12,13 +12,13 @@ final readonly class OperationLogFilters
     /**
      * 操作ログの検索条件を生成する。
      *
-     * @param CarbonImmutable $dateFrom 検索開始日時
-     * @param CarbonImmutable $dateTo 検索終了日時
-     * @param int|null $userId 操作者ユーザーID
-     * @param string|null $action 操作コード
-     * @param string|null $targetTable 対象テーブル名
-     * @param int|null $targetId 対象データID
-     * @param string|null $keyword 操作者・操作・詳細を対象とする検索語
+     * @param  CarbonImmutable  $dateFrom  検索開始日時
+     * @param  CarbonImmutable  $dateTo  検索終了日時
+     * @param  int|null  $userId  操作者ユーザーID
+     * @param  string|null  $action  操作コード
+     * @param  string|null  $targetTable  対象テーブル名
+     * @param  int|null  $targetId  対象データID
+     * @param  string|null  $keyword  操作者・操作・詳細を対象とする検索語
      */
     public function __construct(
         public CarbonImmutable $dateFrom,

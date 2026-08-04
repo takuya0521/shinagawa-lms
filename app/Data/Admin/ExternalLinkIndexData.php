@@ -16,15 +16,15 @@ final readonly class ExternalLinkIndexData
     /**
      * 外部リンク一覧画面の表示データを生成する。
      *
-     * @param LengthAwarePaginator<int, ExternalLink> $externalLinks 外部リンク一覧
-     * @param list<ExternalLinkType> $linkTypes 外部リンク種別選択肢
-     * @param list<ExternalLinkScopeType> $scopeTypes 公開範囲種別選択肢
-     * @param list<MasterStatus> $statuses 状態選択肢
-     * @param array<string, array<int, string>> $scopeLabels 公開範囲の表示名
-     * @param string $keyword 検索キーワード
-     * @param ExternalLinkType|null $selectedLinkType 選択中の外部リンク種別
-     * @param ExternalLinkScopeType|null $selectedScopeType 選択中の公開範囲種別
-     * @param MasterStatus|null $selectedStatus 選択中の状態
+     * @param  LengthAwarePaginator<int, ExternalLink>  $externalLinks  外部リンク一覧
+     * @param  list<ExternalLinkType>  $linkTypes  外部リンク種別選択肢
+     * @param  list<ExternalLinkScopeType>  $scopeTypes  公開範囲種別選択肢
+     * @param  list<MasterStatus>  $statuses  状態選択肢
+     * @param  array<string, array<int, string>>  $scopeLabels  公開範囲の表示名
+     * @param  string  $keyword  検索キーワード
+     * @param  ExternalLinkType|null  $selectedLinkType  選択中の外部リンク種別
+     * @param  ExternalLinkScopeType|null  $selectedScopeType  選択中の公開範囲種別
+     * @param  MasterStatus|null  $selectedStatus  選択中の状態
      */
     public function __construct(
         public LengthAwarePaginator $externalLinks,

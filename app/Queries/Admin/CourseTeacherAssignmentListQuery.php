@@ -15,12 +15,12 @@ final class CourseTeacherAssignmentListQuery
     /**
      * 担当講師設定画面へ表示する授業一覧を取得する。
      *
-     * @param string $keyword 検索キーワード
-     * @param ?int $academicYear 対象年度
-     * @param ?Grade $grade 学年
-     * @param ?int $classGroupId 対象データの識別子
-     * @param ?int $subjectId 対象データの識別子
-     * @param ?string $assignmentStatus 担当設定状態
+     * @param  string  $keyword  検索キーワード
+     * @param  ?int  $academicYear  対象年度
+     * @param  ?Grade  $grade  学年
+     * @param  ?int  $classGroupId  対象データの識別子
+     * @param  ?int  $subjectId  対象データの識別子
+     * @param  ?string  $assignmentStatus  担当設定状態
      * @return LengthAwarePaginator<int, Course>
      */
     public function execute(
@@ -66,9 +66,8 @@ final class CourseTeacherAssignmentListQuery
                             Builder $keywordQuery,
                         ) use ($keyword): void {
                             $keywordQuery
-                                ->where(
+                                ->whereLike(
                                     'courses.course_name',
-                                    'like',
                                     "%{$keyword}%",
                                 )
                                 ->orWhereHas(
@@ -77,14 +76,12 @@ final class CourseTeacherAssignmentListQuery
                                         Builder $subjectQuery,
                                     ) use ($keyword): void {
                                         $subjectQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'subject_code',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'subject_name',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },
@@ -95,14 +92,12 @@ final class CourseTeacherAssignmentListQuery
                                         Builder $userQuery,
                                     ) use ($keyword): void {
                                         $userQuery
-                                            ->where(
+                                            ->whereLike(
                                                 'name',
-                                                'like',
                                                 "%{$keyword}%",
                                             )
-                                            ->orWhere(
+                                            ->orWhereLike(
                                                 'email',
-                                                'like',
                                                 "%{$keyword}%",
                                             );
                                     },

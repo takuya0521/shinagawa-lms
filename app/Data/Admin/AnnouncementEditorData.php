@@ -12,9 +12,9 @@ final readonly class AnnouncementEditorData
     /**
      * お知らせ登録・編集画面の表示データを生成する。
      *
-     * @param AnnouncementFormData $formData フォーム選択肢
-     * @param Announcement $announcement 登録初期値または編集対象のお知らせ
-     * @param list<string> $selectedTargets 選択中の公開対象値
+     * @param  AnnouncementFormData  $formData  フォーム選択肢
+     * @param  Announcement  $announcement  登録初期値または編集対象のお知らせ
+     * @param  list<string>  $selectedTargets  選択中の公開対象値
      */
     public function __construct(
         public AnnouncementFormData $formData,

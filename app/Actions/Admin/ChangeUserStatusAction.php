@@ -12,7 +12,7 @@ final class ChangeUserStatusAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly OperationLogWriter $operationLogWriter,
@@ -21,10 +21,10 @@ final class ChangeUserStatusAction
     /**
      * ユーザーの利用状態を変更する。
      *
-     * @param User $user 対象ユーザー
-     * @param UserStatus $status 設定する状態
-     * @param User $actor 操作を実行するユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  User  $user  対象ユーザー
+     * @param  UserStatus  $status  設定する状態
+     * @param  User  $actor  操作を実行するユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return User 処理結果
      */
     public function execute(

@@ -116,7 +116,7 @@ final class CourseTeacherAssignmentIndexRequest extends FormRequest
     /**
      * 指定項目をnullableなIDとして返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return int|null 正の整数ID。未指定の場合はnull
      */
     private function nullableId(string $key): ?int
@@ -131,7 +131,7 @@ final class CourseTeacherAssignmentIndexRequest extends FormRequest
     /**
      * 指定項目をnullableな文字列として返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return string|null 入力文字列。未指定の場合はnull
      */
     private function nullableString(string $key): ?string
@@ -146,7 +146,7 @@ final class CourseTeacherAssignmentIndexRequest extends FormRequest
     /**
      * 指定項目をtrimし、空文字をnullへ変換する。
      *
-     * @param string $key 正規化する入力項目名
+     * @param  string  $key  正規化する入力項目名
      * @return string|null 正規化後の文字列
      */
     private function nullableTrimmed(string $key): ?string
@@ -161,7 +161,7 @@ final class CourseTeacherAssignmentIndexRequest extends FormRequest
     /**
      * 空文字をnullへ変換し、それ以外の入力値を返す。
      *
-     * @param string $key 正規化する入力項目名
+     * @param  string  $key  正規化する入力項目名
      * @return mixed 正規化後の入力値
      */
     private function nullableValue(string $key): mixed

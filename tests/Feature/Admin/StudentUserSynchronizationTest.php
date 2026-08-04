@@ -11,10 +11,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * ユーザーと生徒プロフィールの同期処理を確認するフィーチャーテスト。
+ *
+ * 生徒ロール付与時のプロフィール作成、既存ユーザーへの関連付け、ロール変更時の論理削除を検証する。
+ */
 final class StudentUserSynchronizationTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 生徒ロールのユーザー登録時に生徒プロフィールも作成されることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.users.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_student_profile_is_created_with_student_user(): void
     {
         $admin = $this->createAdmin();
@@ -55,6 +67,13 @@ final class StudentUserSynchronizationTest extends TestCase
         ]);
     }
 
+    /**
+     * 既存の生徒ロールユーザーへ生徒プロフィールを追加できることを確認する。
+     *
+     * 前提: クラス、ユーザーなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.users.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_existing_student_user_can_receive_student_profile(): void
     {
         $admin = $this->createAdmin();
@@ -96,6 +115,13 @@ final class StudentUserSynchronizationTest extends TestCase
         ]);
     }
 
+    /**
+     * 生徒から別ロールへ変更した際に生徒プロフィールが論理削除されることを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.users.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、対象レコードが論理削除されることを確認する。
+     */
     public function test_student_profile_is_soft_deleted_when_role_changes(): void
     {
         $admin = $this->createAdmin();
@@ -121,6 +147,9 @@ final class StudentUserSynchronizationTest extends TestCase
         ]);
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function createAdmin(): User
     {
         return User::factory()->create([

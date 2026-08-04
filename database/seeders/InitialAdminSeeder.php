@@ -9,6 +9,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use RuntimeException;
 
+/**
+ * 環境設定から初期管理者アカウントを安全に登録するSeeder。
+ */
 final class InitialAdminSeeder extends Seeder
 {
     /**

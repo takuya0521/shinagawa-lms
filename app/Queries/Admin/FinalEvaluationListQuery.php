@@ -15,13 +15,13 @@ final class FinalEvaluationListQuery
     /**
      * 管理者向けに評価済み・未入力を含む評価候補一覧を返す。
      *
-     * @param int $academicYear 対象年度
-     * @param EvaluationTerm $term 対象学期
-     * @param ?int $studentId 対象生徒ID
-     * @param ?int $courseId 対象授業ID
-     * @param ?int $subjectId 対象データの識別子
-     * @param ?EvaluationStatus $status 設定する状態
-     * @param bool $missingOnly 未登録のみを対象とするフラグ
+     * @param  int  $academicYear  対象年度
+     * @param  EvaluationTerm  $term  対象学期
+     * @param  ?int  $studentId  対象生徒ID
+     * @param  ?int  $courseId  対象授業ID
+     * @param  ?int  $subjectId  対象データの識別子
+     * @param  ?EvaluationStatus  $status  設定する状態
+     * @param  bool  $missingOnly  未登録のみを対象とするフラグ
      * @return LengthAwarePaginator<int, object>
      */
     public function execute(
@@ -81,7 +81,7 @@ final class FinalEvaluationListQuery
     /**
      * 評価対象候補を作る共通クエリを返す。
      *
-     * @param EvaluationTerm $term 対象学期
+     * @param  EvaluationTerm  $term  対象学期
      * @return Builder 処理結果
      */
     private function baseQuery(

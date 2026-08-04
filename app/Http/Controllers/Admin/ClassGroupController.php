@@ -20,8 +20,8 @@ final class ClassGroupController extends Controller
     /**
      * 管理者向けクラス一覧を表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param ClassGroupListQuery $query 検索処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  ClassGroupListQuery  $query  検索処理
      * @return View 表示する画面
      */
     public function index(
@@ -66,8 +66,8 @@ final class ClassGroupController extends Controller
     /**
      * クラスを登録する。
      *
-     * @param StoreClassGroupRequest $request HTTPリクエスト
-     * @param CreateClassGroupAction $action 業務処理
+     * @param  StoreClassGroupRequest  $request  HTTPリクエスト
+     * @param  CreateClassGroupAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function store(
@@ -94,7 +94,7 @@ final class ClassGroupController extends Controller
     /**
      * クラス編集画面を表示する。
      *
-     * @param ClassGroup $classGroup 対象クラス
+     * @param  ClassGroup  $classGroup  対象クラス
      * @return View 表示する画面
      */
     public function edit(ClassGroup $classGroup): View
@@ -108,9 +108,9 @@ final class ClassGroupController extends Controller
     /**
      * クラスを更新する。
      *
-     * @param UpdateClassGroupRequest $request HTTPリクエスト
-     * @param ClassGroup $classGroup 対象クラス
-     * @param UpdateClassGroupAction $action 業務処理
+     * @param  UpdateClassGroupRequest  $request  HTTPリクエスト
+     * @param  ClassGroup  $classGroup  対象クラス
+     * @param  UpdateClassGroupAction  $action  業務処理
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

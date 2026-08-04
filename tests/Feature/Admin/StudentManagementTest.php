@@ -11,10 +11,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け生徒管理機能を確認するフィーチャーテスト。
+ *
+ * 登録画面、登録・更新、権限制御を検証する。
+ */
 final class StudentManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が生徒登録画面を表示できることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.create`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_student_create_page(): void
     {
         $admin = $this->createAdmin();
@@ -33,6 +45,13 @@ final class StudentManagementTest extends TestCase
             ->assertSeeText('登録確認クラス');
     }
 
+    /**
+     * 管理者が生徒を登録できることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_create_student(): void
     {
         $admin = $this->createAdmin();
@@ -84,6 +103,13 @@ final class StudentManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者が生徒情報を更新できることを確認する。
+     *
+     * 前提: クラス、生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_update_student(): void
     {
         $admin = $this->createAdmin();
@@ -133,6 +159,13 @@ final class StudentManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 教員が生徒管理機能を利用できないことを確認する。
+     *
+     * 前提: ユーザーなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.create`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_students(): void
     {
         $teacher = User::factory()->create([
@@ -147,6 +180,9 @@ final class StudentManagementTest extends TestCase
         $response->assertForbidden();
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function createAdmin(): User
     {
         return User::factory()->create([

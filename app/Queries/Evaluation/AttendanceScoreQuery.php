@@ -20,8 +20,7 @@ final class AttendanceScoreQuery
      * present/absentのみが全件登録されている場合に限り算出する。
      *
      * @param  Collection<int, Student>  $students
-     *
-     * @param Course $course 対象授業
+     * @param  Course  $course  対象授業
      * @return array<int, AttendanceScoreResult>
      */
     public function execute(
@@ -122,8 +121,7 @@ final class AttendanceScoreQuery
      * 指定された出欠区分の件数を返す。
      *
      * @param  \Illuminate\Support\Collection<int, AttendanceRecord>  $records
-     *
-     * @param AttendanceStatus $status 設定する状態
+     * @param  AttendanceStatus  $status  設定する状態
      * @return int 取得した整数
      */
     private function countStatus(

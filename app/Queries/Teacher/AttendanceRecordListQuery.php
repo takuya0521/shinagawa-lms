@@ -15,12 +15,11 @@ final class AttendanceRecordListQuery
      * 担当授業に限定した生徒別出欠履歴を取得する。
      *
      * @param  list<int>|null  $lessonSessionIds
-     *
-     * @param Teacher $teacher 対象教員
-     * @param CarbonInterface $dateFrom 検索開始日
-     * @param CarbonInterface $dateTo 検索終了日
-     * @param ?int $courseId 対象授業ID
-     * @param ?AttendanceStatus $attendanceStatus 出欠状態
+     * @param  Teacher  $teacher  対象教員
+     * @param  CarbonInterface  $dateFrom  検索開始日
+     * @param  CarbonInterface  $dateTo  検索終了日
+     * @param  ?int  $courseId  対象授業ID
+     * @param  ?AttendanceStatus  $attendanceStatus  出欠状態
      * @return LengthAwarePaginator<int, AttendanceRecord>
      */
     public function execute(

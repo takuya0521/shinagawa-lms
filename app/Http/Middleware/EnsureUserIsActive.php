@@ -13,8 +13,8 @@ final class EnsureUserIsActive
     /**
      * 利用中のユーザーだけ後続処理へ進める。
      *
-     * @param Request $request HTTPリクエスト
-     * @param Closure $next 後続処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  Closure  $next  後続処理
      * @return Response 処理結果
      */
     public function handle(Request $request, Closure $next): Response

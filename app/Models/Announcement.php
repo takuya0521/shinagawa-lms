@@ -73,8 +73,7 @@ final class Announcement extends Model
      * 指定日時に公開中のお知らせへ絞り込む。
      *
      * @param  Builder<Announcement>  $query
-     *
-     * @param \DateTimeInterface $dateTime 判定対象日時
+     * @param  \DateTimeInterface  $dateTime  判定対象日時
      * @return Builder<Announcement>
      */
     public function scopePublishedAt(

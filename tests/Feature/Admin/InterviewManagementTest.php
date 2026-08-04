@@ -13,10 +13,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け面談記録管理機能を確認するフィーチャーテスト。
+ *
+ * 一覧、登録・更新、検索条件、URL検証、操作ログ、生徒詳細連携、権限制御を検証する。
+ */
 final class InterviewManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が面談記録一覧を閲覧できることを確認する。
+     *
+     * 前提: 面談記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_interview_list(): void
     {
         $admin = $this->admin();
@@ -35,6 +47,13 @@ final class InterviewManagementTest extends TestCase
             ->assertSeeText('志望校を次回確認する');
     }
 
+    /**
+     * 管理者が面談記録を登録し、操作ログが記録されることを確認する。
+     *
+     * 前提: 生徒、教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、対象条件が真になることを確認する。
+     */
     public function test_admin_can_create_interview_and_operation_log_is_created(): void
     {
         $admin = $this->admin();
@@ -87,6 +106,13 @@ final class InterviewManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者が面談記録を更新し、操作ログが記録されることを確認する。
+     *
+     * 前提: 面談記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_can_update_interview_and_operation_log_is_created(): void
     {
         $admin = $this->admin();
@@ -132,6 +158,13 @@ final class InterviewManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者が生徒と面談種別で面談記録を絞り込めることを確認する。
+     *
+     * 前提: 生徒、面談記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な内容がレスポンスに含まれる、表示対象外の内容がレスポンスに含まれないことを確認する。
+     */
     public function test_admin_can_filter_interviews_by_student_and_type(): void
     {
         $admin = $this->admin();
@@ -173,6 +206,13 @@ final class InterviewManagementTest extends TestCase
             );
     }
 
+    /**
+     * 面談記録へHTTPS以外の関連リンクを登録できないことを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_non_https_links_cannot_be_registered(): void
     {
         $admin = $this->admin();
@@ -195,6 +235,13 @@ final class InterviewManagementTest extends TestCase
             ->assertSessionHasErrors('drive_url');
     }
 
+    /**
+     * 教員が管理者向け面談管理画面へアクセスできないことを確認する。
+     *
+     * 前提: 教員、面談記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.interviews.index`へGETリクエスト、`admin.interviews.create`へGETリクエスト、`admin.interviews.edit`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_access_admin_interview_pages(): void
     {
         $teacher = Teacher::factory()->create();
@@ -216,6 +263,13 @@ final class InterviewManagementTest extends TestCase
             ->assertForbidden();
     }
 
+    /**
+     * 生徒詳細画面に最近の面談履歴が表示されることを確認する。
+     *
+     * 前提: クラス、生徒、面談記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.show`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_student_detail_shows_recent_interview_history(): void
     {
         $admin = $this->admin();
@@ -240,6 +294,9 @@ final class InterviewManagementTest extends TestCase
             ->assertSeeText('保護者へ連絡する');
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([

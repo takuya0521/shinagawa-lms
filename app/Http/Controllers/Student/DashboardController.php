@@ -18,11 +18,11 @@ final class DashboardController extends Controller
     /**
      * 生徒マイページを表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param TimetableQuery $timetableQuery データ取得処理
-     * @param VisibleAnnouncementQuery $visibleAnnouncementQuery データ取得処理
-     * @param ExternalLinkResolver $externalLinkResolver 外部リンク解決処理
-     * @param DashboardSummaryQuery $dashboardSummaryQuery データ取得処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  TimetableQuery  $timetableQuery  データ取得処理
+     * @param  VisibleAnnouncementQuery  $visibleAnnouncementQuery  データ取得処理
+     * @param  ExternalLinkResolver  $externalLinkResolver  外部リンク解決処理
+     * @param  DashboardSummaryQuery  $dashboardSummaryQuery  データ取得処理
      * @return View 表示する画面
      */
     public function __invoke(

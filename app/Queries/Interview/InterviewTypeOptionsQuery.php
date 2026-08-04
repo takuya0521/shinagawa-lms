@@ -18,7 +18,7 @@ final class InterviewTypeOptionsQuery
      * 教員が指定された場合は、その教員が過去に使用した面談種別へ限定する。
      * 標準の面談種別は、利用実績の有無にかかわらず常に含める。
      *
-     * @param Teacher|null $teacher 対象教員。管理者向け全件取得時はnull
+     * @param  Teacher|null  $teacher  対象教員。管理者向け全件取得時はnull
      * @return Collection<int, string> 面談種別選択肢
      */
     public function execute(?Teacher $teacher = null): Collection
@@ -49,8 +49,8 @@ final class InterviewTypeOptionsQuery
     /**
      * 教員が指定されている場合に担当教員条件を適用する。
      *
-     * @param Builder<InterviewRecord> $query 面談記録クエリ
-     * @param Teacher|null $teacher 対象教員。全件取得時はnull
+     * @param  Builder<InterviewRecord>  $query  面談記録クエリ
+     * @param  Teacher|null  $teacher  対象教員。全件取得時はnull
      * @return void 戻り値なし
      */
     private function applyTeacherScope(

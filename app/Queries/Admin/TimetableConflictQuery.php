@@ -14,10 +14,10 @@ final class TimetableConflictQuery
     /**
      * 同じ授業・曜日・時限の時間割枠を取得する。
      *
-     * @param Course $course 対象授業
-     * @param DayOfWeek $dayOfWeek 曜日
-     * @param int $periodNo 時限番号
-     * @param ?int $ignoreTimetableSlotId 対象データの識別子
+     * @param  Course  $course  対象授業
+     * @param  DayOfWeek  $dayOfWeek  曜日
+     * @param  int  $periodNo  時限番号
+     * @param  ?int  $ignoreTimetableSlotId  対象データの識別子
      * @return ?TimetableSlot 処理結果。取得できない場合はnull
      */
     public function findCourseConflict(
@@ -41,10 +41,10 @@ final class TimetableConflictQuery
     /**
      * 同じ年度・学年・クラス・曜日・時限の有効な時間割枠を取得する。
      *
-     * @param Course $course 対象授業
-     * @param DayOfWeek $dayOfWeek 曜日
-     * @param int $periodNo 時限番号
-     * @param ?int $ignoreTimetableSlotId 対象データの識別子
+     * @param  Course  $course  対象授業
+     * @param  DayOfWeek  $dayOfWeek  曜日
+     * @param  int  $periodNo  時限番号
+     * @param  ?int  $ignoreTimetableSlotId  対象データの識別子
      * @return ?TimetableSlot 処理結果。取得できない場合はnull
      */
     public function findClassConflict(
@@ -92,10 +92,10 @@ final class TimetableConflictQuery
     /**
      * 同じ年度・担当教員・曜日・時限の有効な時間割枠を取得する。
      *
-     * @param Course $course 対象授業
-     * @param DayOfWeek $dayOfWeek 曜日
-     * @param int $periodNo 時限番号
-     * @param ?int $ignoreTimetableSlotId 対象データの識別子
+     * @param  Course  $course  対象授業
+     * @param  DayOfWeek  $dayOfWeek  曜日
+     * @param  int  $periodNo  時限番号
+     * @param  ?int  $ignoreTimetableSlotId  対象データの識別子
      * @return ?TimetableSlot 処理結果。取得できない場合はnull
      */
     public function findTeacherConflict(
@@ -145,7 +145,6 @@ final class TimetableConflictQuery
      * 競合判定対象となる授業と教員を排他ロックする。
      *
      * @param  array<int, Course>  $courses
-     *
      * @return void 戻り値なし
      */
     public function lockConflictScopes(
@@ -237,9 +236,9 @@ final class TimetableConflictQuery
     /**
      * 曜日・時限を指定した競合判定の共通クエリを返す。
      *
-     * @param DayOfWeek $dayOfWeek 曜日
-     * @param int $periodNo 時限番号
-     * @param ?int $ignoreTimetableSlotId 対象データの識別子
+     * @param  DayOfWeek  $dayOfWeek  曜日
+     * @param  int  $periodNo  時限番号
+     * @param  ?int  $ignoreTimetableSlotId  対象データの識別子
      * @return Builder<TimetableSlot>
      */
     private function baseConflictQuery(

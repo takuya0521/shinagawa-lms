@@ -20,12 +20,12 @@ final class FinalEvaluationListQuery
     /**
      * ログイン教員の担当授業に限定した評価候補一覧を返す。
      *
-     * @param Teacher $teacher ログインユーザーに紐付く教員
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
-     * @param int|null $courseId 授業ID
-     * @param EvaluationStatus|null $status 評価状態
-     * @param bool $missingOnly 未登録評価だけへ絞り込むか
+     * @param  Teacher  $teacher  ログインユーザーに紐付く教員
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
+     * @param  int|null  $courseId  授業ID
+     * @param  EvaluationStatus|null  $status  評価状態
+     * @param  bool  $missingOnly  未登録評価だけへ絞り込むか
      * @return LengthAwarePaginator<int, object> 評価候補一覧
      */
     public function execute(
@@ -51,9 +51,9 @@ final class FinalEvaluationListQuery
     /**
      * 担当授業、生徒、科目、クラス、評価を結合した基礎クエリを作成する。
      *
-     * @param Teacher $teacher 対象教員
-     * @param int $academicYear 評価年度
-     * @param EvaluationTerm $term 評価学期
+     * @param  Teacher  $teacher  対象教員
+     * @param  int  $academicYear  評価年度
+     * @param  EvaluationTerm  $term  評価学期
      * @return Builder 評価候補の基礎クエリ
      */
     private function baseQuery(
@@ -124,11 +124,10 @@ final class FinalEvaluationListQuery
     /**
      * 任意の授業・状態・未登録条件を適用する。
      *
-     * @param Builder $query 評価候補の基礎クエリ
-     * @param int|null $courseId 授業ID
-     * @param EvaluationStatus|null $status 評価状態
-     * @param bool $missingOnly 未登録評価だけへ絞り込むか
-     *
+     * @param  Builder  $query  評価候補の基礎クエリ
+     * @param  int|null  $courseId  授業ID
+     * @param  EvaluationStatus|null  $status  評価状態
+     * @param  bool  $missingOnly  未登録評価だけへ絞り込むか
      * @return void 戻り値なし
      */
     private function applyFilters(

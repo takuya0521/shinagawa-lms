@@ -15,9 +15,9 @@ class ResetUserPassword implements ResetsUserPasswords
     /**
      * 入力内容を検証し、忘れたパスワードを再設定する。
      *
-     * @param User $user パスワードを再設定するユーザー
-     * @param array<string, string> $input 新しいパスワードと確認入力
-     * @return void
+     * @param  User  $user  パスワードを再設定するユーザー
+     * @param  array<string, string>  $input  新しいパスワードと確認入力
+     *
      * @throws ValidationException 入力内容がパスワード条件を満たさない場合
      */
     public function reset(User $user, array $input): void

@@ -25,8 +25,8 @@ final class PasswordController extends Controller
     /**
      * ログインユーザー本人のパスワードを変更する。
      *
-     * @param UpdatePasswordRequest $request HTTPリクエスト
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  UpdatePasswordRequest  $request  HTTPリクエスト
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function update(

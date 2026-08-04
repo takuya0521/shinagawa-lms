@@ -1,6 +1,0 @@
-# 上書き後に削除するファイル
-README_#U8b56#Uff74#U8b41#Uff70#U7e5d#U8f14#U3043#U7e67#Uff64#U7e5d#Uff6b#U8373#U0080#U9695#Uff67.txt
-README_#U8708#Uff68#U9015#Uff7b#U9af1#Uff62#U7e5d#U30fb#U3058#U7e67#Uff64#U7e5d#Uff73#U7e5d#Uff7bCSS#U8b92#U533a#U30fb.txt
-README_#U8c3f#U533a#Uff69#U6eaf#U30fb#U9a55#Uff69#U9015#Uff68#U8b07#U77e9#Uf8f0#U30fbtxt
-resources/views/layouts/student-dashboard.blade.php
-resources/css/student-dashboard.css

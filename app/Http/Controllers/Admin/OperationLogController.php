@@ -19,8 +19,8 @@ final class OperationLogController extends Controller
     /**
      * 管理者向け操作ログ一覧を表示する。
      *
-     * @param OperationLogIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param OperationLogIndexDataQuery $indexDataQuery 一覧画面の表示データ取得処理
+     * @param  OperationLogIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  OperationLogIndexDataQuery  $indexDataQuery  一覧画面の表示データ取得処理
      * @return View 操作ログ一覧画面
      */
     public function index(
@@ -38,7 +38,7 @@ final class OperationLogController extends Controller
     /**
      * 操作ログ詳細を表示する。
      *
-     * @param OperationLog $operationLog 表示対象の操作ログ
+     * @param  OperationLog  $operationLog  表示対象の操作ログ
      * @return View 操作ログ詳細画面
      */
     public function show(
@@ -54,8 +54,8 @@ final class OperationLogController extends Controller
     /**
      * 検索条件に一致する操作ログをCSV出力する。
      *
-     * @param OperationLogIndexRequest $request 検証済み検索条件を含むリクエスト
-     * @param OperationLogCsvDownloadService $downloadService CSVダウンロード応答の生成処理
+     * @param  OperationLogIndexRequest  $request  検証済み検索条件を含むリクエスト
+     * @param  OperationLogCsvDownloadService  $downloadService  CSVダウンロード応答の生成処理
      * @return StreamedResponse CSVダウンロード応答
      */
     public function export(

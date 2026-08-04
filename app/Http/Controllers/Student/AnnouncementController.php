@@ -16,8 +16,8 @@ final class AnnouncementController extends Controller
     /**
      * 生徒本人が閲覧できるお知らせ一覧を表示する。
      *
-     * @param VisibleAnnouncementIndexRequest $request HTTPリクエスト
-     * @param VisibleAnnouncementQuery $visibleAnnouncementQuery データ取得処理
+     * @param  VisibleAnnouncementIndexRequest  $request  HTTPリクエスト
+     * @param  VisibleAnnouncementQuery  $visibleAnnouncementQuery  データ取得処理
      * @return View 表示する画面
      */
     public function index(
@@ -44,9 +44,9 @@ final class AnnouncementController extends Controller
     /**
      * 生徒本人が閲覧できるお知らせ詳細を表示する。
      *
-     * @param Request $request HTTPリクエスト
-     * @param Announcement $announcement 対象お知らせ
-     * @param VisibleAnnouncementQuery $visibleAnnouncementQuery データ取得処理
+     * @param  Request  $request  HTTPリクエスト
+     * @param  Announcement  $announcement  対象お知らせ
+     * @param  VisibleAnnouncementQuery  $visibleAnnouncementQuery  データ取得処理
      * @return View 表示する画面
      */
     public function show(

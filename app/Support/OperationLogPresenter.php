@@ -10,7 +10,7 @@ final class OperationLogPresenter
     /**
      * 操作コードに対応する日本語名を返す。
      *
-     * @param string $action 業務処理
+     * @param  string  $action  業務処理
      * @return string 取得した文字列
      */
     public static function actionLabel(
@@ -48,7 +48,7 @@ final class OperationLogPresenter
     /**
      * 対象テーブルに対応する日本語名を返す。
      *
-     * @param ?string $targetTable 対象テーブル名
+     * @param  ?string  $targetTable  対象テーブル名
      * @return string 取得した文字列
      */
     public static function targetLabel(
@@ -73,7 +73,7 @@ final class OperationLogPresenter
     /**
      * 一覧へ表示するログ詳細の要約を返す。
      *
-     * @param OperationLog $operationLog 対象操作ログ
+     * @param  OperationLog  $operationLog  対象操作ログ
      * @return string 取得した文字列
      */
     public static function detailSummary(

@@ -39,6 +39,7 @@ foreach ($iterator as $file) {
     $contents = file_get_contents($file->getPathname());
     if (! is_string($contents)) {
         $errors[] = "読み込み不可: {$relative}";
+
         continue;
     }
 

@@ -21,8 +21,8 @@ final class AnnouncementVisibilityScope
     /**
      * ユーザーが閲覧できるお知らせへ絞り込む。
      *
-     * @param Builder<Announcement> $query 公開期間を適用済みのお知らせクエリ
-     * @param User $user 閲覧可否を判定するログインユーザー
+     * @param  Builder<Announcement>  $query  公開期間を適用済みのお知らせクエリ
+     * @param  User  $user  閲覧可否を判定するログインユーザー
      * @return Builder<Announcement> 公開対象条件を適用したクエリ
      */
     public function apply(
@@ -39,8 +39,8 @@ final class AnnouncementVisibilityScope
     /**
      * 教員ロール・担当学年・担当クラスを公開対象に含むお知らせへ絞り込む。
      *
-     * @param Builder<Announcement> $query お知らせクエリ
-     * @param User $user 閲覧する教員ユーザー
+     * @param  Builder<Announcement>  $query  お知らせクエリ
+     * @param  User  $user  閲覧する教員ユーザー
      * @return Builder<Announcement> 教員向け公開条件を適用したクエリ
      */
     private function forTeacher(
@@ -113,8 +113,8 @@ final class AnnouncementVisibilityScope
     /**
      * 生徒ロール・所属学年・所属クラスを公開対象に含むお知らせへ絞り込む。
      *
-     * @param Builder<Announcement> $query お知らせクエリ
-     * @param User $user 閲覧する生徒ユーザー
+     * @param  Builder<Announcement>  $query  お知らせクエリ
+     * @param  User  $user  閲覧する生徒ユーザー
      * @return Builder<Announcement> 生徒向け公開条件を適用したクエリ
      */
     private function forStudent(
@@ -187,7 +187,7 @@ final class AnnouncementVisibilityScope
     /**
      * 教員が担当する学年値とクラスIDを取得する。
      *
-     * @param User $user 対象の教員ユーザー
+     * @param  User  $user  対象の教員ユーザー
      * @return array{0: list<string>, 1: list<string>} 担当学年値と担当クラスID
      */
     private function teacherTargetValues(User $user): array

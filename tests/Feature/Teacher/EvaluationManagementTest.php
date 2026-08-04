@@ -19,10 +19,22 @@ use App\Models\TimetableSlot;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 教員向け評価管理機能を確認するフィーチャーテスト。
+ *
+ * 担当授業の評価表示・入力、下書き・確定条件、対象生徒・他教員授業のアクセス制御を検証する。
+ */
 final class EvaluationManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 教員に自身の担当授業に関する評価だけが表示されることを確認する。
+     *
+     * 前提: 教員、授業、最終評価など、検証に必要なテストデータを準備する。
+     * 処理: `teacher.evaluations.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示される、表示対象外の文言やデータが画面に出ないことを確認する。
+     */
     public function test_teacher_can_view_only_assigned_course_evaluations(): void
     {
         [$teacher, $course, $student] = $this->evaluationContext();
@@ -53,6 +65,13 @@ final class EvaluationManagementTest extends TestCase
             ->assertDontSeeText($otherCourse->course_name);
     }
 
+    /**
+     * 教員が担当授業の評価入力画面を開けることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `teacher.evaluations.entry`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_teacher_can_open_evaluation_entry_for_assigned_course(): void
     {
         [$teacher, $course, $student] = $this->evaluationContext();
@@ -69,6 +88,13 @@ final class EvaluationManagementTest extends TestCase
             ->assertSeeText($student->student_name);
     }
 
+    /**
+     * 評価基準が未確定でも教員が評価を下書き保存できることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `teacher.evaluations.save`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_teacher_can_save_draft_when_grading_rule_is_unresolved(): void
     {
         [$teacher, $course, $student] = $this->evaluationContext();
@@ -105,6 +131,13 @@ final class EvaluationManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 評価基準が未確定の場合に教員が評価を確定できないことを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `teacher.evaluations.save`へPUTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返る、不要なデータがデータベースに保存されないことを確認する。
+     */
     public function test_teacher_cannot_confirm_when_grading_rule_is_unresolved(): void
     {
         [$teacher, $course, $student] = $this->evaluationContext();
@@ -136,6 +169,13 @@ final class EvaluationManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 出欠と評価基準が揃った場合に教員が評価を確定できることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `teacher.evaluations.save`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_teacher_can_confirm_when_attendance_and_grading_rules_are_ready(): void
     {
         $this->configureGrading();
@@ -167,6 +207,13 @@ final class EvaluationManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 教員が授業対象外の生徒へ評価を保存できないことを確認する。
+     *
+     * 前提: 生徒など、検証に必要なテストデータを準備する。
+     * 処理: `teacher.evaluations.save`へPUTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_teacher_cannot_save_evaluation_for_non_target_student(): void
     {
         [$teacher, $course] = $this->evaluationContext();
@@ -190,6 +237,13 @@ final class EvaluationManagementTest extends TestCase
             ->assertSessionHasErrors('evaluations');
     }
 
+    /**
+     * 教員が他教員の担当授業に関する評価を管理できないことを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `teacher.evaluations.entry`へGETリクエスト、`teacher.evaluations.save`へPUTリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_another_teachers_course_evaluations(): void
     {
         $teacher = Teacher::factory()->create();
@@ -221,7 +275,9 @@ final class EvaluationManagementTest extends TestCase
         $this->assertNotSame($teacher->id, $otherTeacher->id);
     }
 
-    /** @return array{0: Teacher, 1: Course, 2: Student} */
+    /**
+     * 評価管理テストに必要な授業、担当教員、生徒、評価データをまとめて作成する。
+     */
     private function evaluationContext(): array
     {
         $teacher = Teacher::factory()->create();
@@ -242,6 +298,9 @@ final class EvaluationManagementTest extends TestCase
         return [$teacher, $course, $student];
     }
 
+    /**
+     * 評価確定条件を満たすため、対象授業の出欠記録を完了状態で作成する。
+     */
     private function createCompletedAttendance(
         Teacher $teacher,
         Course $course,
@@ -266,6 +325,9 @@ final class EvaluationManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 評価確定テストで使用する出欠・評価基準の設定値を構成する。
+     */
     private function configureGrading(): void
     {
         config()->set('lms.evaluation.rounding_mode', 'round');

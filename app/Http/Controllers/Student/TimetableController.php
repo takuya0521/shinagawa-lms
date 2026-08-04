@@ -16,8 +16,8 @@ final class TimetableController extends Controller
     /**
      * 生徒本人の週間時間割を表示する。
      *
-     * @param TimetableIndexRequest $request HTTPリクエスト
-     * @param TimetableQuery $timetableQuery データ取得処理
+     * @param  TimetableIndexRequest  $request  HTTPリクエスト
+     * @param  TimetableQuery  $timetableQuery  データ取得処理
      * @return View 表示する画面
      */
     public function index(

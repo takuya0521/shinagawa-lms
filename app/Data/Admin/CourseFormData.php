@@ -18,12 +18,12 @@ final readonly class CourseFormData
     /**
      * 授業フォームの表示データを生成する。
      *
-     * @param Collection<int, int> $academicYears 年度選択肢
-     * @param list<Grade> $grades 学年選択肢
-     * @param EloquentCollection<int, Subject> $subjects 科目選択肢
-     * @param EloquentCollection<int, ClassGroup> $classGroups クラス選択肢
-     * @param EloquentCollection<int, Teacher> $teachers 担当教員選択肢
-     * @param list<MasterStatus> $statuses 状態選択肢
+     * @param  Collection<int, int>  $academicYears  年度選択肢
+     * @param  list<Grade>  $grades  学年選択肢
+     * @param  EloquentCollection<int, Subject>  $subjects  科目選択肢
+     * @param  EloquentCollection<int, ClassGroup>  $classGroups  クラス選択肢
+     * @param  EloquentCollection<int, Teacher>  $teachers  担当教員選択肢
+     * @param  list<MasterStatus>  $statuses  状態選択肢
      */
     public function __construct(
         public Collection $academicYears,

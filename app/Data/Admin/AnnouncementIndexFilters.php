@@ -13,13 +13,13 @@ final readonly class AnnouncementIndexFilters
     /**
      * お知らせ一覧の検索条件を生成する。
      *
-     * @param string $keyword タイトル・本文を対象とする検索語
-     * @param AnnouncementNoticeType|null $noticeType お知らせ種別
-     * @param string|null $target 公開対象
-     * @param AnnouncementStatus|null $status 公開状態
-     * @param bool|null $importantOnly 重要なお知らせだけを表示するか
-     * @param string|null $publishFrom 掲載期間の検索開始日
-     * @param string|null $publishTo 掲載期間の検索終了日
+     * @param  string  $keyword  タイトル・本文を対象とする検索語
+     * @param  AnnouncementNoticeType|null  $noticeType  お知らせ種別
+     * @param  string|null  $target  公開対象
+     * @param  AnnouncementStatus|null  $status  公開状態
+     * @param  bool|null  $importantOnly  重要なお知らせだけを表示するか
+     * @param  string|null  $publishFrom  掲載期間の検索開始日
+     * @param  string|null  $publishTo  掲載期間の検索終了日
      */
     public function __construct(
         public string $keyword,

@@ -80,7 +80,6 @@ final class UpdateCourseTeacherAssignmentRequest extends FormRequest
         ];
     }
 
-
     /**
      * 検証済み入力から設定対象の教員IDを返す。
      *
@@ -249,7 +248,7 @@ final class UpdateCourseTeacherAssignmentRequest extends FormRequest
     /**
      * 空文字をnullへ変換した文字列を返す。
      *
-     * @param string $key 取得対象のキー
+     * @param  string  $key  取得対象のキー
      * @return ?string 取得した文字列。未指定時はnull
      */
     private function nullableTrimmed(

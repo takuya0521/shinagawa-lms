@@ -12,7 +12,7 @@ final class DashboardController extends Controller
     /**
      * ログインユーザーのロールに対応するダッシュボードへ遷移する。
      *
-     * @param Request $request HTTPリクエスト
+     * @param  Request  $request  HTTPリクエスト
      * @return RedirectResponse リダイレクトレスポンス
      */
     public function __invoke(Request $request): RedirectResponse

@@ -23,8 +23,8 @@ final class ExternalLinkResolver
     /**
      * 生徒本人が利用できる外部リンクを解決する。
      *
-     * @param Student $student 対象生徒
-     * @param ExternalLinkType|null $linkType 指定時は外部リンク種別で絞り込む
+     * @param  Student  $student  対象生徒
+     * @param  ExternalLinkType|null  $linkType  指定時は外部リンク種別で絞り込む
      * @return Collection<int, ExternalLink> 優先順位順の外部リンク一覧
      */
     public function forStudent(
@@ -46,7 +46,7 @@ final class ExternalLinkResolver
     /**
      * 生徒が対象となる有効な授業IDを取得する。
      *
-     * @param Student $student 対象生徒
+     * @param  Student  $student  対象生徒
      * @return list<int> 対象授業ID
      */
     private function courseIdsForStudent(Student $student): array
@@ -72,7 +72,7 @@ final class ExternalLinkResolver
     /**
      * 有効な外部リンクの基礎クエリを作成する。
      *
-     * @param ExternalLinkType|null $linkType 外部リンク種別
+     * @param  ExternalLinkType|null  $linkType  外部リンク種別
      * @return Builder<ExternalLink> 外部リンクの基礎クエリ
      */
     private function activeLinkQuery(
@@ -92,10 +92,9 @@ final class ExternalLinkResolver
     /**
      * 生徒本人、所属クラス、対象授業、生徒ロール、全体公開の条件を適用する。
      *
-     * @param Builder<ExternalLink> $query 外部リンククエリ
-     * @param Student $student 対象生徒
-     * @param list<int> $courseIds 対象授業ID
-     *
+     * @param  Builder<ExternalLink>  $query  外部リンククエリ
+     * @param  Student  $student  対象生徒
+     * @param  list<int>  $courseIds  対象授業ID
      * @return void 戻り値なし
      */
     private function applyStudentScopes(

@@ -20,7 +20,7 @@ final class AnnouncementIndexDataQuery
     /**
      * 表示データ取得処理を生成する。
      *
-     * @param AnnouncementListQuery $listQuery お知らせ一覧の検索処理
+     * @param  AnnouncementListQuery  $listQuery  お知らせ一覧の検索処理
      */
     public function __construct(
         private readonly AnnouncementListQuery $listQuery,
@@ -29,7 +29,7 @@ final class AnnouncementIndexDataQuery
     /**
      * 管理者向けお知らせ一覧画面の表示データを取得する。
      *
-     * @param AnnouncementIndexFilters $filters 検索条件
+     * @param  AnnouncementIndexFilters  $filters  検索条件
      * @return AnnouncementIndexData お知らせ一覧画面の表示データ
      */
     public function execute(
@@ -59,7 +59,7 @@ final class AnnouncementIndexDataQuery
     /**
      * 一覧検索用の公開対象選択肢を生成する。
      *
-     * @param Collection<int, ClassGroup> $classGroups クラス一覧
+     * @param  Collection<int, ClassGroup>  $classGroups  クラス一覧
      * @return array<string, string> 公開対象の値と表示名
      */
     private function targetOptions(Collection $classGroups): array

@@ -15,8 +15,8 @@ final class CorrectFinalEvaluationAction
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param EvaluationCalculator $evaluationCalculator 評価計算サービス
-     * @param OperationLogWriter $operationLogWriter 操作ログ記録サービス
+     * @param  EvaluationCalculator  $evaluationCalculator  評価計算サービス
+     * @param  OperationLogWriter  $operationLogWriter  操作ログ記録サービス
      */
     public function __construct(
         private readonly EvaluationCalculator $evaluationCalculator,
@@ -27,10 +27,9 @@ final class CorrectFinalEvaluationAction
      * 管理者による評価修正を保存し、修正前後と理由を操作ログへ残す。
      *
      * @param  array{submission_score: float, attendance_score: float, attitude_score: float, correction_reason: string}  $attributes
-     *
-     * @param FinalEvaluation $finalEvaluation 対象の最終評価
-     * @param User $user 対象ユーザー
-     * @param ?string $ipAddress 操作元IPアドレス
+     * @param  FinalEvaluation  $finalEvaluation  対象の最終評価
+     * @param  User  $user  対象ユーザー
+     * @param  ?string  $ipAddress  操作元IPアドレス
      * @return FinalEvaluation 処理結果
      */
     public function execute(
@@ -93,7 +92,7 @@ final class CorrectFinalEvaluationAction
     /**
      * 操作ログへ保存する評価スナップショットを返す。
      *
-     * @param FinalEvaluation $finalEvaluation 対象の最終評価
+     * @param  FinalEvaluation  $finalEvaluation  対象の最終評価
      * @return array<string, mixed>
      */
     private function snapshot(

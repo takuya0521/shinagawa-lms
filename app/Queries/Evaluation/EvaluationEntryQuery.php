@@ -15,9 +15,9 @@ final class EvaluationEntryQuery
     /**
      * 必要な依存関係と初期値を受け取って初期化する。
      *
-     * @param TargetStudentQuery $targetStudentQuery データ取得処理
-     * @param AttendanceScoreQuery $attendanceScoreQuery データ取得処理
-     * @param EvaluationCalculator $evaluationCalculator 評価計算サービス
+     * @param  TargetStudentQuery  $targetStudentQuery  データ取得処理
+     * @param  AttendanceScoreQuery  $attendanceScoreQuery  データ取得処理
+     * @param  EvaluationCalculator  $evaluationCalculator  評価計算サービス
      */
     public function __construct(
         private readonly TargetStudentQuery $targetStudentQuery,
@@ -28,9 +28,9 @@ final class EvaluationEntryQuery
     /**
      * 対象授業の生徒と既存評価を入力行として返す。
      *
-     * @param Course $course 対象授業
-     * @param int $academicYear 対象年度
-     * @param EvaluationTerm $term 対象学期
+     * @param  Course  $course  対象授業
+     * @param  int  $academicYear  対象年度
+     * @param  EvaluationTerm  $term  対象学期
      * @return Collection<int, EvaluationEntryRow>
      */
     public function execute(

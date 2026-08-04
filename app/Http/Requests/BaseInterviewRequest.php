@@ -143,8 +143,8 @@ abstract class BaseInterviewRequest extends FormRequest
     /**
      * 検証済み配列から空でない文字列を取得する。
      *
-     * @param array<string, mixed> $validated 検証済み入力
-     * @param string $key 取得する項目名
+     * @param  array<string, mixed>  $validated  検証済み入力
+     * @param  string  $key  取得する項目名
      * @return string|null 取得した文字列
      */
     private function nullableString(
@@ -159,7 +159,7 @@ abstract class BaseInterviewRequest extends FormRequest
     /**
      * 入力値の前後空白を除去し、空文字の場合はnullを返す。
      *
-     * @param string $key 取得する入力項目名
+     * @param  string  $key  取得する入力項目名
      * @return string|null 整形後の文字列
      */
     private function nullableTrimmed(string $key): ?string

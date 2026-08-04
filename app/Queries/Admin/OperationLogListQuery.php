@@ -15,7 +15,7 @@ final class OperationLogListQuery
     /**
      * 管理者向け操作ログ一覧を取得する。
      *
-     * @param OperationLogFilters $filters 検索条件
+     * @param  OperationLogFilters  $filters  検索条件
      * @return LengthAwarePaginator<int, OperationLog> 1ページ50件の操作ログ一覧
      */
     public function paginate(
@@ -32,7 +32,7 @@ final class OperationLogListQuery
     /**
      * 操作ログの共通検索クエリを生成する。
      *
-     * @param OperationLogFilters $filters 検索条件
+     * @param  OperationLogFilters  $filters  検索条件
      * @return Builder<OperationLog> 検索条件を適用したクエリ
      */
     public function build(
@@ -81,9 +81,8 @@ final class OperationLogListQuery
     /**
      * 操作コード・対象テーブル・詳細JSON・操作者へキーワード条件を適用する。
      *
-     * @param Builder<OperationLog> $query 操作ログ検索クエリ
-     * @param string $keyword 検索語
-     *
+     * @param  Builder<OperationLog>  $query  操作ログ検索クエリ
+     * @param  string  $keyword  検索語
      * @return void 戻り値なし
      */
     private function applyKeywordFilter(
@@ -91,56 +90,26 @@ final class OperationLogListQuery
         string $keyword,
     ): void {
         $like = '%'.$keyword.'%';
-        $detailPatterns = $this->detailSearchPatterns($keyword);
 
         $query->where(
-            static function (Builder $keywordQuery) use (
-                $like,
-                $detailPatterns,
-            ): void {
+            static function (Builder $keywordQuery) use ($like): void {
                 $keywordQuery
-                    ->where('operation_logs.action', 'like', $like)
-                    ->orWhere('operation_logs.target_table', 'like', $like);
-
-                foreach ($detailPatterns as $detailPattern) {
-                    $keywordQuery->orWhere(
-                        'operation_logs.detail',
-                        'like',
-                        $detailPattern,
+                    ->whereLike('operation_logs.action', $like)
+                    ->orWhereLike('operation_logs.target_table', $like)
+                    // JSONBは文字列LIKEを直接適用できないため、テキストへ変換して検索する。
+                    ->orWhereRaw(
+                        'CAST(operation_logs.detail AS TEXT) ILIKE ?',
+                        [$like],
+                    )
+                    ->orWhereHas(
+                        'user',
+                        static function (Builder $userQuery) use ($like): void {
+                            $userQuery
+                                ->whereLike('name', $like)
+                                ->orWhereLike('email', $like);
+                        },
                     );
-                }
-
-                $keywordQuery->orWhereHas(
-                    'user',
-                    static function (Builder $userQuery) use ($like): void {
-                        $userQuery
-                            ->where('name', 'like', $like)
-                            ->orWhere('email', 'like', $like);
-                    },
-                );
             },
         );
-    }
-
-    /**
-     * DBごとに異なるJSON保存形式を考慮した詳細検索パターンを返す。
-     *
-     * @param string $keyword 検索語
-     * @return list<string> LIKE検索へ使用するパターン一覧
-     */
-    private function detailSearchPatterns(
-        string $keyword,
-    ): array {
-        $patterns = ['%'.$keyword.'%'];
-
-        // SQLiteでは日本語がUnicodeエスケープされたJSON文字列で保存される場合がある。
-        $jsonEncodedKeyword = json_encode($keyword, JSON_THROW_ON_ERROR);
-        $jsonEscapedKeyword = substr($jsonEncodedKeyword, 1, -1);
-
-        if ($jsonEscapedKeyword !== $keyword) {
-            $patterns[] = '%'.$jsonEscapedKeyword.'%';
-        }
-
-        return array_values(array_unique($patterns));
     }
 }

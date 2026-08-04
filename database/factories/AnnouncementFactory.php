@@ -8,12 +8,22 @@ use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/** @extends Factory<Announcement> */
+/**
+ * お知らせモデルのテストデータを生成するFactory。
+ *
+ * 各テストで再現性のある標準値を用意し、必要に応じて属性を上書きして使用する。
+ *
+ * @extends Factory<Announcement>
+ */
 final class AnnouncementFactory extends Factory
 {
     protected $model = Announcement::class;
 
-    /** @return array<string, mixed> */
+    /**
+     * お知らせの標準的なテストデータを返す。
+     *
+     * @return array<string, mixed> モデル作成時に使用する属性値
+     */
     public function definition(): array
     {
         return [

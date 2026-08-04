@@ -17,11 +17,11 @@ final readonly class AnnouncementFormData
     /**
      * お知らせフォームの表示データを生成する。
      *
-     * @param list<AnnouncementNoticeType> $noticeTypes お知らせ種別選択肢
-     * @param list<AnnouncementStatus> $statuses 公開状態選択肢
-     * @param list<Grade> $grades 学年選択肢
-     * @param list<UserRole> $roles 公開対象ロール選択肢
-     * @param Collection<int, ClassGroup> $classGroups クラス選択肢
+     * @param  list<AnnouncementNoticeType>  $noticeTypes  お知らせ種別選択肢
+     * @param  list<AnnouncementStatus>  $statuses  公開状態選択肢
+     * @param  list<Grade>  $grades  学年選択肢
+     * @param  list<UserRole>  $roles  公開対象ロール選択肢
+     * @param  Collection<int, ClassGroup>  $classGroups  クラス選択肢
      */
     public function __construct(
         public array $noticeTypes,

@@ -13,10 +13,22 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 授業実施・出欠記録モデルの関連と制約を確認するテスト。
+ *
+ * Eloquentリレーション、型変換、授業日・生徒単位の一意制約を検証する。
+ */
 final class AttendanceModelTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 授業実施モデルのリレーションと属性キャストが利用できることを確認する。
+     *
+     * 前提: 時間割枠、ユーザー、授業実施など、検証に必要なテストデータを準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 取得値が期待値と一致する、対象条件が真になることを確認する。
+     */
     public function test_lesson_session_relationships_and_casts_are_available(): void
     {
         $slot = TimetableSlot::factory()->create();
@@ -35,6 +47,13 @@ final class AttendanceModelTest extends TestCase
         $this->assertSame(LessonStatus::Completed, $lessonSession->status);
     }
 
+    /**
+     * 出欠記録モデルのリレーションと属性キャストが利用できることを確認する。
+     *
+     * 前提: 授業実施、生徒、ユーザー、出欠記録など、検証に必要なテストデータを準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 取得値が期待値と一致する、対象条件が真になることを確認する。
+     */
     public function test_attendance_record_relationships_and_casts_are_available(): void
     {
         $lessonSession = LessonSession::factory()->create();
@@ -57,6 +76,13 @@ final class AttendanceModelTest extends TestCase
         $this->assertSame(AttendanceStatus::Late, $record->attendance_status);
     }
 
+    /**
+     * 同じ時間割枠・実施日に授業実施を重複登録できないことを確認する。
+     *
+     * 前提: 授業実施など、検証に必要なテストデータを準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 想定した例外または制約違反が発生することを確認する。
+     */
     public function test_same_slot_and_date_cannot_create_duplicate_lesson_session(): void
     {
         $lessonSession = LessonSession::factory()->create([
@@ -71,6 +97,13 @@ final class AttendanceModelTest extends TestCase
         ]);
     }
 
+    /**
+     * 同じ授業実施・生徒に出欠記録を重複登録できないことを確認する。
+     *
+     * 前提: 出欠記録など、検証に必要なテストデータを準備する。
+     * 処理: 対象のモデル、リレーション、スコープ、サービスまたは制約処理を実行する。
+     * 期待結果: 想定した例外または制約違反が発生することを確認する。
+     */
     public function test_same_session_and_student_cannot_create_duplicate_attendance_record(): void
     {
         $record = AttendanceRecord::factory()->create();

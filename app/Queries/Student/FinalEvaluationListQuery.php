@@ -13,9 +13,9 @@ final class FinalEvaluationListQuery
     /**
      * 本人の確定済み評価だけを返す。
      *
-     * @param Student $student 対象生徒
-     * @param int $academicYear 対象年度
-     * @param EvaluationTerm $term 対象学期
+     * @param  Student  $student  対象生徒
+     * @param  int  $academicYear  対象年度
+     * @param  EvaluationTerm  $term  対象学期
      * @return LengthAwarePaginator<int, FinalEvaluation>
      */
     public function execute(

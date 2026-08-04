@@ -8,11 +8,10 @@ final readonly class EvaluationCalculation
      * 必要な依存関係と初期値を受け取って初期化する。
      *
      * @param  list<string>  $warnings
-     *
-     * @param AttendanceScoreResult $attendance 出欠評価結果
-     * @param ?float $totalScore 合計点
-     * @param ?int $gradeLevel 評定段階
-     * @param bool $gradingConfigured 評定基準設定済みフラグ
+     * @param  AttendanceScoreResult  $attendance  出欠評価結果
+     * @param  ?float  $totalScore  合計点
+     * @param  ?int  $gradeLevel  評定段階
+     * @param  bool  $gradingConfigured  評定基準設定済みフラグ
      */
     public function __construct(
         public AttendanceScoreResult $attendance,

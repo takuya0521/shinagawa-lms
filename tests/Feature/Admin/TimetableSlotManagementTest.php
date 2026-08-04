@@ -16,10 +16,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け時間割管理機能を確認するフィーチャーテスト。
+ *
+ * 画面表示、登録・更新、重複・競合・時刻検証、検索・絞り込み、権限制御を検証する。
+ */
 final class TimetableSlotManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が時間割一覧を閲覧できることを確認する。
+     *
+     * 前提: 時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_timetable_list(): void
     {
         $admin = $this->createUser(
@@ -52,6 +64,13 @@ final class TimetableSlotManagementTest extends TestCase
             );
     }
 
+    /**
+     * 管理者が時間割登録画面を表示できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.create`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_timetable_create_page(): void
     {
         $admin = $this->createUser(
@@ -74,6 +93,13 @@ final class TimetableSlotManagementTest extends TestCase
             ->assertSeeText('時限');
     }
 
+    /**
+     * 管理者が時間割編集画面を表示できることを確認する。
+     *
+     * 前提: 時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.edit`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_timetable_edit_page(): void
     {
         $admin = $this->createUser(
@@ -100,6 +126,13 @@ final class TimetableSlotManagementTest extends TestCase
             );
     }
 
+    /**
+     * 管理者が時間割枠を登録できることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、取得値が期待値と一致することを確認する。
+     */
     public function test_admin_can_create_timetable_slot(): void
     {
         $admin = $this->createUser(
@@ -161,6 +194,13 @@ final class TimetableSlotManagementTest extends TestCase
         );
     }
 
+    /**
+     * 同じ授業・曜日・時限の時間割を重複登録できないことを確認する。
+     *
+     * 前提: 授業、時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_same_course_day_and_period_cannot_be_registered_twice(): void
     {
         $admin = $this->createUser(
@@ -196,6 +236,13 @@ final class TimetableSlotManagementTest extends TestCase
             ->assertSessionHasErrors('period_no');
     }
 
+    /**
+     * 同じクラス・曜日・時限に複数の有効な授業を登録できないことを確認する。
+     *
+     * 前提: クラス、授業、科目、時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_same_class_day_and_period_cannot_have_multiple_active_courses(): void
     {
         $admin = $this->createUser(
@@ -248,6 +295,13 @@ final class TimetableSlotManagementTest extends TestCase
             ->assertSessionHasErrors('period_no');
     }
 
+    /**
+     * 同じ教員が同一時間帯に複数の有効な授業を担当できないことを確認する。
+     *
+     * 前提: 教員、授業、クラス、科目、時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_same_teacher_cannot_teach_multiple_active_courses_at_same_time(): void
     {
         $admin = $this->createUser(
@@ -302,6 +356,13 @@ final class TimetableSlotManagementTest extends TestCase
             ->assertSessionHasErrors('period_no');
     }
 
+    /**
+     * 無効な時間割枠は同じクラス・時間帯への別授業登録を妨げないことを確認する。
+     *
+     * 前提: クラス、授業、科目、時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_inactive_slot_does_not_block_another_course_in_same_class(): void
     {
         $admin = $this->createUser(
@@ -358,6 +419,13 @@ final class TimetableSlotManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 時間割登録時に無効な授業を選択できないことを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_inactive_course_cannot_be_selected_when_creating_slot(): void
     {
         $admin = $this->createUser(
@@ -379,6 +447,13 @@ final class TimetableSlotManagementTest extends TestCase
         $response->assertSessionHasErrors('course_id');
     }
 
+    /**
+     * 開始時刻と終了時刻は両方を一組で入力する必要があることを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_start_and_end_time_must_be_entered_together(): void
     {
         $admin = $this->createUser(
@@ -404,6 +479,13 @@ final class TimetableSlotManagementTest extends TestCase
         $response->assertSessionHasErrors('end_time');
     }
 
+    /**
+     * 終了時刻が開始時刻より後でなければならないことを確認する。
+     *
+     * 前提: 授業など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.store`へPOSTリクエストを送信する。
+     * 期待結果: 不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_end_time_must_be_after_start_time(): void
     {
         $admin = $this->createUser(
@@ -429,6 +511,13 @@ final class TimetableSlotManagementTest extends TestCase
         $response->assertSessionHasErrors('end_time');
     }
 
+    /**
+     * 管理者が時間割枠を更新できることを確認する。
+     *
+     * 前提: 時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、取得値が期待値と一致することを確認する。
+     */
     public function test_admin_can_update_timetable_slot(): void
     {
         $admin = $this->createUser(
@@ -482,6 +571,13 @@ final class TimetableSlotManagementTest extends TestCase
         );
     }
 
+    /**
+     * 時間割更新時は現在設定中の無効な授業を保持できることを確認する。
+     *
+     * 前提: 時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_current_inactive_course_can_be_retained_when_updating_slot(): void
     {
         $admin = $this->createUser(
@@ -527,6 +623,13 @@ final class TimetableSlotManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者が条件で絞り込み、週間時間割を閲覧できることを確認する。
+     *
+     * 前提: 授業、時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_filter_and_view_weekly_timetable(): void
     {
         $admin = $this->createUser(
@@ -560,6 +663,13 @@ final class TimetableSlotManagementTest extends TestCase
             ->assertSeeText(Grade::Second->label());
     }
 
+    /**
+     * 教員が時間割管理機能を利用できないことを確認する。
+     *
+     * 前提: 時間割枠など、検証に必要なテストデータを準備する。
+     * 処理: `admin.timetable-slots.index`へGETリクエスト、`admin.timetable-slots.create`へGETリクエスト、`admin.timetable-slots.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_timetable_slots(): void
     {
         $teacherUser = $this->createUser(
@@ -613,7 +723,7 @@ final class TimetableSlotManagementTest extends TestCase
     }
 
     /**
-     * 時間割登録で利用する有効な入力値を返す。
+     * 時間割登録・更新リクエストで使用する標準入力値を組み立てて返す。
      *
      * @param  array<string, mixed>  $overrides
      * @return array<string, mixed>
@@ -633,6 +743,9 @@ final class TimetableSlotManagementTest extends TestCase
         ];
     }
 
+    /**
+     * 指定したロールと状態を持つテスト用ユーザーを作成して返す。
+     */
     private function createUser(
         UserRole $role,
     ): User {

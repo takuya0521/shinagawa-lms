@@ -18,10 +18,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向け出欠管理機能を確認するフィーチャーテスト。
+ *
+ * 出欠集計、日次訂正、生徒別詳細、訂正者記録、権限制御を検証する。
+ */
 final class AttendanceManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者が出欠集計を閲覧できることを確認する。
+     *
+     * 前提: 出欠記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.attendance.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_attendance_summary(): void
     {
         [$lessonSession, $student, $teacher] = $this->attendanceRecordContext();
@@ -46,6 +58,13 @@ final class AttendanceManagementTest extends TestCase
             ->assertSeeText(AttendanceStatus::Present->label());
     }
 
+    /**
+     * 管理者が日次出欠訂正画面を表示できることを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.attendance.edit`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_open_daily_attendance_correction(): void
     {
         [$lessonSession, $student] = $this->attendanceRecordContext();
@@ -61,6 +80,13 @@ final class AttendanceManagementTest extends TestCase
             ->assertSeeText('日別出欠確認・修正');
     }
 
+    /**
+     * 管理者が出欠を訂正した際に訂正者が記録されることを確認する。
+     *
+     * 前提: 出欠記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.attendance.update`へPUTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存されることを確認する。
+     */
     public function test_admin_correction_sets_corrected_by(): void
     {
         [$lessonSession, $student, $teacher] = $this->attendanceRecordContext();
@@ -95,6 +121,13 @@ final class AttendanceManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 管理者が生徒別の出欠詳細を閲覧できることを確認する。
+     *
+     * 前提: 出欠記録など、検証に必要なテストデータを準備する。
+     * 処理: `admin.students.attendance.show`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_student_attendance_detail(): void
     {
         [$lessonSession, $student, $teacher] = $this->attendanceRecordContext();
@@ -117,6 +150,13 @@ final class AttendanceManagementTest extends TestCase
             ->assertSeeText(AttendanceStatus::Late->label());
     }
 
+    /**
+     * 教員が管理者向け出欠画面へアクセスできないことを確認する。
+     *
+     * 前提: 教員など、検証に必要なテストデータを準備する。
+     * 処理: `admin.attendance.index`へGETリクエスト、`admin.attendance.edit`へGETリクエスト、`admin.students.attendance.show`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_access_admin_attendance_pages(): void
     {
         $teacher = Teacher::factory()->create();
@@ -141,6 +181,8 @@ final class AttendanceManagementTest extends TestCase
     }
 
     /**
+     * 出欠管理テストに必要な授業、時間割、授業実施、生徒、出欠記録をまとめて作成する。
+     *
      * @return array{0: LessonSession, 1: Student, 2: Teacher}
      */
     private function attendanceRecordContext(): array
@@ -169,6 +211,9 @@ final class AttendanceManagementTest extends TestCase
         return [$lessonSession, $student, $teacher];
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([

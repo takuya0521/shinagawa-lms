@@ -15,9 +15,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void 戻り値なし
      */
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     /**
      * アプリケーション起動時の初期設定を行う。

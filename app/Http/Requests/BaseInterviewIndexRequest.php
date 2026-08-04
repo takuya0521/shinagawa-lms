@@ -87,7 +87,7 @@ abstract class BaseInterviewIndexRequest extends FormRequest
     /**
      * 指定項目のIDを取得する。
      *
-     * @param string $key 取得対象の項目名
+     * @param  string  $key  取得対象の項目名
      * @return int|null ID。未指定時はnull
      */
     public function nullableId(string $key): ?int
@@ -123,7 +123,7 @@ abstract class BaseInterviewIndexRequest extends FormRequest
     /**
      * 検証済み項目を空文字を除外した文字列として取得する。
      *
-     * @param string $key 取得対象の項目名
+     * @param  string  $key  取得対象の項目名
      * @return string|null 文字列。未指定時はnull
      */
     private function validatedNullableString(string $key): ?string
@@ -136,7 +136,7 @@ abstract class BaseInterviewIndexRequest extends FormRequest
     /**
      * 入力項目を前後空白を除去した文字列として取得する。
      *
-     * @param string $key 取得対象の項目名
+     * @param  string  $key  取得対象の項目名
      * @return string|null 文字列。空文字の場合はnull
      */
     private function inputNullableTrimmedString(string $key): ?string

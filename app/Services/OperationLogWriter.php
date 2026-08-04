@@ -11,11 +11,11 @@ final class OperationLogWriter
     /**
      * Eloquentモデルを対象とした重要な業務操作を操作ログへ記録する。
      *
-     * @param User $actor 操作を実行した利用者
-     * @param string $action 操作内容を識別するコード
-     * @param Model $target 操作対象のEloquentモデル
-     * @param array<string, mixed> $detail 機密情報を除いた操作詳細
-     * @param string|null $ipAddress 操作元のIPアドレス
+     * @param  User  $actor  操作を実行した利用者
+     * @param  string  $action  操作内容を識別するコード
+     * @param  Model  $target  操作対象のEloquentモデル
+     * @param  array<string, mixed>  $detail  機密情報を除いた操作詳細
+     * @param  string|null  $ipAddress  操作元のIPアドレス
      * @return OperationLog 登録した操作ログ
      */
     public function write(
@@ -38,12 +38,12 @@ final class OperationLogWriter
     /**
      * モデルを直接指定できない操作をテーブル名と対象IDで記録する。
      *
-     * @param User $actor 操作を実行した利用者
-     * @param string $action 操作内容を識別するコード
-     * @param string $targetTable 操作対象のテーブル名
-     * @param int|null $targetId 操作対象ID。対象を1件に限定できない場合はnull
-     * @param array<string, mixed> $detail 機密情報を除いた操作詳細
-     * @param string|null $ipAddress 操作元のIPアドレス
+     * @param  User  $actor  操作を実行した利用者
+     * @param  string  $action  操作内容を識別するコード
+     * @param  string  $targetTable  操作対象のテーブル名
+     * @param  int|null  $targetId  操作対象ID。対象を1件に限定できない場合はnull
+     * @param  array<string, mixed>  $detail  機密情報を除いた操作詳細
+     * @param  string|null  $ipAddress  操作元のIPアドレス
      * @return OperationLog 登録した操作ログ
      */
     public function writeForTarget(

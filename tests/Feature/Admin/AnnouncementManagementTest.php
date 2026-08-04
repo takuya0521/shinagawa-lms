@@ -15,10 +15,22 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * 管理者向けお知らせ管理機能を確認するフィーチャーテスト。
+ *
+ * 一覧表示、登録・更新・削除、公開対象、入力検証、権限制御、操作ログを検証する。
+ */
 final class AnnouncementManagementTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 管理者がお知らせ一覧を閲覧できることを確認する。
+     *
+     * 前提: お知らせなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.announcements.index`へGETリクエストを送信する。
+     * 期待結果: HTTP 200の正常レスポンスとなる、必要な文言や対象データが画面に表示されることを確認する。
+     */
     public function test_admin_can_view_announcement_list(): void
     {
         $admin = $this->admin();
@@ -39,6 +51,13 @@ final class AnnouncementManagementTest extends TestCase
             ->assertSeeText($announcement->title);
     }
 
+    /**
+     * 管理者がお知らせを登録した際に、本文のサニタイズ、公開対象、操作ログが正しく保存されることを確認する。
+     *
+     * 前提: クラスなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.announcements.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、関連レコード件数が期待どおりになることを確認する。
+     */
     public function test_admin_can_create_sanitized_announcement_with_targets_and_log(): void
     {
         $admin = $this->admin();
@@ -85,6 +104,13 @@ final class AnnouncementManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 公開終了日時だけの指定は許可し、開始日時が終了日時を超える不正な期間は拒否することを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.announcements.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返る、バリデーションエラーが発生しないことを確認する。
+     */
     public function test_announcement_can_have_only_publish_end_and_rejects_invalid_period(): void
     {
         $admin = $this->admin();
@@ -120,6 +146,13 @@ final class AnnouncementManagementTest extends TestCase
             ->assertSessionHasErrors('publish_end_at');
     }
 
+    /**
+     * 全体公開とロール等の個別公開対象を同時に指定できないことを確認する。
+     *
+     * 前提: 対象仕様を再現できる入力値と状態を準備する。
+     * 処理: `admin.announcements.store`へPOSTリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、不正入力に対するバリデーションエラーが返ることを確認する。
+     */
     public function test_all_target_cannot_be_combined_with_other_targets(): void
     {
         $admin = $this->admin();
@@ -144,6 +177,13 @@ final class AnnouncementManagementTest extends TestCase
             ->assertSessionHasErrors('target_values');
     }
 
+    /**
+     * 管理者がお知らせを更新・公開し、その後に論理削除できることを確認する。
+     *
+     * 前提: お知らせなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.announcements.update`へPUTリクエスト、`admin.announcements.destroy`へDELETEリクエストを送信する。
+     * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、対象レコードが論理削除されることを確認する。
+     */
     public function test_admin_can_update_and_delete_announcement(): void
     {
         $admin = $this->admin();
@@ -203,6 +243,13 @@ final class AnnouncementManagementTest extends TestCase
         ]);
     }
 
+    /**
+     * 教員がお知らせ管理画面へアクセスできないことを確認する。
+     *
+     * 前提: 教員、お知らせなど、検証に必要なテストデータを準備する。
+     * 処理: `admin.announcements.index`へGETリクエスト、`admin.announcements.create`へGETリクエスト、`admin.announcements.edit`へGETリクエストを送信する。
+     * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
+     */
     public function test_teacher_cannot_manage_announcements(): void
     {
         $teacher = Teacher::factory()->create();
@@ -219,6 +266,9 @@ final class AnnouncementManagementTest extends TestCase
             ->assertForbidden();
     }
 
+    /**
+     * テストで使用する有効な管理者ユーザーを作成して返す。
+     */
     private function admin(): User
     {
         return User::factory()->create([
