@@ -91,6 +91,8 @@ final class TimetableTest extends TestCase
         ]);
         TimetableSlot::factory()->create([
             'course_id' => $course2026->id,
+            'day_of_week' => DayOfWeek::Monday,
+            'period_no' => 1,
         ]);
 
         $course2027 = Course::factory()->create([
@@ -101,6 +103,8 @@ final class TimetableTest extends TestCase
         ]);
         TimetableSlot::factory()->create([
             'course_id' => $course2027->id,
+            'day_of_week' => DayOfWeek::Tuesday,
+            'period_no' => 1,
         ]);
 
         $this

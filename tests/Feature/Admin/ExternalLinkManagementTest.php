@@ -218,7 +218,8 @@ final class ExternalLinkManagementTest extends TestCase
      * 教員が外部リンク管理機能を利用できないことを確認する。
      *
      * 前提: 教員、外部リンクなど、検証に必要なテストデータを準備する。
-     * 処理: `admin.external-links.index`へGETリクエスト、`admin.external-links.create`へGETリクエスト、`admin.external-links.edit`へGETリクエストを送信する。
+     * 処理: `admin.external-links.index`へGETリクエスト、`admin.external-links.create`へGETリクエスト、
+     * `admin.external-links.edit`へGETリクエストを送信する。
      * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
      */
     public function test_teacher_cannot_manage_external_links(): void

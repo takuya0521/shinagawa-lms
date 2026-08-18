@@ -1,10 +1,66 @@
-@import '../../../patterns/detail.css';
-
-/*
- * 生徒詳細画面専用
- *
- * 情報量に応じた閲覧幅をこの画面内だけで調整し、長い値でも読み順を崩さない。
- */
 .page-admin-students-show {
     --page-detail-max-width: 76rem;
+}
+
+.admin-student-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.65rem;
+}
+
+.admin-student-actions__link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.15rem;
+    border: 1px solid var(--lms-border);
+    border-radius: 999px;
+    color: var(--lms-text);
+    background: var(--lms-surface-translucent-strong);
+    box-shadow: var(--lms-shadow-soft);
+    font-size: 0.925rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.admin-student-actions__link:hover {
+    border-color: color-mix(in srgb, var(--lms-primary) 48%, var(--lms-border));
+    background: var(--lms-primary-soft);
+    box-shadow: var(--lms-shadow-control);
+    transform: translateY(-1px);
+}
+
+.admin-student-actions__link:active {
+    transform: translateY(0);
+}
+
+.admin-student-actions__link--primary {
+    border-color: var(--lms-primary-dark);
+    color: var(--lms-on-primary);
+    background: var(--lms-primary-dark);
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--lms-primary-dark) 20%, transparent);
+}
+
+.admin-student-actions__link--primary:hover {
+    border-color: var(--lms-primary-dark-hover);
+    color: var(--lms-on-primary);
+    background: var(--lms-primary-dark-hover);
+}
+
+.admin-student-actions__link--back {
+    border-color: transparent;
+    color: var(--lms-muted);
+    background: transparent;
+    box-shadow: none;
+}
+
+.admin-student-actions__link--back:hover {
+    border-color: var(--lms-border);
+    color: var(--lms-text);
+    background: var(--lms-surface-subtle);
+    box-shadow: none;
 }

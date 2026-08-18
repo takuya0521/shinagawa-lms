@@ -6,5 +6,5 @@
  * 再ログインが必要な状態を警告色で示す。
  */
 .error-page-419 {
-    --error-accent: #b45309;
+    --error-accent: var(--lms-warning);
 }

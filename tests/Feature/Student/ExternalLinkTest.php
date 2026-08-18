@@ -75,7 +75,7 @@ final class ExternalLinkTest extends TestCase
             ->actingAs($student->user)
             ->get(route('student.external-resources'))
             ->assertOk()
-            ->assertSeeText('S-008')
+            ->assertDontSeeText('S-008')
             ->assertSeeText('全体Chat')
             ->assertSeeText('生徒Drive')
             ->assertSeeText('クラスMeet')

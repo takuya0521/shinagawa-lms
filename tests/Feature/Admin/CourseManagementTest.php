@@ -648,7 +648,8 @@ final class CourseManagementTest extends TestCase
      * 教員が授業管理機能を利用できないことを確認する。
      *
      * 前提: 授業など、検証に必要なテストデータを準備する。
-     * 処理: `admin.courses.index`へGETリクエスト、`admin.courses.create`へGETリクエスト、`admin.courses.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 処理: `admin.courses.index`へGETリクエスト、`admin.courses.create`へGETリクエスト、`admin.courses.store`へPOSTリクエスト、
+     * 関連する後続リクエストを送信する。
      * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
      */
     public function test_teacher_cannot_manage_courses(): void

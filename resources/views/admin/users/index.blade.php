@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('page-style', 'resources/css/pages/admin/users/index.css')
 @section('page-class', 'page-pattern-list page-admin-users-index')
 
 @section('title', 'ユーザー管理')
@@ -8,36 +7,23 @@
 
 @section('content')
     <div class="space-y-6">
-        <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <p class="text-sm font-semibold text-slate-500">
-                    ADMINISTRATION
-                </p>
-
-                <h1 class="mt-1 text-2xl font-bold">
-                    ユーザー一覧
-                </h1>
-
-                <p class="mt-2 text-sm text-slate-600">
-                    管理者、教員、生徒のアカウントを管理します。
-                </p>
-            </div>
+        <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
 
             <div class="flex items-center gap-4">
-                <p class="text-sm text-slate-500">
+                <p class="text-sm lms-text-neutral-muted">
                     {{ number_format($users->total()) }}件
                 </p>
 
                 <a
                     href="{{ route('admin.users.create') }}"
-                    class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+                    class="rounded-lg px-5 py-3 font-semibold lms-button-primary"
                 >
                     ユーザー登録
                 </a>
             </div>
         </header>
 
-        <section class="rounded-2xl bg-white p-6 shadow-sm">
+        <section class="p-6 lms-panel">
             <form
                 method="GET"
                 action="{{ route('admin.users.index') }}"
@@ -46,7 +32,7 @@
                 <div>
                     <label
                         for="keyword"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         氏名・メールアドレス
                     </label>
@@ -57,14 +43,14 @@
                         type="search"
                         value="{{ request('keyword') }}"
                         placeholder="検索キーワード"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                 </div>
 
                 <div>
                     <label
                         for="role"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         ロール
                     </label>
@@ -72,7 +58,7 @@
                     <select
                         id="role"
                         name="role"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                         <option value="">すべて</option>
 
@@ -90,7 +76,7 @@
                 <div>
                     <label
                         for="status"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         利用状態
                     </label>
@@ -98,7 +84,7 @@
                     <select
                         id="status"
                         name="status"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                         <option value="">すべて</option>
 
@@ -116,14 +102,15 @@
                 <div class="flex items-end gap-2">
                     <button
                         type="submit"
-                        class="rounded-lg bg-slate-900 px-5 py-2 font-semibold text-white hover:bg-slate-700"
+                        class="rounded-lg px-5 py-2 font-semibold lms-button-primary"
                     >
                         検索
                     </button>
 
                     <a
                         href="{{ route('admin.users.index') }}"
-                        class="rounded-lg border border-slate-300 px-5 py-2 font-semibold hover:bg-slate-50"
+                        class="rounded-lg border lms-border-neutral-default px-5 py-2 font-semibold
+                            lms-hover-bg-neutral-subtle"
                     >
                         クリア
                     </a>
@@ -131,12 +118,12 @@
             </form>
         </section>
 
-        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <section class="overflow-hidden lms-panel">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-slate-200">
-                    <thead class="bg-slate-50">
+                <table class="min-w-full divide-y lms-divide-neutral-subtle lms-table lms-table--balanced">
+                    <thead class="lms-bg-neutral-subtle">
                         <tr>
-                            <th class="px-6 py-3 text-left text-sm font-semibold">
+                            <th class="px-6 py-3 text-left text-sm font-semibold lms-table-col--compact">
                                 ID
                             </th>
 
@@ -148,24 +135,24 @@
                                 メールアドレス
                             </th>
 
-                            <th class="px-6 py-3 text-left text-sm font-semibold">
+                            <th class="px-6 py-3 text-left text-sm font-semibold lms-table-col--medium">
                                 ロール
                             </th>
 
-                            <th class="px-6 py-3 text-left text-sm font-semibold">
+                            <th class="px-6 py-3 text-left text-sm font-semibold lms-table-col--status">
                                 利用状態
                             </th>
 
-                            <th class="px-6 py-3 text-left text-sm font-semibold">
+                            <th class="px-6 py-3 text-right text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y lms-divide-neutral-faint">
                         @forelse ($users as $user)
                             <tr>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">
+                                <td class="whitespace-nowrap px-6 py-4 text-sm lms-text-neutral-muted">
                                     {{ $user->id }}
                                 </td>
 
@@ -181,28 +168,28 @@
                                     {{ $user->role->label() }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-6 py-4">
+                                <td class="whitespace-nowrap px-6 py-4 text-right">
                                     <span
-                                        class="inline-flex rounded-full px-3 py-1 text-xs font-semibold
-                                            {{ $user->status === \App\Enums\UserStatus::Active
-                                                ? 'bg-emerald-100 text-emerald-700'
-                                                : 'bg-slate-200 text-slate-600' }}"
+                                        class="inline-flex whitespace-nowrap rounded-full px-3 py-1
+                                                text-xs font-semibold {{
+                                            $user->status === \App\Enums\UserStatus::Active ? 'lms-bg-success-muted
+                                            lms-text-success' : 'lms-bg-neutral-disabled lms-text-neutral-subtle' }}"
                                     >
                                         {{ $user->status->label() }}
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="flex items-center gap-3">
+                                <td class="whitespace-nowrap px-6 py-4 text-right">
+                                    <div class="flex flex-wrap items-center justify-end gap-3">
                                         <a
                                             href="{{ route('admin.users.edit', $user) }}"
-                                            class="font-semibold text-slate-700 underline underline-offset-4"
+                                            class="font-semibold lms-link-primary"
                                         >
                                             編集
                                         </a>
 
                                         @if ($user->is(auth()->user()))
-                                            <span class="text-sm text-slate-400">
+                                            <span class="text-sm lms-text-neutral-disabled">
                                                 ログイン中
                                             </span>
                                         @else
@@ -213,7 +200,7 @@
                                                 @csrf
                                                 @method('PATCH')
 
-                                                <input
+                                                <input class="lms-form-control"
                                                     type="hidden"
                                                     name="status"
                                                     value="{{ $user->status === \App\Enums\UserStatus::Active
@@ -223,10 +210,9 @@
 
                                                 <button
                                                     type="submit"
-                                                    class="text-sm font-semibold
-                                                        {{ $user->status === \App\Enums\UserStatus::Active
-                                                            ? 'text-red-700'
-                                                            : 'text-emerald-700' }}"
+                                                    class="text-sm font-semibold {{ $user->status ===
+                                                        \App\Enums\UserStatus::Active ? 'lms-text-danger-strong' :
+                                                        'lms-text-success' }}"
                                                 >
                                                     {{ $user->status === \App\Enums\UserStatus::Active
                                                         ? '利用停止'
@@ -241,7 +227,7 @@
                             <tr>
                                 <td
                                     colspan="6"
-                                    class="px-6 py-12 text-center text-slate-500"
+                                    class="px-6 py-12 text-center lms-text-neutral-muted"
                                 >
                                     条件に一致するユーザーはいません。
                                 </td>
@@ -252,7 +238,7 @@
             </div>
 
             @if ($users->hasPages())
-                <div class="border-t border-slate-200 px-6 py-4">
+                <div class="border-t lms-border-neutral-subtle px-6 py-4">
                     {{ $users->links() }}
                 </div>
             @endif

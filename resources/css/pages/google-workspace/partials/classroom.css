@@ -1,0 +1,294 @@
+/* Google Classroomのクラス一覧、クラス詳細、課題、お知らせ表示。 */
+.gw-classroom-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.gw-classroom-filter a {
+    min-height: 36px;
+    padding: 0 16px;
+    border: 1px solid var(--gw-border);
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--gw-muted);
+    background: var(--gw-surface);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.gw-classroom-filter a:hover,
+.gw-classroom-filter a:focus-visible {
+    color: var(--google-blue-deep);
+    background: var(--gw-hover);
+}
+
+.gw-classroom-filter a.is-active {
+    border-color: var(--gw-blue-soft);
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+}
+
+.gw-classroom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.gw-classroom-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 14px;
+    display: grid;
+    gap: 14px;
+    background: var(--gw-surface);
+}
+
+.gw-classroom-card__head,
+.gw-classroom-card__actions,
+.gw-classroom-hero,
+.gw-classroom-hero__main,
+.gw-classroom-hero__actions,
+.gw-classroom-feed-item__heading,
+.gw-classroom-feed-item__meta,
+.gw-classroom-announcement {
+    display: flex;
+    align-items: center;
+}
+
+.gw-classroom-card__head,
+.gw-classroom-hero,
+.gw-classroom-feed-item__heading,
+.gw-classroom-announcement {
+    justify-content: space-between;
+}
+
+.gw-classroom-card__icon,
+.gw-classroom-hero__icon,
+.gw-empty-state__brand-icon {
+    display: grid;
+    place-items: center;
+    background: var(--google-search-alt);
+}
+
+.gw-classroom-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+}
+
+.gw-classroom-card__body {
+    min-width: 0;
+}
+
+.gw-classroom-card__body h3 {
+    margin: 0 0 5px;
+    overflow: hidden;
+    color: var(--google-text);
+    font-size: 17px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-classroom-card__section {
+    margin: 0 0 7px;
+    color: var(--google-text);
+    font-size: 13px;
+}
+
+.gw-classroom-card__actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.gw-empty-state__brand-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 12px;
+    border-radius: 16px;
+}
+
+.gw-classroom-hero {
+    gap: 18px;
+}
+
+.gw-classroom-hero__main {
+    min-width: 0;
+    gap: 13px;
+}
+
+.gw-classroom-hero__main h2 {
+    margin: 0;
+    color: var(--google-text);
+    font-size: 24px;
+}
+
+.gw-classroom-hero__icon {
+    flex: 0 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+}
+
+.gw-classroom-hero__actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.gw-classroom-info {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.gw-classroom-info > div {
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 10px;
+    background: var(--google-search-alt);
+}
+
+.gw-classroom-info dt {
+    color: var(--gw-muted);
+    font-size: 11px;
+}
+
+.gw-classroom-info dd {
+    margin: 5px 0 0;
+    overflow-wrap: anywhere;
+    color: var(--google-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.gw-classroom-description {
+    margin: 14px 0 0;
+    white-space: pre-wrap;
+    color: var(--google-text);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.gw-classroom-feed,
+.gw-classroom-announcements {
+    display: grid;
+    gap: 10px;
+}
+
+.gw-classroom-feed-item {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    background: var(--gw-surface);
+}
+
+.gw-classroom-feed-item__marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+}
+
+.gw-classroom-feed-item__body {
+    min-width: 0;
+}
+
+.gw-classroom-feed-item__heading {
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.gw-classroom-feed-item__heading h3 {
+    margin: 0;
+    color: var(--google-text);
+    font-size: 15px;
+}
+
+.gw-classroom-feed-item__body > p {
+    margin: 10px 0 0;
+    white-space: pre-wrap;
+    color: var(--gw-muted);
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.gw-classroom-feed-item__meta {
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    color: var(--gw-muted);
+    font-size: 12px;
+}
+
+.gw-classroom-feed-item__body > .gw-actions {
+    margin-top: 12px;
+}
+
+.gw-classroom-announcement {
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+    gap: 14px;
+    background: var(--gw-surface);
+}
+
+.gw-classroom-announcement__body {
+    min-width: 0;
+}
+
+.gw-classroom-announcement__body p {
+    margin: 0;
+    white-space: pre-wrap;
+    color: var(--google-text);
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.gw-classroom-announcement__body span {
+    display: block;
+    margin-top: 7px;
+    color: var(--gw-muted);
+    font-size: 11px;
+}
+
+@media (max-width: 680px) {
+    :where(.gw-page[data-workspace-page]) .gw-classroom-grid,
+    :where(.gw-page[data-workspace-page]) .gw-classroom-info {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-classroom-hero,
+    :where(.gw-page[data-workspace-page]) .gw-classroom-announcement {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-classroom-hero__actions,
+    :where(.gw-page[data-workspace-page]) .gw-classroom-card__actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-classroom-feed-item {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-classroom-feed-item__marker {
+        display: none;
+    }
+}

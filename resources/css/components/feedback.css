@@ -13,11 +13,11 @@
 .lms-flash--success {
     color: var(--lms-success);
     background: var(--lms-success-soft);
-    border-color: #bbf7d0;
+    border-color: var(--lms-success-border);
 }
 
 .lms-flash--error {
     color: var(--lms-danger);
     background: var(--lms-danger-soft);
-    border-color: #fecaca;
+    border-color: var(--lms-danger-border);
 }

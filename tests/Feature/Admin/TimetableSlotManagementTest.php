@@ -667,7 +667,8 @@ final class TimetableSlotManagementTest extends TestCase
      * 教員が時間割管理機能を利用できないことを確認する。
      *
      * 前提: 時間割枠など、検証に必要なテストデータを準備する。
-     * 処理: `admin.timetable-slots.index`へGETリクエスト、`admin.timetable-slots.create`へGETリクエスト、`admin.timetable-slots.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 処理: `admin.timetable-slots.index`へGETリクエスト、`admin.timetable-slots.create`へGETリクエスト、
+     * `admin.timetable-slots.store`へPOSTリクエスト、関連する後続リクエストを送信する。
      * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
      */
     public function test_teacher_cannot_manage_timetable_slots(): void

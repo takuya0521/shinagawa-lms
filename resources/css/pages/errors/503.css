@@ -6,5 +6,5 @@
  * 計画停止中であることを中立色で示す。
  */
 .error-page-503 {
-    --error-accent: #64748b;
+    --error-accent: var(--lms-neutral-text-muted);
 }

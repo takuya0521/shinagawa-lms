@@ -1,0 +1,227 @@
+/*
+ * 文字・背景・罫線の色をデザイントークンへ接続する共通クラス。
+ * Tailwindの色ユーティリティをBladeへ直接記述せず、用途をクラス名で示す。
+ */
+.lms-text-neutral-deep {
+    color: var(--lms-neutral-text-deep);
+}
+
+.lms-text-neutral-strong {
+    color: var(--lms-neutral-text-strong);
+}
+
+.lms-text-neutral-emphasis {
+    color: var(--lms-neutral-text-emphasis);
+}
+
+.lms-text-neutral-secondary {
+    color: var(--lms-neutral-text-secondary);
+}
+
+.lms-text-neutral-subtle {
+    color: var(--lms-neutral-text-subtle);
+}
+
+.lms-text-neutral-muted {
+    color: var(--lms-neutral-text-muted);
+}
+
+.lms-text-neutral-disabled {
+    color: var(--lms-neutral-text-disabled);
+}
+
+.lms-text-on-dark {
+    color: var(--lms-neutral-text-on-dark);
+}
+
+.lms-text-on-primary {
+    color: var(--lms-on-primary);
+}
+
+.lms-bg-surface {
+    background: var(--lms-surface);
+}
+
+.lms-bg-neutral-subtle {
+    background: var(--lms-neutral-surface-subtle);
+}
+
+.lms-bg-neutral-muted {
+    background: var(--lms-neutral-surface-muted);
+}
+
+.lms-bg-neutral-disabled {
+    background: var(--lms-neutral-surface-disabled);
+}
+
+.lms-bg-neutral-dark {
+    background: var(--lms-neutral-surface-dark);
+}
+
+.lms-border-neutral-faint {
+    border-color: var(--lms-neutral-border-faint);
+}
+
+.lms-border-neutral-subtle {
+    border-color: var(--lms-neutral-border-subtle);
+}
+
+.lms-border-neutral-default {
+    border-color: var(--lms-neutral-border-default);
+}
+
+.lms-divide-neutral-faint > :not(:last-child) {
+    border-color: var(--lms-neutral-border-faint);
+}
+
+.lms-divide-neutral-subtle > :not(:last-child) {
+    border-color: var(--lms-neutral-border-subtle);
+}
+
+.lms-focus-border:focus {
+    border-color: var(--lms-primary);
+}
+
+.lms-focus-ring:focus {
+    --tw-ring-color: color-mix(in srgb, var(--lms-primary) 32%, transparent);
+}
+
+.lms-hover-bg-neutral-subtle:hover {
+    background: var(--lms-neutral-surface-subtle);
+}
+
+.lms-hover-bg-surface:hover {
+    background: var(--lms-surface);
+}
+
+.lms-hover-border-neutral-strong:hover {
+    border-color: var(--lms-neutral-border-strong);
+}
+
+.lms-hover-border-neutral-emphasis:hover {
+    border-color: var(--lms-neutral-border-emphasis);
+}
+
+.lms-hover-text-neutral-deep:hover {
+    color: var(--lms-neutral-text-deep);
+}
+
+.lms-hover-text-neutral-strong:hover {
+    color: var(--lms-neutral-text-strong);
+}
+
+.lms-hover-text-neutral-subtle:hover {
+    color: var(--lms-neutral-text-subtle);
+}
+
+.lms-text-danger {
+    color: var(--lms-danger);
+}
+
+.lms-text-danger-strong {
+    color: var(--lms-danger-strong);
+}
+
+.lms-text-danger-deep {
+    color: var(--lms-danger-deep);
+}
+
+.lms-bg-danger-soft {
+    background: var(--lms-danger-soft);
+}
+
+.lms-bg-danger-muted {
+    background: var(--lms-danger-muted);
+}
+
+.lms-border-danger-faint {
+    border-color: var(--lms-danger-border-faint);
+}
+
+.lms-border-danger {
+    border-color: var(--lms-danger-border);
+}
+
+.lms-border-danger-strong {
+    border-color: var(--lms-danger-border-strong);
+}
+
+.lms-hover-bg-danger-soft:hover {
+    background: var(--lms-danger-soft);
+}
+
+.lms-hover-bg-danger-muted:hover {
+    background: color-mix(in srgb, var(--lms-danger-muted) 60%, transparent);
+}
+
+.lms-text-warning {
+    color: var(--lms-warning);
+}
+
+.lms-text-warning-strong {
+    color: var(--lms-warning-strong);
+}
+
+.lms-text-warning-deep {
+    color: var(--lms-warning-deep);
+}
+
+.lms-bg-warning-soft {
+    background: var(--lms-warning-soft);
+}
+
+.lms-bg-warning-muted {
+    background: var(--lms-warning-muted);
+}
+
+.lms-border-warning {
+    border-color: var(--lms-warning-border);
+}
+
+.lms-border-warning-strong {
+    border-color: var(--lms-warning-border-strong);
+}
+
+.lms-hover-bg-warning-soft:hover {
+    background: var(--lms-warning-soft);
+}
+
+.lms-text-success {
+    color: var(--lms-success);
+}
+
+.lms-text-success-strong {
+    color: var(--lms-success-strong);
+}
+
+.lms-bg-success-muted {
+    background: var(--lms-success-muted);
+}
+
+.lms-text-info {
+    color: var(--lms-info);
+}
+
+.lms-bg-info-muted {
+    background: var(--lms-info-muted);
+}
+
+.lms-text-withdrawn {
+    color: var(--lms-withdrawn);
+}
+
+.lms-bg-withdrawn {
+    background: var(--lms-withdrawn-muted);
+}
+
+.lms-text-feature {
+    color: var(--lms-feature);
+}
+
+.lms-border-feature {
+    border-color: var(--lms-feature-border);
+}
+
+.lms-hover-bg-feature-soft:hover {
+    background: var(--lms-feature-muted);
+}

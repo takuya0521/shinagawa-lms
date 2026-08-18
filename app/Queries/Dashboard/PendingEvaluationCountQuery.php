@@ -34,20 +34,27 @@ final readonly class PendingEvaluationCountQuery
         Collection $courses,
         int $academicYear,
     ): int {
-        $pendingCount = 0;
-
-        foreach ($courses as $course) {
-            $targetCount = $this->targetStudentQuery->count($course);
-            $confirmedCount = FinalEvaluation::query()
-                ->where('course_id', $course->id)
-                ->where('academic_year', $academicYear)
-                ->where('term_name', EvaluationTerm::Annual->value)
-                ->where('status', EvaluationStatus::Confirmed->value)
-                ->count();
-
-            $pendingCount += max($targetCount - $confirmedCount, 0);
+        if ($courses->isEmpty()) {
+            return 0;
         }
 
-        return $pendingCount;
+        $targetCounts = $this->targetStudentQuery->counts($courses);
+        $confirmedCounts = FinalEvaluation::query()
+            ->select('course_id')
+            ->selectRaw('COUNT(*) AS aggregate')
+            ->whereIn('course_id', $courses->pluck('id'))
+            ->where('academic_year', $academicYear)
+            ->where('term_name', EvaluationTerm::Annual->value)
+            ->where('status', EvaluationStatus::Confirmed->value)
+            ->groupBy('course_id')
+            ->pluck('aggregate', 'course_id');
+
+        return $courses->sum(
+            static fn (Course $course): int => max(
+                ($targetCounts[$course->id] ?? 0)
+                    - (int) $confirmedCounts->get($course->id, 0),
+                0,
+            ),
+        );
     }
 }

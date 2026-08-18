@@ -196,6 +196,41 @@ return [
                         ],
                     ],
                 ],
+                [
+                    'label' => 'Google Workspace',
+                    'items' => [
+                        [
+                            'label' => 'Google Drive',
+                            'route' => 'google-workspace.drive.index',
+                            'active' => 'google-workspace.drive.*',
+                            'icon' => 'google-drive',
+                        ],
+                        [
+                            'label' => 'Google Calendar',
+                            'route' => 'google-workspace.calendar.index',
+                            'active' => 'google-workspace.calendar.*',
+                            'icon' => 'google-calendar',
+                        ],
+                        [
+                            'label' => 'Google Chat',
+                            'route' => 'google-workspace.chat.index',
+                            'active' => 'google-workspace.chat.*',
+                            'icon' => 'google-chat',
+                        ],
+                        [
+                            'label' => 'Google Meet',
+                            'route' => 'google-workspace.meet.index',
+                            'active' => 'google-workspace.meet.*',
+                            'icon' => 'google-meet',
+                        ],
+                        [
+                            'label' => 'Google Forms',
+                            'route' => 'google-workspace.forms.index',
+                            'active' => 'google-workspace.forms.*',
+                            'icon' => 'google-forms',
+                        ],
+                    ],
+                ],
             ],
         ],
         'teacher' => [
@@ -280,6 +315,41 @@ return [
 
                             'icon' => 'bell',
 
+                        ],
+                    ],
+                ],
+                [
+                    'label' => 'Google Workspace',
+                    'items' => [
+                        [
+                            'label' => 'Google Drive',
+                            'route' => 'google-workspace.drive.index',
+                            'active' => 'google-workspace.drive.*',
+                            'icon' => 'google-drive',
+                        ],
+                        [
+                            'label' => 'Google Calendar',
+                            'route' => 'google-workspace.calendar.index',
+                            'active' => 'google-workspace.calendar.*',
+                            'icon' => 'google-calendar',
+                        ],
+                        [
+                            'label' => 'Google Chat',
+                            'route' => 'google-workspace.chat.index',
+                            'active' => 'google-workspace.chat.*',
+                            'icon' => 'google-chat',
+                        ],
+                        [
+                            'label' => 'Google Meet',
+                            'route' => 'google-workspace.meet.index',
+                            'active' => 'google-workspace.meet.*',
+                            'icon' => 'google-meet',
+                        ],
+                        [
+                            'label' => 'Google Forms',
+                            'route' => 'google-workspace.forms.index',
+                            'active' => 'google-workspace.forms.*',
+                            'icon' => 'google-forms',
                         ],
                     ],
                 ],
@@ -370,13 +440,57 @@ return [
                         ],
                         [
 
-                            'label' => 'Googleサービス',
+                            'label' => 'Google Drive',
 
-                            'route' => 'student.external-resources',
+                            'route' => 'google-workspace.drive.index',
 
-                            'active' => 'student.external-resources',
+                            'active' => 'google-workspace.drive.*',
 
-                            'icon' => 'link',
+                            'icon' => 'google-drive',
+
+                        ],
+                        [
+
+                            'label' => 'Google Calendar',
+
+                            'route' => 'google-workspace.calendar.index',
+
+                            'active' => 'google-workspace.calendar.*',
+
+                            'icon' => 'google-calendar',
+
+                        ],
+                        [
+
+                            'label' => 'Google Chat',
+
+                            'route' => 'google-workspace.chat.index',
+
+                            'active' => 'google-workspace.chat.*',
+
+                            'icon' => 'google-chat',
+
+                        ],
+                        [
+
+                            'label' => 'Google Meet',
+
+                            'route' => 'google-workspace.meet.index',
+
+                            'active' => 'google-workspace.meet.*',
+
+                            'icon' => 'google-meet',
+
+                        ],
+                        [
+
+                            'label' => 'Google Forms',
+
+                            'route' => 'google-workspace.forms.index',
+
+                            'active' => 'google-workspace.forms.*',
+
+                            'icon' => 'google-forms',
 
                         ],
                     ],

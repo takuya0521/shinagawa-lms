@@ -1,4 +1,4 @@
-{-- 登録画面と編集画面で科目マスタ項目を共有し、コード体系と状態管理を統一する。 --}
+{{-- 登録画面と編集画面で科目マスタ項目を共有し、コード体系と状態管理を統一する。 --}}
 @php
     $editing = isset($subject);
 
@@ -14,13 +14,15 @@
     <div>
         <label
             for="subject_code"
-            class="block text-sm font-medium text-gray-700"
+            class="block text-sm font-medium lms-text-neutral-secondary"
         >
             科目コード
-            <span class="text-red-600">*</span>
+            <span class="lms-text-danger">*</span>
         </label>
 
         <input
+        class="lms-form-control mt-1 block w-full rounded-md lms-border-neutral-default shadow-sm lms-focus-border
+            lms-focus-ring"
             id="subject_code"
             name="subject_code"
             type="text"
@@ -29,17 +31,16 @@
                 'subject_code',
                 $editing ? $subject->subject_code : '',
             ) }}"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             autocomplete="off"
             required
         >
 
-        <p class="mt-1 text-sm text-gray-500">
+        <p class="mt-1 text-sm lms-text-neutral-muted">
             半角英大文字、数字、ハイフン、アンダースコアを使用できます。
         </p>
 
         @error('subject_code')
-            <p class="mt-2 text-sm text-red-600">
+            <p class="mt-2 text-sm lms-text-danger">
                 {{ $message }}
             </p>
         @enderror
@@ -48,13 +49,15 @@
     <div>
         <label
             for="subject_name"
-            class="block text-sm font-medium text-gray-700"
+            class="block text-sm font-medium lms-text-neutral-secondary"
         >
             科目名
-            <span class="text-red-600">*</span>
+            <span class="lms-text-danger">*</span>
         </label>
 
         <input
+        class="lms-form-control mt-1 block w-full rounded-md lms-border-neutral-default shadow-sm lms-focus-border
+            lms-focus-ring"
             id="subject_name"
             name="subject_name"
             type="text"
@@ -63,12 +66,11 @@
                 'subject_name',
                 $editing ? $subject->subject_name : '',
             ) }}"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             required
         >
 
         @error('subject_name')
-            <p class="mt-2 text-sm text-red-600">
+            <p class="mt-2 text-sm lms-text-danger">
                 {{ $message }}
             </p>
         @enderror
@@ -77,16 +79,16 @@
     <div>
         <label
             for="status"
-            class="block text-sm font-medium text-gray-700"
+            class="block text-sm font-medium lms-text-neutral-secondary"
         >
             状態
-            <span class="text-red-600">*</span>
+            <span class="lms-text-danger">*</span>
         </label>
 
         <select
             id="status"
             name="status"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            class="mt-1 block w-full rounded-md shadow-sm lms-form-control"
             required
         >
             @foreach ($statuses as $status)
@@ -102,7 +104,7 @@
         </select>
 
         @error('status')
-            <p class="mt-2 text-sm text-red-600">
+            <p class="mt-2 text-sm lms-text-danger">
                 {{ $message }}
             </p>
         @enderror
@@ -111,14 +113,15 @@
     <div class="flex items-center justify-end gap-3">
         <a
             href="{{ route('admin.subjects.index') }}"
-            class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50"
+            class="inline-flex items-center rounded-md border lms-border-neutral-default lms-bg-surface px-4 py-2
+                text-sm font-semibold lms-text-neutral-secondary shadow-sm lms-hover-bg-neutral-subtle"
         >
             キャンセル
         </a>
 
         <button
             type="submit"
-            class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+            class="inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm lms-button-primary"
         >
             {{ $editing ? '更新する' : '登録する' }}
         </button>

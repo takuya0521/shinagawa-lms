@@ -154,7 +154,8 @@ final class AttendanceManagementTest extends TestCase
      * 教員が管理者向け出欠画面へアクセスできないことを確認する。
      *
      * 前提: 教員など、検証に必要なテストデータを準備する。
-     * 処理: `admin.attendance.index`へGETリクエスト、`admin.attendance.edit`へGETリクエスト、`admin.students.attendance.show`へGETリクエストを送信する。
+     * 処理: `admin.attendance.index`へGETリクエスト、`admin.attendance.edit`へGETリクエスト、
+     * `admin.students.attendance.show`へGETリクエストを送信する。
      * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
      */
     public function test_teacher_cannot_access_admin_attendance_pages(): void

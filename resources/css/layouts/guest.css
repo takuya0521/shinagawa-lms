@@ -4,5 +4,5 @@
 .guest-body {
     min-height: 100svh;
     margin: 0;
-    background: var(--lms-surface-soft, #f8fafc);
+    background: var(--lms-surface-soft);
 }

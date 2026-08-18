@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('page-style', 'resources/css/pages/admin/students/index.css')
 @section('page-class', 'page-pattern-list page-admin-students-index')
 
 @section('title', '生徒管理')
@@ -8,36 +7,23 @@
 
 @section('content')
     <div class="space-y-6">
-        <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <p class="text-sm font-semibold text-slate-500">
-                    STUDENT MANAGEMENT
-                </p>
-
-                <h1 class="mt-1 text-2xl font-bold">
-                    生徒一覧
-                </h1>
-
-                <p class="mt-2 text-sm text-slate-600">
-                    生徒番号、所属クラス、学年、在籍状態を確認します。
-                </p>
-            </div>
+        <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
 
             <div class="flex items-center gap-4">
-                <p class="text-sm text-slate-500">
+                <p class="text-sm lms-text-neutral-muted">
                     {{ number_format($students->total()) }}件
                 </p>
 
                 <a
                     href="{{ route('admin.students.create') }}"
-                    class="rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+                    class="rounded-lg px-5 py-3 font-semibold lms-button-primary"
                 >
                     生徒登録
                 </a>
             </div>
         </header>
 
-        <section class="rounded-2xl bg-white p-6 shadow-sm">
+        <section class="p-6 lms-panel">
             <form
                 method="GET"
                 action="{{ route('admin.students.index') }}"
@@ -46,7 +32,7 @@
                 <div>
                     <label
                         for="keyword"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         生徒番号・氏名・メール・提携校
                     </label>
@@ -57,14 +43,14 @@
                         type="search"
                         value="{{ request('keyword') }}"
                         placeholder="検索キーワード"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                 </div>
 
                 <div>
                     <label
                         for="grade"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         学年
                     </label>
@@ -72,7 +58,7 @@
                     <select
                         id="grade"
                         name="grade"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                         <option value="">
                             すべて
@@ -94,7 +80,7 @@
                 <div>
                     <label
                         for="affiliation"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         所属
                     </label>
@@ -105,14 +91,14 @@
                         type="text"
                         value="{{ request('affiliation') }}"
                         placeholder="所属名"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                 </div>
 
                 <div>
                     <label
                         for="class_group_id"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         クラス
                     </label>
@@ -120,7 +106,7 @@
                     <select
                         id="class_group_id"
                         name="class_group_id"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                         <option value="">すべて</option>
 
@@ -141,7 +127,7 @@
                 <div>
                     <label
                         for="status"
-                        class="block text-sm font-medium text-slate-700"
+                        class="block text-sm font-medium lms-text-neutral-secondary"
                     >
                         在籍状態
                     </label>
@@ -149,7 +135,7 @@
                     <select
                         id="status"
                         name="status"
-                        class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                        class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >
                         <option value="">すべて</option>
 
@@ -167,14 +153,15 @@
                 <div class="flex items-end gap-2">
                     <button
                         type="submit"
-                        class="rounded-lg bg-slate-900 px-5 py-2 font-semibold text-white hover:bg-slate-700"
+                        class="rounded-lg px-5 py-2 font-semibold lms-button-primary"
                     >
                         検索
                     </button>
 
                     <a
                         href="{{ route('admin.students.index') }}"
-                        class="rounded-lg border border-slate-300 px-5 py-2 font-semibold hover:bg-slate-50"
+                        class="rounded-lg border lms-border-neutral-default px-5 py-2 font-semibold
+                            lms-hover-bg-neutral-subtle"
                     >
                         クリア
                     </a>
@@ -182,12 +169,15 @@
             </form>
         </section>
 
-        <section class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <section class="overflow-hidden lms-panel">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-slate-200">
-                    <thead class="bg-slate-50">
+                <table
+                    class="admin-students-table min-w-full divide-y lms-divide-neutral-subtle lms-table
+                        lms-table--balanced"
+                >
+                    <thead class="lms-bg-neutral-subtle">
                         <tr>
-                            <th class="px-5 py-3 text-left text-sm font-semibold">
+                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--medium">
                                 生徒番号
                             </th>
 
@@ -199,7 +189,7 @@
                                 メールアドレス
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold">
+                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--compact">
                                 学年
                             </th>
 
@@ -215,17 +205,17 @@
                                 クラス
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold">
+                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--status">
                                 在籍状態
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold">
+                            <th class="px-5 py-3 text-right text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody class="divide-y lms-divide-neutral-faint">
                         @forelse ($students as $student)
                             <tr>
                                 <td class="whitespace-nowrap px-5 py-4 text-sm">
@@ -236,7 +226,7 @@
                                     {{ $student->student_name }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                <td class="admin-students-table__email px-5 py-4 text-sm">
                                     {{ $student->user->email }}
                                 </td>
 
@@ -244,11 +234,11 @@
                                     {{ $student->grade->label() }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                <td class="admin-students-table__wrap px-5 py-4 text-sm">
                                     {{ $student->affiliation ?? '—' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                <td class="admin-students-table__wrap px-5 py-4 text-sm">
                                     {{ $student->partner_school ?? '—' }}
                                 </td>
 
@@ -259,25 +249,33 @@
                                 <td class="whitespace-nowrap px-5 py-4">
                                     <span
                                         @class([
-                                            'inline-flex rounded-full px-3 py-1 text-xs font-semibold',
-                                            'bg-emerald-100 text-emerald-700' => $student->status === \App\Enums\StudentStatus::Active,
-                                            'bg-amber-100 text-amber-700' => $student->status === \App\Enums\StudentStatus::Suspended,
-                                            'bg-blue-100 text-blue-700' => $student->status === \App\Enums\StudentStatus::Graduated,
-                                            'bg-rose-100 text-rose-700' => $student->status === \App\Enums\StudentStatus::Withdrawn,
+                                            'inline-flex whitespace-nowrap rounded-full',
+                                            'px-3 py-1 text-xs font-semibold',
+                                            'lms-bg-success-muted lms-text-success' =>
+                                                $student->status === \App\Enums\StudentStatus::Active,
+                                            'lms-bg-warning-muted lms-text-warning' =>
+                                                $student->status === \App\Enums\StudentStatus::Suspended,
+                                            'lms-bg-info-muted lms-text-info' =>
+                                                $student->status === \App\Enums\StudentStatus::Graduated,
+                                            'lms-bg-withdrawn lms-text-withdrawn' =>
+                                                $student->status === \App\Enums\StudentStatus::Withdrawn,
                                         ])
                                     >
                                         {{ $student->status->label() }}
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm">
-                                    <div class="flex items-center gap-3">
+                                <td
+                                    class="admin-students-table__actions whitespace-nowrap px-5 py-4
+                                        text-right text-sm"
+                                >
+                                    <div class="flex flex-wrap items-center justify-end gap-2">
                                         <a
                                             href="{{ route(
                                                 'admin.students.show',
                                                 $student,
                                             ) }}"
-                                            class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
+                                            class="font-semibold lms-link-primary"
                                         >
                                             詳細
                                         </a>
@@ -287,7 +285,7 @@
                                                 'admin.students.edit',
                                                 $student,
                                             ) }}"
-                                            class="font-semibold text-slate-700 underline underline-offset-4 hover:text-slate-950"
+                                            class="font-semibold lms-link-primary"
                                         >
                                             編集
                                         </a>
@@ -298,7 +296,7 @@
                             <tr>
                                 <td
                                     colspan="9"
-                                    class="px-6 py-12 text-center text-slate-500"
+                                    class="px-6 py-12 text-center lms-text-neutral-muted"
                                 >
                                     条件に一致する生徒はいません。
                                 </td>
@@ -309,7 +307,7 @@
             </div>
 
             @if ($students->hasPages())
-                <div class="border-t border-slate-200 px-6 py-4">
+                <div class="border-t lms-border-neutral-subtle px-6 py-4">
                     {{ $students->links() }}
                 </div>
             @endif

@@ -46,7 +46,8 @@ return new class extends Migration
 
         // 対象IDは業務テーブルの主キーを参照するため、正の値だけを許可する。
         DB::statement(
-            'ALTER TABLE operation_logs ADD CONSTRAINT chk_operation_logs_target_id CHECK (target_id IS NULL OR target_id > 0)',
+            'ALTER TABLE operation_logs ADD CONSTRAINT chk_operation_logs_target_id '
+                .'CHECK (target_id IS NULL OR target_id > 0)',
         );
     }
 

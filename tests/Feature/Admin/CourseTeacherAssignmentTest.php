@@ -60,7 +60,7 @@ final class CourseTeacherAssignmentTest extends TestCase
                 ),
             )
             ->assertOk()
-            ->assertSeeText('A-022')
+            ->assertDontSeeText('A-022')
             ->assertSeeText('担当教員設定')
             ->assertSeeText($course->course_name)
             ->assertSeeText($teacher->user->name)

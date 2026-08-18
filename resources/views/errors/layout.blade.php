@@ -22,7 +22,7 @@
             {{-- 復旧方法を限定せず、トップへの移動と直前画面への復帰を選べるようにする。 --}}
             <div class="error-card__actions">
                 <a href="{{ url('/') }}">トップへ戻る</a>
-                <button type="button" onclick="history.back()">前の画面へ戻る</button>
+                <button type="button" data-history-back>前の画面へ戻る</button>
             </div>
         </section>
     </main>

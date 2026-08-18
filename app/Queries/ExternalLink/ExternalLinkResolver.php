@@ -18,7 +18,13 @@ use Illuminate\Support\Collection;
  */
 final class ExternalLinkResolver
 {
-    private const SCOPE_PRIORITY_SQL = "CASE scope_type\n        WHEN 'student' THEN 1\n        WHEN 'course' THEN 2\n        WHEN 'class_group' THEN 3\n        WHEN 'role' THEN 4\n        ELSE 5\n    END";
+    private const SCOPE_PRIORITY_SQL = "CASE scope_type\n"
+        ."        WHEN 'student' THEN 1\n"
+        ."        WHEN 'course' THEN 2\n"
+        ."        WHEN 'class_group' THEN 3\n"
+        ."        WHEN 'role' THEN 4\n"
+        ."        ELSE 5\n"
+        .'    END';
 
     /**
      * 生徒本人が利用できる外部リンクを解決する。

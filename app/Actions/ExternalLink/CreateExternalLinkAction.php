@@ -43,7 +43,12 @@ final class CreateExternalLinkAction
                     actor: $user,
                     action: 'create_external_link',
                     target: $externalLink,
-                    detail: ['link_name' => $externalLink->link_name, 'link_type' => $externalLink->link_type->value, 'scope_type' => $externalLink->scope_type->value, 'scope_id' => $externalLink->scope_id],
+                    detail: [
+                        'link_name' => $externalLink->link_name,
+                        'link_type' => $externalLink->link_type->value,
+                        'scope_type' => $externalLink->scope_type->value,
+                        'scope_id' => $externalLink->scope_id,
+                    ],
                     ipAddress: $ipAddress,
                 );
 

@@ -102,7 +102,15 @@ class StoreExternalLinkRequest extends FormRequest
     /**
      * 外部リンクへ保存する値を返す。
      *
-     * @return array{link_type: string, link_name: string, url: string, scope_type: string, scope_id: int|null, display_order: int, status: string}
+     * @return array{
+     *     link_type: string,
+     *     link_name: string,
+     *     url: string,
+     *     scope_type: string,
+     *     scope_id: int|null,
+     *     display_order: int,
+     *     status: string
+     * }
      */
     public function externalLinkAttributes(): array
     {

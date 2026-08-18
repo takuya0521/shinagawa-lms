@@ -4,6 +4,7 @@ namespace App\Queries\Teacher;
 
 use App\Enums\AttendanceStatus;
 use App\Enums\LessonStatus;
+use App\Models\Course;
 use App\Models\LessonSession;
 use App\Models\Teacher;
 use App\Queries\Attendance\TargetStudentQuery;
@@ -73,10 +74,16 @@ final class AttendanceSessionListQuery
             ->orderByDesc('id')
             ->get();
 
-        $lessonSessions->each(function (LessonSession $lessonSession): void {
-            $targetCount = $this->targetStudentQuery->count(
-                $lessonSession->timetableSlot->course,
-            );
+        $targetCounts = $this->targetStudentQuery->counts(
+            $lessonSessions
+                ->map(static fn (LessonSession $lessonSession) => $lessonSession->timetableSlot->course)
+                ->filter(static fn (?Course $course): bool => $course instanceof Course)
+                ->unique('id')
+                ->values(),
+        );
+
+        $lessonSessions->each(function (LessonSession $lessonSession) use ($targetCounts): void {
+            $targetCount = $targetCounts[$lessonSession->timetableSlot->course->id] ?? 0;
             $recordedCount = $lessonSession->attendanceRecords->count();
 
             $lessonSession->setAttribute('target_count', $targetCount);
@@ -133,7 +140,8 @@ final class AttendanceSessionListQuery
         if ($missingOnly) {
             $lessonSessions = $lessonSessions
                 ->filter(
-                    static fn (LessonSession $lessonSession): bool => (int) $lessonSession->getAttribute('missing_count') > 0,
+                    static fn (LessonSession $lessonSession): bool => (int) $lessonSession
+                        ->getAttribute('missing_count') > 0,
                 )
                 ->values();
         }

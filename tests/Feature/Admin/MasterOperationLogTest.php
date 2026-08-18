@@ -292,7 +292,8 @@ final class MasterOperationLogTest extends TestCase
      * 科目と授業の登録・更新が操作ログへ記録されることを確認する。
      *
      * 前提: クラスなど、検証に必要なテストデータを準備する。
-     * 処理: `admin.subjects.store`へPOSTリクエスト、`admin.subjects.update`へPUTリクエスト、`admin.courses.store`へPOSTリクエスト、関連する後続リクエストを送信する。
+     * 処理: `admin.subjects.store`へPOSTリクエスト、`admin.subjects.update`へPUTリクエスト、`admin.courses.store`へPOSTリクエスト、
+     * 関連する後続リクエストを送信する。
      * 期待結果: 想定した画面へリダイレクトされる、データベースに期待する内容が保存される、取得値が期待値と一致することを確認する。
      */
     public function test_subject_and_course_create_update_are_logged(): void

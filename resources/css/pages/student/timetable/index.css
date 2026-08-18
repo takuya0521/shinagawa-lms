@@ -1,10 +1,19 @@
-@import '../../../patterns/timetable.css';
-
 /*
  * 生徒向け週間時間割画面専用
  *
  * 曜日と時限の対応を維持するため、時間割専用の表幅と固定見出しを適用する。
  */
 .page-student-timetable-index {
-    --page-table-min-width: 68rem;
+    --page-table-min-width: 56rem;
+}
+
+.student-timetable-card {
+    background: var(--lms-surface);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.student-timetable-card:hover {
+    border-color: color-mix(in srgb, var(--lms-primary) 42%, var(--lms-border));
+    box-shadow: var(--lms-shadow-soft);
+    transform: translateY(-2px);
 }

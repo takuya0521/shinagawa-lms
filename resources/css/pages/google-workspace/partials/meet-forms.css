@@ -1,0 +1,231 @@
+/* Google Meet・Google Forms共通の操作パネル、一覧、詳細表示。 */
+.gw-workspace-content {
+    padding: 18px;
+    display: grid;
+    gap: 18px;
+}
+
+.gw-async-region--embedded {
+    padding: 0;
+}
+
+.gw-eyebrow {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--gw-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.gw-meet-created {
+    padding: 14px 18px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--gw-surface);
+}
+
+.gw-meet-created strong {
+    display: block;
+    font-size: 18px;
+}
+
+.gw-meet-actions .gw-panel {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+}
+
+.gw-meet-actions .gw-panel h2 {
+    font-size: 18px;
+}
+
+.gw-meet-actions .gw-panel form,
+.gw-meet-actions .gw-panel > .gw-button {
+    justify-self: start;
+}
+
+.gw-status-chip {
+    min-height: 26px;
+    padding: 4px 10px;
+    border-radius: 13px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--gw-muted);
+    background: var(--google-search-alt);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.gw-status-chip.is-active {
+    color: var(--google-green-deep);
+    background: var(--google-green-soft);
+}
+
+.gw-code {
+    overflow-wrap: anywhere;
+    color: var(--gw-muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+}
+
+
+.gw-page--meet .gw-table-wrap,
+.gw-page--forms .gw-table-wrap {
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+}
+
+.gw-page--meet .gw-table,
+.gw-page--forms .gw-table {
+    background: var(--gw-surface);
+}
+
+.gw-page--meet .gw-table th,
+.gw-page--meet .gw-table td,
+.gw-page--forms .gw-table th,
+.gw-page--forms .gw-table td {
+    padding: 13px 15px;
+    color: var(--google-text);
+    font-size: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.gw-page--meet .gw-table th,
+.gw-page--forms .gw-table th {
+    color: var(--gw-muted);
+    background: var(--google-search-alt);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.gw-page--meet .gw-table tbody tr:last-child td,
+.gw-page--forms .gw-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.gw-forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.gw-form-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px;
+    background: var(--gw-surface);
+}
+
+.gw-form-card__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--google-search-alt);
+}
+
+.gw-form-card__body {
+    min-width: 0;
+}
+
+.gw-form-card__body h3 {
+    margin: 2px 0 5px;
+    overflow: hidden;
+    color: var(--google-text);
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-form-card__body p {
+    margin: 0;
+    color: var(--gw-muted);
+    font-size: 12px;
+}
+
+.gw-form-card__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+.gw-forms-detail-hero {
+    align-items: flex-start;
+}
+
+.gw-stat-grid {
+    margin: 0 0 18px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.gw-stat-grid > div,
+.gw-info-list > div {
+    padding: 12px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 10px;
+    background: var(--google-search-alt);
+}
+
+.gw-stat-grid dt,
+.gw-info-list dt {
+    color: var(--gw-muted);
+    font-size: 11px;
+}
+
+.gw-stat-grid dd,
+.gw-info-list dd {
+    margin: 5px 0 0;
+    color: var(--google-text);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.gw-info-list {
+    margin: 0;
+    display: grid;
+    gap: 10px;
+}
+
+.gw-form-publish {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.gw-empty-state--compact {
+    min-height: 220px;
+    padding: 32px 20px;
+}
+
+@media (max-width: 900px) {
+    :where(.gw-page[data-workspace-page]) .gw-workspace-content {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 680px) {
+    :where(.gw-page[data-workspace-page]) .gw-meet-created {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-forms-grid,
+    :where(.gw-page[data-workspace-page]) .gw-stat-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

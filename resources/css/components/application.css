@@ -1,0 +1,243 @@
+/*
+ * 認証後画面で共通利用する表示・操作部品
+ *
+ * Tailwindの色クラスを後から変更せず、意味を持つ専用クラスで外観を管理する。
+ */
+.lms-panel {
+    border: 1px solid var(--lms-border);
+    border-radius: 1rem;
+    background: var(--lms-surface);
+    box-shadow: var(--lms-shadow-soft);
+}
+
+@media (min-width: 48rem) {
+    .lms-detail-grid-divider {
+        border-right: 1px solid var(--lms-neutral-border-faint);
+    }
+}
+
+.lms-panel--interactive {
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.lms-panel--interactive:hover {
+    border-color: color-mix(in srgb, var(--lms-primary) 38%, var(--lms-border));
+    box-shadow: var(--lms-shadow);
+    transform: translateY(-2px);
+}
+
+.lms-button-primary {
+    border-color: transparent;
+    color: var(--lms-on-primary);
+    background: var(--lms-primary-dark);
+    transition: background-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.lms-button-primary:hover {
+    background: var(--lms-primary-dark-hover);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--lms-primary-dark) 20%, transparent);
+}
+
+.lms-button-primary:active {
+    transform: translateY(1px);
+}
+
+.lms-button-primary:disabled {
+    color: var(--lms-muted);
+    background: var(--lms-border);
+    box-shadow: none;
+}
+
+.lms-button-secondary {
+    border-color: color-mix(in srgb, var(--lms-primary) 58%, var(--lms-border));
+    color: var(--lms-primary-dark);
+    background: var(--lms-surface);
+    transition: color 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.lms-button-secondary:hover {
+    border-color: var(--lms-primary);
+    color: var(--lms-primary-dark-hover);
+    background: var(--lms-primary-soft);
+}
+
+.lms-link-primary {
+    color: var(--lms-primary-dark);
+    text-decoration-color: color-mix(in srgb, var(--lms-primary) 42%, transparent);
+    text-underline-offset: 0.18em;
+    transition: color 0.16s ease, text-decoration-color 0.16s ease;
+}
+
+.lms-link-primary:hover {
+    color: var(--lms-primary-dark-hover);
+    text-decoration-color: currentColor;
+}
+
+.lms-text-primary {
+    color: var(--lms-primary-dark);
+}
+
+.lms-form-control {
+    min-height: 48px;
+    border: 1px solid color-mix(in srgb, var(--lms-primary-dark) 48%, var(--lms-neutral-border-strong));
+    color: var(--lms-neutral-text-strong);
+    background: var(--lms-form-surface);
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, var(--lms-primary) 10%, transparent),
+        0 2px 5px color-mix(in srgb, var(--lms-primary-dark) 10%, transparent);
+    transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.lms-form-control:hover {
+    border-color: color-mix(in srgb, var(--lms-primary-dark) 68%, var(--lms-neutral-border-strong));
+    background: var(--lms-form-surface);
+}
+
+.lms-form-control:focus {
+    border-color: var(--lms-primary-dark);
+    background: var(--lms-form-surface);
+    box-shadow:
+        inset 0 0 0 1px var(--lms-primary-dark),
+        0 0 0 4px color-mix(in srgb, var(--lms-primary) 18%, transparent);
+    outline: none;
+}
+
+.lms-form-control::placeholder {
+    color: var(--lms-placeholder);
+    opacity: 1;
+}
+
+textarea.lms-form-control {
+    min-height: 120px;
+}
+
+.lms-password-fields,
+.lms-account-login-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1.25rem;
+}
+
+.lms-password-fields > *,
+.lms-account-login-fields > * {
+    min-width: 0;
+}
+
+.lms-account-login-fields__single {
+    grid-column: 1 / -1;
+    width: min(100%, 32rem);
+}
+
+.lms-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.lms-table thead th {
+    color: var(--lms-table-heading);
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+.lms-table:not(.lms-table--no-row-hover) tbody tr {
+    transition: background-color 0.14s ease;
+}
+
+.lms-table:not(.lms-table--no-row-hover) tbody tr:hover {
+    background: color-mix(in srgb, var(--lms-primary-soft) 46%, transparent);
+}
+
+.lms-link-primary:visited,
+.lms-link-primary:focus-visible,
+.lms-link-primary:active {
+    color: var(--lms-primary-dark);
+}
+
+.lms-table--balanced {
+    width: 100%;
+    table-layout: auto;
+}
+
+.lms-table--fluid {
+    width: 100%;
+    table-layout: auto;
+}
+
+.lms-table--balanced thead th {
+    white-space: nowrap;
+}
+
+.lms-table--balanced tbody td {
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.lms-table-col--compact {
+    width: 6rem;
+}
+
+.lms-table-col--medium {
+    width: 9rem;
+}
+
+.lms-table-col--wide {
+    width: 15rem;
+}
+
+.lms-table-col--score-triple {
+    width: 13rem;
+}
+
+.lms-table-col--date {
+    width: 9rem;
+}
+
+.lms-table-col--status {
+    width: 6rem;
+}
+
+.lms-table-col--action {
+    width: 8.5rem;
+}
+
+.lms-table-col--action-label {
+    width: 11rem;
+}
+
+.lms-table-col--action-wide {
+    width: 24rem;
+}
+
+.lms-table-cell--nowrap {
+    white-space: nowrap;
+}
+
+.lms-table-cell--email {
+    min-width: 15rem;
+    white-space: nowrap;
+}
+
+.lms-table-cell--long {
+    min-width: 14rem;
+    overflow-wrap: break-word;
+}
+
+.lms-table--assignment {
+    min-width: 68rem;
+}
+
+.lms-table--assignment .lms-assignment-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    align-items: start;
+}
+
+.lms-table--assignment .lms-assignment-select {
+    min-width: 0;
+    width: 100%;
+}
+

@@ -134,7 +134,9 @@ foreach ($targets as $target) {
         }
 
         preg_match_all(
-            '/(?<doc>\/\*\*[\s\S]*?\*\/)\s*(?:#\[[\s\S]*?\]\s*)*(?:(?:public|protected|private)\s+)?(?:static\s+)?function\s+(?<name>[A-Za-z_][A-Za-z0-9_]*)\s*\(/u',
+            '/(?<doc>\/\*\*[\s\S]*?\*\/)\s*(?:#\[[\s\S]*?\]\s*)*'
+                .'(?:(?:public|protected|private)\s+)?(?:static\s+)?function\s+'
+                .'(?<name>[A-Za-z_][A-Za-z0-9_]*)\s*\(/u',
             $source,
             $documentedMethods,
             PREG_SET_ORDER,

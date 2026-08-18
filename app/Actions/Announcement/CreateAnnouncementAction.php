@@ -52,7 +52,11 @@ final class CreateAnnouncementAction
                     actor: $user,
                     action: 'create_announcement',
                     target: $announcement,
-                    detail: ['title' => $announcement->title, 'status' => $announcement->status->value, 'targets' => $targets],
+                    detail: [
+                        'title' => $announcement->title,
+                        'status' => $announcement->status->value,
+                        'targets' => $targets,
+                    ],
                     ipAddress: $ipAddress,
                 );
 

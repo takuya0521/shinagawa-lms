@@ -2,7 +2,7 @@
  * ボタン・リンク操作部品の共通アクセシビリティ規則。
  */
 :where(button, [role="button"], a):focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--lms-primary, #2563eb) 28%, transparent);
+    outline: 3px solid color-mix(in srgb, var(--lms-primary) 28%, transparent);
     outline-offset: 2px;
 }
 

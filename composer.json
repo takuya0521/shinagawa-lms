@@ -73,6 +73,7 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@lint:check",
+            "@lines:check",
             "@types:check",
             "@php artisan test"
         ],
@@ -103,7 +104,8 @@
         "comments:check": "@php scripts/check_japanese_comments.php",
         "docs:check": "@php scripts/check_phpdoc_completeness.php",
         "test-docs:check": "@php scripts/check_test_documentation.php",
-        "database:check": "@php scripts/check_postgresql_compatibility.php"
+        "database:check": "@php scripts/check_postgresql_compatibility.php",
+        "lines:check": "@php scripts/check_line_length.php"
     },
     "extra": {
         "laravel": {

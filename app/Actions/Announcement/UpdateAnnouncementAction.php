@@ -70,9 +70,18 @@ final class UpdateAnnouncementAction
 
                 $this->operationLogWriter->write(
                     actor: $user,
-                    action: ($announcement->status->value === 'published' ? 'publish_announcement' : 'update_announcement'),
+                    action: $announcement->status->value === 'published'
+                        ? 'publish_announcement'
+                        : 'update_announcement',
                     target: $announcement,
-                    detail: ['before' => $before, 'after' => ['title' => $announcement->title, 'status' => $announcement->status->value, 'targets' => $targets]],
+                    detail: [
+                        'before' => $before,
+                        'after' => [
+                            'title' => $announcement->title,
+                            'status' => $announcement->status->value,
+                            'targets' => $targets,
+                        ],
+                    ],
                     ipAddress: $ipAddress,
                 );
 

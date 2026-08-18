@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('page-style', 'resources/css/pages/admin/course-teacher-assignments/index.css')
 @section('page-class', 'page-pattern-list page-admin-course-teacher-assignments-index')
 
 @section('title', '担当教員設定')
@@ -8,32 +7,28 @@
 
 @section('content')
     <section class="space-y-6">
-        <div class="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm sm:flex-row sm:items-start sm:justify-between">
-            <div>
-                <p class="text-sm font-semibold text-slate-500">A-022</p>
-                <h1 class="mt-1 text-2xl font-bold text-slate-900">担当教員設定</h1>
-                <p class="mt-2 text-sm text-slate-600">
-                    登録済みの授業へ担当講師を1名設定します。未設定を選ぶと担当を解除できます。
-                </p>
-            </div>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
 
             <a
                 href="{{ route('admin.courses.index') }}"
-                class="inline-flex shrink-0 items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+                class="inline-flex shrink-0 items-center justify-center rounded-lg border lms-border-neutral-default
+                    lms-bg-surface px-5 py-3 font-semibold lms-text-neutral-secondary lms-hover-bg-neutral-subtle"
             >
                 授業管理を開く
             </a>
         </div>
 
-
         @if (session('warning'))
-            <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900">
+            <div
+                class="rounded-lg border lms-border-warning lms-bg-warning-soft px-4 py-3 text-sm font-semibold
+                    lms-text-warning-deep"
+            >
                 {{ session('warning') }}
             </div>
         @endif
 
         @if ($errors->any())
-            <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+            <div class="rounded-lg border lms-border-danger lms-bg-danger-soft px-4 py-3 text-sm lms-text-danger-deep">
                 <p class="font-semibold">担当教員を更新できませんでした。</p>
                 <ul class="mt-2 list-disc space-y-1 pl-5">
                     @foreach ($errors->all() as $error)
@@ -43,7 +38,7 @@
             </div>
         @endif
 
-        <div class="rounded-2xl bg-white p-6 shadow-sm">
+        <div class="p-6 lms-panel">
             <form
                 method="GET"
                 action="{{ route('admin.course-teacher-assignments.index') }}"
@@ -51,7 +46,7 @@
             >
                 <div class="grid gap-4 lg:grid-cols-4">
                     <div class="lg:col-span-2">
-                        <label for="keyword" class="block text-sm font-semibold text-slate-700">
+                        <label for="keyword" class="block text-sm font-semibold lms-text-neutral-secondary">
                             キーワード
                         </label>
                         <input
@@ -60,18 +55,19 @@
                             type="search"
                             value="{{ $keyword }}"
                             placeholder="授業名・科目・担当教員"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-focus-border
+                                focus:outline-none focus:ring-2 lms-focus-ring lms-form-control"
                         >
                     </div>
 
                     <div>
-                        <label for="academic_year" class="block text-sm font-semibold text-slate-700">
+                        <label for="academic_year" class="block text-sm font-semibold lms-text-neutral-secondary">
                             年度
                         </label>
                         <select
                             id="academic_year"
                             name="academic_year"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-form-control"
                         >
                             <option value="">すべて</option>
                             @foreach ($academicYears as $academicYear)
@@ -86,13 +82,13 @@
                     </div>
 
                     <div>
-                        <label for="grade" class="block text-sm font-semibold text-slate-700">
+                        <label for="grade" class="block text-sm font-semibold lms-text-neutral-secondary">
                             学年
                         </label>
                         <select
                             id="grade"
                             name="grade"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-form-control"
                         >
                             <option value="">すべて</option>
                             @foreach ($grades as $grade)
@@ -109,13 +105,13 @@
 
                 <div class="grid gap-4 lg:grid-cols-5">
                     <div>
-                        <label for="class_group_id" class="block text-sm font-semibold text-slate-700">
+                        <label for="class_group_id" class="block text-sm font-semibold lms-text-neutral-secondary">
                             クラス
                         </label>
                         <select
                             id="class_group_id"
                             name="class_group_id"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-form-control"
                         >
                             <option value="">すべて</option>
                             @foreach ($classGroups as $classGroup)
@@ -130,13 +126,13 @@
                     </div>
 
                     <div>
-                        <label for="subject_id" class="block text-sm font-semibold text-slate-700">
+                        <label for="subject_id" class="block text-sm font-semibold lms-text-neutral-secondary">
                             科目
                         </label>
                         <select
                             id="subject_id"
                             name="subject_id"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-form-control"
                         >
                             <option value="">すべて</option>
                             @foreach ($subjects as $subject)
@@ -151,13 +147,13 @@
                     </div>
 
                     <div>
-                        <label for="assignment_status" class="block text-sm font-semibold text-slate-700">
+                        <label for="assignment_status" class="block text-sm font-semibold lms-text-neutral-secondary">
                             担当設定
                         </label>
                         <select
                             id="assignment_status"
                             name="assignment_status"
-                            class="mt-2 block w-full rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
+                            class="mt-2 block w-full rounded-lg border px-3 py-2 shadow-sm lms-form-control"
                         >
                             <option value="">すべて</option>
                             <option value="assigned" @selected($selectedAssignmentStatus === 'assigned')>
@@ -172,7 +168,8 @@
                     <div class="flex items-end">
                         <button
                             type="submit"
-                            class="inline-flex w-full items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 font-semibold text-white hover:bg-slate-700"
+                            class="inline-flex w-full items-center justify-center rounded-lg px-5 py-2.5 font-semibold
+                                lms-button-primary"
                         >
                             検索
                         </button>
@@ -181,7 +178,9 @@
                     <div class="flex items-end">
                         <a
                             href="{{ route('admin.course-teacher-assignments.index') }}"
-                            class="inline-flex w-full items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 font-semibold text-slate-700 hover:bg-slate-50"
+                            class="inline-flex w-full items-center justify-center rounded-lg border
+                                lms-border-neutral-default lms-bg-surface px-5 py-2.5 font-semibold
+                                lms-text-neutral-secondary lms-hover-bg-neutral-subtle"
                         >
                             クリア
                         </a>
@@ -190,21 +189,42 @@
             </form>
         </div>
 
-        <div class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div class="overflow-hidden lms-panel">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-slate-200">
-                    <thead class="bg-slate-50">
+                <table
+                    class="min-w-full divide-y lms-divide-neutral-subtle lms-table lms-table--fluid
+                        lms-table--assignment"
+                >
+                    <thead class="lms-bg-neutral-subtle">
                         <tr>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">年度・対象</th>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">授業・科目</th>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">現在の担当</th>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">未完了データ</th>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">Classroom</th>
-                            <th class="px-5 py-3 text-left text-xs font-semibold text-slate-500">担当設定</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--medium"
+                            >年度・対象</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--medium"
+                            >授業・科目</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--wide"
+                            >現在の担当</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--medium"
+                            >未完了データ</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--medium"
+                            >Classroom</th>
+                            <th
+                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                    lms-table-col--action-wide"
+                            >担当設定</th>
                         </tr>
                     </thead>
 
-                    <tbody class="divide-y divide-slate-200 bg-white">
+                    <tbody class="divide-y lms-divide-neutral-subtle lms-bg-surface">
                         @forelse ($courses as $course)
                             @php
                                 $currentTeacherIsSelectable = $course->teacher_id === null
@@ -213,17 +233,21 @@
                                 $draftEvaluations = (int) $course->getAttribute('draft_evaluations_count');
                             @endphp
 
-                            <tr class="align-top hover:bg-slate-50">
+                            <tr class="align-top lms-hover-bg-neutral-subtle">
                                 <td class="whitespace-nowrap px-5 py-4 text-sm">
-                                    <p class="font-semibold text-slate-900">{{ $course->academic_year }}年度</p>
-                                    <p class="mt-1 text-xs text-slate-500">
-                                        {{ $course->grade->label() }} / {{ $course->classGroup->class_code }}・{{ $course->classGroup->class_name }}
+                                    <p class="font-semibold lms-text-neutral-strong">{{ $course->academic_year }}年度</p>
+                                    <p class="mt-1 text-xs lms-text-neutral-muted">
+                                        {{ $course->grade->label() }} / {{ $course->classGroup->class_code }}・{{
+                                        $course->classGroup->class_name }}
                                     </p>
                                     <span
                                         @class([
-                                            'mt-2 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold',
-                                            'bg-emerald-100 text-emerald-800' => $course->status === \App\Enums\MasterStatus::Active,
-                                            'bg-slate-100 text-slate-700' => $course->status === \App\Enums\MasterStatus::Inactive,
+                                            'mt-2 inline-flex whitespace-nowrap rounded-full',
+                                            'px-2.5 py-1 text-xs font-semibold',
+                                            'lms-bg-success-muted lms-text-success-strong' => $course->status ===
+                                            \App\Enums\MasterStatus::Active,
+                                            'lms-bg-neutral-muted lms-text-neutral-secondary' => $course->status ===
+                                            \App\Enums\MasterStatus::Inactive,
                                         ])
                                     >
                                         {{ $course->status->label() }}
@@ -231,35 +255,46 @@
                                 </td>
 
                                 <td class="px-5 py-4 text-sm">
-                                    <p class="font-semibold text-slate-900">{{ $course->course_name }}</p>
-                                    <p class="mt-1 text-xs text-slate-500">
+                                    <p class="font-semibold lms-text-neutral-strong">{{ $course->course_name }}</p>
+                                    <p class="mt-1 text-xs lms-text-neutral-muted">
                                         {{ $course->subject->subject_code }} / {{ $course->subject->subject_name }}
                                     </p>
                                 </td>
 
                                 <td class="px-5 py-4 text-sm">
                                     @if ($course->teacher !== null)
-                                        <p class="font-semibold text-slate-900">{{ $course->teacher->user->name }}</p>
-                                        <p class="mt-1 text-xs text-slate-500">{{ $course->teacher->user->email }}</p>
+                                        <p
+                                            class="font-semibold lms-text-neutral-strong"
+                                        >{{ $course->teacher->user->name }}</p>
+                                        <p
+                                            class="lms-table-cell--nowrap mt-1 text-xs lms-text-neutral-muted"
+                                        >{{ $course->teacher->user->email }}</p>
 
                                         @if (! $currentTeacherIsSelectable)
-                                            <span class="mt-2 inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-800">
+                                            <span
+                                                class="mt-2 inline-flex whitespace-nowrap rounded-full
+                                                    lms-bg-warning-muted px-2.5 py-1 text-xs font-semibold
+                                                    lms-text-warning-strong"
+                                            >
                                                 現在は選択不可
                                             </span>
                                         @endif
                                     @else
-                                        <span class="inline-flex rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
+                                        <span
+                                            class="inline-flex whitespace-nowrap rounded-full lms-bg-neutral-muted
+                                                px-2.5 py-1 text-xs font-semibold lms-text-neutral-subtle"
+                                        >
                                             未設定
                                         </span>
                                     @endif
                                 </td>
 
-                                <td class="px-5 py-4 text-sm">
+                                <td class="lms-table-cell--nowrap px-5 py-4 text-sm">
                                     <div class="space-y-1">
-                                        <p class="text-slate-700">
+                                        <p class="lms-text-neutral-secondary">
                                             未完了授業：<span class="font-semibold">{{ $pendingLessonSessions }}件</span>
                                         </p>
-                                        <p class="text-slate-700">
+                                        <p class="lms-text-neutral-secondary">
                                             下書き評価：<span class="font-semibold">{{ $draftEvaluations }}件</span>
                                         </p>
                                     </div>
@@ -271,45 +306,84 @@
                                             href="{{ $course->google_classroom_url }}"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            class="font-semibold text-blue-700 hover:text-blue-900"
+                                            class="font-semibold lms-link-primary"
                                         >
                                             Classroomを開く
                                         </a>
                                     @else
-                                        <span class="text-slate-400">未設定</span>
+                                        <span class="lms-text-neutral-disabled">未設定</span>
                                     @endif
                                 </td>
 
-                                <td class="min-w-80 px-5 py-4 text-sm">
+                                <td class="px-5 py-4 text-sm">
                                     <form
                                         method="POST"
                                         action="{{ route('admin.course-teacher-assignments.update', $course) }}"
-                                        class="flex min-w-72 items-start gap-2"
-                                        @if ($course->teacher_id !== null && ($pendingLessonSessions > 0 || $draftEvaluations > 0))
-                                            onsubmit="const select = this.querySelector('select[name=teacher_id]'); if (select.value === '') { return confirm('未完了データがある授業の担当を解除します。引継ぎ状況を確認しましたか？'); }"
+                                        class="lms-assignment-form"
+                                        @if ($course->teacher_id !== null && ($pendingLessonSessions > 0 ||
+                                        $draftEvaluations > 0))
+                                            data-confirm-empty-select="teacher_id"
+                                            data-confirm-message="未完了データがある授業の担当を解除します。引継ぎ状況を確認しましたか？"
                                         @endif
                                     >
                                         @csrf
                                         @method('PATCH')
 
-                                        <input type="hidden" name="filter_keyword" value="{{ $keyword }}">
-                                        <input type="hidden" name="filter_academic_year" value="{{ $selectedAcademicYear }}">
-                                        <input type="hidden" name="filter_grade" value="{{ $selectedGrade }}">
-                                        <input type="hidden" name="filter_class_group_id" value="{{ $selectedClassGroupId }}">
-                                        <input type="hidden" name="filter_subject_id" value="{{ $selectedSubjectId }}">
-                                        <input type="hidden" name="filter_assignment_status" value="{{ $selectedAssignmentStatus }}">
-                                        <input type="hidden" name="page" value="{{ $courses->currentPage() }}">
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_keyword"
+                                            value="{{ $keyword }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_academic_year"
+                                            value="{{ $selectedAcademicYear }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_grade"
+                                            value="{{ $selectedGrade }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_class_group_id"
+                                            value="{{ $selectedClassGroupId }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_subject_id"
+                                            value="{{ $selectedSubjectId }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="filter_assignment_status"
+                                            value="{{ $selectedAssignmentStatus }}"
+                                        >
+                                        <input
+                                            class="lms-form-control"
+                                            type="hidden"
+                                            name="page"
+                                            value="{{ $courses->currentPage() }}"
+                                        >
 
                                         <select
+                                        class="lms-assignment-select lms-form-control block rounded-lg border
+                                            lms-border-neutral-default px-3 py-2 shadow-sm"
                                             name="teacher_id"
                                             aria-label="{{ $course->course_name }}の担当教員"
-                                            class="block min-w-52 flex-1 rounded-lg border border-slate-300 px-3 py-2 shadow-sm"
                                         >
                                             <option value="" @selected($course->teacher_id === null)>
                                                 未設定（担当解除）
                                             </option>
 
-                                            @if ($course->status === \App\Enums\MasterStatus::Inactive && $course->teacher !== null)
+                                            @if ($course->status === \App\Enums\MasterStatus::Inactive &&
+                                            $course->teacher !== null)
                                                 <option value="{{ $course->teacher_id }}" selected>
                                                     {{ $course->teacher->user->name }}（現在設定）
                                                 </option>
@@ -333,15 +407,17 @@
 
                                         <button
                                             type="submit"
-                                            @disabled($course->status === \App\Enums\MasterStatus::Inactive && $course->teacher_id === null)
-                                            class="inline-flex shrink-0 items-center justify-center rounded-lg bg-slate-900 px-4 py-2 font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                                            @disabled($course->status === \App\Enums\MasterStatus::Inactive &&
+                                            $course->teacher_id === null)
+                                            class="inline-flex shrink-0 items-center justify-center rounded-lg px-4
+                                                py-2 font-semibold disabled:cursor-not-allowed lms-button-primary"
                                         >
                                             保存
                                         </button>
                                     </form>
 
                                     @if ($course->status === \App\Enums\MasterStatus::Inactive)
-                                        <p class="mt-2 text-xs text-amber-700">
+                                        <p class="mt-2 text-xs lms-text-warning">
                                             無効な授業は現在の担当保持または担当解除のみ可能です。
                                         </p>
                                     @endif
@@ -349,7 +425,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-12 text-center text-sm text-slate-500">
+                                <td colspan="6" class="px-6 py-12 text-center text-sm lms-text-neutral-muted">
                                     条件に一致する授業はありません。
                                 </td>
                             </tr>
@@ -359,7 +435,7 @@
             </div>
 
             @if ($courses->hasPages())
-                <div class="border-t border-slate-200 px-6 py-4">
+                <div class="border-t lms-border-neutral-subtle px-6 py-4">
                     {{ $courses->links() }}
                 </div>
             @endif

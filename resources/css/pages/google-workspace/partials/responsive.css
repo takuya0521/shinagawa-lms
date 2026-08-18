@@ -1,0 +1,226 @@
+/* Google Workspace統合画面の画面幅別レイアウト。 */
+@media (max-width: 1180px) {
+    :where(.gw-page[data-workspace-page]) .gw-service-header {
+        grid-template-columns: minmax(150px, 190px) minmax(240px, 1fr) auto;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-service-switcher span {
+        display: none;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-service-switcher a {
+        min-width: 44px;
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-drive-shell,
+    :where(.gw-page[data-workspace-page]) .gw-calendar-shell {
+        grid-template-columns: 220px minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-chat-shell,
+    :where(.gw-page[data-workspace-page]) .gw-chat-shell--conversation {
+        grid-template-columns: 260px minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]) .gw-chat-drawer {
+        position: fixed;
+        top: 144px;
+        right: 0;
+        z-index: 45;
+        width: min(360px, 88vw);
+        box-shadow: -8px 0 28px var(--google-shadow-18);
+    }
+}
+
+@media (max-width: 900px) {
+    :where(body.page-google-workspace) .lms-content {
+        overflow-x: hidden;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-service-header {
+        min-height: auto;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-global-search {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        min-height: 44px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-service-switcher {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-connection {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-connection__actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-drive-shell,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-shell,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-shell,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-shell--conversation {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-drive-sidebar,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-sidebar,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: 0;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-drive-sidebar,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-sidebar {
+        padding: 12px 14px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-side-nav {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-side-nav a {
+        flex: 0 0 auto;
+        border-radius: 20px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-shared-drives,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-mini-calendar,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-list,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-sidebar__tools,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-spaces h3 {
+        display: none;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-drive-content,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-main {
+        margin: 0 12px 16px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-sidebar {
+        border-bottom: 1px solid var(--gw-border-soft);
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        align-items: start;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-spaces {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-spaces > a {
+        flex: 0 0 220px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-empty {
+        min-height: 420px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-conversation {
+        height: calc(100vh - 245px);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-grid--two,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-form__row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-header {
+        padding: 8px 10px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-brand {
+        font-size: 18px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-brand img {
+        width: 34px;
+        height: 34px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-service-switcher a {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 5px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-connection {
+        margin: 8px 10px 0;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-connection__copy p {
+        white-space: normal;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-content,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-calendar-main {
+        margin: 0 8px 12px;
+        overflow-x: auto;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-toolbar,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-calendar-toolbar {
+        min-width: 720px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-sidebar {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-create {
+        padding-bottom: 0;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-spaces > a {
+        flex-basis: 190px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-conversation {
+        height: calc(100vh - 300px);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-chat-conversation__actions .gw-icon-button--text {
+        display: none;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-message {
+        padding-right: 42px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-message-menu {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-detail-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(.gw-page[data-workspace-page]:not(.gw-motion-enabled)) .gw-global-search,
+    :where(.gw-page[data-workspace-page]:not(.gw-motion-enabled)) .gw-navigation-progress,
+    :where(.gw-page[data-workspace-page]:not(.gw-motion-enabled)) .gw-chat-messages {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}

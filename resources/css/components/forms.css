@@ -2,10 +2,10 @@
  * フォーム部品の共通アクセシビリティ規則。
  */
 :where(input, select, textarea):focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--lms-primary, #2563eb) 28%, transparent);
+    outline: 3px solid color-mix(in srgb, var(--lms-primary) 28%, transparent);
     outline-offset: 2px;
 }
 
 :where(input, select, textarea)[aria-invalid="true"] {
-    border-color: var(--lms-danger, #b91c1c);
+    border-color: var(--lms-danger);
 }

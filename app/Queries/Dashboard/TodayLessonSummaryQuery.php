@@ -6,6 +6,7 @@ use App\Data\Dashboard\TodayLessonSummary;
 use App\Enums\DayOfWeek;
 use App\Enums\LessonStatus;
 use App\Enums\MasterStatus;
+use App\Models\Course;
 use App\Models\LessonSession;
 use App\Models\TimetableSlot;
 use App\Queries\Attendance\TargetStudentQuery;
@@ -48,9 +49,19 @@ final readonly class TodayLessonSummaryQuery
         );
 
         $unregisteredAttendanceCount = 0;
+        $targetCounts = $this->targetStudentQuery->counts(
+            $slots
+                ->map(static fn (TimetableSlot $slot) => $slot->course)
+                ->filter(static fn (?Course $course): bool => $course instanceof Course)
+                ->unique('id')
+                ->values(),
+        );
 
-        $slots->each(function (TimetableSlot $slot) use (&$unregisteredAttendanceCount): void {
-            $targetCount = $this->targetStudentQuery->count($slot->course);
+        $slots->each(function (TimetableSlot $slot) use (
+            &$unregisteredAttendanceCount,
+            $targetCounts,
+        ): void {
+            $targetCount = $targetCounts[$slot->course->id] ?? 0;
             $lessonSession = $slot->lessonSessions->first();
             $isCancelled = $lessonSession instanceof LessonSession
                 && $lessonSession->status === LessonStatus::Cancelled;

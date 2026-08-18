@@ -1,0 +1,8 @@
+/*
+ * Google Chat本文中の外部リンクと添付リンクは、Googleの青を共通利用する。
+ * チャット専用ファイルへ分離し、他サービスのアンカー表示へ影響させない。
+ */
+.page-google-workspace-chat .gw-message a,
+.page-google-workspace-chat .gw-attachments a {
+    color: var(--google-blue-deep);
+}

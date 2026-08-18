@@ -1,0 +1,194 @@
+/* Google Workspace共通のボタン・フォーム操作部品 */
+.gw-button,
+.gw-icon-button {
+    min-height: 40px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--google-text);
+    background: transparent;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.gw-button {
+    padding: 0 18px;
+}
+
+.gw-button--compact {
+    min-height: 36px;
+    padding-inline: 15px;
+}
+
+.gw-button--primary {
+    color: var(--google-white);
+    background: var(--gw-blue);
+}
+
+.gw-button--primary:hover,
+.gw-button--primary:focus-visible {
+    background: var(--gw-blue-hover);
+    box-shadow: 0 1px 2px var(--google-shadow-30), 0 1px 3px 1px var(--google-shadow-15);
+}
+
+.gw-button--secondary {
+    border-color: var(--gw-border);
+    background: var(--gw-surface);
+}
+
+.gw-button--secondary:hover,
+.gw-button--secondary:focus-visible,
+.gw-icon-button:hover,
+.gw-icon-button:focus-visible {
+    color: var(--google-blue-deep);
+    background: var(--gw-hover);
+}
+
+.gw-button--danger {
+    color: var(--google-white);
+    background: var(--gw-red);
+}
+
+.gw-button--danger-ghost,
+.gw-icon-button--danger {
+    color: var(--gw-red);
+}
+
+.gw-icon-button {
+    min-width: 40px;
+    padding: 0 10px;
+}
+
+.gw-icon-button--text {
+    padding-inline: 12px;
+}
+
+.gw-icon-button--send {
+    color: var(--google-white);
+    background: var(--gw-blue);
+}
+
+.gw-icon-button.is-selected {
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+}
+
+.gw-alert {
+    margin: 12px 18px 0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.gw-alert--error {
+    border: 1px solid var(--google-error-border);
+    color: var(--google-red-deep);
+    background: var(--google-error-surface);
+}
+
+.gw-notice {
+    padding: 14px 16px;
+    border: 1px solid var(--gw-border);
+    border-radius: 12px;
+    color: var(--gw-muted);
+    background: var(--gw-surface);
+    line-height: 1.6;
+}
+
+.gw-form,
+.gw-search {
+    display: grid;
+    gap: 14px;
+}
+
+.gw-form--compact {
+    gap: 11px;
+}
+
+.gw-form label,
+.gw-search label {
+    display: grid;
+    gap: 6px;
+    color: var(--google-text);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.gw-form input,
+.gw-form select,
+.gw-form textarea,
+.gw-search input,
+.gw-search select,
+.gw-message-menu input,
+.gw-message-menu textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 12px;
+    border: 1px solid var(--gw-border);
+    border-radius: 8px;
+    outline: 0;
+    color: var(--gw-ink);
+    background: var(--gw-surface);
+    font: inherit;
+    font-size: 14px;
+}
+
+.gw-form textarea,
+.gw-message-menu textarea {
+    min-height: 76px;
+    resize: vertical;
+}
+
+.gw-form input:focus,
+.gw-form select:focus,
+.gw-form textarea:focus,
+.gw-search input:focus,
+.gw-search select:focus,
+.gw-message-menu input:focus,
+.gw-message-menu textarea:focus {
+    border-color: var(--gw-blue);
+    box-shadow: inset 0 0 0 1px var(--gw-blue);
+}
+
+.gw-form__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.gw-check {
+    display: inline-flex;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+}
+
+.gw-check input {
+    width: 18px;
+    min-height: 18px;
+    margin: 0;
+}
+
+.gw-fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 8px;
+}
+
+.gw-fieldset legend {
+    padding: 0 5px;
+    color: var(--gw-muted);
+    font-size: 12px;
+    font-weight: 600;
+}

@@ -1,10 +1,60 @@
-@import '../../../patterns/list.css';
-
-/*
- * 生徒一覧画面専用
- *
- * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
- */
 .page-admin-students-index {
-    --page-table-min-width: 76rem;
+    --page-table-min-width: 64.5rem;
+}
+
+.page-admin-students-index .admin-students-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.page-admin-students-index .admin-students-table th,
+.page-admin-students-index .admin-students-table td {
+    padding-right: 0.875rem;
+    padding-left: 0.875rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(1) {
+    width: 6.75rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(2) {
+    width: 6.5rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(3) {
+    width: 12rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(4) {
+    width: 4.25rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(5) {
+    width: 6.5rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(6) {
+    width: 10rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(7) {
+    width: 6.5rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(8) {
+    width: 5.5rem;
+}
+
+.page-admin-students-index .admin-students-table th:nth-child(9) {
+    width: 6.5rem;
+}
+
+.page-admin-students-index .admin-students-table__email,
+.page-admin-students-index .admin-students-table__wrap {
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+}
+
+.page-admin-students-index .admin-students-table__actions {
+    white-space: nowrap;
 }

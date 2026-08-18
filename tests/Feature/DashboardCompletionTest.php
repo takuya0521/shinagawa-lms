@@ -186,8 +186,8 @@ final class DashboardCompletionTest extends TestCase
             ->assertSeeText('Google Classroom')
             ->assertSeeText($announcement->title)
             ->assertSeeText($link->link_name)
-            ->assertSeeText('年間行事カレンダー')
-            ->assertSeeText('面談希望フォーム')
+            ->assertSeeText('年間予定')
+            ->assertSeeText('面談希望申込')
             ->assertSeeText('84.3点')
             ->assertSeeText('67%');
     }

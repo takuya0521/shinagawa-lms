@@ -1,0 +1,195 @@
+/* Google Workspace共通のページ骨格・ヘッダー・連携状態 */
+.page-google-workspace .lms-content {
+    max-width: none;
+    padding: 0;
+}
+
+/*
+ * Workspace画面はコンテンツを全幅で使うため .lms-content の左右paddingを外している。
+ * その影響をフラッシュメッセージには伝播させず、Workspace本体と同じ18pxの余白を確保する。
+ * success / error / status のすべてを共通で揃える。
+ */
+.page-google-workspace .lms-content > .lms-flash {
+    margin-inline: 18px;
+}
+
+.gw-page {
+    --gw-blue: var(--google-blue);
+    --gw-blue-hover: var(--google-blue-hover);
+    --gw-blue-soft: var(--google-blue-soft);
+    --gw-green: var(--google-green);
+    --gw-red: var(--google-red);
+    --gw-yellow: var(--google-yellow);
+    --gw-ink: var(--google-ink);
+    --gw-muted: var(--google-muted);
+    --gw-border: var(--google-border);
+    --gw-border-soft: var(--google-border-soft);
+    --gw-surface: var(--google-white);
+    --gw-canvas: var(--google-canvas);
+    --gw-hover: var(--google-hover);
+    min-height: calc(100vh - 72px);
+    color: var(--gw-ink);
+    background: var(--gw-canvas);
+    font-family: Arial, "Noto Sans JP", sans-serif;
+}
+
+.gw-page *,
+.gw-page *::before,
+.gw-page *::after {
+    box-sizing: border-box;
+}
+
+.gw-icon {
+    flex: 0 0 auto;
+    display: block;
+}
+
+.gw-service-header {
+    min-height: 72px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--gw-border-soft);
+    display: grid;
+    grid-template-columns: minmax(165px, 220px) minmax(280px, 720px) auto;
+    align-items: center;
+    gap: 18px;
+    background: var(--google-header-translucent);
+    backdrop-filter: blur(12px);
+}
+
+.gw-service-brand {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--google-text);
+    font-size: 22px;
+}
+
+.gw-service-brand img {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.gw-global-search {
+    width: min(100%, 720px);
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gw-muted);
+    background: var(--google-search);
+    transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.gw-global-search:focus-within {
+    border-color: var(--gw-border);
+    background: var(--gw-surface);
+    box-shadow: 0 1px 3px var(--google-shadow-20), 0 4px 8px var(--google-shadow-10);
+}
+
+.gw-global-search input {
+    min-width: 0;
+    width: 100%;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    color: var(--gw-ink);
+    background: transparent;
+    font: inherit;
+    font-size: 15px;
+}
+
+.gw-service-header__spacer {
+    min-width: 0;
+}
+
+.gw-service-switcher {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
+.gw-service-switcher a {
+    min-width: 78px;
+    min-height: 44px;
+    padding: 6px 10px;
+    border-radius: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: var(--gw-muted);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.gw-service-switcher a:hover,
+.gw-service-switcher a:focus-visible {
+    background: var(--gw-hover);
+}
+
+.gw-service-switcher a.is-active {
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+}
+
+.gw-connection {
+    margin: 12px 18px 0;
+    padding: 9px 14px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 11px;
+    background: var(--gw-surface);
+}
+
+.gw-connection__status {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--gw-yellow);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--gw-yellow) 14%, transparent);
+}
+
+.gw-connection__status.is-ready {
+    background: var(--gw-green);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--gw-green) 12%, transparent);
+}
+
+.gw-connection__copy {
+    min-width: 0;
+}
+
+.gw-connection__copy strong {
+    display: block;
+    color: var(--google-text);
+    font-size: 13px;
+}
+
+.gw-connection__copy p {
+    margin: 2px 0 0;
+    overflow: hidden;
+    color: var(--gw-muted);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-connection__actions,
+.gw-actions,
+.gw-drive-toolbar__actions,
+.gw-calendar-toolbar__actions,
+.gw-chat-conversation__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

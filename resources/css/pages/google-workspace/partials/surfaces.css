@@ -1,0 +1,156 @@
+/* Google Workspace共通の空状態・パネル・詳細表示 */
+.gw-empty-state {
+    min-height: 300px;
+    padding: 48px 24px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    color: var(--gw-muted);
+    text-align: center;
+}
+
+.gw-empty-state__icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--google-muted-light);
+    background: var(--google-search-alt);
+}
+
+.gw-empty-state h3 {
+    margin: 18px 0 5px;
+    color: var(--google-text);
+    font-size: 17px;
+}
+
+.gw-empty-state p,
+.gw-empty {
+    margin: 0;
+    color: var(--gw-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.gw-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.gw-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gw-panel,
+.gw-section,
+.gw-detail-hero {
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 14px;
+    background: var(--gw-surface);
+}
+
+.gw-panel,
+.gw-section {
+    padding: 20px;
+}
+
+.gw-panel > summary {
+    color: var(--google-text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.gw-panel[open] > summary {
+    margin-bottom: 16px;
+}
+
+.gw-section__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.gw-section__header h2,
+.gw-panel h2 {
+    margin: 0;
+    color: var(--google-text);
+    font-size: 17px;
+}
+
+.gw-section__header p,
+.gw-meta {
+    margin: 0 0 3px;
+    color: var(--gw-muted);
+    font-size: 12px;
+}
+
+.gw-count,
+.gw-pin {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.gw-detail-hero {
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.gw-detail-hero h1 {
+    margin: 6px 0;
+}
+
+.gw-detail-hero p {
+    margin: 0;
+    color: var(--gw-muted);
+}
+
+.gw-back {
+    color: var(--gw-blue);
+    text-decoration: none;
+}
+
+.gw-text-danger {
+    color: var(--gw-red);
+}
+
+.gw-danger-zone {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--google-error-border);
+}
+
+[data-deferred-section] {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 540px;
+}
+
+.gw-navigation-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 0;
+    height: 3px;
+    opacity: 0;
+    background: var(--gw-blue);
+    transition: width 0.22s ease, opacity 0.18s ease;
+}
+
+.gw-navigation-progress.is-active {
+    width: 72%;
+    opacity: 1;
+}

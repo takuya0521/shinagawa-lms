@@ -178,11 +178,13 @@ final class InterviewManagementTest extends TestCase
             'student_id' => $targetStudent->id,
             'interview_date' => now()->format('Y-m-d'),
             'interview_type' => '進路面談',
+            'next_action' => 'TARGET-NEXT-ACTION',
         ]);
         $other = InterviewRecord::factory()->create([
             'student_id' => $otherStudent->id,
             'interview_date' => now()->format('Y-m-d'),
             'interview_type' => '定期面談',
+            'next_action' => 'OTHER-NEXT-ACTION',
         ]);
 
         $this
@@ -192,18 +194,9 @@ final class InterviewManagementTest extends TestCase
                 'interview_type' => '進路',
             ]))
             ->assertOk()
-            ->assertSee(
-                '<p class="font-semibold text-slate-900">'
-                    .$target->student->student_name
-                    .'</p>',
-                false,
-            )
-            ->assertDontSee(
-                '<p class="font-semibold text-slate-900">'
-                    .$other->student->student_name
-                    .'</p>',
-                false,
-            );
+            ->assertSeeText($target->student->student_name)
+            ->assertSeeText('TARGET-NEXT-ACTION')
+            ->assertDontSeeText('OTHER-NEXT-ACTION');
     }
 
     /**

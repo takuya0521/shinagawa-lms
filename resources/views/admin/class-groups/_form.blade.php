@@ -1,4 +1,4 @@
-{-- 登録画面と編集画面でクラス項目を共有し、マスタ項目の差異が生じないようにする。 --}
+{{-- 登録画面と編集画面でクラス項目を共有し、マスタ項目の差異が生じないようにする。 --}}
 @php
     $selectedStatus = old(
         'status',
@@ -12,13 +12,13 @@
         <div>
             <label
                 for="class_code"
-                class="block text-sm font-medium text-slate-700"
+                class="block text-sm font-medium lms-text-neutral-secondary"
             >
                 クラスコード
-                <span class="text-red-600">*</span>
+                <span class="lms-text-danger">*</span>
             </label>
 
-            <input
+            <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2 uppercase"
                 id="class_code"
                 name="class_code"
                 type="text"
@@ -29,15 +29,14 @@
                 placeholder="例：AM"
                 required
                 maxlength="30"
-                class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2 uppercase"
             >
 
-            <p class="mt-1 text-xs text-slate-500">
+            <p class="mt-1 text-xs lms-text-neutral-muted">
                 半角英数字、ハイフン、アンダースコアを使用できます。
             </p>
 
             @error('class_code')
-                <p class="mt-1 text-sm text-red-600">
+                <p class="mt-1 text-sm lms-text-danger">
                     {{ $message }}
                 </p>
             @enderror
@@ -46,13 +45,13 @@
         <div>
             <label
                 for="class_name"
-                class="block text-sm font-medium text-slate-700"
+                class="block text-sm font-medium lms-text-neutral-secondary"
             >
                 クラス名
-                <span class="text-red-600">*</span>
+                <span class="lms-text-danger">*</span>
             </label>
 
-            <input
+            <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                 id="class_name"
                 name="class_name"
                 type="text"
@@ -63,11 +62,10 @@
                 placeholder="例：午前クラス"
                 required
                 maxlength="100"
-                class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
             >
 
             @error('class_name')
-                <p class="mt-1 text-sm text-red-600">
+                <p class="mt-1 text-sm lms-text-danger">
                     {{ $message }}
                 </p>
             @enderror
@@ -76,7 +74,7 @@
         <div class="md:col-span-2">
             <label
                 for="description"
-                class="block text-sm font-medium text-slate-700"
+                class="block text-sm font-medium lms-text-neutral-secondary"
             >
                 説明
             </label>
@@ -87,11 +85,11 @@
                 rows="4"
                 maxlength="255"
                 placeholder="クラスの説明を入力してください"
-                class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
             >{{ old('description', $classGroup->description) }}</textarea>
 
             @error('description')
-                <p class="mt-1 text-sm text-red-600">
+                <p class="mt-1 text-sm lms-text-danger">
                     {{ $message }}
                 </p>
             @enderror
@@ -100,17 +98,17 @@
         <div>
             <label
                 for="status"
-                class="block text-sm font-medium text-slate-700"
+                class="block text-sm font-medium lms-text-neutral-secondary"
             >
                 状態
-                <span class="text-red-600">*</span>
+                <span class="lms-text-danger">*</span>
             </label>
 
             <select
                 id="status"
                 name="status"
                 required
-                class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
             >
                 @foreach ($statuses as $status)
                     <option
@@ -124,29 +122,29 @@
                 @endforeach
             </select>
 
-            <p class="mt-1 text-xs text-slate-500">
+            <p class="mt-1 text-xs lms-text-neutral-muted">
                 無効にすると、新しい生徒の所属先として選択できなくなります。
             </p>
 
             @error('status')
-                <p class="mt-1 text-sm text-red-600">
+                <p class="mt-1 text-sm lms-text-danger">
                     {{ $message }}
                 </p>
             @enderror
         </div>
     </div>
 
-    <div class="flex flex-wrap gap-3 border-t border-slate-200 pt-6">
+    <div class="flex flex-wrap gap-3 border-t lms-border-neutral-subtle pt-6">
         <button
             type="submit"
-            class="rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
+            class="rounded-lg px-6 py-3 font-semibold lms-button-primary"
         >
             {{ $submitLabel }}
         </button>
 
         <a
             href="{{ route('admin.class-groups.index') }}"
-            class="rounded-lg border border-slate-300 px-6 py-3 font-semibold hover:bg-slate-50"
+            class="rounded-lg border lms-border-neutral-default px-6 py-3 font-semibold lms-hover-bg-neutral-subtle"
         >
             キャンセル
         </a>

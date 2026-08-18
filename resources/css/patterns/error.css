@@ -5,21 +5,21 @@
  */
 .error-page {
     min-height: 100vh;
+    padding: clamp(16px, 3vw, 28px);
     display: grid;
     place-items: center;
-    padding: 28px;
     color: var(--lms-text);
     background:
-        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.1), transparent 28rem),
+        radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--lms-primary) 10%, transparent), transparent 28rem),
         var(--lms-bg);
 }
 
 .error-card {
     width: min(100%, 720px);
-    padding: clamp(34px, 6vw, 64px);
+    padding: clamp(34px, 6vw, 64px) clamp(22px, 5vw, 64px);
     border: 1px solid var(--lms-border);
-    border-radius: 26px;
-    background: #ffffff;
+    border-radius: clamp(21px, 2.4vw, 26px);
+    background: var(--lms-surface);
     text-align: center;
     box-shadow: var(--lms-shadow);
 }
@@ -31,7 +31,7 @@
     border-radius: 17px;
     display: grid;
     place-items: center;
-    color: #ffffff;
+    color: var(--lms-on-primary);
     background: var(--error-accent, var(--lms-primary));
     font-size: 13px;
     font-weight: 900;
@@ -70,6 +70,8 @@
 
 .error-card__actions a,
 .error-card__actions button {
+    flex: 1 1 12rem;
+    width: min(100%, 18rem);
     min-height: 44px;
     padding: 0 18px;
     border-radius: 11px;
@@ -84,28 +86,12 @@
 
 .error-card__actions a {
     border: 1px solid var(--error-accent, var(--lms-primary));
-    color: #ffffff;
+    color: var(--lms-on-primary);
     background: var(--error-accent, var(--lms-primary));
 }
 
 .error-card__actions button {
     border: 1px solid var(--lms-border-strong);
-    color: #334155;
-    background: #ffffff;
-}
-
-/* スマートフォンでは操作ボタンを縦並びにし、誤操作を防ぐ。 */
-@media (max-width: 680px) {
-    .error-page {
-        padding: 16px;
-    }
-
-    .error-card {
-        padding: 34px 22px;
-        border-radius: 21px;
-    }
-
-    .error-card__actions {
-        display: grid;
-    }
+    color: var(--lms-text);
+    background: var(--lms-surface);
 }

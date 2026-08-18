@@ -6,5 +6,5 @@
  * システム障害を危険色で示し、操作継続を促さない。
  */
 .error-page-500 {
-    --error-accent: #dc2626;
+    --error-accent: var(--lms-danger);
 }

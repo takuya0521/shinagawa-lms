@@ -57,7 +57,18 @@ final class UpdateExternalLinkAction
                     actor: $user,
                     action: 'update_external_link',
                     target: $externalLink,
-                    detail: ['before' => $before, 'after' => ['link_name' => $externalLink->link_name, 'link_type' => $externalLink->link_type->value, 'url' => $externalLink->url, 'scope_type' => $externalLink->scope_type->value, 'scope_id' => $externalLink->scope_id, 'display_order' => $externalLink->display_order, 'status' => $externalLink->status->value]],
+                    detail: [
+                        'before' => $before,
+                        'after' => [
+                            'link_name' => $externalLink->link_name,
+                            'link_type' => $externalLink->link_type->value,
+                            'url' => $externalLink->url,
+                            'scope_type' => $externalLink->scope_type->value,
+                            'scope_id' => $externalLink->scope_id,
+                            'display_order' => $externalLink->display_order,
+                            'status' => $externalLink->status->value,
+                        ],
+                    ],
                     ipAddress: $ipAddress,
                 );
 

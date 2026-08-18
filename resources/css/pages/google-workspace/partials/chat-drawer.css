@@ -1,0 +1,98 @@
+/* Google Chatのメンバー・添付・リアクション管理領域 */
+.gw-chat-drawer {
+    width: 330px;
+    height: calc(100vh - 154px);
+    border-left: 1px solid var(--gw-border-soft);
+    overflow-y: auto;
+    background: var(--gw-surface);
+}
+
+.gw-chat-drawer > header {
+    min-height: 58px;
+    padding: 0 10px 0 16px;
+    border-bottom: 1px solid var(--gw-border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gw-chat-drawer h3 {
+    margin: 0;
+    color: var(--google-text);
+    font-size: 15px;
+}
+
+.gw-drawer-section {
+    padding: 16px;
+}
+
+.gw-member-list {
+    margin-top: 16px;
+    display: grid;
+}
+
+.gw-member-list article {
+    min-height: 56px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--gw-border-soft);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+}
+
+.gw-member-list article > div {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+}
+
+.gw-member-list strong,
+.gw-member-list small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-member-list strong {
+    font-size: 12px;
+}
+
+.gw-member-list small {
+    color: var(--gw-muted);
+    font-size: 10px;
+}
+
+.gw-attachments,
+.gw-reactions {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.gw-attachments a,
+.gw-attachments span,
+.gw-reactions span {
+    min-height: 28px;
+    padding: 4px 9px;
+    border: 1px solid var(--gw-border);
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--google-text);
+    background: var(--gw-surface);
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.gw-reaction-management {
+    margin-top: 5px;
+}
+
+.gw-reaction-management > a {
+    color: var(--gw-blue);
+    font-size: 10px;
+    text-decoration: none;
+}

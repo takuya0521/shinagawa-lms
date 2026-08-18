@@ -38,7 +38,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline: 3px solid color-mix(in srgb, var(--lms-primary) 28%, transparent);
     outline-offset: 2px;
 }
 

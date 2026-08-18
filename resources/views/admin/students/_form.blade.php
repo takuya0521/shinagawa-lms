@@ -1,4 +1,4 @@
-{-- 登録画面と編集画面でアカウント情報と学籍情報を一体管理し、項目対応のずれを防ぐ。 --}
+{{-- 登録画面と編集画面でアカウント情報と学籍情報を一体管理し、項目対応のずれを防ぐ。 --}}
 @php
     $selectedAccountStatus = old(
         'status',
@@ -19,11 +19,11 @@
 
 <div class="space-y-8">
     <section>
-        <h2 class="text-lg font-bold text-slate-900">
+        <h2 class="text-lg font-bold lms-text-neutral-strong">
             生徒基本情報
         </h2>
 
-        <p class="mt-1 text-sm text-slate-600">
+        <p class="mt-1 text-sm lms-text-neutral-subtle">
             学校で管理する生徒情報を入力します。
         </p>
 
@@ -31,21 +31,20 @@
             <div>
                 <label
                     for="student_no"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     生徒番号
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="student_no"
                     name="student_no"
                     type="text"
                     value="{{ old('student_no', $student->student_no) }}"
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('student_no')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -54,13 +53,13 @@
             <div>
                 <label
                     for="student_name"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     生徒氏名
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="student_name"
                     name="student_name"
                     type="text"
@@ -69,11 +68,10 @@
                         $student->student_name,
                     ) }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('student_name')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -82,17 +80,17 @@
             <div>
                 <label
                     for="grade"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     学年
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
                 <select
                     id="grade"
                     name="grade"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                 >
                     <option value="">
                         選択してください
@@ -114,7 +112,7 @@
                 </select>
 
                 @error('grade')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -123,17 +121,17 @@
             <div>
                 <label
                     for="class_group_id"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     クラス
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
                 <select
                     id="class_group_id"
                     name="class_group_id"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                 >
                     <option value="">
                         選択してください
@@ -153,7 +151,7 @@
                 </select>
 
                 @error('class_group_id')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -162,12 +160,12 @@
             <div>
                 <label
                     for="affiliation"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     所属
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="affiliation"
                     name="affiliation"
                     type="text"
@@ -175,11 +173,10 @@
                         'affiliation',
                         $student->affiliation,
                     ) }}"
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('affiliation')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -188,12 +185,12 @@
             <div>
                 <label
                     for="partner_school"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     提携校
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="partner_school"
                     name="partner_school"
                     type="text"
@@ -201,11 +198,10 @@
                         'partner_school',
                         $student->partner_school,
                     ) }}"
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('partner_school')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -214,17 +210,17 @@
             <div>
                 <label
                     for="student_status"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     在籍状態
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
                 <select
                     id="student_status"
                     name="student_status"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                 >
                     @foreach ($studentStatuses as $studentStatus)
                         <option
@@ -240,7 +236,7 @@
                 </select>
 
                 @error('student_status')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -248,36 +244,35 @@
         </div>
     </section>
 
-    <section class="border-t border-slate-200 pt-8">
-        <h2 class="text-lg font-bold text-slate-900">
+    <section class="border-t lms-border-neutral-subtle pt-8">
+        <h2 class="text-lg font-bold lms-text-neutral-strong">
             ログインアカウント
         </h2>
 
-        <p class="mt-1 text-sm text-slate-600">
+        <p class="mt-1 text-sm lms-text-neutral-subtle">
             生徒がLMSへログインするための情報を入力します。
         </p>
 
-        <div class="mt-5 grid gap-5 md:grid-cols-2">
+        <div class="lms-account-login-fields mt-5">
             <div>
                 <label
                     for="name"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     アカウント氏名
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="name"
                     name="name"
                     type="text"
                     value="{{ old('name', $user->name) }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('name')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -286,42 +281,41 @@
             <div>
                 <label
                     for="email"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     メールアドレス
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
-                <input
+                <input class="lms-form-control mt-2 w-full rounded-lg border lms-border-neutral-default px-3 py-2"
                     id="email"
                     name="email"
                     type="email"
                     value="{{ old('email', $user->email) }}"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
                 >
 
                 @error('email')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
-            <div>
+            <div class="lms-account-login-fields__single">
                 <label
                     for="status"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     利用状態
-                    <span class="text-red-600">*</span>
+                    <span class="lms-text-danger">*</span>
                 </label>
 
                 <select
                     id="status"
                     name="status"
                     required
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                 >
                     @foreach ($accountStatuses as $accountStatus)
                         <option
@@ -337,7 +331,7 @@
                 </select>
 
                 @error('status')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -346,12 +340,12 @@
             <div>
                 <label
                     for="password"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     パスワード
 
                     @unless ($user->exists)
-                        <span class="text-red-600">*</span>
+                        <span class="lms-text-danger">*</span>
                     @endunless
                 </label>
 
@@ -361,17 +355,20 @@
                     type="password"
                     @required(! $user->exists)
                     autocomplete="new-password"
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="
+                        lms-form-control lms-bg-surface mt-2 w-full rounded-lg border
+                        lms-border-neutral-default px-3 py-2
+                    "
                 >
 
                 @if ($user->exists)
-                    <p class="mt-1 text-xs text-slate-500">
+                    <p class="mt-1 text-xs lms-text-neutral-muted">
                         変更しない場合は空欄にしてください。
                     </p>
                 @endif
 
                 @error('password')
-                    <p class="mt-1 text-sm text-red-600">
+                    <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -380,12 +377,12 @@
             <div>
                 <label
                     for="password_confirmation"
-                    class="block text-sm font-medium text-slate-700"
+                    class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     パスワード確認
 
                     @unless ($user->exists)
-                        <span class="text-red-600">*</span>
+                        <span class="lms-text-danger">*</span>
                     @endunless
                 </label>
 
@@ -395,23 +392,26 @@
                     type="password"
                     @required(! $user->exists)
                     autocomplete="new-password"
-                    class="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+                    class="
+                        lms-form-control lms-bg-surface mt-2 w-full rounded-lg border
+                        lms-border-neutral-default px-3 py-2
+                    "
                 >
             </div>
         </div>
     </section>
 
-    <div class="flex flex-wrap gap-3 border-t border-slate-200 pt-6">
+    <div class="flex flex-wrap justify-center gap-3 border-t lms-border-neutral-subtle pt-6">
         <button
             type="submit"
-            class="rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
+            class="rounded-lg px-6 py-3 font-semibold lms-button-primary"
         >
             {{ $submitLabel }}
         </button>
 
         <a
             href="{{ $cancelUrl }}"
-            class="rounded-lg border border-slate-300 px-6 py-3 font-semibold hover:bg-slate-50"
+            class="rounded-lg border lms-border-neutral-default px-6 py-3 font-semibold lms-hover-bg-neutral-subtle"
         >
             キャンセル
         </a>

@@ -9,15 +9,11 @@
 }
 
 .page-pattern-list .lms-content table {
+    width: 100%;
     min-width: var(--page-table-min-width, 54rem);
+    font-size: clamp(0.75rem, 0.68rem + 0.22vw, 0.875rem);
 }
 
 .page-pattern-list .lms-content form[method='GET'] {
     scroll-margin-top: 7rem;
-}
-
-@media (max-width: 680px) {
-    .page-pattern-list .lms-content table {
-        font-size: 0.75rem;
-    }
 }

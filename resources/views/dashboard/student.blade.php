@@ -5,14 +5,10 @@
 
 @section('title', '生徒トップ')
 @section('header-title', '生徒トップ')
-@section('page-kicker', 'Student Portal')
-@section('header-description', '学校からのお知らせ、時間割、確定済み評価、出欠記録、Googleサービスを確認できます。')
 
 @section('content')
-    <div class="student-dashboard-content">
     @php
-        $featuredAnnouncement = $announcements->first();
-        $otherAnnouncements = $announcements->slice(1, 3);
+        $dashboardAnnouncements = $announcements->take(4);
         $evaluation = $dashboardSummary['evaluation'];
         $attendance = $dashboardSummary['attendance'];
         $formatScore = static function (?float $value): string {
@@ -29,306 +25,425 @@
             ?? $timetableSlots->first(
                 static fn ($slot): bool => $slot->course->google_classroom_url !== null,
             )?->course->google_classroom_url;
-        $communicationLink = $externalLinks->first(
-            static fn ($link): bool => in_array(
-                $link->link_type,
-                [
-                    \App\Enums\ExternalLinkType::Chat,
-                    \App\Enums\ExternalLinkType::Drive,
-                    \App\Enums\ExternalLinkType::Meet,
-                ],
-                true,
-            ),
-        );
+        $externalLinkIcons = [
+            \App\Enums\ExternalLinkType::Classroom->value => 'classroom.webp',
+            \App\Enums\ExternalLinkType::Calendar->value => 'calendar.svg',
+            \App\Enums\ExternalLinkType::Forms->value => 'forms.svg',
+            \App\Enums\ExternalLinkType::Chat->value => 'chat.svg',
+            \App\Enums\ExternalLinkType::Drive->value => 'drive.svg',
+            \App\Enums\ExternalLinkType::Meet->value => 'meet.svg',
+        ];
     @endphp
 
-    {{-- 生徒本人の情報を明示し、共通ヘッダーのアカウント名と生徒台帳上の氏名を区別できるようにする。 --}}
-    <section class="student-profile-summary" aria-labelledby="student-profile-heading">
-        <div class="student-profile-summary__body">
-            <p class="student-section-label">Student Profile</p>
-            <h2 id="student-profile-heading">{{ $student->student_name }}さん</h2>
-            <p>学校からのお知らせや学習状況を、このページでまとめて確認できます。</p>
-        </div>
+    <div class="student-dashboard">
+        {{-- LMSの導入部は装飾を抑え、ログイン中の生徒情報を短時間で確認できる構成にする。 --}}
+        <section class="student-dashboard-overview" aria-labelledby="student-dashboard-overview-title">
+            <div class="student-dashboard-overview__heading">
+                <h2 id="student-dashboard-overview-title">こんにちは、{{ $student->student_name }}さん</h2>
+            </div>
 
-        <dl class="student-profile-summary__details">
-            <div>
-                <dt>学年</dt>
-                <dd>{{ $student->grade->label() }}</dd>
-            </div>
-            <div>
-                <dt>クラス</dt>
-                <dd>{{ $student->classGroup?->class_name ?? '未設定' }}</dd>
-            </div>
-            <div>
-                <dt>学籍番号</dt>
-                <dd>{{ $student->student_no ?: '未設定' }}</dd>
-            </div>
-        </dl>
-    </section>
-
-    {{-- 生徒トップから本人対象の授業を確認できることが既存仕様のため、週間時間割の要約を表示する。 --}}
-    <section class="student-panel student-panel--wide" id="weekly-timetable">
-        <div class="student-panel__head">
-            <div>
-                <p class="student-section-label">Weekly Timetable</p>
-                <h2>今週の時間割</h2>
-            </div>
-            <a href="{{ route('student.timetable.index', ['academic_year' => $academicYear]) }}">時間割を見る</a>
-        </div>
-
-        <div class="student-schedule-grid">
-            @forelse ($timetableSlots->take(6) as $slot)
-                <article class="student-schedule-card">
-                    <div class="student-schedule-card__time">
-                        <span>{{ $slot->day_of_week->shortLabel() }}曜</span>
-                        <strong>{{ $slot->period_no }}時限</strong>
-                    </div>
-                    <div class="student-schedule-card__body">
-                        <h3>{{ $slot->course->course_name }}</h3>
-                        <p>
-                            {{ $slot->course->subject->subject_name }}
-                            @if ($slot->course->teacher !== null)
-                                ・{{ $slot->course->teacher->user->name }}先生
-                            @endif
-                        </p>
-                        @if ($slot->start_time !== null && $slot->end_time !== null)
-                            <small>
-                                {{ substr((string) $slot->start_time, 0, 5) }}～{{ substr((string) $slot->end_time, 0, 5) }}
-                            </small>
-                        @endif
-                    </div>
-                    @if ($slot->course->google_classroom_url !== null)
-                        <a
-                            href="{{ $slot->course->google_classroom_url }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="student-schedule-card__classroom"
-                        >Classroom</a>
-                    @endif
-                </article>
-            @empty
-                <div class="student-summary-empty student-summary-empty--schedule">
-                    <strong>時間割はまだ登録されていません</strong>
-                    <p>対象年度の時間割が登録されると、本人の授業だけがここに表示されます。</p>
+            <dl class="student-dashboard-overview__details">
+                <div>
+                    <dt>学年</dt>
+                    <dd>{{ $student->grade->label() }}</dd>
                 </div>
-            @endforelse
-        </div>
+                <div>
+                    <dt>クラス</dt>
+                    <dd>{{ $student->classGroup?->class_name ?? '未設定' }}</dd>
+                </div>
+                <div>
+                    <dt>学籍番号</dt>
+                    <dd>{{ $student->student_no ?: '未設定' }}</dd>
+                </div>
+            </dl>
+        </section>
 
-        @if ($timetableSlots->count() > 6)
-            <p class="student-helper-text">
-                ほか {{ $timetableSlots->count() - 6 }}件の授業があります。週間時間割からすべて確認できます。
-            </p>
-        @endif
-    </section>
-
-    <section class="student-panel student-panel--wide" id="notice">
-        <div class="student-panel__head">
-            <div>
-                <p class="student-section-label">LMS Notice</p>
-                <h2>掲示板・学校からのお知らせ</h2>
-            </div>
-            <a href="{{ route('student.announcements.index') }}">一覧を見る</a>
-        </div>
-
-        @if ($featuredAnnouncement !== null)
-            <div class="student-notice-board">
-                <a href="{{ route('student.announcements.show', $featuredAnnouncement) }}" @class([
-                    'student-notice-board__main',
-                    'student-notice-board__main--important' => $featuredAnnouncement->is_important,
-                ])>
-                    <span class="student-notice-category">
-                        {{ $featuredAnnouncement->is_important ? '重要' : $featuredAnnouncement->notice_type->label() }}
-                    </span>
-                    <div>
-                        <p class="student-featured-notice-date">
-                            {{ ($featuredAnnouncement->publish_start_at ?? $featuredAnnouncement->created_at)->format('Y/m/d') }}
-                        </p>
-                        <h3>{{ $featuredAnnouncement->title }}</h3>
-                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($featuredAnnouncement->body), 100) }}</p>
+        <div class="student-dashboard-primary-grid">
+            {{-- 既存の時間割データから、生徒本人に紐づく授業だけを要約表示する。 --}}
+            <section class="student-dashboard-panel" aria-labelledby="student-dashboard-timetable-title">
+                <header class="student-dashboard-panel__header">
+                    <div class="student-dashboard-panel__title">
+                        <span
+                            class="student-dashboard-panel__icon student-dashboard-panel__icon--pink"
+                            aria-hidden="true"
+                        >
+                            <x-nav-icon name="book" />
+                        </span>
+                        <div>
+                            <span>週間時間割</span>
+                            <h2 id="student-dashboard-timetable-title">授業</h2>
+                        </div>
                     </div>
-                </a>
+                    <a
+                        class="student-dashboard-panel__link"
+                        href="{{ route('student.timetable.index', ['academic_year' => $academicYear]) }}"
+                    >
+                        すべて見る
+                    </a>
+                </header>
 
-                <div class="student-notice-board__list">
-                    @forelse ($otherAnnouncements as $announcement)
-                        <a href="{{ route('student.announcements.show', $announcement) }}" class="student-notice-item">
-                            <span class="student-notice-date">
-                                {{ ($announcement->publish_start_at ?? $announcement->created_at)->format('m/d') }}
-                            </span>
-                            <div>
-                                <div class="student-notice-item__meta">
-                                    @if ($announcement->is_important)
-                                        <span>重要</span>
-                                    @endif
-                                    <small>{{ $announcement->notice_type->label() }}</small>
-                                </div>
-                                <h3>{{ $announcement->title }}</h3>
-                                <p>{{ \Illuminate\Support\Str::limit(strip_tags($announcement->body), 62) }}</p>
+                <div class="student-dashboard-timetable">
+                    @forelse ($timetableSlots->take(6) as $slot)
+                        <article class="student-dashboard-lesson">
+                            <div class="student-dashboard-lesson__period">
+                                <span>{{ $slot->day_of_week->shortLabel() }}曜</span>
+                                <strong>{{ $slot->period_no }}時限</strong>
                             </div>
-                        </a>
+
+                            <div class="student-dashboard-lesson__content">
+                                <h3>{{ $slot->course->course_name }}</h3>
+                                <p>
+                                    {{ $slot->course->subject->subject_name }}
+                                    @if ($slot->course->teacher !== null)
+                                        ・{{ $slot->course->teacher->user->name }}先生
+                                    @endif
+                                </p>
+                            </div>
+
+                            @if ($slot->start_time !== null && $slot->end_time !== null)
+                                <time class="student-dashboard-lesson__time">
+                                    {{ substr((string) $slot->start_time, 0, 5) }}～{{ substr((string) $slot->end_time,
+                                    0, 5) }}
+                                </time>
+                            @endif
+
+                            @if ($slot->course->google_classroom_url !== null)
+                                <a
+                                    class="student-dashboard-lesson__classroom"
+                                    href="{{ $slot->course->google_classroom_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <img
+                                        src="{{ asset('images/google/classroom.webp') }}"
+                                        alt=""
+                                        width="16"
+                                        height="16"
+                                        aria-hidden="true"
+                                    >
+                                    <span>Classroom</span>
+                                </a>
+                            @endif
+                        </article>
                     @empty
-                        <div class="student-notice-empty student-notice-empty--compact">
-                            ほかのお知らせはありません。
+                        <div class="student-dashboard-empty">
+                            <strong>時間割はまだ登録されていません</strong>
+                            <p>対象年度の時間割が登録されると、本人の授業が表示されます。</p>
                         </div>
                     @endforelse
                 </div>
-            </div>
-        @else
-            <div class="student-notice-empty">
-                <strong>掲載中のお知らせはありません</strong>
-                <p>学校からのお知らせが公開されると、ここに表示されます。</p>
-            </div>
-        @endif
-    </section>
 
-    <section class="student-panel student-panel--wide" id="google-tools">
-        <div class="student-panel__head">
-            <div>
-                <p class="student-section-label">Google Workspace</p>
-                <h2>Google連携メニュー</h2>
-            </div>
-            <a href="{{ route('student.external-resources') }}">連携一覧</a>
+                @if ($timetableSlots->count() > 6)
+                    <p class="student-dashboard-panel__note">
+                        ほか {{ $timetableSlots->count() - 6 }}件の授業があります。
+                    </p>
+                @endif
+            </section>
+
+            {{-- 公開対象に含まれる既存のお知らせだけを、一覧性を優先して表示する。 --}}
+            <section class="student-dashboard-panel" aria-labelledby="student-dashboard-notice-title">
+                <header class="student-dashboard-panel__header">
+                    <div class="student-dashboard-panel__title">
+                        <span
+                            class="student-dashboard-panel__icon student-dashboard-panel__icon--pink"
+                            aria-hidden="true"
+                        >
+                            <x-nav-icon name="bell" />
+                        </span>
+                        <div>
+                            <span>学校からのお知らせ</span>
+                            <h2 id="student-dashboard-notice-title">お知らせ</h2>
+                        </div>
+                    </div>
+                    <a class="student-dashboard-panel__link" href="{{ route('student.announcements.index') }}">
+                        一覧を見る
+                    </a>
+                </header>
+
+                <div class="student-dashboard-notice-list">
+                    @forelse ($dashboardAnnouncements as $announcement)
+                        <a
+                            class="student-dashboard-notice"
+                            href="{{ route('student.announcements.show', $announcement) }}"
+                        >
+                            <time>
+                                {{ ($announcement->publish_start_at ?? $announcement->created_at)->format('Y/m/d') }}
+                            </time>
+                            <span class="student-dashboard-notice__body">
+                                <span class="student-dashboard-notice__meta">
+                                    @if ($announcement->is_important)
+                                        <strong>重要</strong>
+                                    @endif
+                                    <small>{{ $announcement->notice_type->label() }}</small>
+                                </span>
+                                <span class="student-dashboard-notice__title">{{ $announcement->title }}</span>
+                            </span>
+                            <span class="student-dashboard-notice__arrow" aria-hidden="true">→</span>
+                        </a>
+                    @empty
+                        <div class="student-dashboard-empty">
+                            <strong>掲載中のお知らせはありません</strong>
+                            <p>学校からのお知らせが公開されると表示されます。</p>
+                        </div>
+                    @endforelse
+                </div>
+            </section>
         </div>
 
-        <div class="student-tool-grid">
-            <article class="student-tool-card student-tool-card--blue">
-                <div class="student-tool-card__icon" aria-hidden="true">GC</div>
+        <div class="student-dashboard-summary-grid">
+            {{-- 既存の確定済み年間評価だけを集計結果として表示する。 --}}
+            <section class="student-dashboard-summary" aria-labelledby="student-dashboard-evaluation-title">
+                <header class="student-dashboard-summary__header">
+                    <div>
+                        <span>確定済み年間評価</span>
+                        <h2 id="student-dashboard-evaluation-title">成績</h2>
+                    </div>
+                    <a href="{{ route('student.evaluations.index', ['academic_year' => $academicYear]) }}">詳細を見る</a>
+                </header>
+
+                @if ($evaluation['count'] > 0)
+                    <div class="student-dashboard-evaluation">
+                        <div class="student-dashboard-evaluation__main">
+                            <span>5段階評価の平均</span>
+                            <strong>{{ $formatScore($evaluation['grade_level']) }}</strong>
+                            <small>確定済み {{ $evaluation['count'] }}科目</small>
+                        </div>
+
+                        <dl class="student-dashboard-metrics">
+                            <div>
+                                <dt>総合点</dt>
+                                <dd>{{ $formatScore($evaluation['total_score']) }}点</dd>
+                            </div>
+                            <div>
+                                <dt>提出物</dt>
+                                <dd>{{ $formatScore($evaluation['submission_score']) }}点</dd>
+                            </div>
+                            <div>
+                                <dt>出欠</dt>
+                                <dd>{{ $formatScore($evaluation['attendance_score']) }}点</dd>
+                            </div>
+                            <div>
+                                <dt>授業態度</dt>
+                                <dd>{{ $formatScore($evaluation['attitude_score']) }}点</dd>
+                            </div>
+                        </dl>
+                    </div>
+                @else
+                    <div class="student-dashboard-empty student-dashboard-empty--summary">
+                        <strong>確定済みの評価はありません</strong>
+                        <p>評価が確定すると、ここに表示されます。</p>
+                    </div>
+                @endif
+            </section>
+
+            {{-- 既存の年度内出欠集計だけを表示し、未登録時は空状態を示す。 --}}
+            <section class="student-dashboard-summary" aria-labelledby="student-dashboard-attendance-title">
+                <header class="student-dashboard-summary__header">
+                    <div>
+                        <span>{{ $academicYear }}年度</span>
+                        <h2 id="student-dashboard-attendance-title">出欠</h2>
+                    </div>
+                </header>
+
+                @if ($attendance['total'] > 0)
+                    <div class="student-dashboard-attendance">
+                        <div class="student-dashboard-attendance__main">
+                            <span>出席率</span>
+                            <strong>{{ $attendance['rate'] }}%</strong>
+                            <small>{{ $attendance['attended'] }}/{{ $attendance['total'] }}件 出席相当</small>
+                        </div>
+
+                        <dl class="student-dashboard-metrics">
+                            <div>
+                                <dt>出席</dt>
+                                <dd>{{ $attendance['present'] }}件</dd>
+                            </div>
+                            <div>
+                                <dt>欠席</dt>
+                                <dd>{{ $attendance['absent'] }}件</dd>
+                            </div>
+                            <div>
+                                <dt>遅刻</dt>
+                                <dd>{{ $attendance['late'] }}件</dd>
+                            </div>
+                            <div>
+                                <dt>早退</dt>
+                                <dd>{{ $attendance['early_leave'] }}件</dd>
+                            </div>
+                        </dl>
+                    </div>
+                @else
+                    <div class="student-dashboard-empty student-dashboard-empty--summary">
+                        <strong>出欠記録はまだありません</strong>
+                        <p>授業の出欠が登録されると、年度内の集計が表示されます。</p>
+                    </div>
+                @endif
+            </section>
+        </div>
+
+        {{-- 設計済みの画面と登録済み外部リンクだけを、既存機能への導線としてまとめる。 --}}
+        <section class="student-dashboard-services" aria-labelledby="student-dashboard-services-title">
+            <header class="student-dashboard-services__header">
                 <div>
-                    <h3>Google Classroom</h3>
-                    <p>授業別のお知らせ・課題・提出状況を確認します。</p>
+                    <span>既存機能へのショートカット</span>
+                    <h2 id="student-dashboard-services-title">利用メニュー</h2>
                 </div>
+                <a href="{{ route('student.google-drive.index') }}">Google Workspace</a>
+            </header>
+
+            <div class="student-dashboard-service-grid">
                 <a
+                    class="student-dashboard-service"
                     href="{{ $classroomUrl ?? route('student.timetable.index', ['academic_year' => $academicYear]) }}"
-                    @if ($classroomUrl !== null) target="_blank" rel="noopener noreferrer" @endif
-                >開く</a>
-            </article>
-
-            <article class="student-tool-card student-tool-card--green">
-                <div class="student-tool-card__icon" aria-hidden="true">
-                    {{ $communicationLink?->link_type === \App\Enums\ExternalLinkType::Drive ? 'DR' : ($communicationLink?->link_type === \App\Enums\ExternalLinkType::Meet ? 'MT' : 'CH') }}
-                </div>
-                <div>
-                    <h3>{{ $communicationLink?->link_name ?? 'Google Chat' }}</h3>
-                    <p>{{ $communicationLink?->link_type->label() ?? '学校・教員からの個別連絡を確認します。' }}</p>
-                </div>
-                <a
-                    href="{{ $communicationLink?->url ?? route('student.external-resources') }}"
-                    @if ($communicationLink !== null) target="_blank" rel="noopener noreferrer" @endif
-                >開く</a>
-            </article>
-
-            <article class="student-tool-card student-tool-card--orange">
-                <div class="student-tool-card__icon" aria-hidden="true">FM</div>
-                <div>
-                    <h3>面談希望フォーム</h3>
-                    <p>面談を希望する場合はこちらから回答します。</p>
-                </div>
-                <a href="{{ route('student.interview-request') }}">回答する</a>
-            </article>
-
-            <article class="student-tool-card student-tool-card--purple">
-                <div class="student-tool-card__icon" aria-hidden="true">CL</div>
-                <div>
-                    <h3>年間行事カレンダー</h3>
-                    <p>学校行事や年間予定をカレンダーで確認します。</p>
-                </div>
-                <a href="{{ route('student.annual-schedule') }}">見る</a>
-            </article>
-        </div>
-    </section>
-
-    <div class="student-two-column-grid">
-        <section class="student-panel" id="grade">
-            <div class="student-panel__head">
-                <div>
-                    <p class="student-section-label">Annual Evaluation</p>
-                    <h2>確定済み年間評価の平均</h2>
-                </div>
-                <a href="{{ route('student.evaluations.index', ['academic_year' => $academicYear]) }}">成績詳細</a>
-            </div>
-
-            @if ($evaluation['count'] > 0)
-                <div class="student-grade-summary">
-                    <div class="student-grade-score">
-                        <span>5段階評価の平均</span>
-                        <strong>{{ $formatScore($evaluation['grade_level']) }}</strong>
-                        <p>総合点平均：{{ $formatScore($evaluation['total_score']) }}点</p>
-                        <small>確定済み {{ $evaluation['count'] }}科目の平均</small>
-                    </div>
-
-                    <div class="student-grade-breakdown">
-                        <div class="student-metric-row">
-                            <div>
-                                <span>提出物</span>
-                                <strong>{{ $formatScore($evaluation['submission_score']) }}点</strong>
-                            </div>
-                            <progress class="student-progress-bar" aria-label="提出物評価" value="{{ $evaluation['submission_score'] ?? 0 }}" max="100"></progress>
-                        </div>
-                        <div class="student-metric-row">
-                            <div>
-                                <span>出欠</span>
-                                <strong>{{ $formatScore($evaluation['attendance_score']) }}点</strong>
-                            </div>
-                            <progress class="student-progress-bar" aria-label="出欠評価" value="{{ $evaluation['attendance_score'] ?? 0 }}" max="100"></progress>
-                        </div>
-                        <div class="student-metric-row">
-                            <div>
-                                <span>授業態度</span>
-                                <strong>{{ $formatScore($evaluation['attitude_score']) }}点</strong>
-                            </div>
-                            <progress class="student-progress-bar" aria-label="授業態度評価" value="{{ $evaluation['attitude_score'] ?? 0 }}" max="100"></progress>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div class="student-summary-empty">
-                    <strong>確定済みの評価はありません</strong>
-                    <p>評価が確定すると、総合評価と各項目の平均点が表示されます。</p>
-                </div>
-            @endif
-        </section>
-
-        <section class="student-panel" id="attendance">
-            <div class="student-panel__head">
-                <div>
-                    <p class="student-section-label">Attendance</p>
-                    <h2>授業別の出欠記録</h2>
-                </div>
-                <span class="student-panel__year">{{ $academicYear }}年度</span>
-            </div>
-
-            @if ($attendance['total'] > 0)
-                <div class="student-attendance-box">
-                    <div class="student-attendance-rate">
-                        <strong>{{ $attendance['rate'] }}%</strong>
-                        <small>{{ $attendance['attended'] }}/{{ $attendance['total'] }}件 出席相当</small>
-                    </div>
-
-                    <dl class="student-attendance-detail">
-                        <div>
-                            <dt>出席</dt>
-                            <dd>{{ $attendance['present'] }}件</dd>
-                        </div>
-                        <div>
-                            <dt>欠席</dt>
-                            <dd>{{ $attendance['absent'] }}件</dd>
-                        </div>
-                        <div>
-                            <dt>遅刻</dt>
-                            <dd>{{ $attendance['late'] }}件</dd>
-                        </div>
-                    </dl>
-
-                    @if ($attendance['early_leave'] > 0)
-                        <p class="student-helper-text">早退：{{ $attendance['early_leave'] }}件</p>
+                    @if ($classroomUrl !== null)
+                        target="_blank"
+                        rel="noopener noreferrer"
                     @endif
-                </div>
-            @else
-                <div class="student-summary-empty student-summary-empty--blue">
-                    <strong>出欠記録はまだありません</strong>
-                    <p>授業の出欠が登録されると、年度内の出席率が表示されます。</p>
-                </div>
-            @endif
+                >
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/classroom.webp') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>Google Classroom</strong>
+                        <small>授業ごとのClassroomを確認</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                    class="student-dashboard-service"
+                    href="{{ route('student.google-drive.index') }}"
+                >
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/drive.svg') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>Google Drive</strong>
+                        <small>学習資料・共有ファイルを確認</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a class="student-dashboard-service" href="{{ route('student.google-calendar.index') }}">
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/calendar.svg') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>Google Calendar</strong>
+                        <small>今後の予定・Meetを確認</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a class="student-dashboard-service" href="{{ route('student.google-chat.index') }}">
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/chat.svg') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>Google Chat</strong>
+                        <small>参加中スペースを確認</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a class="student-dashboard-service" href="{{ route('student.annual-schedule') }}">
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/calendar.svg') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>年間予定</strong>
+                        <small>学校行事と年間予定を確認</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a class="student-dashboard-service" href="{{ route('student.interview-request') }}">
+                    <span
+                        class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                        aria-hidden="true"
+                    >
+                        <img
+                            src="{{ asset('images/google/forms.svg') }}"
+                            alt=""
+                            width="28"
+                            height="28"
+                        >
+                    </span>
+                    <span class="student-dashboard-service__content">
+                        <strong>面談希望申込</strong>
+                        <small>面談を希望する場合に回答</small>
+                    </span>
+                    <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                </a>
+
+
+                {{-- 管理者が対象者別に登録した外部リンクも、ダッシュボードから直接利用できるようにする。 --}}
+                @foreach ($externalLinks->take(6) as $link)
+                    <a
+                        class="student-dashboard-service"
+                        href="{{ $link->url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span
+                            class="student-dashboard-service__icon student-dashboard-service__icon--google"
+                            aria-hidden="true"
+                        >
+                            <img
+                                src="{{ asset('images/google/'.$externalLinkIcons[$link->link_type->value]) }}"
+                                alt=""
+                                width="28"
+                                height="28"
+                            >
+                        </span>
+                        <span class="student-dashboard-service__content">
+                            <strong>{{ $link->link_name }}</strong>
+                            <small>{{ $link->link_type->label() }}</small>
+                        </span>
+                        <span class="student-dashboard-service__arrow" aria-hidden="true">→</span>
+                    </a>
+                @endforeach
+            </div>
         </section>
-    </div>
     </div>
 @endsection

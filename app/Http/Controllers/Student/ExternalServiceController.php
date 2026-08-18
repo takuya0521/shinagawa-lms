@@ -32,9 +32,7 @@ final class ExternalServiceController extends Controller
         );
 
         return view('student.external-services.index', [
-            'screenId' => 'S-006',
             'title' => '年間予定・学校行事',
-            'description' => '学校が案内するGoogle Calendarを確認します。',
             'links' => $links,
             'embeddableLink' => $this->embeddableCalendar($links),
         ]);
@@ -54,9 +52,7 @@ final class ExternalServiceController extends Controller
         $student = $this->resolveStudent($request);
 
         return view('student.external-services.index', [
-            'screenId' => 'S-007',
             'title' => '面談希望申込',
-            'description' => '学校が案内するGoogle Formsから面談希望を送信します。',
             'links' => $externalLinkResolver->forStudent(
                 $student,
                 ExternalLinkType::Forms,
@@ -92,9 +88,7 @@ final class ExternalServiceController extends Controller
             ->values();
 
         return view('student.external-services.index', [
-            'screenId' => 'S-008',
             'title' => 'Googleサービス',
-            'description' => '連絡・共有資料など、学校が案内するGoogleサービスを開きます。',
             'links' => $links,
             'embeddableLink' => null,
         ]);

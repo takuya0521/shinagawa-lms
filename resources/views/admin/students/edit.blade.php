@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-@section('page-style', 'resources/css/pages/admin/students/edit.css')
 @section('page-class', 'page-pattern-form page-admin-students-edit')
 
 @section('title', '生徒編集')
@@ -8,24 +7,11 @@
 
 @section('content')
     <div class="mx-auto max-w-5xl">
-        <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <p class="text-sm font-semibold text-slate-500">
-                    STUDENT EDIT
-                </p>
-
-                <h1 class="mt-1 text-2xl font-bold text-slate-900">
-                    生徒編集
-                </h1>
-
-                <p class="mt-2 text-sm text-slate-600">
-                    生徒情報とログインアカウントを更新します。
-                </p>
-            </div>
+        <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
 
             <a
                 href="{{ route('admin.students.show', $student) }}"
-                class="rounded-lg border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-50"
+                class="rounded-lg border lms-border-neutral-default px-5 py-3 font-semibold lms-hover-bg-neutral-subtle"
             >
                 詳細へ戻る
             </a>
@@ -34,7 +20,7 @@
         <form
             method="POST"
             action="{{ route('admin.students.update', $student) }}"
-            class="mt-6 rounded-2xl bg-white p-6 shadow-sm"
+            class="mt-6 p-6 lms-panel"
         >
             @csrf
             @method('PUT')

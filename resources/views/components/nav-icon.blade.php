@@ -1,6 +1,29 @@
 @props(['name'])
 
-<svg {{ $attributes->merge(['class' => 'lms-nav-icon', 'viewBox' => '0 0 24 24', 'fill' => 'none', 'stroke' => 'currentColor', 'stroke-width' => '1.8', 'stroke-linecap' => 'round', 'stroke-linejoin' => 'round', 'aria-hidden' => 'true']) }}>
+@php
+    $googleIconPaths = [
+        'google-classroom' => 'images/google/classroom.webp',
+    ];
+    $googleIconPath = $googleIconPaths[$name] ?? null;
+@endphp
+
+@if ($googleIconPath !== null)
+    <img
+        {{ $attributes->merge([
+            'class' => 'lms-nav-icon lms-nav-icon--google lms-nav-icon--' . $name,
+            'src' => asset($googleIconPath),
+            'alt' => '',
+            'width' => '32',
+            'height' => '32',
+            'aria-hidden' => 'true',
+        ]) }}
+    >
+@else
+<svg
+    {{ $attributes->merge(['class' => 'lms-nav-icon', 'viewBox' => '0 0 24 24', 'fill' => 'none', 'stroke' =>
+    'currentColor', 'stroke-width' => '1.8', 'stroke-linecap' => 'round', 'stroke-linejoin' => 'round', 'aria-hidden'
+    => 'true']) }}
+>
     @switch($name)
         @case('home')
             <path d="m3 10 9-7 9 7" />
@@ -72,8 +95,40 @@
             <path d="M4 3h16v18H4z" />
             <path d="M8 7h8M8 11h8M8 15h5" />
             @break
+        @case('logout')
+            <path d="M10 17l5-5-5-5" />
+            <path d="M15 12H3" />
+            <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5" />
+            @break
+        @case('video')
+            <rect x="3" y="6" width="13" height="12" rx="2" />
+            <path d="m16 10 5-3v10l-5-3Z" />
+            @break
+        @case('google-drive')
+            <path d="M8.5 4h7l5 8.5-3.5 6H7l-3.5-6Z" />
+            <path d="m8.5 4 5 8.5M15.5 4l-5 8.5M3.5 12.5h17" />
+            @break
+        @case('google-calendar')
+            <rect x="3" y="4" width="18" height="17" rx="2" />
+            <path d="M7 2v4M17 2v4M3 9h18" />
+            <path d="M8 13h2.5M8 17h2.5M14 13v4" />
+            @break
+        @case('google-chat')
+            <path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H10l-5 3v-3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
+            <path d="M8 10h8M8 14h5" />
+            @break
+        @case('google-meet')
+            <rect x="3" y="6" width="13" height="12" rx="2" />
+            <path d="m16 10 5-3v10l-5-3Z" />
+            @break
+        @case('google-forms')
+            <path d="M6 3h9l3 3v15H6Z" />
+            <path d="M15 3v4h4M9 11h1M13 11h3M9 15h1M13 15h3" />
+            @break
         @default
             <circle cx="12" cy="12" r="9" />
             <path d="M12 8v4l3 2" />
     @endswitch
 </svg>
+
+@endif

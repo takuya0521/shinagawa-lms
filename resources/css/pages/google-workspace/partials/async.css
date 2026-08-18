@@ -1,0 +1,61 @@
+/*
+ * Google APIの非同期取得中・失敗時に、LMS本体を先に操作できることを明確にする。
+ */
+.gw-async-region {
+    min-height: 280px;
+}
+
+.gw-async-state {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 24px;
+    text-align: left;
+    color: var(--google-text);
+}
+
+.gw-async-state strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.gw-async-state p {
+    margin: 0;
+    color: var(--google-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.gw-async-spinner {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    border: 3px solid var(--google-border);
+    border-top-color: var(--google-blue);
+    border-radius: 50%;
+    animation: gw-async-spin 0.8s linear infinite;
+}
+
+.gw-async-state--error {
+    min-height: 180px;
+    justify-content: flex-start;
+    margin-top: 16px;
+    padding: 22px 24px;
+    border: 1px solid var(--google-error-border);
+    border-radius: 12px;
+    background: var(--google-error-surface);
+    color: var(--google-red-deep);
+}
+
+.gw-async-state--error p {
+    color: inherit;
+}
+
+@keyframes gw-async-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

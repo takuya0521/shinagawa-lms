@@ -16,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * @property UserRole $role
  * @property UserStatus $status
+ * @property-read GoogleDriveConnection|null $googleDriveConnection
  */
 #[Fillable([
     'name',
@@ -61,6 +62,16 @@ class User extends Authenticatable
     public function teacher(): HasOne
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    /**
+     * ユーザー本人のOAuthトークンだけを参照できるよう、Google Workspace共通連携情報との1対1関連を返す。
+     *
+     * @return HasOne<GoogleDriveConnection, $this>
+     */
+    public function googleDriveConnection(): HasOne
+    {
+        return $this->hasOne(GoogleDriveConnection::class);
     }
 
     /**

@@ -165,6 +165,7 @@ function textComments(string $contents): array
 {
     $comments = [];
     $patterns = [
+        '/\{\{--.*?--\}\}/su',
         '/\/\*.*?\*\//su',
         '/<!--.*?-->/su',
         '/^\s*\/\/.*$/mu',
@@ -200,9 +201,13 @@ foreach ($scanDirectories as $relativeDirectory) {
             continue;
         }
 
-        $comments = str_ends_with($path, '.php')
-            ? phpComments($contents)
-            : textComments($contents);
+        if (str_ends_with($path, '.blade.php')) {
+            $comments = textComments($contents);
+        } elseif (str_ends_with($path, '.php')) {
+            $comments = phpComments($contents);
+        } else {
+            $comments = textComments($contents);
+        }
 
         foreach ($comments as $comment) {
             if (! isEnglishOnlyHumanComment($comment['comment'])) {

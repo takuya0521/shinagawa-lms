@@ -26,10 +26,18 @@ final class CorrectFinalEvaluationAction
     /**
      * 管理者による評価修正を保存し、修正前後と理由を操作ログへ残す。
      *
-     * @param  array{submission_score: float, attendance_score: float, attitude_score: float, correction_reason: string}  $attributes
+     * @param  array  $attributes  修正する評価値と理由
      * @param  FinalEvaluation  $finalEvaluation  対象の最終評価
      * @param  User  $user  対象ユーザー
      * @param  ?string  $ipAddress  操作元IPアドレス
+     *
+     * @phpstan-param array{
+     *     submission_score: float,
+     *     attendance_score: float,
+     *     attitude_score: float,
+     *     correction_reason: string
+     * } $attributes
+     *
      * @return FinalEvaluation 処理結果
      */
     public function execute(

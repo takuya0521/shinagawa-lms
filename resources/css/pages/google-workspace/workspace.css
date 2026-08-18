@@ -1,0 +1,18 @@
+/*
+ * Google Workspace画面の共通スタイルを責務別ファイルから読み込む。
+ * 元のカスケード順を維持し、Workspace各サービスの変更範囲を分離する。
+ */
+@import "./partials/base.css";
+@import "./partials/controls.css";
+@import "./partials/surfaces.css";
+@import "./partials/drive.css";
+@import "./partials/calendar.css";
+@import "./partials/details.css";
+@import "./partials/meet-forms.css";
+@import "./partials/classroom.css";
+@import "./partials/async.css";
+@import "./partials/chat-navigation.css";
+@import "./partials/chat-conversation.css";
+@import "./partials/chat-drawer.css";
+@import "./partials/responsive.css";
+@import "./partials/chat-links.css";

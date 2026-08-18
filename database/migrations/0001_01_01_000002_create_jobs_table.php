@@ -52,7 +52,8 @@ return new class extends Migration
             'ALTER TABLE jobs ADD CONSTRAINT chk_jobs_attempts_nonnegative CHECK (attempts >= 0)',
         );
         DB::statement(
-            'ALTER TABLE jobs ADD CONSTRAINT chk_jobs_reserved_at_nonnegative CHECK (reserved_at IS NULL OR reserved_at >= 0)',
+            'ALTER TABLE jobs ADD CONSTRAINT chk_jobs_reserved_at_nonnegative '
+                .'CHECK (reserved_at IS NULL OR reserved_at >= 0)',
         );
         DB::statement(
             'ALTER TABLE jobs ADD CONSTRAINT chk_jobs_available_at_nonnegative CHECK (available_at >= 0)',

@@ -247,7 +247,8 @@ final class AnnouncementManagementTest extends TestCase
      * 教員がお知らせ管理画面へアクセスできないことを確認する。
      *
      * 前提: 教員、お知らせなど、検証に必要なテストデータを準備する。
-     * 処理: `admin.announcements.index`へGETリクエスト、`admin.announcements.create`へGETリクエスト、`admin.announcements.edit`へGETリクエストを送信する。
+     * 処理: `admin.announcements.index`へGETリクエスト、`admin.announcements.create`へGETリクエスト、
+     * `admin.announcements.edit`へGETリクエストを送信する。
      * 期待結果: 権限不足としてHTTP 403で拒否されることを確認する。
      */
     public function test_teacher_cannot_manage_announcements(): void

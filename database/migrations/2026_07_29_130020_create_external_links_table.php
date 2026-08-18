@@ -35,10 +35,12 @@ return new class extends Migration
 
         // 公開対象IDと表示順の許容範囲をDB側でも保証する。
         DB::statement(
-            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_scope_id CHECK (scope_id IS NULL OR scope_id > 0)',
+            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_scope_id '
+                .'CHECK (scope_id IS NULL OR scope_id > 0)',
         );
         DB::statement(
-            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_display_order CHECK (display_order BETWEEN 0 AND 9999)',
+            'ALTER TABLE external_links ADD CONSTRAINT chk_external_links_display_order '
+                .'CHECK (display_order BETWEEN 0 AND 9999)',
         );
     }
 

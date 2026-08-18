@@ -1,0 +1,304 @@
+/* Google Driveのナビゲーションとファイル一覧 */
+.gw-drive-shell {
+    min-height: calc(100vh - 174px);
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+}
+
+.gw-drive-sidebar {
+    align-self: start;
+    padding: 18px 10px 24px 14px;
+}
+
+.gw-new-menu,
+.gw-calendar-create,
+.gw-chat-create,
+.gw-action-menu,
+.gw-message-menu {
+    position: relative;
+}
+
+.gw-new-menu > summary,
+.gw-calendar-create > summary,
+.gw-chat-create > summary,
+.gw-action-menu > summary,
+.gw-message-menu > summary {
+    list-style: none;
+}
+
+.gw-new-menu > summary::-webkit-details-marker,
+.gw-calendar-create > summary::-webkit-details-marker,
+.gw-chat-create > summary::-webkit-details-marker,
+.gw-action-menu > summary::-webkit-details-marker,
+.gw-message-menu > summary::-webkit-details-marker {
+    display: none;
+}
+
+.gw-new-button {
+    width: max-content;
+    min-width: 118px;
+    min-height: 50px;
+    padding: 0 16px;
+    border: 1px solid var(--gw-border);
+    border-radius: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--google-text);
+    background: var(--gw-surface);
+    box-shadow: 0 1px 2px var(--google-shadow-30), 0 1px 3px 1px var(--google-shadow-15);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.gw-new-button:hover,
+.gw-new-button:focus-visible {
+    background: var(--google-canvas);
+    box-shadow: 0 1px 3px var(--google-shadow-30), 0 4px 8px 3px var(--google-shadow-15);
+}
+
+.gw-new-menu__panel,
+.gw-calendar-create__panel,
+.gw-chat-create__panel,
+.gw-action-menu__panel,
+.gw-message-menu__panel {
+    position: absolute;
+    z-index: 40;
+    margin-top: 7px;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 12px;
+    background: var(--gw-surface);
+    box-shadow: 0 4px 12px var(--google-shadow-22);
+}
+
+.gw-new-menu__panel {
+    left: 0;
+    width: min(360px, calc(100vw - 42px));
+    padding: 8px;
+}
+
+.gw-new-menu__section {
+    border-radius: 8px;
+}
+
+.gw-new-menu__section > summary {
+    min-height: 44px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--google-text);
+    font-size: 14px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.gw-new-menu__section > summary:hover {
+    background: var(--gw-hover);
+}
+
+.gw-new-menu__section[open] {
+    padding-bottom: 10px;
+    background: var(--google-canvas);
+}
+
+.gw-new-menu__section form {
+    padding: 8px 10px 0;
+}
+
+.gw-side-nav {
+    margin-top: 18px;
+    display: grid;
+    gap: 2px;
+}
+
+.gw-side-nav a {
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 0 21px 21px 0;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--google-text);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.gw-side-nav a:hover,
+.gw-side-nav a:focus-visible {
+    background: var(--gw-hover);
+}
+
+.gw-side-nav a.is-active {
+    color: var(--google-blue-ink);
+    background: var(--google-blue-nav);
+    font-weight: 600;
+}
+
+.gw-shared-drives {
+    margin-top: 22px;
+}
+
+.gw-shared-drives h3,
+.gw-calendar-list h3,
+.gw-chat-spaces h3 {
+    margin: 0 0 8px;
+    padding: 0 16px;
+    color: var(--gw-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.gw-side-nav--shared {
+    margin-top: 0;
+}
+
+.gw-drive-content {
+    min-width: 0;
+    margin: 10px 18px 18px 0;
+    border: 1px solid var(--gw-border-soft);
+    border-radius: 16px;
+    overflow: visible;
+    background: var(--gw-surface);
+}
+
+.gw-drive-toolbar {
+    min-height: 64px;
+    padding: 0 18px;
+    border-bottom: 1px solid var(--gw-border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.gw-drive-toolbar__title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.gw-drive-toolbar h2 {
+    margin: 0;
+    color: var(--google-text);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.gw-drive-toolbar__title > span {
+    color: var(--gw-muted);
+    font-size: 12px;
+}
+
+.gw-drive-list {
+    min-width: 720px;
+}
+
+.gw-drive-list__head,
+.gw-drive-row {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.6fr) minmax(110px, 0.55fr) minmax(170px, 0.8fr) minmax(110px, 0.5fr) 48px;
+    align-items: center;
+}
+
+.gw-drive-list__head {
+    min-height: 44px;
+    padding: 0 12px 0 18px;
+    border-bottom: 1px solid var(--gw-border-soft);
+    color: var(--gw-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.gw-drive-row {
+    min-height: 50px;
+    padding: 0 8px 0 18px;
+    border-bottom: 1px solid var(--gw-border-soft);
+    color: var(--gw-muted);
+    font-size: 13px;
+}
+
+.gw-drive-row:hover {
+    background: var(--google-canvas);
+}
+
+.gw-drive-row:last-of-type {
+    border-bottom: 0;
+}
+
+.gw-drive-row__name {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.gw-drive-row__name > a {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--google-text);
+    font-weight: 500;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-drive-row__name > a:hover {
+    color: var(--gw-blue);
+    text-decoration: underline;
+}
+
+.gw-file-placeholder {
+    color: var(--google-muted);
+}
+
+.gw-starred {
+    color: var(--gw-yellow);
+    fill: var(--gw-yellow);
+}
+
+.gw-drive-row__menu {
+    justify-self: end;
+}
+
+.gw-action-menu__panel {
+    top: 38px;
+    right: 0;
+    width: 190px;
+    padding: 6px 0;
+}
+
+.gw-action-menu__panel a,
+.gw-action-menu__panel button {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    color: var(--google-text);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.gw-action-menu__panel a:hover,
+.gw-action-menu__panel button:hover {
+    background: var(--gw-hover);
+}
+
+.gw-action-menu__panel form {
+    margin: 0;
+}
+
+.gw-pagination {
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+}
+

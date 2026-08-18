@@ -104,7 +104,15 @@ class StoreAnnouncementRequest extends FormRequest
     /**
      * お知らせへ保存する値を返す。
      *
-     * @return array{title: string, body: string, notice_type: string, is_important: bool, publish_start_at: string|null, publish_end_at: string|null, status: string}
+     * @return array{
+     *     title: string,
+     *     body: string,
+     *     notice_type: string,
+     *     is_important: bool,
+     *     publish_start_at: string|null,
+     *     publish_end_at: string|null,
+     *     status: string
+     * }
      */
     public function announcementAttributes(): array
     {

@@ -53,7 +53,8 @@ final class AttendanceController extends Controller
         $missingSessionIds = array_values(
             $sessionSummaries
                 ->filter(
-                    static fn (LessonSession $lessonSession): bool => (int) $lessonSession->getAttribute('missing_count') > 0,
+                    static fn (LessonSession $lessonSession): bool => (int) $lessonSession
+                        ->getAttribute('missing_count') > 0,
                 )
                 ->pluck('id')
                 ->map(static fn (mixed $id): int => (int) $id)

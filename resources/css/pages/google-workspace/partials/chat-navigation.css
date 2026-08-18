@@ -1,0 +1,145 @@
+/* Google Chatのスペース一覧・作成導線 */
+.gw-chat-shell {
+    min-height: calc(100vh - 174px);
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    background: var(--gw-surface);
+}
+
+.gw-chat-shell--conversation {
+    grid-template-columns: 300px minmax(0, 1fr) auto;
+}
+
+.gw-chat-sidebar {
+    min-width: 0;
+    border-right: 1px solid var(--gw-border-soft);
+    background: var(--gw-surface);
+}
+
+.gw-chat-create {
+    padding: 14px 16px 8px;
+}
+
+.gw-chat-create .gw-new-button {
+    width: 100%;
+    justify-content: flex-start;
+    box-shadow: none;
+}
+
+.gw-chat-create__panel {
+    left: 16px;
+    width: min(420px, calc(100vw - 50px));
+    max-height: calc(100vh - 190px);
+    padding: 14px;
+    overflow-y: auto;
+}
+
+.gw-chat-spaces {
+    padding: 8px;
+    display: grid;
+    gap: 2px;
+}
+
+.gw-chat-spaces h3 {
+    margin-top: 6px;
+}
+
+.gw-chat-spaces > a {
+    min-width: 0;
+    min-height: 58px;
+    padding: 7px 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--google-text);
+    text-decoration: none;
+}
+
+.gw-chat-spaces > a:hover,
+.gw-chat-spaces > a:focus-visible {
+    background: var(--gw-hover);
+}
+
+.gw-chat-spaces > a.is-active {
+    background: var(--gw-blue-soft);
+}
+
+.gw-chat-space-avatar,
+.gw-message__avatar {
+    flex: 0 0 auto;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--google-white);
+    background: var(--google-muted);
+    font-weight: 700;
+}
+
+.gw-chat-space-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+}
+
+.gw-chat-space-copy {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+}
+
+.gw-chat-space-copy strong,
+.gw-chat-space-copy small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gw-chat-space-copy strong {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.gw-chat-space-copy small {
+    color: var(--gw-muted);
+    font-size: 11px;
+}
+
+.gw-chat-spaces__empty {
+    padding: 18px;
+    color: var(--gw-muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.gw-chat-empty {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    color: var(--gw-muted);
+    text-align: center;
+}
+
+.gw-chat-empty__illustration {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--google-blue-deep);
+    background: var(--gw-blue-soft);
+}
+
+.gw-chat-empty h2 {
+    margin: 20px 0 6px;
+    color: var(--google-text);
+    font-size: 19px;
+}
+
+.gw-chat-empty p {
+    max-width: 440px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
