@@ -133,7 +133,7 @@
                                     >提出物点</th>
                                     <th
                                         class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
-                                            lms-table-col--medium"
+                                            lms-table-col--wide"
                                     >出欠点</th>
                                     <th
                                         class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
@@ -191,13 +191,15 @@
                                                 required
                                             >
                                         </td>
-                                        <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                        <td
+                                            class="lms-table-cell--long px-5 py-4 text-right text-sm align-top"
+                                        >
                                             <span
                                                 class="font-semibold"
                                             >{{ $row->calculation->attendance->scoreLabel() }}</span>
                                             @if ($row->calculation->attendance->unavailableReason() !== null)
                                                 <p
-                                                    class="mt-1 max-w-52 text-xs lms-text-warning"
+                                                    class="mt-1 max-w-52 text-left text-xs leading-5 lms-text-warning"
                                                 >{{ $row->calculation->attendance->unavailableReason() }}</p>
                                             @endif
                                         </td>
