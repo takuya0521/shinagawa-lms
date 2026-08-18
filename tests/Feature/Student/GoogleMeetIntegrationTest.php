@@ -145,8 +145,12 @@ final class GoogleMeetIntegrationTest extends TestCase
         config()->set('services.google_workspace.scopes', $this->scopes());
         config()->set('services.google_meet.api_uri', 'https://meet.googleapis.com/v2');
         config()->set(
-            'services.google_meet.scope',
+            'services.google_meet.create_scope',
             'https://www.googleapis.com/auth/meetings.space.created',
+        );
+        config()->set(
+            'services.google_meet.read_scope',
+            'https://www.googleapis.com/auth/meetings.space.readonly',
         );
         config()->set('services.google_meet.page_size', 25);
     }
@@ -167,6 +171,7 @@ final class GoogleMeetIntegrationTest extends TestCase
             'https://www.googleapis.com/auth/chat.messages.reactions',
             'https://www.googleapis.com/auth/chat.delete',
             'https://www.googleapis.com/auth/meetings.space.created',
+            'https://www.googleapis.com/auth/meetings.space.readonly',
         ];
     }
 

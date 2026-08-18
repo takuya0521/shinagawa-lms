@@ -30,7 +30,8 @@ final class GoogleMeetConfiguration
     {
         return $this->workspaceService->isConfigured()
             && $this->configuredValue('api_uri') !== null
-            && $this->configuredValue('scope') !== null;
+            && $this->configuredValue('create_scope') !== null
+            && $this->configuredValue('read_scope') !== null;
     }
 
     /**
@@ -40,7 +41,10 @@ final class GoogleMeetConfiguration
      */
     public function requiredScopes(): array
     {
-        return [$this->requiredValue('scope')];
+        return [
+            $this->requiredValue('create_scope'),
+            $this->requiredValue('read_scope'),
+        ];
     }
 
     /**
