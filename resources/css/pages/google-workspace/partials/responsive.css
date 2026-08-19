@@ -86,13 +86,14 @@
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-side-nav {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: thin;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 4px;
+        overflow-x: visible;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-side-nav a {
-        flex: 0 0 auto;
+        min-width: 0;
         border-radius: 20px;
     }
 
@@ -107,6 +108,7 @@
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-drive-content,
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-calendar-main {
         margin: 0 12px 16px;
+        overflow: hidden;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-sidebar {
@@ -117,12 +119,13 @@
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-spaces {
-        display: flex;
-        overflow-x: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        overflow-x: visible;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-spaces > a {
-        flex: 0 0 220px;
+        min-width: 0;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel)) .gw-chat-empty {
@@ -142,9 +145,13 @@
 @media (max-width: 680px) {
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-header {
         padding: 8px 10px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-brand {
+        grid-column: 1;
+        grid-row: 1;
         font-size: 18px;
     }
 
@@ -153,11 +160,26 @@
         height: 34px;
     }
 
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-global-search {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-service-switcher {
+        grid-column: 1;
+        grid-row: 3;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        justify-content: stretch;
+    }
+
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
         .gw-service-switcher a {
-        min-width: 38px;
+        width: 100%;
+        min-width: 0;
         min-height: 38px;
-        padding: 5px;
+        padding: 5px 2px;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-connection {
@@ -169,15 +191,235 @@
         white-space: normal;
     }
 
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-connection__actions,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-actions,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-toolbar__actions,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-toolbar__actions {
+        flex-wrap: wrap;
+    }
+
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-content,
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-calendar-main {
         margin: 0 8px 12px;
-        overflow-x: auto;
+        overflow: hidden;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-toolbar,
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-calendar-toolbar {
-        min-width: 720px;
+        min-width: 0;
+        padding: 12px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-toolbar__title {
+        min-width: 0;
+        flex: 1 1 160px;
+        flex-wrap: wrap;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-toolbar__navigation {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-toolbar__actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-list {
+        min-width: 0;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-list__head {
+        display: none;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-drive-row {
+        min-height: 0;
+        padding: 12px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "name menu"
+            "owner owner"
+            "modified size";
+        align-items: start;
+        gap: 6px 12px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-row__name {
+        grid-area: name;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-row__owner {
+        grid-area: owner;
+        font-size: 12px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-row > time {
+        grid-area: modified;
+        font-size: 12px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-row > span[role="cell"]:not(.gw-drive-row__owner) {
+        grid-area: size;
+        justify-self: end;
+        font-size: 12px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-drive-row__menu {
+        grid-area: menu;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-month {
+        min-width: 0;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-month__days {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-day {
+        min-height: 76px;
+        padding: 3px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-event {
+        min-height: 18px;
+        padding: 2px 3px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        font-size: 9px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-event .gw-calendar-event__dot,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-event time,
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-event .gw-icon {
+        display: none;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-more {
+        padding-inline: 2px;
+        font-size: 9px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-calendar-agenda {
+        padding: 8px 10px 18px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-agenda-day {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-agenda-day > header {
+        padding: 12px 6px 6px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-agenda-event {
+        padding: 10px 6px;
+        grid-template-columns: 44px auto minmax(0, 1fr);
+        gap: 7px;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-agenda-event__actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-table-wrap {
+        overflow-x: visible;
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table thead {
+        display: none;
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table,
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table tbody,
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table tr,
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td {
+        width: 100%;
+        display: block;
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table tr {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--gw-border-soft);
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td {
+        padding: 5px 0;
+        border-bottom: 0;
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 10px;
+        white-space: normal;
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td::before {
+        color: var(--gw-muted);
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td:nth-child(1)::before {
+        content: "開始";
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td:nth-child(2)::before {
+        content: "終了";
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td:nth-child(3)::before {
+        content: "時間";
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td:nth-child(4)::before {
+        content: "状態";
+    }
+
+    :where(.gw-page.gw-page--meet[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small))
+        .gw-table td:nth-child(5)::before {
+        content: "会議ID";
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-sidebar {
@@ -188,8 +430,8 @@
         padding-bottom: 0;
     }
 
-    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-spaces > a {
-        flex-basis: 190px;
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-spaces {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-chat-conversation {
@@ -208,6 +450,11 @@
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-message-menu {
         visibility: visible;
         opacity: 1;
+    }
+
+    :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-section__header {
+        align-items: flex-start;
+        flex-wrap: wrap;
     }
 
     :where(.gw-page[data-workspace-page]:not(.gw-responsive-sentinel):not(.gw-responsive-small)) .gw-detail-hero {
