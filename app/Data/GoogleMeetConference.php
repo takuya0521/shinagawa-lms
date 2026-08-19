@@ -37,7 +37,7 @@ final readonly class GoogleMeetConference
     /**
      * 会議時間を利用者向け表示へ変換する。
      *
-     * @return string 開催中表示または経過分数
+     * @return string 開催中表示または秒・分単位の経過時間
      */
     public function durationLabel(): string
     {
@@ -45,7 +45,18 @@ final readonly class GoogleMeetConference
             return '開催中';
         }
 
-        return $this->startedAt->diffInMinutes($this->endedAt).'分';
+        $totalSeconds = (int) round($this->startedAt->diffInSeconds($this->endedAt));
+
+        if ($totalSeconds < 60) {
+            return $totalSeconds.'秒';
+        }
+
+        $minutes = intdiv($totalSeconds, 60);
+        $seconds = $totalSeconds % 60;
+
+        return $seconds === 0
+            ? $minutes.'分'
+            : $minutes.'分'.$seconds.'秒';
     }
 
     /**
