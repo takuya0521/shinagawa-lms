@@ -374,11 +374,14 @@ body.is-menu-locked {
 
     .lms-body > .lms-shell > .lms-sidebar {
         position: fixed;
-        inset: 12px auto 12px 12px;
+        top: 12px;
+        bottom: 12px;
+        left: 12px;
         width: min(304px, calc(88vw - 12px));
-        height: calc(100vh - 24px);
+        height: auto;
         min-height: 0;
         margin: 0;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
         transform: translateX(-104%);
         transition: transform 0.22s ease;
     }
