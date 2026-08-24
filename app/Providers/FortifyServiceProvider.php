@@ -51,6 +51,14 @@ class FortifyServiceProvider extends ServiceProvider
 
         // 利用停止中のユーザーは、パスワードが正しくても認証しない。
         Fortify::authenticateUsing(function (Request $request): ?User {
+            // ログイン画面の入力仕様をサーバー側でも保証する。
+            // Fortify標準の必須チェックに加え、詳細設計で定義したメール形式・最大文字数を検証する。
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'string'],
+                'remember' => ['nullable', 'boolean'],
+            ]);
+
             $email = Str::lower(
                 trim((string) $request->input('email'))
             );

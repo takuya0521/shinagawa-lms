@@ -1,0 +1,1048 @@
+# 品川高等学院 LMS コーディング規約
+
+| 項目 | 内容 |
+|---|---|
+| 文書名 | 品川高等学院 LMS コーディング規約 |
+| 文書番号 | DEV-STD-001 |
+| バージョン | 1.1 |
+| 制定日 | 2026-07-28 |
+| 対象プロジェクト | 品川高等学院 LMS |
+| 対象リポジトリ | `shinagawa-lms` |
+
+---
+
+## 1. 目的
+
+本規約は、品川高等学院 LMS のソースコードについて、品質、可読性、保守性、安全性および設計書との整合性を維持することを目的とする。
+
+本規約は、Laravelによる製造、レビュー、テスト、保守および改修のすべてに適用する。
+
+---
+
+## 2. 適用範囲
+
+本規約の対象は次のとおりとする。
+
+- PHP / Laravel
+- Livewire / Blade
+- JavaScript / Alpine.js
+- CSS / Tailwind CSS
+- SQL / Migration / Seeder / Factory
+- PHPUnit
+- 設定ファイル
+- Git運用
+- ソースコード内コメント
+
+---
+
+## 3. 対象技術
+
+| 分類 | 技術 |
+|---|---|
+| PHP | PHP 8.3 |
+| Webフレームワーク | Laravel 13 |
+| UI | Blade / Livewire 4 |
+| CSS | Tailwind CSS |
+| JavaScript | Alpine.js / Vite |
+| DBMS | PostgreSQL 18.4 |
+| ORM | Eloquent ORM |
+| テスト | PHPUnit |
+| コード整形 | Laravel Pint |
+| 静的解析 | PHPStan / Larastan |
+| バージョン管理 | Git |
+
+技術バージョンを変更する場合は、影響調査を行い、設計書および本規約を更新する。
+
+---
+
+## 4. 仕様・規約の優先順位
+
+実装判断に迷った場合は、次の順序を正とする。
+
+1. 承認済みの詳細設計書
+2. 承認済みの設計変更記録
+3. 本コーディング規約
+4. Laravel標準の実装方法
+5. チーム内で合意した実装方針
+6. 開発者個人の判断
+
+詳細設計書と実装内容に差異が生じる場合、独断で仕様を変更しない。差異は、設計書の誤り、実装上の制約、仕様変更、未決事項または技術的負債として記録する。
+
+---
+
+## 5. 基本方針
+
+### 5.1 可読性を優先する
+
+短いコードより、意図が明確なコードを優先する。
+
+```php
+// NG
+$u = User::find($id);
+
+// OK
+$user = User::query()->findOrFail($userId);
+```
+
+### 5.2 単一責務を守る
+
+1つのクラス、メソッド、コンポーネントには、原則として1つの責務だけを持たせる。
+
+### 5.3 Laravel標準を優先する
+
+特別な理由がない限り、Eloquent ORM、Form Request、Middleware、Gate、Policy、Service Container、Event、Listener、Job、Artisan Command、Scheduler、Notification、Validation、Database Transactionを使用する。
+
+### 5.4 重複を避ける
+
+同じ処理をコピーして複数箇所へ配置しない。共通化は、メソッド、Action、Service、Query、Blade Component、Livewire Form、設定ファイルの順に検討する。
+
+### 5.5 未決仕様を埋め込まない
+
+評価閾値、出欠点、端数処理などの未決仕様を、マジックナンバーとして実装しない。設定ファイルまたはDBマスタへ切り出し、未設定時には確定処理を停止する。
+
+---
+
+## 6. PHP基本規約
+
+### 6.1 コードスタイル
+
+PHPコードはLaravel Pintの標準ルールに従う。
+
+- インデントはスペース4文字
+- タブは禁止
+- 改行コードはLF
+- 文字コードはUTF-8
+- 行末の空白は禁止
+- PHP終了タグ `?>` は記述しない
+- 1行に複数の処理を書かない
+- 比較は原則として `===` および `!==` を使用する
+- 不要な三項演算子のネストは禁止する
+- 読みにくいワンライナーは禁止する
+- 1行は原則120文字以内を目安とする
+
+```bash
+php vendor/bin/pint
+php vendor/bin/pint --test
+```
+
+### 6.2 型宣言
+
+可能な限り、引数、戻り値、プロパティに型を明示する。
+
+```php
+public function execute(User $user, int $lessonId): Attendance
+{
+    // ...
+}
+```
+
+`mixed`、意味の不明確な `array`、型のないpublicプロパティの乱用を禁止する。配列を使用する場合はPHPDocで構造を明示するか、DTOを採用する。
+
+### 6.3 strict_types
+
+`declare(strict_types=1);` は現時点では必須としない。導入する場合はプロジェクト全体で統一する。
+
+### 6.4 final
+
+継承を前提としないAction、Service、DTO等は原則として `final` を付与する。
+
+---
+
+## 7. 命名規約
+
+### 7.1 PHP
+
+| 対象 | 規則 | 例 |
+|---|---|---|
+| クラス | PascalCase | `StudentController` |
+| メソッド | camelCase | `createStudent` |
+| 変数 | camelCase | `$studentNumber` |
+| 定数 | UPPER_SNAKE_CASE | `MAX_LOGIN_ATTEMPTS` |
+| Enum | PascalCase・単数形 | `UserRole` |
+| Controller | 対象名 + Controller | `AttendanceController` |
+| Form Request | Store/Update + 対象名 + Request | `StoreStudentRequest` |
+| Policy | 対象名 + Policy | `StudentPolicy` |
+| Action | 動詞 + 対象名 + Action | `CreateStudentAction` |
+| Service | 対象名 + Service | `EvaluationService` |
+| Query | 対象・目的 + Query | `StudentListQuery` |
+| Job | 動詞 + 対象名 + Job | `ImportStudentsJob` |
+| Command | 動詞 + 対象名 + Command | `GenerateLessonDatesCommand` |
+| Event | 過去形または状態変化 | `EvaluationFinalized` |
+| Listener | 処理内容を表す名称 | `SendEvaluationNotification` |
+
+略語だけの名称を禁止する。
+
+```php
+// NG
+$std;
+$usr;
+$tmp;
+$flg;
+$data2;
+
+// OK
+$student;
+$user;
+$temporaryFile;
+$isPublished;
+$validatedInput;
+```
+
+### 7.2 真偽値
+
+```php
+$isActive
+$hasPermission
+$canEdit
+$shouldNotify
+```
+
+否定形を重ねた名称は避ける。
+
+### 7.3 DB
+
+| 対象 | 規則 | 例 |
+|---|---|---|
+| テーブル | 複数形・snake_case | `lesson_schedules` |
+| カラム | snake_case | `student_number` |
+| 主キー | `id` | `id` |
+| 外部キー | 単数形 + `_id` | `student_id` |
+| 真偽値 | `is_` または `has_` | `is_active` |
+| 日時 | `_at` | `published_at` |
+| 日付 | `_date` | `enrollment_date` |
+| 件数 | `_count` | `absence_count` |
+| 割合 | `_rate` | `attendance_rate` |
+
+詳細設計書に物理名が定義されている場合は、詳細設計書を優先する。
+
+### 7.4 URL・ルート
+
+URIはkebab-case、ルート名はドット区切りを使用する。
+
+```text
+/admin/student-accounts
+/teacher/attendance-records
+```
+
+```php
+admin.students.index
+admin.students.create
+admin.students.store
+teacher.attendance.edit
+student.evaluations.index
+```
+
+---
+
+## 8. ディレクトリ・レイヤー構成
+
+```text
+app/
+├─ Actions/
+├─ Enums/
+├─ Exceptions/
+├─ Http/
+│  ├─ Controllers/
+│  ├─ Middleware/
+│  └─ Requests/
+├─ Livewire/
+├─ Models/
+├─ Policies/
+├─ Queries/
+├─ Services/
+└─ Support/
+```
+
+基本的な処理の流れ：
+
+```text
+Controller / Livewire
+        ↓
+Form Request / Livewire Form
+        ↓
+Action
+        ↓
+Model / Domain Service / Query
+        ↓
+Database
+```
+
+---
+
+## 9. Controller規約
+
+Controllerは次の責務だけを持つ。
+
+- HTTPリクエストを受け取る
+- Form Requestから検証済みデータを受け取る
+- ActionまたはQueryを呼び出す
+- Responseを返す
+
+Controller内に複雑な業務計算、複数テーブル更新、出欠集計、評価計算、権限の詳細判定、長いEloquentクエリ、外部APIの詳細処理を書かない。
+
+```php
+public function store(
+    StoreStudentRequest $request,
+    CreateStudentAction $action,
+): RedirectResponse {
+    $student = $action->execute($request->validated());
+
+    return redirect()
+        ->route('admin.students.show', $student)
+        ->with('success', '生徒を登録しました。');
+}
+```
+
+---
+
+## 10. Livewire規約
+
+Livewire Componentは、画面状態、入力値、入力検証、Actionの呼び出し、画面遷移、フラッシュメッセージ、UIイベントを担当する。
+
+複雑な業務処理を直接記述しない。複雑な入力フォームにはLivewire Formオブジェクトを使用する。
+
+すべてのLivewire Componentは単一のルート要素を持つ。
+
+---
+
+## 11. Action規約
+
+登録、更新、削除、確定など、1つのユースケースにつき1つのActionを作成する。公開メソッド名は原則 `execute` とする。
+
+```php
+final class CreateStudentAction
+{
+    public function execute(array $input): Student
+    {
+        // ...
+    }
+}
+```
+
+複数テーブルを更新する場合は必ずトランザクションを使用する。
+
+```php
+return DB::transaction(function () use ($input): Student {
+    // 複数テーブルの更新
+});
+```
+
+---
+
+## 12. Service・Query規約
+
+### 12.1 Service
+
+複数のユースケースから再利用される業務計算や外部サービス連携をServiceへ分離する。
+
+例：
+
+- 出欠点計算
+- 評価計算
+- Google API連携
+- ファイル変換
+- 通知文面生成
+
+### 12.2 Query
+
+一覧検索、検索条件、複雑な集計はQueryクラスへ分離する。Eloquentを単純に包むだけのRepositoryは作成しない。
+
+---
+
+## 13. Model規約
+
+Modelにはリレーション、Cast、Scope、Attribute、単一レコードに閉じた小さな振る舞いを記述する。
+
+Modelへ画面処理、複数画面にまたがる処理、巨大な集計処理、外部API処理、HTTPリクエスト依存処理を書かない。
+
+`$guarded = []`は禁止し、保存可能な項目は `$fillable` へ明示する。
+
+```php
+protected $fillable = [
+    'name',
+    'email',
+    'role',
+    'status',
+];
+```
+
+Enumや日時はcastsへ定義する。
+
+---
+
+## 14. 入力検証規約
+
+ControllerではForm Requestを使用する。
+
+未検証の入力値を保存しない。
+
+```php
+// NG
+Student::create($request->all());
+Student::create($request->input());
+
+// OK
+Student::create($request->validated());
+```
+
+Livewireでも保存前に必ずバリデーションを実行する。エラーメッセージは日本語で、利用者が修正方法を理解できる内容にする。
+
+---
+
+## 15. 認証・認可規約
+
+| 制御対象 | 実装方法 |
+|---|---|
+| ログイン状態 | Authentication |
+| ロール単位 | Middleware / Gate |
+| レコード単位 | Policy |
+| 担当授業などの範囲 | Policy / Query条件 |
+| 画面上の表示制御 | Blade / Livewire |
+| API・更新処理 | 必ずサーバー側で再判定 |
+
+画面上でボタンを非表示にするだけでは権限制御とみなさない。
+
+- 管理者のみ実行可能
+- 教員は担当授業のみ更新可能
+- 生徒は自分の情報のみ閲覧可能
+- 利用停止ユーザーは操作不可
+- 権限違反は403を返す
+
+---
+
+## 16. Enum・コード値規約
+
+ロール、ユーザー状態、出欠状態、評価状態などはBacked Enumを使用する。
+
+```php
+enum UserRole: string
+{
+    case Admin = 'admin';
+    case Teacher = 'teacher';
+    case Student = 'student';
+}
+```
+
+文字列を直接比較しない。
+
+```php
+// NG
+if ($user->role === 'admin') {
+}
+
+// OK
+if ($user->role === UserRole::Admin) {
+}
+```
+
+---
+
+## 17. DB・Migration規約
+
+- 詳細設計書のテーブル名、型、NULL可否、初期値、制約を正とする
+- 1つのMigrationには原則として1つの変更目的だけを書く
+- 外部キー、Unique制約、Indexを明記する
+- 金額、得点、割合に `float` を使用しない
+- 複数テーブル更新は `DB::transaction()` を使用する
+- Migration作成後は `migrate` と `migrate:rollback` を確認する
+- 運用開始後は既存Migrationを書き換えず、新しいMigrationを追加する
+- カラム削除、型変更、制約変更は影響調査後に実施する
+- Raw SQLはEloquentまたはQuery Builderで表現困難な場合に限る
+- N+1を防止するため `with()` を使用する
+
+```php
+// 学籍番号は卒業・退学後も再利用しないため、一意制約を設定する。
+$table->string('student_number', 20)->unique();
+```
+
+---
+
+## 18. トランザクション・排他制御
+
+複数テーブル登録、複数行更新、出欠確定、評価確定、ユーザーと生徒情報の同時作成、履歴と本体の同時更新ではトランザクションを使用する。
+
+同一データを同時更新する可能性がある処理では排他制御を検討する。
+
+```php
+// 同一授業の出欠を同時更新させないため、対象行を排他ロックする。
+$lesson = Lesson::query()
+    ->lockForUpdate()
+    ->findOrFail($lessonId);
+```
+
+---
+
+## 19. 例外処理規約
+
+- 例外を握り潰さない
+- 復旧できない例外を無条件にcatchしない
+- 業務例外とシステム例外を分ける
+- 利用者向けメッセージと内部ログを分ける
+- 例外メッセージに機密情報を含めない
+
+```php
+// NG
+try {
+    // ...
+} catch (Throwable $exception) {
+    // 何もしない
+}
+```
+
+業務ルール違反には、必要に応じて専用例外を使用する。
+
+---
+
+## 20. ログ規約
+
+ログには、処理名、ログインユーザーID、対象レコードID、画面IDまたは機能ID、結果、例外種別など、障害調査に必要な最小限の情報を含める。
+
+```php
+Log::warning('出欠確定処理に失敗しました。', [
+    'lesson_id' => $lesson->id,
+    'user_id' => auth()->id(),
+    'function_id' => 'F-ATT-002',
+]);
+```
+
+パスワード、APIキー、アクセストークン、セッションID、住所、電話番号、不要な氏名、健康情報などをログへ出力しない。
+
+---
+
+## 21. コメント規約
+
+### 21.1 基本方針
+
+コメントは、コードを読めば分かる「何をしているか」ではなく、「なぜその処理が必要なのか」を説明するために使用する。
+
+コメントは原則として日本語で記述し、識別子は英語とする。
+
+```php
+// NG：コードを読めば分かる
+// ユーザーを取得する
+$user = User::findOrFail($userId);
+
+// OK：業務上の理由を説明する
+// 利用停止後も監査対象として保持するため、論理削除済みユーザーを含めて取得する。
+$user = User::withTrashed()->findOrFail($userId);
+```
+
+### 21.2 コメントを記述すべき箇所
+
+- 複雑な業務ルール
+- 詳細設計書の条件をコードから読み取りにくい場合
+- 判定条件に優先順位がある場合
+- 外部サービスの制約を回避する場合
+- パフォーマンス上の理由で一般的でない実装を採用する場合
+- 排他制御、再実行制御を行う場合
+- 意図的に処理を行わない場合
+- Laravel標準と異なる実装を採用する場合
+- 未決事項に対する暫定動作
+- データ保持、監査、学校運用上の理由がある場合
+
+### 21.3 禁止するコメント
+
+```php
+// NG：コードの読み上げ
+// 点数を足す
+$totalScore += $score;
+
+// NG：曖昧
+// 一応チェック
+
+// NG：根拠がない
+// なぜか必要
+
+// NG：個人的な感想
+// よく分からないけど動く
+
+// NG：責任の先送り
+// 誰か直してください
+
+// NG：古いコードの保存
+// $user->update($request->all());
+```
+
+不要なコードはコメントアウトせず削除し、履歴はGitで管理する。
+
+### 21.4 PHPDoc
+
+PHPDocは、型宣言を機械的に繰り返すためではなく、コードだけでは表現できない契約、業務上の意味、配列構造、副作用、例外を記述するために使用する。
+
+推奨対象：
+
+- Action
+- Service
+- Policy
+- Job
+- Command
+- 外部連携クラス
+- 複雑な配列を扱うpublicメソッド
+- 例外を送出するpublicメソッド
+- 副作用のあるpublicメソッド
+- 詳細設計書の機能IDに対応する主要クラス
+
+```php
+/**
+ * 生徒アカウントを作成する。
+ *
+ * ユーザー、生徒基本情報、初期ロールを同一トランザクションで登録する。
+ *
+ * @see 詳細設計書 機能ID: F-A-003
+ *
+ * @param array{
+ *     name: string,
+ *     email: string,
+ *     student_number: string,
+ *     enrollment_date: string
+ * } $input
+ *
+ * @throws DuplicateStudentNumberException
+ */
+public function execute(array $input): Student
+{
+    // ...
+}
+```
+
+型宣言と同じ情報しかないPHPDocは記述しない。
+
+### 21.5 詳細設計書ID
+
+詳細設計書に画面ID、機能ID、定期処理IDがある場合は、処理の入口となる主要クラスのPHPDocに記載する。
+
+```php
+/**
+ * 教員向け出欠一括登録処理。
+ *
+ * @see 詳細設計書 画面ID: T-004
+ * @see 詳細設計書 機能ID: F-ATT-002
+ */
+final class RegisterAttendanceAction
+{
+}
+```
+
+すべてのメソッドや行へIDを記載する必要はない。Controller、Livewire Component、Action、Command、Job、Policyなどの入口に記載する。
+
+### 21.6 インラインコメント
+
+インラインコメントは対象処理の直前に記述する。行末コメントは原則禁止する。
+
+```php
+// 出席率は表示用に丸めず、評価計算では未丸めの値を使用する。
+$attendanceRate = $attendedCount / $lessonCount;
+```
+
+### 21.7 TODO・FIXME・NOTE・WARNING
+
+| 種別 | 用途 |
+|---|---|
+| TODO | 未実装、将来追加、仕様確定待ち |
+| FIXME | 既知の不具合、暫定対応、技術的問題 |
+| NOTE | 見落としやすい重要事項 |
+| WARNING | 変更時に重大な影響がある注意事項 |
+
+```php
+// TODO(#123): 評価閾値の確定後、設定マスタから取得する。
+// FIXME(#145): Google Calendar APIの再試行回数を共通設定へ移動する。
+// NOTE: 学籍番号は卒業後も再利用しない。
+// WARNING: この順序を変更すると、評価確定前に通知が送信される。
+```
+
+- 原則として課題番号またはチケット番号を付ける
+- 対応内容を具体的に記述する
+- 「あとで直す」などの曖昧な表現は禁止する
+- 解決済みコメントは削除する
+- リリース前に未解消コメントを確認する
+- `HACK` は使用しない
+- 暫定対応は `FIXME` として管理する
+
+チケットがない仕様確定待ちは、条件を具体的に記述する。
+
+```php
+// TODO(評価基準確定まで): 未設定時は評価確定処理を禁止する。
+```
+
+### 21.8 クラスコメント
+
+クラス名だけでは責務が明確でない場合に記述する。
+
+```php
+/**
+ * 出欠情報から出席点を算出するドメインサービス。
+ *
+ * DB更新や画面表示は担当せず、点数計算のみを行う。
+ */
+final class AttendanceScoreCalculator
+{
+}
+```
+
+クラス名を読み上げるだけのコメントは不要とする。
+
+### 21.9 メソッドコメント
+
+必要に応じて、処理目的、事前条件、事後条件、副作用、例外、業務上の注意事項、戻り値の特別な意味を記載する。
+
+```php
+/**
+ * 評価を確定する。
+ *
+ * 確定後の通常編集は禁止され、管理者の例外修正のみ許可される。
+ *
+ * @throws EvaluationAlreadyFinalizedException
+ * @throws EvaluationSettingIncompleteException
+ */
+public function execute(Evaluation $evaluation): void
+{
+}
+```
+
+### 21.10 Migrationコメント
+
+特殊な制約や通常と異なるカラム構成には理由を記述する。単にカラム名を読み上げるコメントは不要とする。
+
+```php
+// 学籍番号は卒業・退学後も再利用しないため、一意制約を設定する。
+$table->string('student_number', 20)->unique();
+```
+
+### 21.11 Bladeコメント
+
+ブラウザへ出力する必要がないコメントにはHTMLコメントではなくBladeコメントを使用する。
+
+```blade
+{{-- 出欠登録一覧 --}}
+<section>
+    ...
+</section>
+```
+
+### 21.12 JavaScriptコメント
+
+JavaScriptでも処理内容ではなく理由や制約を記述する。
+
+```javascript
+// Livewireの再描画後もフォーカス位置を維持するため、DOM更新完了後に復元する。
+queueMicrotask(() => {
+    element.focus();
+});
+```
+
+### 21.13 CSSコメント
+
+CSSコメントはコンポーネントの区切りまたは設計上の理由に限定する。
+
+```css
+/* 固定ヘッダー分の高さを確保し、アンカー遷移時の見出し隠れを防ぐ。 */
+.page-section {
+    scroll-margin-top: 5rem;
+}
+```
+
+次のようなコメントは禁止する。
+
+```css
+/* とりあえず調整 */
+/* 最終修正 */
+/* FINAL FIX */
+/* 強制上書き */
+```
+
+### 21.14 テストコードのコメント
+
+テスト名から目的が分かる場合、コメントは不要とする。複雑なテストでは必要に応じて日本語の区切りコメントを使用できる。
+
+```php
+// 準備
+$user = User::factory()->suspended()->create();
+
+// 実行
+$response = $this->actingAs($user)->get('/dashboard');
+
+// 検証
+$response->assertForbidden();
+```
+
+### 21.15 コメントの保守
+
+- 実装変更時にコメントも更新する
+- 実装と矛盾するコメントを残さない
+- 古い仕様を残さない
+- 不要なTODOを放置しない
+- レビュー時にコメントの正確性も確認する
+- `@author` は記載しない
+- 更新日はソースへ記載しない
+- 作成者と更新履歴はGitで管理する
+
+### 21.16 機密情報記載禁止
+
+コメントへ、パスワード、APIキー、アクセストークン、本番認証情報、実在する生徒・教員の個人情報、障害調査で取得した個人データ、社内限定の機密情報を記載しない。
+
+> コードで「何をするか」を表現し、コメントで「なぜそうするか」を説明する。
+
+---
+
+## 22. Blade・HTML規約
+
+- 共通UIはBlade Component化する
+- 同一フォーム部品を複製しない
+- 画面見出し、ラベル、エラーメッセージの表記を統一する
+- 入力欄には `label` を付ける
+- ボタンとリンクを用途に応じて使い分ける
+- Blade内でDBへアクセスしない
+- Blade内に業務ロジックを書かない
+- `{!! !!}` は原則使用しない
+- ユーザー入力は `{{ }}` でエスケープする
+- フォームにはCSRF対策を適用する
+
+---
+
+## 23. CSS・Tailwind規約
+
+- Tailwind CSSは配置・余白などの汎用指定に使用する
+- ブランドカラーや共通部品は意味を持つ専用クラスで管理する
+- 共通スタイルは `resources/css/components` へコンポーネント化する
+- 色は `resources/css/core/tokens.css` のデザイントークンを参照する
+- `style` 属性および `<style>` タグは禁止する
+- `!important` は禁止する
+- 同一セレクターの再定義は禁止する
+- 同一ルール内の同一プロパティ重複は禁止する
+- CSSファイル末尾への場当たり的な上書きを禁止する
+- Tailwindユーティリティを後勝ちCSSで別の色・影へ変更しない
+- 既存の正規スタイル定義を直接修正する
+- 色、余白、角丸、影を共通部品とトークンで統一する
+- レスポンシブ対応は同一セレクターの再定義を避け、`clamp()`、`minmax()`、`auto-fit`、状態クラスを優先する
+
+---
+
+## 24. JavaScript・Alpine.js規約
+
+- LivewireまたはAlpine.jsで実装できる場合、独自JavaScriptを増やさない
+- jQueryは導入しない
+- グローバル変数を作成しない
+- DOM IDへ過度に依存しない
+- イベントリスナーの重複登録を防止する
+- Livewire再描画後の挙動を確認する
+- 外部入力をHTMLとして直接挿入しない
+- 非同期処理にはエラー処理を実装する
+
+---
+
+## 25. セキュリティ規約
+
+- `.env` をGitへ登録しない
+- 認証情報をソースコードへ埋め込まない
+- `env()` はconfig配下以外で使用しない
+- パスワードをログへ出力しない
+- 入力値をSQL、ファイルパス、HTMLへ直接結合しない
+- ファイルアップロードではMIME、拡張子、サイズを検証する
+- ファイル名はサーバー側で生成する
+- 権限チェックは必ずサーバー側で実施する
+- POST、PUT、PATCH、DELETEにはCSRF対策を適用する
+- Bladeの自動エスケープを使用する
+- `$fillable` を明示する
+- 利用停止ユーザーのアクセスを拒否する
+- ログイン試行回数制限を設定する
+
+---
+
+## 26. テスト規約
+
+```text
+tests/
+├─ Unit/
+│  ├─ Actions/
+│  └─ Services/
+└─ Feature/
+   ├─ Auth/
+   ├─ Admin/
+   ├─ Teacher/
+   └─ Student/
+```
+
+### 必須テスト
+
+- ログイン成功・失敗
+- 利用停止ユーザー
+- ロール別アクセス
+- 入力必須、文字数、形式
+- 登録、更新、削除
+- トランザクションのロールバック
+- 出欠計算
+- 評価計算
+- 生徒本人以外のデータ閲覧拒否
+- 教員の担当外授業更新拒否
+- 未決設定時の確定拒否
+
+### 作成ルール
+
+- 新機能にはFeature Testを追加する
+- 計算ロジックにはUnit Testを追加する
+- バグ修正時は再現テストを先に追加する
+- テスト同士を実行順に依存させない
+- DBテストでは `RefreshDatabase` を使用する
+- テストデータはFactoryで作成する
+- 本番データを使用しない
+- `php artisan test` が失敗した状態でコミットしない
+
+---
+
+## 27. Git規約
+
+### 27.1 ブランチ
+
+```text
+main
+feature/auth-foundation
+feature/student-management
+feature/attendance-entry
+fix/login-validation
+refactor/evaluation-service
+```
+
+`main` ブランチへ直接実装しない。
+
+### 27.2 コミットメッセージ
+
+```text
+feat: ロール別ダッシュボードを追加
+fix: 停止中ユーザーがログインできる問題を修正
+refactor: 出欠点計算をActionへ分離
+test: 教員の担当授業権限テストを追加
+docs: コーディング規約を追加
+chore: 静的解析設定を追加
+```
+
+| 種別 | 用途 |
+|---|---|
+| feat | 機能追加 |
+| fix | 不具合修正 |
+| refactor | 挙動を変えない内部改善 |
+| test | テスト追加・修正 |
+| docs | 文書変更 |
+| style | コード整形のみ |
+| chore | 環境・依存関係・設定 |
+| perf | 性能改善 |
+
+- 1コミット1目的
+- 曖昧なメッセージは禁止
+- 自動生成物と業務実装を混在させない
+- フォーマットだけの変更は別コミットにする
+- コミット前に差分を確認する
+- `vendor` および `node_modules` をコミットしない
+
+---
+
+## 28. 禁止事項
+
+- ControllerまたはLivewireへの巨大な業務ロジック
+- Blade内でのDBアクセス
+- Blade内での複雑な条件計算
+- `$guarded = []`
+- `$request->all()` の保存
+- マジックナンバー、マジック文字列
+- `env()` のアプリケーションコード内利用
+- `vendor`、`node_modules` の直接編集
+- `dd()`、`dump()`、`var_dump()`、`die()`、`exit()` のコミット
+- 例外の握り潰し
+- 権限チェックを画面表示だけで済ませること
+- 同一処理のコピー＆ペースト
+- 理由のないパッケージ追加
+- 詳細設計書と異なるDB変更
+- テストなしの重要業務ロジック
+- CSS末尾追記による上書き
+- `!important`
+- 古いコードのコメントアウト保存
+- 機密情報を含むコメント
+
+---
+
+## 29. 品質チェック
+
+コミット前に次を実行する。
+
+```bash
+php vendor/bin/pint --test
+php artisan test
+npm run build
+```
+
+PHPStan / Larastan導入後：
+
+```bash
+php vendor/bin/phpstan analyse
+```
+
+---
+
+## 30. 完了条件
+
+- [ ] 詳細設計書の対象画面ID・機能IDを確認した
+- [ ] 実装と詳細設計書が一致している
+- [ ] 入力チェックを実装した
+- [ ] 権限制御をサーバー側で実装した
+- [ ] 複数更新をトランザクション化した
+- [ ] Feature TestまたはUnit Testを追加した
+- [ ] `php artisan test` が成功した
+- [ ] `php vendor/bin/pint --test` が成功した
+- [ ] PHPStan / Larastanが成功した
+- [ ] `npm run build` が成功した
+- [ ] 正常系・異常系を確認した
+- [ ] 権限別の動作を確認した
+- [ ] PC・タブレット表示を確認した
+- [ ] 設計変更がある場合は資料を更新した
+- [ ] 不要なデバッグコードがない
+- [ ] コメントが実装内容と一致している
+- [ ] 未解消のTODO・FIXMEを確認した
+- [ ] 機密情報が含まれていない
+
+---
+
+## 31. レビュー観点
+
+### 設計
+
+- 詳細設計書と一致しているか
+- 責務分割が適切か
+- 未決事項を独断で確定していないか
+
+### 実装
+
+- 命名から意図を理解できるか
+- ControllerやLivewireが肥大化していないか
+- 重複コードがないか
+- トランザクションが適切か
+- N+1がないか
+
+### セキュリティ
+
+- 入力検証があるか
+- 認可がサーバー側にあるか
+- 個人情報がログへ出ていないか
+- Mass Assignment対策があるか
+
+### コメント
+
+- 「何をしているか」だけのコメントになっていないか
+- 実装と矛盾していないか
+- 詳細設計書IDが必要な箇所にあるか
+- 古いTODO・FIXMEが残っていないか
+- 機密情報がないか
+
+### テスト
+
+- 正常系だけでなく異常系があるか
+- 権限別テストがあるか
+- バグ再現テストがあるか
+- テストが他のテストへ依存していないか
+
+---
+
+## 32. 改版履歴
+
+| バージョン | 日付 | 変更内容 |
+|---|---|---|
+| 1.1 | 2026-08-05 | DBMSをPostgreSQLへ更新し、CSSの再定義・上書き・インライン指定禁止を明文化。 |
+| 1.0 | 2026-07-28 | 初版制定。PHP、Laravel、DB、認証・認可、コメント、テスト、Git規約を定義。 |
