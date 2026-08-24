@@ -85,7 +85,14 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center border-t lms-border-neutral-subtle pt-5">
+                <div class="flex justify-center gap-3 border-t lms-border-neutral-subtle pt-5">
+                    <a
+                        href="{{ route('dashboard') }}"
+                        class="rounded-lg border px-5 py-3 font-semibold lms-button-secondary"
+                    >
+                        戻る
+                    </a>
+
                     <button
                         type="submit"
                         class="rounded-lg px-5 py-3 font-semibold lms-button-primary"
