@@ -126,8 +126,8 @@ return [
         'viewpoint' => '不正な送信の拒否',
         'route' => 'login',
     ],
-    'UT-C002-032' => [
-        'case_id' => 'UT-C002-032',
+    'UT-C002-027' => [
+        'case_id' => 'UT-C002-027',
         'viewpoint' => '不正な送信の拒否',
         'route' => 'account.password.edit',
     ],

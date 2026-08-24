@@ -6143,96 +6143,96 @@ return [
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-018' => [
-        'case_id' => 'UT-C002-018',
+    'UT-C002-013' => [
+        'case_id' => 'UT-C002-013',
         'viewpoint' => '現在のパスワード：正常入力：管理者',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-019' => [
-        'case_id' => 'UT-C002-019',
+    'UT-C002-014' => [
+        'case_id' => 'UT-C002-014',
         'viewpoint' => '現在のパスワード：正常入力：教員',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-020' => [
-        'case_id' => 'UT-C002-020',
+    'UT-C002-015' => [
+        'case_id' => 'UT-C002-015',
         'viewpoint' => '現在のパスワード：正常入力：生徒',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-021' => [
-        'case_id' => 'UT-C002-021',
+    'UT-C002-016' => [
+        'case_id' => 'UT-C002-016',
         'viewpoint' => '現在のパスワード：必須：管理者',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'required',
         'params' => [],
     ],
-    'UT-C002-022' => [
-        'case_id' => 'UT-C002-022',
+    'UT-C002-017' => [
+        'case_id' => 'UT-C002-017',
         'viewpoint' => '現在のパスワード：必須：教員',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'required',
         'params' => [],
     ],
-    'UT-C002-023' => [
-        'case_id' => 'UT-C002-023',
+    'UT-C002-018' => [
+        'case_id' => 'UT-C002-018',
         'viewpoint' => '現在のパスワード：必須：生徒',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'current_password',
         'assertion' => 'required',
         'params' => [],
     ],
-    'UT-C002-024' => [
-        'case_id' => 'UT-C002-024',
+    'UT-C002-019' => [
+        'case_id' => 'UT-C002-019',
         'viewpoint' => '新しいパスワード：正常入力：管理者',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-025' => [
-        'case_id' => 'UT-C002-025',
+    'UT-C002-020' => [
+        'case_id' => 'UT-C002-020',
         'viewpoint' => '新しいパスワード：正常入力：教員',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-026' => [
-        'case_id' => 'UT-C002-026',
+    'UT-C002-021' => [
+        'case_id' => 'UT-C002-021',
         'viewpoint' => '新しいパスワード：正常入力：生徒',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',
         'assertion' => 'field_exists',
         'params' => [],
     ],
-    'UT-C002-027' => [
-        'case_id' => 'UT-C002-027',
+    'UT-C002-022' => [
+        'case_id' => 'UT-C002-022',
         'viewpoint' => '新しいパスワード：必須：管理者',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',
         'assertion' => 'required',
         'params' => [],
     ],
-    'UT-C002-028' => [
-        'case_id' => 'UT-C002-028',
+    'UT-C002-023' => [
+        'case_id' => 'UT-C002-023',
         'viewpoint' => '新しいパスワード：必須：教員',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',
         'assertion' => 'required',
         'params' => [],
     ],
-    'UT-C002-029' => [
-        'case_id' => 'UT-C002-029',
+    'UT-C002-024' => [
+        'case_id' => 'UT-C002-024',
         'viewpoint' => '新しいパスワード：必須：生徒',
         'request' => 'App\\Http\\Requests\\Account\\UpdatePasswordRequest',
         'field' => 'password',

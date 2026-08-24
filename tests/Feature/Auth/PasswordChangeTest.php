@@ -34,7 +34,7 @@ final class PasswordChangeTest extends TestCase
             ->get(route('account.password.edit'))
             ->assertOk()
             ->assertSeeText('パスワード変更')
-            ->assertSeeText('戻る')
+            ->assertSeeInOrder(['変更する', '戻る'])
             ->assertSee('href="'.route('dashboard').'"', false);
     }
 

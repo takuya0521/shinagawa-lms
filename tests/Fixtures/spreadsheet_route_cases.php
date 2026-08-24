@@ -451,8 +451,8 @@ return [
         'route' => 'admin.operation-logs.show',
         'role' => 'admin',
     ],
-    'UT-C002-031' => [
-        'case_id' => 'UT-C002-031',
+    'UT-C002-026' => [
+        'case_id' => 'UT-C002-026',
         'viewpoint' => '権限のない利用者によるアクセス',
         'route' => 'account.password.edit',
         'role' => '',
