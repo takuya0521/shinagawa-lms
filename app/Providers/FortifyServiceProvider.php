@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\UserStatus;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Responses\LoginResponse;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -23,6 +25,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Fortify標準の入力検証をLMSの項目定義に合わせた規則へ差し替える。
+        $this->app->bind(
+            FortifyLoginRequest::class,
+            LoginRequest::class,
+        );
+
         // Fortify標準のintended遷移を使わず、LMSのロール別トップへ統一する。
         $this->app->singleton(
             LoginResponseContract::class,
