@@ -28,7 +28,7 @@
                     <input
                         id="current_password"
                         name="current_password"
-                        type="password"
+                        type="text"
                         autocomplete="current-password"
                         class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
                         required
@@ -51,7 +51,7 @@
                         <input
                             id="password"
                             name="password"
-                            type="password"
+                            type="text"
                             autocomplete="new-password"
                             class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
                             required
@@ -77,7 +77,7 @@
                         <input
                             id="password_confirmation"
                             name="password_confirmation"
-                            type="password"
+                            type="text"
                             autocomplete="new-password"
                             class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
                             required
