@@ -54,6 +54,7 @@ final class AttendanceManagementTest extends TestCase
                 'date_to' => '2026-07-31',
             ]))
             ->assertOk()
+            ->assertSeeText('出欠管理')
             ->assertSeeText($student->student_name)
             ->assertSeeText(AttendanceStatus::Present->label());
     }

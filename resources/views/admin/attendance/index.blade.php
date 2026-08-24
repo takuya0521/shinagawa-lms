@@ -2,8 +2,8 @@
 
 @section('page-class', 'page-pattern-list page-admin-attendance-index')
 
-@section('title', '出欠一覧・集計')
-@section('header-title', '出欠一覧・集計')
+@section('title', '出欠管理')
+@section('header-title', '出欠管理')
 
 @section('content')
     <section class="space-y-6">
