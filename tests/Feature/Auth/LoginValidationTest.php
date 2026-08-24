@@ -26,7 +26,9 @@ final class LoginValidationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスは必須です。',
+            ]);
     }
 
     /**
@@ -43,22 +45,26 @@ final class LoginValidationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスは正しいメールアドレス形式で入力してください。',
+            ]);
     }
 
     /**
-     * メールアドレス255文字は文字数上限エラーにならないことを確認する。
+     * メールアドレス255文字は入力チェックを通過し、認証処理まで進むことを確認する。
      */
     public function test_login_email_accepts_255_characters(): void
     {
         $email =
             str_repeat('a', 64)
             .'@'
-            .str_repeat('b', 63)
+            .str_repeat('b', 46)
             .'.'
-            .str_repeat('c', 63)
+            .str_repeat('c', 46)
             .'.'
-            .str_repeat('d', 62);
+            .str_repeat('d', 46)
+            .'.'
+            .str_repeat('e', 49);
 
         self::assertSame(255, strlen($email));
 
@@ -69,7 +75,11 @@ final class LoginValidationTest extends TestCase
                 'password' => 'WrongPass123!',
             ]);
 
-        $response->assertSessionDoesntHaveErrors(['email']);
+        $response
+            ->assertRedirectToRoute('login')
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            ]);
     }
 
     /**
@@ -80,11 +90,13 @@ final class LoginValidationTest extends TestCase
         $email =
             str_repeat('a', 64)
             .'@'
-            .str_repeat('b', 63)
+            .str_repeat('b', 46)
             .'.'
-            .str_repeat('c', 63)
+            .str_repeat('c', 46)
             .'.'
-            .str_repeat('d', 63);
+            .str_repeat('d', 46)
+            .'.'
+            .str_repeat('e', 50);
 
         self::assertSame(256, strlen($email));
 
@@ -97,7 +109,9 @@ final class LoginValidationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスは255文字以内で入力してください。',
+            ]);
     }
 
     /**
@@ -114,7 +128,9 @@ final class LoginValidationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('password');
+            ->assertSessionHasErrors([
+                'password' => 'パスワードは必須です。',
+            ]);
     }
 
     /**
@@ -132,6 +148,8 @@ final class LoginValidationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('remember');
+            ->assertSessionHasErrors([
+                'remember' => 'ログイン状態を保持するには正しい値を指定してください。',
+            ]);
     }
 }

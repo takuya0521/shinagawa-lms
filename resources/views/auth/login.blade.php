@@ -31,7 +31,7 @@
                     <p class="auth-card__description">メールアドレスとパスワードを入力してください。</p>
                 </header>
 
-                <form method="POST" action="{{ route('login') }}" class="auth-form">
+                <form method="POST" action="{{ route('login') }}" class="auth-form" novalidate>
                     @csrf
 
                     <div class="auth-field">

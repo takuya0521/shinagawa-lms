@@ -52,7 +52,7 @@ final class SpreadsheetCsrfProtectionTest extends TestCase
     public static function spreadsheetCases(): array
     {
         /** @var array<string, array<string, mixed>> $cases */
-        $cases = require base_path('tests/Fixtures/spreadsheet_csrf_cases.php');
+        $cases = require dirname(__DIR__, 2).'/Fixtures/spreadsheet_csrf_cases.php';
         $datasets = [];
 
         foreach ($cases as $caseId => $case) {

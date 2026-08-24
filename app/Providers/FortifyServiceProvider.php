@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Responses\LoginResponse;
 use App\Models\User;
+use App\Support\Auth\LoginCredentialRules;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -53,11 +54,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request): ?User {
             // ログイン画面の入力仕様をサーバー側でも保証する。
             // Fortify標準の必須チェックに加え、詳細設計で定義したメール形式・最大文字数を検証する。
-            $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255'],
-                'password' => ['required', 'string'],
-                'remember' => ['nullable', 'boolean'],
-            ]);
+            $request->validate(LoginCredentialRules::rules());
 
             $email = Str::lower(
                 trim((string) $request->input('email'))

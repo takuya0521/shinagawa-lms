@@ -64,7 +64,9 @@ final class LoginAuthenticationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            ]);
         $this->assertGuest();
     }
 
@@ -82,7 +84,9 @@ final class LoginAuthenticationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            ]);
         $this->assertGuest();
     }
 
@@ -107,7 +111,9 @@ final class LoginAuthenticationTest extends TestCase
 
         $response
             ->assertRedirectToRoute('login')
-            ->assertSessionHasErrors('email');
+            ->assertSessionHasErrors([
+                'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            ]);
         $this->assertGuest();
     }
 
