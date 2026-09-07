@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Fortify;
@@ -50,7 +51,7 @@ class FortifyServiceProvider extends ServiceProvider
             fn () => view('auth.login')
         );
 
-        // 利用停止中のユーザーは、パスワードが正しくても認証しない。
+        // 利用停止状態とパスワード文字種を確認したうえで認証する。
         Fortify::authenticateUsing(function (Request $request): ?User {
             // ログイン画面の入力仕様をサーバー側でも保証する。
             // Fortify標準の必須チェックに加え、詳細設計で定義したメール形式・最大文字数を検証する。
@@ -59,6 +60,14 @@ class FortifyServiceProvider extends ServiceProvider
             $email = Str::lower(
                 trim((string) $request->input('email'))
             );
+            $password = (string) $request->input('password');
+
+            // パスワードは半角の印字可能ASCII文字のみ受け付ける。
+            if (preg_match('/[^\x20-\x7E]/', $password) === 1) {
+                throw ValidationException::withMessages([
+                    'password' => 'パスワードは半角文字で入力してください',
+                ]);
+            }
 
             $user = User::query()
                 ->where('email', $email)
@@ -69,13 +78,12 @@ class FortifyServiceProvider extends ServiceProvider
             }
 
             if ($user->status !== UserStatus::Active) {
-                return null;
+                throw ValidationException::withMessages([
+                    Fortify::username() => 'このアカウントは現在利用できません',
+                ]);
             }
 
-            if (! Hash::check(
-                (string) $request->input('password'),
-                $user->password,
-            )) {
+            if (! Hash::check($password, $user->password)) {
                 return null;
             }
 
