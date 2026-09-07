@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
- * ログイン成功後の遷移先を確認するフィーチャーテスト。
+ * ログイン成功後の遷移先と認証エラーを確認するフィーチャーテスト。
  *
  * 未認証時にGoogle Workspace画面へアクセスしていても、ログイン後はLMSの
  * ロール別トップへ移動するための共通ダッシュボードへ遷移することを検証する。
@@ -74,5 +74,57 @@ final class LoginRedirectTest extends TestCase
             ]);
 
         $this->assertAuthenticatedAs($user);
+    }
+
+    /**
+     * 利用停止ユーザーには専用メッセージを表示して認証しないことを確認する。
+     */
+    public function test_suspended_user_receives_dedicated_login_error(): void
+    {
+        $user = User::factory()->create([
+            'role' => UserRole::Student,
+            'status' => UserStatus::Suspended,
+        ]);
+
+        $response = $this
+            ->from(route('login'))
+            ->post(route('login'), [
+                'email' => $user->email,
+                'password' => 'password',
+            ]);
+
+        $response
+            ->assertRedirect(route('login'))
+            ->assertSessionHasErrors([
+                'email' => 'このアカウントは現在利用できません',
+            ]);
+
+        $this->assertGuest();
+    }
+
+    /**
+     * パスワードに全角文字が含まれる場合は半角文字エラーとして認証しないことを確認する。
+     */
+    public function test_full_width_password_is_rejected(): void
+    {
+        $user = User::factory()->create([
+            'role' => UserRole::Student,
+            'status' => UserStatus::Active,
+        ]);
+
+        $response = $this
+            ->from(route('login'))
+            ->post(route('login'), [
+                'email' => $user->email,
+                'password' => 'ｐａｓｓｗｏｒｄ',
+            ]);
+
+        $response
+            ->assertRedirect(route('login'))
+            ->assertSessionHasErrors([
+                'password' => 'パスワードは半角文字で入力してください',
+            ]);
+
+        $this->assertGuest();
     }
 }
