@@ -91,7 +91,7 @@ final class LoginAuthenticationTest extends TestCase
     }
 
     /**
-     * 利用停止中のユーザーは正しいパスワードでもログインできないことを確認する。
+     * 利用停止中のユーザーは正しいパスワードでも専用メッセージを表示してログインできないことを確認する。
      */
     public function test_suspended_user_cannot_login(): void
     {
@@ -112,7 +112,7 @@ final class LoginAuthenticationTest extends TestCase
         $response
             ->assertRedirectToRoute('login')
             ->assertSessionHasErrors([
-                'email' => 'メールアドレスまたはパスワードが正しくありません。',
+                'email' => 'このアカウントは現在利用できません',
             ]);
         $this->assertGuest();
     }
