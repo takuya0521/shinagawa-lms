@@ -134,6 +134,25 @@ final class LoginValidationTest extends TestCase
     }
 
     /**
+     * パスワードに全角文字が含まれる場合は半角文字入力エラーになることを確認する。
+     */
+    public function test_login_password_must_use_half_width_characters(): void
+    {
+        $response = $this
+            ->from(route('login'))
+            ->post(route('login'), [
+                'email' => 'test.admin@shinagawahs.test',
+                'password' => 'Ｔest1234!',
+            ]);
+
+        $response
+            ->assertRedirectToRoute('login')
+            ->assertSessionHasErrors([
+                'password' => 'パスワードは半角文字で入力してください',
+            ]);
+    }
+
+    /**
      * ログイン状態保持には真偽値以外を受け付けないことを確認する。
      */
     public function test_login_remember_must_be_boolean_when_present(): void
