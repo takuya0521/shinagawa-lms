@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Models\User;
+use App\Rules\PrintableAsciiPassword;
 
 /**
  * ユーザー登録時の入力を検証する。
@@ -19,6 +20,8 @@ final class StoreUserRequest extends BaseUserRequest
         return [
             'required',
             'confirmed',
+            'string',
+            new PrintableAsciiPassword,
             $this->strongPasswordRule(),
         ];
     }

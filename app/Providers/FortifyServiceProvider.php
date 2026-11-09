@@ -15,8 +15,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -61,13 +61,6 @@ class FortifyServiceProvider extends ServiceProvider
                 trim((string) $request->input('email'))
             );
             $password = (string) $request->input('password');
-
-            // パスワードは半角の印字可能ASCII文字のみ受け付ける。
-            if (preg_match('/[^\x20-\x7E]/', $password) === 1) {
-                throw ValidationException::withMessages([
-                    'password' => 'パスワードは半角文字で入力してください',
-                ]);
-            }
 
             $user = User::query()
                 ->where('email', $email)

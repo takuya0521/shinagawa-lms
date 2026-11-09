@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -12,6 +13,8 @@ use Tests\TestCase;
  */
 final class LoginValidationTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * メールアドレスが空欄の場合は入力エラーになることを確認する。
      */

@@ -212,6 +212,8 @@
                     </p>
                 @endif
 
+                <p class="mt-1 text-xs lms-text-neutral-muted">半角英数字・記号・半角スペースのみ使用できます。12文字以上で、大文字・小文字・数字・記号を含めてください。</p>
+
                 @error('password')
                     <p class="mt-1 text-sm lms-text-danger">
                         {{ $message }}

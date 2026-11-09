@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Account;
 
+use App\Rules\PrintableAsciiPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -33,6 +34,7 @@ final class UpdatePasswordRequest extends FormRequest
             'password' => [
                 'required',
                 'string',
+                new PrintableAsciiPassword,
                 Password::min(8)
                     ->letters()
                     ->mixedCase()

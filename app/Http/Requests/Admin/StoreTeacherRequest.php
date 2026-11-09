@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Enums\MasterStatus;
 use App\Enums\UserStatus;
+use App\Rules\PrintableAsciiPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -47,6 +48,8 @@ final class StoreTeacherRequest extends FormRequest
             'password' => [
                 'required',
                 'confirmed',
+                'string',
+                new PrintableAsciiPassword,
                 Password::min(12)
                     ->letters()
                     ->mixedCase()

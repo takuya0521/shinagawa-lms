@@ -6,6 +6,7 @@ use App\Enums\MasterStatus;
 use App\Enums\UserStatus;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Rules\PrintableAsciiPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -61,6 +62,8 @@ final class UpdateTeacherRequest extends FormRequest
             'password' => [
                 'nullable',
                 'confirmed',
+                'string',
+                new PrintableAsciiPassword,
                 Password::min(12)
                     ->letters()
                     ->mixedCase()

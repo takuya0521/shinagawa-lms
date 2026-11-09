@@ -13,7 +13,7 @@ final class LoginRequest extends FortifyLoginRequest
     /**
      * ログイン画面の入力検証規則を返す。
      *
-     * @return array<string, list<string>>
+     * @return array<string, list<mixed>>
      */
     public function rules(): array
     {

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Rules\PrintableAsciiPassword;
 use Illuminate\Validation\Validator;
 
 /**
@@ -58,6 +59,8 @@ final class UpdateUserRequest extends BaseUserRequest
         return [
             'nullable',
             'confirmed',
+            'string',
+            new PrintableAsciiPassword,
             $this->strongPasswordRule(),
         ];
     }
