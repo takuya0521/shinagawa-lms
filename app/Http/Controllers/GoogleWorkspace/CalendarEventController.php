@@ -97,7 +97,7 @@ final class CalendarEventController extends GoogleWorkspaceController
         $user = $this->resolveUser($request);
 
         try {
-            $service->createEvent($user, $request->calendarId(), $request->attributes());
+            $service->createEvent($user, $request->calendarId(), $request->eventAttributes());
         } catch (ConnectionException|RequestException|GoogleCalendarException|GoogleWorkspaceException $exception) {
             return $this->operationFailure(
                 $exception,
@@ -130,7 +130,7 @@ final class CalendarEventController extends GoogleWorkspaceController
         $user = $this->resolveUser($request);
 
         try {
-            $service->updateEvent($user, $calendarId, $eventId, $request->attributes());
+            $service->updateEvent($user, $calendarId, $eventId, $request->eventAttributes());
         } catch (ConnectionException|RequestException|GoogleCalendarException|GoogleWorkspaceException $exception) {
             return $this->operationFailure(
                 $exception,

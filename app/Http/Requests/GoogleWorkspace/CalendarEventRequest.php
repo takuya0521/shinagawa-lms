@@ -42,7 +42,7 @@ final class CalendarEventRequest extends GoogleWorkspaceRequest
      *
      * @return array<string, mixed> 予定属性
      */
-    public function attributes(): array
+    public function eventAttributes(): array
     {
         $attendees = preg_split('/[\s,;]+/u', (string) $this->input('attendees', ''));
         $attendees = is_array($attendees)
