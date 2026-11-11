@@ -35,6 +35,10 @@
 
                 <dl class="mt-5 divide-y lms-divide-neutral-subtle">
                     <div class="grid gap-1 py-3 sm:grid-cols-3">
+                        <dt class="text-sm font-semibold lms-text-neutral-muted">ログID</dt>
+                        <dd class="text-sm lms-text-neutral-strong sm:col-span-2">{{ $operationLog->getKey() }}</dd>
+                    </div>
+                    <div class="grid gap-1 py-3 sm:grid-cols-3">
                         <dt class="text-sm font-semibold lms-text-neutral-muted">
                             操作日時
                         </dt>

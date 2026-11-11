@@ -11,7 +11,7 @@
             ?? \App\Enums\StudentStatus::Active->value,
     );
 
-    $selectedClassGroupId = old(
+    $selectedClassGroupId = \App\Support\OldInput::text(
         'class_group_id',
         $student->class_group_id,
     );
@@ -40,7 +40,7 @@
                     id="student_no"
                     name="student_no"
                     type="text"
-                    value="{{ old('student_no', $student->student_no) }}"
+                    value="{{ \App\Support\OldInput::text('student_no', $student->student_no) }}"
                 >
 
                 @error('student_no')
@@ -63,7 +63,7 @@
                     id="student_name"
                     name="student_name"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'student_name',
                         $student->student_name,
                     ) }}"
@@ -169,7 +169,7 @@
                     id="affiliation"
                     name="affiliation"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'affiliation',
                         $student->affiliation,
                     ) }}"
@@ -194,7 +194,7 @@
                     id="partner_school"
                     name="partner_school"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'partner_school',
                         $student->partner_school,
                     ) }}"
@@ -267,7 +267,7 @@
                     id="name"
                     name="name"
                     type="text"
-                    value="{{ old('name', $user->name) }}"
+                    value="{{ \App\Support\OldInput::text('name', $user->name) }}"
                     required
                 >
 
@@ -291,7 +291,7 @@
                     id="email"
                     name="email"
                     type="email"
-                    value="{{ old('email', $user->email) }}"
+                    value="{{ \App\Support\OldInput::text('email', $user->email) }}"
                     required
                 >
 

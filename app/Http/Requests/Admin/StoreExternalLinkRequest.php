@@ -59,9 +59,8 @@ class StoreExternalLinkRequest extends FormRequest
     {
         return [
             function (Validator $validator): void {
-                $scopeType = ExternalLinkScopeType::tryFrom(
-                    (string) $this->input('scope_type'),
-                );
+                $scope = $this->input('scope_type');
+                $scopeType = is_string($scope) ? ExternalLinkScopeType::tryFrom($scope) : null;
                 $scopeIdValue = $this->input('scope_id');
                 $scopeId = is_numeric($scopeIdValue)
                     ? (int) $scopeIdValue
@@ -157,9 +156,8 @@ class StoreExternalLinkRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $scopeType = ExternalLinkScopeType::tryFrom(
-            (string) $this->input('scope_type'),
-        );
+        $scope = $this->input('scope_type');
+        $scopeType = is_string($scope) ? ExternalLinkScopeType::tryFrom($scope) : null;
 
         $scopeId = match ($scopeType) {
             ExternalLinkScopeType::Role => $this->input('role_scope_id'),

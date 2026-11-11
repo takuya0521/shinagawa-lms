@@ -6,6 +6,9 @@
 @section('header-title', '科目別評価一覧')
 
 @section('content')
+    @foreach (array_unique($errors->all()) as $message)
+        <x-feedback type="error" :message="$message" />
+    @endforeach
     <div class="space-y-6">
         <section class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
             <a

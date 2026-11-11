@@ -24,6 +24,11 @@
                 </p>
                 <p><span class="font-semibold">状態：</span>{{ $finalEvaluation->status->label() }}</p>
                 <p><span class="font-semibold">入力者：</span>{{ $finalEvaluation->evaluator->name }}</p>
+                <p>
+                    <span class="font-semibold">変更前評価：</span>
+                    総合点 {{ number_format((float) $finalEvaluation->total_score, 2) }} /
+                    5段階 {{ $finalEvaluation->grade_level ?? '-' }}
+                </p>
             </div>
         </section>
 

@@ -227,13 +227,14 @@ final class GoogleChatIntegrationTest extends TestCase
         GoogleDriveConnection::factory()->for($student)->create(['scope' => implode(' ', $this->scopes())]);
 
         $this->actingAs($student)
+            ->followingRedirects()
             ->from(route('google-workspace.chat.index'))
             ->post(route('google-workspace.chat.spaces.store'), [
                 'space_type' => 'DIRECT_MESSAGE',
                 'members' => "first@example.com\nsecond@example.com",
             ])
-            ->assertRedirect(route('google-workspace.chat.index'))
-            ->assertSessionHasErrors('members');
+            ->assertOk()
+            ->assertSeeText('ダイレクトメッセージに指定できる相手は1件だけです。');
 
         Http::assertNothingSent();
     }

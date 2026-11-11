@@ -6,6 +6,12 @@
 @section('header-title', '担当授業別出欠一覧')
 
 @section('content')
+    @error('lesson_date')
+        <x-feedback type="error" :message="$message" />
+    @enderror
+    @error('timetable_slot_id')
+        <x-feedback type="error" :message="$message" />
+    @enderror
     <section class="space-y-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
 

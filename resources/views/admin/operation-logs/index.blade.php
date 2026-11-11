@@ -6,6 +6,9 @@
 @section('header-title', '操作ログ')
 
 @section('content')
+    @foreach (array_unique(\Illuminate\Support\Arr::flatten(\Illuminate\Support\Arr::except($errors->getMessages(), ['export']))) as $message)
+        <x-feedback type="error" :message="$message" />
+    @endforeach
     <section class="space-y-6">
         <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-end">
 

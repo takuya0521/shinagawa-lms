@@ -20,6 +20,7 @@
 
         <div class="p-6 lms-panel">
             <form method="GET" action="{{ route('admin.interviews.index') }}" class="space-y-4">
+                <x-search-validation-errors />
                 <div class="grid gap-4 lg:grid-cols-4">
                     <div>
                         <label
@@ -57,7 +58,7 @@
                         <input
                             id="keyword"
                             name="keyword"
-                            value="{{ $keyword }}"
+                            value="{{ old('keyword', $keyword) }}"
                             placeholder="生徒番号・氏名・担当教員・面談メモ・次回対応"
                             class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
                         >
@@ -146,6 +147,7 @@
                             >面談日・種別</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">生徒</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">担当教員</th>
+                            <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">記録概要・更新日時</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">次回対応</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">関連リンク</th>
                             <th
@@ -177,6 +179,12 @@
                                 </td>
                                 <td class="px-5 py-4 text-sm lms-text-neutral-secondary">
                                     {{ $interviewRecord->teacher?->user?->name ?? '未設定' }}
+                                </td>
+                                <td class="max-w-sm px-5 py-4 text-sm lms-text-neutral-secondary">
+                                    <p>{{ \Illuminate\Support\Str::limit($interviewRecord->memo ?? '-', 100) }}</p>
+                                    <time class="mt-1 block text-xs lms-text-neutral-muted" datetime="{{ $interviewRecord->updated_at?->toIso8601String() }}">
+                                        {{ $interviewRecord->updated_at?->format('Y/m/d H:i') ?? '-' }}
+                                    </time>
                                 </td>
                                 <td class="max-w-sm px-5 py-4 text-sm lms-text-neutral-secondary">
                                     {{ $interviewRecord->next_action !== null ?
@@ -216,7 +224,7 @@
                         @empty
                             <tr>
                                 <td
-                                    colspan="6"
+                                    colspan="7"
                                     class="px-6 py-12 text-center text-sm lms-text-neutral-muted"
                                 >条件に一致する面談記録はありません。</td>
                             </tr>

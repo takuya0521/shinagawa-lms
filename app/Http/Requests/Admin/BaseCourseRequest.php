@@ -120,8 +120,8 @@ abstract class BaseCourseRequest extends FormRequest
     final protected function prepareForValidation(): void
     {
         $this->merge([
-            'grade' => trim((string) $this->input('grade', '')),
-            'course_name' => trim((string) $this->input('course_name', '')),
+            'grade' => $this->nullableTrimmed('grade'),
+            'course_name' => $this->nullableTrimmed('course_name'),
             'teacher_id' => $this->filled('teacher_id')
                 ? $this->input('teacher_id')
                 : null,
@@ -185,7 +185,7 @@ abstract class BaseCourseRequest extends FormRequest
                 $query
                     ->where('academic_year', $this->integer('academic_year'))
                     ->where('class_group_id', $this->integer('class_group_id'))
-                    ->where('grade', (string) $this->input('grade'))
+                    ->where('grade', is_scalar($this->input('grade')) ? (string) $this->input('grade') : '')
                     ->where('subject_id', $this->integer('subject_id'));
             },
         );
@@ -199,11 +199,16 @@ abstract class BaseCourseRequest extends FormRequest
      * 入力値の前後空白を除去し、空文字の場合はnullを返す。
      *
      * @param  string  $key  取得する入力項目名
-     * @return string|null 整形後の文字列
+     * @return mixed 整形後の値。文字列以外は検証用に保持する。
      */
-    private function nullableTrimmed(string $key): ?string
+    private function nullableTrimmed(string $key): mixed
     {
-        $value = trim((string) $this->input($key, ''));
+        $value = $this->input($key);
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        $value = trim($value);
 
         return $value !== '' ? $value : null;
     }

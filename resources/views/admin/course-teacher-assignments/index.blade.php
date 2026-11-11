@@ -6,6 +6,9 @@
 @section('header-title', '担当教員設定')
 
 @section('content')
+    @foreach (array_unique($errors->all()) as $message)
+        <x-feedback type="error" :message="$message" />
+    @endforeach
     <section class="space-y-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
 

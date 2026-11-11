@@ -59,6 +59,7 @@ return [
     'url' => ':attributeには正しいURLを入力してください。',
 
     'attributes' => [
+        'keyword' => 'キーワード',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'remember' => 'ログイン状態を保持する',

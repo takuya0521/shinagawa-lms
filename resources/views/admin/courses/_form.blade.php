@@ -1,5 +1,6 @@
 {{-- 登録画面と編集画面で授業項目を共有し、学年・クラス・科目の組み合わせを同じ順序で扱う。 --}}
 @php
+    $courseName = old('course_name', isset($course) ? $course->course_name : '');
     $editing = isset($course);
 
     $selectedAcademicYear = old(
@@ -16,21 +17,21 @@
             : '',
     );
 
-    $selectedClassGroupId = (string) old(
+    $selectedClassGroupId = \App\Support\OldInput::text(
         'class_group_id',
         $editing
             ? $course->class_group_id
             : '',
     );
 
-    $selectedSubjectId = (string) old(
+    $selectedSubjectId = \App\Support\OldInput::text(
         'subject_id',
         $editing
             ? $course->subject_id
             : '',
     );
 
-    $selectedTeacherId = (string) old(
+    $selectedTeacherId = \App\Support\OldInput::text(
         'teacher_id',
         $editing
             ? $course->teacher_id
@@ -107,7 +108,7 @@
                     <option
                         value="{{ $grade->value }}"
                         @selected(
-                            (string) $selectedGrade
+                            (is_scalar($selectedGrade) ? (string) $selectedGrade : '')
                                 === $grade->value
                         )
                     >
@@ -234,12 +235,7 @@
             name="course_name"
             type="text"
             maxlength="100"
-            value="{{ old(
-                'course_name',
-                $editing
-                    ? $course->course_name
-                    : '',
-            ) }}"
+            value="{{ is_string($courseName) ? $courseName : '' }}"
             placeholder="例：数学Ⅰ"
             required
         >
@@ -318,7 +314,7 @@
                 name="google_classroom_url"
                 type="url"
                 maxlength="500"
-                value="{{ old(
+                value="{{ \App\Support\OldInput::text(
                     'google_classroom_url',
                     $editing
                         ? $course->google_classroom_url
@@ -349,7 +345,7 @@
                 name="google_classroom_id"
                 type="text"
                 maxlength="100"
-                value="{{ old(
+                value="{{ \App\Support\OldInput::text(
                     'google_classroom_id',
                     $editing
                         ? $course->google_classroom_id

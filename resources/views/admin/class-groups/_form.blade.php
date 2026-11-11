@@ -22,7 +22,7 @@
                 id="class_code"
                 name="class_code"
                 type="text"
-                value="{{ old(
+                value="{{ \App\Support\OldInput::text(
                     'class_code',
                     $classGroup->class_code,
                 ) }}"
@@ -55,7 +55,7 @@
                 id="class_name"
                 name="class_name"
                 type="text"
-                value="{{ old(
+                value="{{ \App\Support\OldInput::text(
                     'class_name',
                     $classGroup->class_name,
                 ) }}"
@@ -86,7 +86,7 @@
                 maxlength="255"
                 placeholder="クラスの説明を入力してください"
                 class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
-            >{{ old('description', $classGroup->description) }}</textarea>
+            >{{ \App\Support\OldInput::text('description', $classGroup->description) }}</textarea>
 
             @error('description')
                 <p class="mt-1 text-sm lms-text-danger">

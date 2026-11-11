@@ -24,6 +24,7 @@
         </header>
 
         <section class="p-6 lms-panel">
+            <x-search-validation-errors />
             <form
                 method="GET"
                 action="{{ route('admin.teachers.index') }}"
@@ -41,7 +42,7 @@
                         id="keyword"
                         name="keyword"
                         type="search"
-                        value="{{ request('keyword') }}"
+                        value="{{ old('keyword', request('keyword')) }}"
                         placeholder="検索キーワード"
                         class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >

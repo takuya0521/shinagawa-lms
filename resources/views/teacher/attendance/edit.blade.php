@@ -6,6 +6,9 @@
 @section('header-title', '出欠登録')
 
 @section('content')
+    @foreach (array_unique(\Illuminate\Support\Arr::flatten($errors->get('records.*'))) as $message)
+        <x-feedback type="error" :message="$message" />
+    @endforeach
     <section class="space-y-6">
 
         <div class="p-6 lms-panel">
@@ -29,7 +32,7 @@
                         @foreach ($timetableSlots as $slot)
                             <option
                                 value="{{ $slot->id }}"
-                                @selected((string) old('timetable_slot_id', $selectedSlot?->id) === (string) $slot->id)
+                                @selected(\App\Support\OldInput::text('timetable_slot_id', $selectedSlot?->id) === (string) $slot->id)
                             >
                                 {{ $slot->day_of_week->shortLabel() }}曜 {{ $slot->period_no }}時限 / {{
                                 $slot->course->course_name }} / {{ $slot->course->classGroup->class_name }}
@@ -47,7 +50,7 @@
                         name="lesson_date"
                         type="date"
                         required
-                        value="{{ old('lesson_date', $lessonDate ?? now()->format('Y-m-d')) }}"
+                        value="{{ \App\Support\OldInput::text('lesson_date', $lessonDate ?? now()->format('Y-m-d')) }}"
                     >
                     @error('lesson_date')<p class="mt-2 text-sm lms-text-danger">{{ $message }}</p>@enderror
                 </div>

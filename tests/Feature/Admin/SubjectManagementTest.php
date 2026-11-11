@@ -143,6 +143,21 @@ final class SubjectManagementTest extends TestCase
         ]);
     }
 
+    public function test_non_string_subject_fields_show_validation_errors(): void
+    {
+        $this->actingAs($this->createUser(UserRole::Admin))
+            ->followingRedirects()
+            ->from(route('admin.subjects.create'))
+            ->post(route('admin.subjects.store'), [
+                'subject_code' => ['INVALID'],
+                'subject_name' => ['INVALID'],
+                'status' => MasterStatus::Active->value,
+            ])
+            ->assertOk()
+            ->assertSeeText('科目コードには文字列を入力してください。')
+            ->assertSeeText('科目名には文字列を入力してください。');
+    }
+
     /**
      * 同じ科目コードを重複登録できないことを確認する。
      *

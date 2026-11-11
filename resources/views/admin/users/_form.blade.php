@@ -37,7 +37,7 @@
                     id="name"
                     name="name"
                     type="text"
-                    value="{{ old('name', $user->name) }}"
+                    value="{{ \App\Support\OldInput::text('name', $user->name) }}"
                     required
                 >
 
@@ -61,7 +61,7 @@
                     id="email"
                     name="email"
                     type="email"
-                    value="{{ old('email', $user->email) }}"
+                    value="{{ \App\Support\OldInput::text('email', $user->email) }}"
                     required
                 >
 
@@ -229,7 +229,7 @@
                     id="student_no"
                     name="student_no"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'student_no',
                         $studentProfile?->student_no,
                     ) }}"
@@ -257,7 +257,7 @@
                     id="student_name"
                     name="student_name"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'student_name',
                         $studentProfile?->student_name ?? $user->name,
                     ) }}"
@@ -326,7 +326,7 @@
                     id="affiliation"
                     name="affiliation"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'affiliation',
                         $studentProfile?->affiliation,
                     ) }}"
@@ -353,7 +353,7 @@
                     id="partner_school"
                     name="partner_school"
                     type="text"
-                    value="{{ old(
+                    value="{{ \App\Support\OldInput::text(
                         'partner_school',
                         $studentProfile?->partner_school,
                     ) }}"
@@ -389,7 +389,7 @@
                         <option
                             value="{{ $classGroup->id }}"
                             @selected(
-                                (string) old(
+                                \App\Support\OldInput::text(
                                     'class_group_id',
                                     $studentProfile?->class_group_id,
                                 ) === (string) $classGroup->id

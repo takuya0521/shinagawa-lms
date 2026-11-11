@@ -277,9 +277,14 @@ class StoreAnnouncementRequest extends FormRequest
      * @param  string  $key  取得対象のキー
      * @return ?string 取得した文字列。未指定時はnull
      */
-    private function nullableTrimmed(string $key): ?string
+    private function nullableTrimmed(string $key): mixed
     {
-        $value = trim((string) $this->input($key, ''));
+        $value = $this->input($key);
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        $value = trim($value);
 
         return $value !== '' ? $value : null;
     }

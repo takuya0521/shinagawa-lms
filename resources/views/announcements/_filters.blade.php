@@ -1,4 +1,5 @@
 {{-- 教員画面と生徒画面で検索条件を共有し、同じ絞り込み条件を提供する。 --}}
+<x-search-validation-errors />
 <form method="GET" action="{{ $action }}" class="grid gap-4 lg:grid-cols-4">
     <div class="lg:col-span-2">
         <label for="keyword" class="block text-sm font-semibold lms-text-neutral-secondary">キーワード</label>
@@ -6,7 +7,7 @@
             id="keyword"
             name="keyword"
             type="search"
-            value="{{ $keyword }}"
+            value="{{ old('keyword', $keyword) }}"
             class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
             placeholder="タイトル・本文"
         >

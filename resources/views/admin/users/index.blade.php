@@ -6,6 +6,9 @@
 @section('header-title', 'ユーザー管理')
 
 @section('content')
+    @error('status')
+        <x-feedback type="error" :message="$message" />
+    @enderror
     <div class="space-y-6">
         <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
 
@@ -24,6 +27,7 @@
         </header>
 
         <section class="p-6 lms-panel">
+            <x-search-validation-errors />
             <form
                 method="GET"
                 action="{{ route('admin.users.index') }}"
@@ -41,7 +45,7 @@
                         id="keyword"
                         name="keyword"
                         type="search"
-                        value="{{ request('keyword') }}"
+                        value="{{ old('keyword', request('keyword')) }}"
                         placeholder="検索キーワード"
                         class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                     >

@@ -39,7 +39,7 @@
                     maxlength="2000"
                     placeholder="例：英語、英会話、検定対策を担当"
                     class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
-                >{{ old('subject_notes', $teacher->subject_notes) }}</textarea>
+                >{{ \App\Support\OldInput::text('subject_notes', $teacher->subject_notes) }}</textarea>
 
                 <p class="mt-1 text-xs lms-text-neutral-muted">
                     担当科目、担当範囲、授業上の補足を入力できます。
@@ -112,7 +112,7 @@
                     id="name"
                     name="name"
                     type="text"
-                    value="{{ old('name', $user->name) }}"
+                    value="{{ \App\Support\OldInput::text('name', $user->name) }}"
                     required
                 >
 
@@ -136,7 +136,7 @@
                     id="email"
                     name="email"
                     type="email"
-                    value="{{ old('email', $user->email) }}"
+                    value="{{ \App\Support\OldInput::text('email', $user->email) }}"
                     required
                 >
 

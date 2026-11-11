@@ -1,6 +1,8 @@
 {{-- 登録画面と編集画面で科目マスタ項目を共有し、コード体系と状態管理を統一する。 --}}
 @php
     $editing = isset($subject);
+    $subjectCode = old('subject_code', $editing ? $subject->subject_code : '');
+    $subjectName = old('subject_name', $editing ? $subject->subject_name : '');
 
     $selectedStatus = old(
         'status',
@@ -27,10 +29,7 @@
             name="subject_code"
             type="text"
             maxlength="30"
-            value="{{ old(
-                'subject_code',
-                $editing ? $subject->subject_code : '',
-            ) }}"
+            value="{{ is_string($subjectCode) ? $subjectCode : '' }}"
             autocomplete="off"
             required
         >
@@ -62,10 +61,7 @@
             name="subject_name"
             type="text"
             maxlength="100"
-            value="{{ old(
-                'subject_name',
-                $editing ? $subject->subject_name : '',
-            ) }}"
+            value="{{ is_string($subjectName) ? $subjectName : '' }}"
             required
         >
 

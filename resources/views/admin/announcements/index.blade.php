@@ -18,6 +18,7 @@
 
         <section class="p-6 lms-panel">
             <form method="GET" action="{{ route('admin.announcements.index') }}" class="space-y-4">
+                <x-search-validation-errors />
                 <div class="grid gap-4 lg:grid-cols-4">
                     <div class="lg:col-span-2">
                         <label
@@ -28,7 +29,7 @@
                             id="keyword"
                             name="keyword"
                             type="search"
-                            value="{{ $keyword }}"
+                            value="{{ old('keyword', $keyword) }}"
                             class="mt-2 w-full rounded-lg border px-3 py-2 lms-form-control"
                             placeholder="タイトル・本文"
                         >

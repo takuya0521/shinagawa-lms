@@ -69,7 +69,7 @@ abstract class BaseTimetableSlotRequest extends FormRequest
                 'nullable',
                 'date_format:H:i',
                 'required_with:start_time',
-                'after:start_time',
+                Rule::when(is_string($this->input('start_time')), ['after:start_time']),
             ],
             'status' => [
                 'required',
@@ -235,11 +235,16 @@ abstract class BaseTimetableSlotRequest extends FormRequest
      * 入力値の前後空白を除去し、空文字の場合はnullを返す。
      *
      * @param  string  $key  取得する入力項目名
-     * @return string|null 整形後の文字列
+     * @return mixed 整形後の値。文字列以外は検証用に保持する。
      */
-    private function nullableTrimmed(string $key): ?string
+    private function nullableTrimmed(string $key): mixed
     {
-        $value = trim((string) $this->input($key, ''));
+        $value = $this->input($key);
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        $value = trim($value);
 
         return $value !== '' ? $value : null;
     }

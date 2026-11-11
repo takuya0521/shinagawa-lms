@@ -109,7 +109,7 @@
                 id="publish_start_at"
                 name="publish_start_at"
                 type="datetime-local"
-                value="{{ old('publish_start_at', $announcement->publish_start_at?->format('Y-m-d\TH:i')) }}"
+                value="{{ is_string(old('publish_start_at', $announcement->publish_start_at?->format('Y-m-d\TH:i'))) ? old('publish_start_at', $announcement->publish_start_at?->format('Y-m-d\TH:i')) : '' }}"
             >
             <p class="mt-2 text-sm lms-text-neutral-muted">未入力の場合は即時公開として扱います。</p>
             @error('publish_start_at')
@@ -126,7 +126,7 @@
                 id="publish_end_at"
                 name="publish_end_at"
                 type="datetime-local"
-                value="{{ old('publish_end_at', $announcement->publish_end_at?->format('Y-m-d\TH:i')) }}"
+                value="{{ is_string(old('publish_end_at', $announcement->publish_end_at?->format('Y-m-d\TH:i'))) ? old('publish_end_at', $announcement->publish_end_at?->format('Y-m-d\TH:i')) : '' }}"
             >
             <p class="mt-2 text-sm lms-text-neutral-muted">未入力の場合は無期限です。</p>
             @error('publish_end_at')

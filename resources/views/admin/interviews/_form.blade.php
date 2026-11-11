@@ -1,11 +1,11 @@
 {{-- 登録画面と編集画面で面談記録項目を共有し、記録内容の粒度を統一する。 --}}
 @php
     $editing = $interviewRecord->exists;
-    $currentStudentId = (string) old(
+    $currentStudentId = \App\Support\OldInput::text(
         'student_id',
         $selectedStudentId ?? $interviewRecord->student_id,
     );
-    $currentTeacherId = (string) old(
+    $currentTeacherId = \App\Support\OldInput::text(
         'teacher_id',
         $selectedTeacherId ?? $interviewRecord->teacher_id,
     );
@@ -82,7 +82,7 @@
                 id="interview_date"
                 name="interview_date"
                 type="date"
-                value="{{ old(
+                value="{{ \App\Support\OldInput::text(
                     'interview_date',
                     $editing
                         ? $interviewRecord->interview_date->format('Y-m-d')
@@ -107,7 +107,7 @@
                 type="text"
                 maxlength="30"
                 list="interview-type-options"
-                value="{{ old('interview_type', $interviewRecord->interview_type) }}"
+                value="{{ \App\Support\OldInput::text('interview_type', $interviewRecord->interview_type) }}"
                 placeholder="例：定期面談、希望面談、進路面談"
             >
 
@@ -135,7 +135,7 @@
             maxlength="10000"
             class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
             placeholder="LMSに保持する簡易メモを入力してください。詳細議事録や添付資料はGoogle Driveで管理します。"
-        >{{ old('memo', $interviewRecord->memo) }}</textarea>
+        >{{ \App\Support\OldInput::text('memo', $interviewRecord->memo) }}</textarea>
 
         @error('memo')
             <p class="mt-2 text-sm lms-text-danger">{{ $message }}</p>
@@ -154,7 +154,7 @@
             maxlength="10000"
             class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
             placeholder="次回までの確認事項、対応担当、期限などを入力してください。"
-        >{{ old('next_action', $interviewRecord->next_action) }}</textarea>
+        >{{ \App\Support\OldInput::text('next_action', $interviewRecord->next_action) }}</textarea>
 
         @error('next_action')
             <p class="mt-2 text-sm lms-text-danger">{{ $message }}</p>
@@ -172,7 +172,7 @@
                 name="drive_url"
                 type="url"
                 maxlength="500"
-                value="{{ old('drive_url', $interviewRecord->drive_url) }}"
+                value="{{ \App\Support\OldInput::text('drive_url', $interviewRecord->drive_url) }}"
                 placeholder="https://drive.google.com/..."
             >
 
@@ -195,7 +195,7 @@
                 name="meet_url"
                 type="url"
                 maxlength="500"
-                value="{{ old('meet_url', $interviewRecord->meet_url) }}"
+                value="{{ \App\Support\OldInput::text('meet_url', $interviewRecord->meet_url) }}"
                 placeholder="https://meet.google.com/..."
             >
 

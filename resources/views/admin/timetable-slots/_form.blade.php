@@ -9,18 +9,18 @@
             : $selectedCourseId,
     );
 
-    $selectedCourseIdValue = $resolvedCourseId !== null
+    $selectedCourseIdValue = is_scalar($resolvedCourseId)
         ? (string) $resolvedCourseId
         : '';
 
-    $selectedDayOfWeek = (string) old(
+    $selectedDayOfWeek = \App\Support\OldInput::text(
         'day_of_week',
         $editing
             ? $timetableSlot->day_of_week->value
             : ($preferredDayOfWeek?->value ?? ''),
     );
 
-    $selectedPeriodNo = (string) old(
+    $selectedPeriodNo = \App\Support\OldInput::text(
         'period_no',
         $editing
             ? $timetableSlot->period_no
@@ -205,7 +205,7 @@
                 id="start_time"
                 name="start_time"
                 type="time"
-                value="{{ $selectedStartTime }}"
+                value="{{ is_string($selectedStartTime) ? $selectedStartTime : '' }}"
                 class="mt-2 block w-full rounded-lg border px-3 py-2 lms-text-neutral-strong shadow-sm lms-focus-border
                     focus:outline-none focus:ring-2 lms-focus-ring lms-form-control"
             >
@@ -229,7 +229,7 @@
                 id="end_time"
                 name="end_time"
                 type="time"
-                value="{{ $selectedEndTime }}"
+                value="{{ is_string($selectedEndTime) ? $selectedEndTime : '' }}"
                 class="mt-2 block w-full rounded-lg border px-3 py-2 lms-text-neutral-strong shadow-sm lms-focus-border
                     focus:outline-none focus:ring-2 lms-focus-ring lms-form-control"
             >

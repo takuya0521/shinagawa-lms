@@ -74,7 +74,7 @@ final class GoogleCalendarIntegrationTest extends TestCase
         GoogleDriveConnection::factory()->for($teacher)->create(['scope' => implode(' ', $this->scopes())]);
 
         $this->actingAs($teacher)
-            ->get(route('google-workspace.calendar.content'))
+            ->get(route('google-workspace.calendar.content', ['anchor' => '2026-08-10']))
             ->assertOk()
             ->assertSeeText('メインカレンダー')
             ->assertSeeText('英語オンライン授業')

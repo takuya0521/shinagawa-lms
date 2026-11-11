@@ -70,21 +70,14 @@ final class StoreSubjectRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->merge([
-            'subject_code' => strtoupper(
-                trim(
-                    (string) $this->input(
-                        'subject_code',
-                        '',
-                    ),
-                ),
-            ),
-            'subject_name' => trim(
-                (string) $this->input(
-                    'subject_name',
-                    '',
-                ),
-            ),
-        ]);
+        $code = $this->input('subject_code');
+        $name = $this->input('subject_name');
+
+        if (is_string($code)) {
+            $this->merge(['subject_code' => strtoupper(trim($code))]);
+        }
+        if (is_string($name)) {
+            $this->merge(['subject_name' => trim($name)]);
+        }
     }
 }

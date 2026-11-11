@@ -139,6 +139,11 @@
                 @if (session()->has('error'))
                     <x-feedback type="error" :message="session('error')" />
                 @endif
+                @if (request()->routeIs('google-workspace.*') && $errors->any())
+                    @foreach (array_unique($errors->all()) as $message)
+                        <x-feedback type="error" :message="$message" />
+                    @endforeach
+                @endif
 
                 @yield('content')
             </main>

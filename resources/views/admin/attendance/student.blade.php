@@ -6,6 +6,9 @@
 @section('header-title', '生徒別出欠詳細')
 
 @section('content')
+    @foreach (array_unique($errors->all()) as $message)
+        <x-feedback type="error" :message="$message" />
+    @endforeach
     <section class="space-y-6">
         <div class="p-6 lms-panel">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -56,6 +59,20 @@
                 <p class="mt-2 text-3xl font-bold">{{ $statistics->attendanceRateLabel() }}</p>
             </div>
         </div>
+
+        <dl class="grid grid-cols-2 gap-4 p-5 lms-panel sm:grid-cols-4">
+            @foreach ([
+                '出席件数' => $statistics->presentCount,
+                '欠席件数' => $statistics->absentCount,
+                '遅刻件数' => $statistics->lateCount,
+                '早退件数' => $statistics->earlyLeaveCount,
+            ] as $label => $count)
+                <div>
+                    <dt class="text-sm font-semibold lms-text-neutral-muted">{{ $label }}</dt>
+                    <dd class="mt-1 text-lg font-bold">{{ $count }}</dd>
+                </div>
+            @endforeach
+        </dl>
 
         <div class="p-6 lms-panel">
             <form
