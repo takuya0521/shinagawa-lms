@@ -105,6 +105,12 @@
     font-weight: 700;
 }
 
+@media (width > 680px) {
+    .gw-page--meet .gw-table .text-center {
+        text-align: center;
+    }
+}
+
 .gw-page--meet .gw-table tbody tr:last-child td,
 .gw-page--forms .gw-table tbody tr:last-child td {
     border-bottom: 0;
