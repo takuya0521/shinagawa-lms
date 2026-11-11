@@ -143,11 +143,11 @@
                                 ロール
                             </th>
 
-                            <th class="px-6 py-3 text-left text-sm font-semibold lms-table-col--status">
+                            <th class="px-6 py-3 text-center text-sm font-semibold lms-table-col--status">
                                 利用状態
                             </th>
 
-                            <th class="px-6 py-3 text-right text-sm font-semibold lms-table-col--action">
+                            <th class="px-6 py-3 text-center text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
@@ -172,7 +172,7 @@
                                     {{ $user->role->label() }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-6 py-4 text-right">
+                                <td class="whitespace-nowrap px-6 py-4 text-center">
                                     <span
                                         class="inline-flex whitespace-nowrap rounded-full px-3 py-1
                                                 text-xs font-semibold {{
@@ -183,8 +183,8 @@
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-6 py-4 text-right">
-                                    <div class="flex flex-wrap items-center justify-end gap-3">
+                                <td class="whitespace-nowrap px-6 py-4 text-center">
+                                    <div class="flex flex-col items-center gap-3">
                                         <a
                                             href="{{ route('admin.users.edit', $user) }}"
                                             class="font-semibold lms-link-primary"
