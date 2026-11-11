@@ -203,11 +203,11 @@
                                     lms-table-col--compact"
                             >5段階</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >状態</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -238,7 +238,7 @@
                                     {{ $evaluation->grade_level ?? '-' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-sm text-center">
                                     <span
                                         @class([
                                             'inline-flex whitespace-nowrap rounded-full',
@@ -253,7 +253,7 @@
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route('admin.evaluations.edit', $evaluation) }}"
                                         class="font-semibold lms-link-primary"
@@ -320,7 +320,7 @@
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">担当教員</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">次回対応</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -349,7 +349,7 @@
                                         : '-' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route('admin.interviews.edit', $interviewRecord) }}"
                                         class="font-semibold lms-link-primary"

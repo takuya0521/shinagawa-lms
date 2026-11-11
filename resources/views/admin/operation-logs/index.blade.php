@@ -248,7 +248,7 @@
                                 概要
                             </th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >
                                 詳細
@@ -310,7 +310,7 @@
                                     ) }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route(
                                             'admin.operation-logs.show',

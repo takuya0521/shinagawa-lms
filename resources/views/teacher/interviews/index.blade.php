@@ -132,7 +132,7 @@
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">次回対応</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">関連リンク</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -191,7 +191,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route('teacher.interviews.edit', $interviewRecord) }}"
                                         class="font-semibold lms-link-primary"

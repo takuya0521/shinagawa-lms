@@ -102,11 +102,11 @@
                             >生徒番号</th>
                             <th class="px-6 py-3 text-left text-xs font-semibold lms-text-neutral-muted">氏名</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-6 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >状態</th>
                             <th
-                                class="px-6 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-6 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -121,10 +121,10 @@
                                     class="px-6 py-4 text-sm lms-text-neutral-secondary"
                                 >{{ $student->student_name }}</td>
                                 <td
-                                    class="px-6 py-4 text-sm lms-text-neutral-secondary"
+                                    class="px-6 py-4 text-sm lms-text-neutral-secondary text-center"
                                 >{{ $student->status->label() }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
-                                    <div class="flex justify-end gap-3">
+                                <td class="whitespace-nowrap px-6 py-4 text-center text-sm">
+                                    <div class="flex justify-center gap-3">
                                         <a
                                             href="{{
                                                 route('teacher.interviews.create', ['student_id' => $student->id])

@@ -146,11 +146,11 @@
                                     lms-table-col--date"
                             >掲載期間</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >状態</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -203,7 +203,7 @@
                                         class="mt-1 text-xs lms-text-neutral-muted"
                                     >～ {{ $announcement->publish_end_at?->format('Y/m/d H:i') ?? '無期限' }}</p>
                                 </td>
-                                <td class="px-5 py-4 text-sm">
+                                <td class="px-5 py-4 text-sm text-center">
                                     <span @class([
                                         'inline-flex whitespace-nowrap rounded-full',
                                         'px-3 py-1 text-xs font-semibold',
@@ -217,7 +217,7 @@
                                         {{ $announcement->status->label() }}
                                     </span>
                                 </td>
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route('admin.announcements.edit', $announcement) }}"
                                         class="font-semibold lms-link-primary"

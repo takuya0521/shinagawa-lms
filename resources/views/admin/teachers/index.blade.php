@@ -146,15 +146,15 @@
                                 担当科目メモ
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--status">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--status">
                                 教員状態
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--status">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--status">
                                 利用状態
                             </th>
 
-                            <th class="px-5 py-3 text-right text-sm font-semibold lms-table-col--action">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
@@ -179,7 +179,7 @@
                                     {{ $teacher->subject_notes ?? '未設定' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4">
+                                <td class="whitespace-nowrap px-5 py-4 text-center">
                                     <span
                                         @class([
                                             'inline-flex whitespace-nowrap rounded-full',
@@ -194,7 +194,7 @@
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4">
+                                <td class="whitespace-nowrap px-5 py-4 text-center">
                                     <span
                                         @class([
                                             'inline-flex whitespace-nowrap rounded-full',
@@ -209,8 +209,8 @@
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
-                                    <div class="flex flex-wrap items-center justify-end gap-3">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
+                                    <div class="flex flex-wrap items-center justify-center gap-3">
                                         <a
                                             href="{{ route(
                                                 'admin.teachers.show',

@@ -116,11 +116,11 @@
                                 所属生徒数
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--status">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--status">
                                 状態
                             </th>
 
-                            <th class="px-5 py-3 text-right text-sm font-semibold lms-table-col--action">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
@@ -145,7 +145,7 @@
                                     {{ number_format($classGroup->students_count) }}名
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4">
+                                <td class="whitespace-nowrap px-5 py-4 text-center">
                                     <span
                                         @class([
                                             'inline-flex whitespace-nowrap rounded-full',
@@ -160,7 +160,7 @@
                                     </span>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route(
                                             'admin.class-groups.edit',

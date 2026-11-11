@@ -120,11 +120,11 @@
                                     lms-table-col--compact"
                             >5段階</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >状態</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -160,7 +160,7 @@
                                     <td
                                         class="whitespace-nowrap px-5 py-4 text-center text-sm font-semibold"
                                     >{{ $evaluation->grade_level ?? '-' }}</td>
-                                    <td class="whitespace-nowrap px-5 py-4 text-sm">
+                                    <td class="whitespace-nowrap px-5 py-4 text-sm text-center">
                                         <span
                                             class="inline-flex whitespace-nowrap rounded-full px-3 py-1
                                                 text-xs font-semibold {{
@@ -179,7 +179,7 @@
                                         class="px-5 py-4 text-center text-sm lms-text-neutral-disabled"
                                     >未入力</td>
                                     <td
-                                        class="px-5 py-4 text-sm"
+                                        class="px-5 py-4 text-sm text-center"
                                     >
                                     <span
                                         class="inline-flex whitespace-nowrap rounded-full lms-bg-neutral-muted px-3 py-1
@@ -188,7 +188,7 @@
                                     >未入力</span>
                                     </td>
                                 @endif
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{
                                             route('teacher.evaluations.entry', ['course_id' => $evaluation->course_id,

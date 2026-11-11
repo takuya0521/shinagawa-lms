@@ -196,12 +196,12 @@
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">生徒</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">授業</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >区分</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">登録・修正者</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action-label"
                             >操作</th>
                         </tr>
@@ -232,7 +232,7 @@
                                     }}</div>
                                 </td>
                                 <td
-                                    class="whitespace-nowrap px-5 py-4 text-sm font-semibold"
+                                    class="whitespace-nowrap px-5 py-4 text-sm font-semibold text-center"
                                 >{{ $attendanceRecord->attendance_status->label() }}</td>
                                 <td class="px-5 py-4 text-sm lms-text-neutral-secondary">
                                     {{ $attendanceRecord->recorder->name }}
@@ -242,7 +242,7 @@
                                         >修正: {{ $attendanceRecord->corrector->name }}</div>
                                     @endif
                                 </td>
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{
                                             route('admin.attendance.edit', ['lesson_session_id' =>

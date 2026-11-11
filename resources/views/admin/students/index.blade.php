@@ -206,11 +206,11 @@
                                 クラス
                             </th>
 
-                            <th class="px-5 py-3 text-left text-sm font-semibold lms-table-col--status">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--status">
                                 在籍状態
                             </th>
 
-                            <th class="px-5 py-3 text-right text-sm font-semibold lms-table-col--action">
+                            <th class="px-5 py-3 text-center text-sm font-semibold lms-table-col--action">
                                 操作
                             </th>
                         </tr>
@@ -247,7 +247,7 @@
                                     {{ $student->classGroup->class_name }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4">
+                                <td class="whitespace-nowrap px-5 py-4 text-center">
                                     <span
                                         @class([
                                             'inline-flex whitespace-nowrap rounded-full',
@@ -268,9 +268,9 @@
 
                                 <td
                                     class="admin-students-table__actions whitespace-nowrap px-5 py-4
-                                        text-right text-sm"
+                                        text-center text-sm"
                                 >
-                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                    <div class="flex flex-wrap items-center justify-center gap-2">
                                         <a
                                             href="{{ route(
                                                 'admin.students.show',

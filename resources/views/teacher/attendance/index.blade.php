@@ -155,12 +155,12 @@
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">授業</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">生徒</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >出欠区分</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">備考</th>
                             <th
-                                class="px-5 py-3 text-right text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--action"
                             >操作</th>
                         </tr>
@@ -194,7 +194,7 @@
                                     </div>
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-sm font-semibold lms-text-neutral-strong">
+                                <td class="whitespace-nowrap px-5 py-4 text-sm font-semibold lms-text-neutral-strong text-center">
                                     {{ $record->attendance_status->label() }}
                                 </td>
 
@@ -202,7 +202,7 @@
                                     {{ $record->note ?? '-' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 text-right text-sm">
+                                <td class="whitespace-nowrap px-5 py-4 text-center text-sm">
                                     <a
                                         href="{{ route('teacher.attendance.edit', [
                                             'timetable_slot_id' => $record->lessonSession->timetable_slot_id,

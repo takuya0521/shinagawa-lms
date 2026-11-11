@@ -44,7 +44,7 @@
                         <th>開始</th>
                         <th>終了</th>
                         <th>時間</th>
-                        <th>状態</th>
+                        <th class="text-center">状態</th>
                         <th>会議ID</th>
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@
                             <td>{{ $conference->startedAt->format('Y/m/d H:i') }}</td>
                             <td>{{ $conference->endedAt?->format('Y/m/d H:i') ?? '開催中' }}</td>
                             <td>{{ $conference->durationLabel() }}</td>
-                            <td>
+                            <td class="text-center">
                                 <span @class(['gw-status-chip', 'is-active' => $conference->isActive()])>
                                     {{ $conference->isActive() ? '開催中' : '終了' }}
                                 </span>

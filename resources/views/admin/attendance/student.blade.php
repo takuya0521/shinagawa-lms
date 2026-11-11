@@ -168,7 +168,7 @@
                             >日付</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">授業</th>
                             <th
-                                class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted
+                                class="px-5 py-3 text-center text-xs font-semibold lms-text-neutral-muted
                                     lms-table-col--status"
                             >区分</th>
                             <th class="px-5 py-3 text-left text-xs font-semibold lms-text-neutral-muted">備考</th>
@@ -192,7 +192,7 @@
                                         {{ $record->lessonSession->timetableSlot->period_no }}時限
                                     </div>
                                 </td>
-                                <td class="px-5 py-4 text-sm font-semibold">
+                                <td class="px-5 py-4 text-sm font-semibold text-center">
                                     {{ $record->attendance_status->label() }}
                                 </td>
                                 <td class="px-5 py-4 text-sm">

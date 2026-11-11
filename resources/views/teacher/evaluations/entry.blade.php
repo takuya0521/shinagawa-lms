@@ -148,7 +148,7 @@
                                             lms-table-col--compact"
                                     >5段階</th>
                                     <th
-                                        class="px-5 py-3 text-left text-xs font-semibold
+                                        class="px-5 py-3 text-center text-xs font-semibold
                                             lms-text-neutral-muted lms-table-col--status"
                                     >状態</th>
                                 </tr>
@@ -230,7 +230,7 @@
                                             data-grade-level
                                         >{{ $row->calculation->gradeLevelLabel() }}</td>
                                         <td
-                                            class="whitespace-nowrap px-5 py-4 text-sm"
+                                            class="whitespace-nowrap px-5 py-4 text-sm text-center"
                                         >{{ $row->evaluation?->status->label() ?? '未入力' }}</td>
                                     </tr>
                                 @empty
