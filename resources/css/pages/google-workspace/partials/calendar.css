@@ -201,10 +201,6 @@
     font-weight: 600;
 }
 
-.gw-calendar-month {
-    min-width: 780px;
-}
-
 .gw-calendar-month__weekdays {
     height: 34px;
     border-bottom: 1px solid var(--gw-border-soft);
@@ -218,7 +214,7 @@
 
 .gw-calendar-month__days {
     display: grid;
-    grid-template-columns: repeat(7, minmax(110px, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .gw-calendar-day {

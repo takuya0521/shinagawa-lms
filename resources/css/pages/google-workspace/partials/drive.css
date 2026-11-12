@@ -192,15 +192,17 @@
     font-size: 12px;
 }
 
-.gw-drive-list {
-    min-width: 720px;
-}
-
 .gw-drive-list__head,
 .gw-drive-row {
     display: grid;
-    grid-template-columns: minmax(260px, 1.6fr) minmax(110px, 0.55fr) minmax(170px, 0.8fr) minmax(110px, 0.5fr) 48px;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.55fr) minmax(0, 0.8fr) minmax(0, 0.65fr) 48px;
     align-items: center;
+}
+
+.gw-drive-list__head > span,
+.gw-drive-row > time,
+.gw-drive-row > span {
+    overflow-wrap: anywhere;
 }
 
 .gw-drive-list__head {

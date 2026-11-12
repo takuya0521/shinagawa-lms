@@ -108,7 +108,7 @@
                         <input type="checkbox" name="missing_only" value="1" @checked($missingOnly)>未入力のみ
                     </label>
                 </div>
-                <div class="flex items-end gap-3">
+                <div class="lms-filter-actions">
                     <button type="submit" class="rounded-lg px-5 py-2.5 font-semibold lms-button-primary">検索</button>
                     <a
                         href="{{ route('admin.evaluations.index') }}"

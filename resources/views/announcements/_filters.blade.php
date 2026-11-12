@@ -24,7 +24,7 @@
             @endforeach
         </select>
     </div>
-    <div class="flex items-end gap-3">
+    <div class="lms-filter-actions">
         <label
             class="flex items-center gap-2 rounded-lg border lms-border-neutral-default px-3 py-2.5 text-sm
                 font-semibold"

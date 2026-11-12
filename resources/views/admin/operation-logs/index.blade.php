@@ -201,7 +201,7 @@
                         >
                     </div>
 
-                    <div class="flex items-end gap-3">
+                    <div class="lms-filter-actions">
                         <button
                             type="submit"
                             class="rounded-lg px-5 py-2.5 font-semibold lms-button-primary"

@@ -1,7 +1,7 @@
 /* Google Workspace統合画面の画面幅別レイアウト。 */
 @media (max-width: 1180px) {
     :where(.gw-page[data-workspace-page]) .gw-service-header {
-        grid-template-columns: minmax(150px, 190px) minmax(240px, 1fr) auto;
+        grid-template-columns: minmax(150px, 190px) minmax(0, 1fr) auto;
     }
 
     :where(.gw-page[data-workspace-page]) .gw-service-switcher span {
