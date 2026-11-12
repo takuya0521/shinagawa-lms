@@ -223,7 +223,7 @@
                                     {{ $student->student_no ?? '—' }}
                                 </td>
 
-                                <td class="whitespace-nowrap px-5 py-4 font-medium">
+                                <td class="admin-students-table__wrap px-5 py-4 font-medium">
                                     {{ $student->student_name }}
                                 </td>
 
