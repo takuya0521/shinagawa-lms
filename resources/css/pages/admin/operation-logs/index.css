@@ -1,8 +1,53 @@
 /*
- * 操作ログ一覧画面専用
- *
- * 表示項目数に応じた表幅をこの画面内だけで調整し、他の一覧画面へ影響させない。
+ * 操作ログ一覧は、通常幅では表、狭い画面ではログごとのカードで表示する。
  */
 .page-admin-operation-logs-index {
-    --page-table-min-width: 82rem;
+    --page-table-min-width: 0px;
+}
+
+.page-admin-operation-logs-index .lms-table th {
+    width: auto;
+}
+
+.page-admin-operation-logs-index .lms-table td {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 767px) {
+    .page-admin-operation-logs-index .lms-table,
+    .page-admin-operation-logs-index .lms-table tbody {
+        display: block;
+    }
+
+    .page-admin-operation-logs-index .lms-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .page-admin-operation-logs-index .lms-table tbody tr {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem 1rem;
+        padding: 1rem;
+    }
+
+    .page-admin-operation-logs-index .lms-table td {
+        min-width: 0;
+        padding: 0;
+        white-space: normal;
+    }
+
+    .page-admin-operation-logs-index .lms-table td:nth-child(5),
+    .page-admin-operation-logs-index .lms-table td[colspan] {
+        grid-column: 1 / -1;
+    }
+
+    .page-admin-operation-logs-index .lms-table td:nth-child(6) {
+        grid-column: 2;
+        text-align: right;
+    }
 }
