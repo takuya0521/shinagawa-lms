@@ -74,12 +74,10 @@
 }
 
 .lms-brand__text strong {
-    overflow: hidden;
     color: var(--lms-text);
     font-size: 14px;
     font-weight: 800;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
 }
 
 .lms-nav {
