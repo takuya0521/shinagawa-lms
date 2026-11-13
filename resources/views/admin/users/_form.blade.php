@@ -23,7 +23,7 @@
             アカウント情報
         </h2>
 
-        <div class="lms-account-login-fields mt-4">
+        <div class="mt-4 grid gap-5 md:grid-cols-2">
             <div>
                 <label
                     for="name"
@@ -77,7 +77,7 @@
                     for="role"
                     class="block text-sm font-medium lms-text-neutral-secondary"
                 >
-                    ロール
+                    権限（ロール）
                     <span class="lms-text-danger">*</span>
                 </label>
 
@@ -135,7 +135,22 @@
                     </p>
                 @enderror
             </div>
+        </div>
+    </section>
 
+    <section class="border-t lms-border-neutral-subtle pt-6" aria-labelledby="user-password-heading">
+        <h2 id="user-password-heading" class="text-lg font-bold lms-text-neutral-strong">
+            パスワード
+        </h2>
+
+        <div id="user-password-help" class="mt-2 space-y-1 text-sm lms-text-neutral-muted">
+            @if ($user->exists)
+                <p>変更しない場合は空欄にしてください。</p>
+            @endif
+            <p>半角で12文字以上。大文字・小文字・数字・記号をすべて含めてください。半角スペースも使用できます。</p>
+        </div>
+
+        <div class="mt-4 grid gap-5 md:grid-cols-2">
             <div>
                 <label
                     for="password"
@@ -150,6 +165,7 @@
 
                 <input
                     id="password"
+                    aria-describedby="user-password-help"
                     name="password"
                     type="password"
                     @required(! $user->exists)
@@ -160,13 +176,16 @@
                     "
                 >
 
-                @if ($user->exists)
-                    <p class="mt-1 text-xs lms-text-neutral-muted">
-                        変更しない場合は空欄にしてください。
-                    </p>
-                @endif
-
-                <p class="mt-1 text-xs lms-text-neutral-muted">半角英数字・記号・半角スペースのみ使用できます。12文字以上で、大文字・小文字・数字・記号を含めてください。</p>
+                <button
+                    type="button"
+                    class="mt-2 text-sm font-semibold lms-link-primary"
+                    data-password-toggle
+                    aria-controls="password"
+                    aria-pressed="false"
+                    aria-label="パスワードを表示する"
+                >
+                    パスワードの表示切替
+                </button>
 
                 @error('password')
                     <p class="mt-1 text-sm lms-text-danger">
@@ -181,6 +200,10 @@
                     class="block text-sm font-medium lms-text-neutral-secondary"
                 >
                     パスワード確認
+
+                    @unless ($user->exists)
+                        <span class="lms-text-danger">*</span>
+                    @endunless
                 </label>
 
                 <input
@@ -211,7 +234,7 @@
         </h2>
 
         <p class="mt-1 text-sm lms-text-neutral-subtle">
-            ロールが「生徒」の場合に登録されます。
+            生徒として登録するための情報を入力してください。
         </p>
 
         <div class="mt-4 grid gap-5 md:grid-cols-2">
@@ -443,7 +466,7 @@
         </div>
     </section>
 
-    <div class="flex flex-wrap justify-center gap-3">
+    <div class="flex flex-wrap justify-end gap-3 border-t lms-border-neutral-subtle pt-5">
         <button
             type="submit"
             class="rounded-lg px-6 py-3 font-semibold lms-button-primary"
