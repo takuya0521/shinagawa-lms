@@ -41,7 +41,7 @@
                     @enderror
                 </div>
 
-                <div class="lms-password-fields">
+                <div class="space-y-5">
                     <div>
                         <label
                             for="password"
