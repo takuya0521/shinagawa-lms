@@ -349,17 +349,19 @@
                     @endunless
                 </label>
 
-                <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    @required(! $user->exists)
-                    autocomplete="new-password"
-                    class="
-                        lms-form-control lms-bg-surface mt-2 w-full rounded-lg border
-                        lms-border-neutral-default px-3 py-2
-                    "
-                >
+                <x-password-visibility input-id="password">
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        @required(! $user->exists)
+                        autocomplete="new-password"
+                        class="
+                            lms-form-control lms-bg-surface w-full rounded-lg border
+                            lms-border-neutral-default pl-3 pr-12 py-2
+                        "
+                    >
+                </x-password-visibility>
 
                 @if ($user->exists)
                     <p class="mt-1 text-xs lms-text-neutral-muted">
@@ -386,17 +388,19 @@
                     @endunless
                 </label>
 
-                <input
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    type="password"
-                    @required(! $user->exists)
-                    autocomplete="new-password"
-                    class="
-                        lms-form-control lms-bg-surface mt-2 w-full rounded-lg border
-                        lms-border-neutral-default px-3 py-2
-                    "
-                >
+                <x-password-visibility input-id="password_confirmation" label="確認用パスワード">
+                    <input
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        type="password"
+                        @required(! $user->exists)
+                        autocomplete="new-password"
+                        class="
+                            lms-form-control lms-bg-surface w-full rounded-lg border
+                            lms-border-neutral-default pl-3 pr-12 py-2
+                        "
+                    >
+                </x-password-visibility>
             </div>
         </div>
     </section>

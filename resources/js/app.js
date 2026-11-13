@@ -51,19 +51,21 @@ function restoreSidebarScroll() {
 }
 
 function togglePasswordVisibility(button) {
-    const passwordInput = document.querySelector('#password');
+    const inputId = button.getAttribute('aria-controls');
+    const passwordInput = inputId ? document.getElementById(inputId) : null;
 
     if (!(button instanceof HTMLButtonElement) || !(passwordInput instanceof HTMLInputElement)) {
         return;
     }
 
     const shouldShow = passwordInput.type === 'password';
+    const label = button.dataset.passwordLabel ?? 'パスワード';
 
     passwordInput.type = shouldShow ? 'text' : 'password';
     button.setAttribute('aria-pressed', String(shouldShow));
     button.setAttribute(
         'aria-label',
-        shouldShow ? 'パスワードを非表示にする' : 'パスワードを表示する',
+        shouldShow ? `${label}を非表示にする` : `${label}を表示する`,
     );
 }
 

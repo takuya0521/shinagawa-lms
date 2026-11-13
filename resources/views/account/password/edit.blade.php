@@ -25,14 +25,16 @@
                         現在のパスワード
                     </label>
 
-                    <input
-                        id="current_password"
-                        name="current_password"
-                        type="text"
-                        autocomplete="current-password"
-                        class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
-                        required
-                    >
+                    <x-password-visibility input-id="current_password" label="現在のパスワード">
+                        <input
+                            id="current_password"
+                            name="current_password"
+                            type="password"
+                            autocomplete="current-password"
+                            class="block w-full rounded-lg border pl-3 pr-12 py-2 lms-form-control"
+                            required
+                        >
+                    </x-password-visibility>
 
                     @error('current_password')
                         <p class="mt-2 text-sm lms-text-danger">{{ $message }}</p>
@@ -48,14 +50,16 @@
                             新しいパスワード
                         </label>
 
-                        <input
-                            id="password"
-                            name="password"
-                            type="text"
-                            autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
-                            required
-                        >
+                        <x-password-visibility input-id="password" label="新しいパスワード">
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                autocomplete="new-password"
+                                class="block w-full rounded-lg border pl-3 pr-12 py-2 lms-form-control"
+                                required
+                            >
+                        </x-password-visibility>
 
                         <p class="mt-2 text-sm lms-text-neutral-muted">
                             半角英数字・記号・半角スペースのみ使用できます。8文字以上で、大文字・小文字・数字を含めてください。
@@ -74,14 +78,16 @@
                             確認用パスワード
                         </label>
 
-                        <input
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            type="text"
-                            autocomplete="new-password"
-                            class="mt-2 block w-full rounded-lg border px-3 py-2 lms-form-control"
-                            required
-                        >
+                        <x-password-visibility input-id="password_confirmation" label="確認用パスワード">
+                            <input
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                type="password"
+                                autocomplete="new-password"
+                                class="block w-full rounded-lg border pl-3 pr-12 py-2 lms-form-control"
+                                required
+                            >
+                        </x-password-visibility>
                     </div>
                 </div>
 
