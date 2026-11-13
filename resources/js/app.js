@@ -3,7 +3,8 @@ const sidebarNav = shell instanceof HTMLElement ? shell.querySelector('.lms-nav'
 const sidebarOpenButton = document.querySelector('[data-sidebar-open]');
 const mobileLayout = window.matchMedia('(max-width: 1023px)');
 const roleClass = Array.from(document.body.classList).find((className) => className.startsWith('lms-role-'));
-const sidebarScrollKey = `lms-sidebar-scroll:${roleClass ?? 'default'}`;
+const sidebarScrollPrefix = 'lms-sidebar-scroll:';
+const sidebarScrollKey = `${sidebarScrollPrefix}${roleClass ?? 'default'}`;
 
 function setSidebarOpen(isOpen) {
     if (!(shell instanceof HTMLElement) || !(sidebarOpenButton instanceof HTMLButtonElement)) {
@@ -104,6 +105,21 @@ document.addEventListener('submit', (event) => {
     }
 
     const form = event.target;
+
+    if (form.matches('.auth-page .auth-form')) {
+        try {
+            const storage = window.sessionStorage;
+
+            for (const key of Object.keys(storage)) {
+                if (key.startsWith(sidebarScrollPrefix)) {
+                    storage.removeItem(key);
+                }
+            }
+        } catch {
+            // ストレージが使えない環境でもログインを続ける。
+        }
+    }
+
     const message = form.dataset.confirmMessage;
 
     if (message === undefined) {
