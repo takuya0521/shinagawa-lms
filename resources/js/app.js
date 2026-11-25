@@ -156,3 +156,12 @@ mobileLayout.addEventListener('change', (event) => {
 });
 
 window.requestAnimationFrame(restoreSidebarScroll);
+
+const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+if (sidebarToggle instanceof HTMLButtonElement && shell instanceof HTMLElement) {
+    sidebarToggle.addEventListener('click', () => {
+        const collapsed = shell.classList.toggle('is-sidebar-collapsed');
+        sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
+        sidebarToggle.setAttribute('aria-label', collapsed ? 'メニューを展開する' : 'メニューを折りたたむ');
+    });
+}

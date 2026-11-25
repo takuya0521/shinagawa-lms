@@ -39,7 +39,14 @@
         <button class="lms-sidebar-overlay" type="button" data-sidebar-close aria-label="メニューを閉じる"></button>
 
         <aside class="lms-sidebar" id="lms-sidebar" aria-label="メインメニュー">
-            <a href="{{ route($homeRoute) }}" class="lms-brand">
+            <button type="button" class="lms-sidebar-toggle" data-sidebar-toggle
+                aria-controls="lms-sidebar" aria-expanded="true" aria-label="メニューを折りたたむ">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m14 6-6 6 6 6" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <a href="{{ route($homeRoute) }}" class="lms-brand" aria-label="{{ $roleWorkspace }}">
                 <span class="lms-brand__logo-frame" aria-hidden="true">
                     <img
                         class="lms-brand__logo"
@@ -65,6 +72,7 @@
                                 @php($isActive = request()->routeIs($item['active']))
                                 <a
                                     href="{{ route($item['route']) }}"
+                                    title="{{ $item['label'] }}" aria-label="{{ $item['label'] }}"
                                     @class(['lms-nav-link', 'is-active' => $isActive])
                                     @if ($isActive)
                                         aria-current="page"
@@ -92,7 +100,7 @@
 
                 <div class="lms-sidebar-actions">
                     <a
-                        href="{{ route('account.password.edit') }}"
+                        href="{{ route('account.password.edit') }}" title="パスワード変更" aria-label="パスワード変更"
                         @class(['is-active' => request()->routeIs('account.password.*')])
                     >
                         <x-nav-icon name="key" />
@@ -100,7 +108,7 @@
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit">
+                        <button type="submit" title="ログアウト" aria-label="ログアウト">
                             <x-nav-icon name="logout" />
                             <span>ログアウト</span>
                         </button>
