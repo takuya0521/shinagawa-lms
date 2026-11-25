@@ -612,3 +612,7 @@ body.is-menu-locked {
 @media (prefers-reduced-motion: reduce) {
     .lms-sidebar { animation: none; }
 }
+
+@media (min-width: 1024px) {
+    .is-sidebar-collapsed .lms-sidebar { animation: none; }
+}
