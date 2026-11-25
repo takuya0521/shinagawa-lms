@@ -428,120 +428,6 @@ body.is-menu-locked {
     }
 }
 
-/* デスクトップのアイコン表示と展開表示を切り替える。 */
-.lms-sidebar-toggle {
-    display: none;
-}
-@media (min-width: 1024px) {
-    .lms-shell {
-        transition: none;
-    }
-    .lms-sidebar {
-        padding-top: 48px;
-        transition: none;
-        animation: lms-sidebar-reveal 160ms ease-out;
-    }
-    .lms-sidebar-toggle {
-        position: absolute;
-        top: 10px;
-        right: 12px;
-        display: grid;
-        place-items: center;
-        width: 28px;
-        height: 28px;
-        padding: 0;
-        border: 1px solid var(--lms-border);
-        border-radius: 50%;
-        color: var(--lms-primary-dark);
-        background: var(--lms-surface);
-        cursor: pointer;
-    }
-    .lms-sidebar-toggle svg {
-        width: 16px;
-        height: 16px;
-        transition: transform 160ms ease;
-    }
-    .lms-brand__text,
-    .lms-nav-link > span,
-    .lms-sidebar-user__body,
-    .lms-sidebar-actions a > span,
-    .lms-sidebar-actions button > span {
-        overflow: hidden;
-        max-width: 220px;
-        opacity: 1;
-        transition: opacity 120ms ease;
-    }
-    .lms-nav-link > span,
-    .lms-sidebar-actions a > span,
-    .lms-sidebar-actions button > span {
-        white-space: nowrap;
-    }
-    .lms-nav-link > svg,
-    .lms-sidebar-actions svg {
-        flex-shrink: 0;
-    }
-    .lms-nav-link.is-active {
-        box-shadow: inset 3px 0 var(--lms-primary),
-            0 0 14px color-mix(in srgb, var(--lms-primary) 14%, transparent);
-    }
-    body.lms-body .lms-shell.is-sidebar-collapsed {
-        grid-template-columns: 104px minmax(0, 1fr);
-    }
-    .is-sidebar-collapsed .lms-sidebar {
-        padding-inline: 8px;
-    }
-    .is-sidebar-collapsed .lms-sidebar-toggle svg {
-        transform: rotate(180deg);
-    }
-    .is-sidebar-collapsed .lms-brand {
-        padding-inline: 2px;
-        gap: 0;
-    }
-    .is-sidebar-collapsed .lms-brand__text,
-    .is-sidebar-collapsed .lms-nav-link > span,
-    .is-sidebar-collapsed .lms-sidebar-user__body,
-    .is-sidebar-collapsed .lms-sidebar-actions a > span,
-    .is-sidebar-collapsed .lms-sidebar-actions button > span {
-        max-width: 0;
-        opacity: 0;
-    }
-    .is-sidebar-collapsed .lms-nav-section__label {
-        height: 0;
-        overflow: hidden;
-        opacity: 0;
-    }
-    .is-sidebar-collapsed .lms-nav {
-        padding-right: 0;
-        margin-right: 0;
-    }
-    .is-sidebar-collapsed .lms-nav-link,
-    .is-sidebar-collapsed .lms-sidebar-actions a,
-    .is-sidebar-collapsed .lms-sidebar-actions button,
-    .is-sidebar-collapsed .lms-sidebar-user {
-        justify-content: center;
-        gap: 0;
-        padding-inline: 0;
-    }
-}
-@media (prefers-reduced-motion: reduce) {
-    .lms-shell,
-    .lms-sidebar,
-    .lms-sidebar-toggle svg,
-    .lms-brand__text,
-    .lms-nav-link > span,
-    .lms-sidebar-user__body,
-    .lms-sidebar-actions a > span,
-    .lms-sidebar-actions button > span {
-        transition: none;
-    }
-}
-
-@media (min-width: 1024px) {
-    .is-sidebar-collapsed .lms-sidebar__footer {
-        padding: 10px 2px;
-    }
-}
-
 /* 参考画像のチャコール背景と紫の選択光。 */
 .lms-sidebar {
     --lms-text: #f3f0f8;
@@ -605,14 +491,102 @@ body.is-menu-locked {
 .lms-sidebar .lms-sidebar-actions .lms-nav-icon {
     background: transparent;
 }
-@keyframes lms-sidebar-reveal {
-    from { clip-path: inset(0 55% 0 0 round 24px); }
-    to { clip-path: inset(0 0 0 0 round 24px); }
+
+/* 本文の幅は一度だけ変更し、開閉中のレイアウト計算をサイドバー内に限定する。 */
+.lms-sidebar-toggle { display: none; }
+@media (min-width: 1024px) {
+    .lms-shell { --sidebar-width: 254px; }
+    body.lms-body .lms-shell { transition: none; }
+    .lms-shell.is-sidebar-collapsed {
+        grid-template-columns: 104px minmax(0, 1fr);
+    }
+    body.lms-body .lms-sidebar {
+        box-sizing: border-box;
+        width: var(--sidebar-width);
+        padding: 48px 12px 16px;
+        contain: layout paint;
+        transition: width 220ms cubic-bezier(.2, .8, .2, 1);
+    }
+    .lms-brand,
+    .lms-nav,
+    .lms-sidebar__footer {
+        box-sizing: border-box;
+        width: calc(var(--sidebar-width) - 26px);
+        flex-shrink: 0;
+    }
+    .lms-brand {
+        padding-left: 2px;
+        gap: 11px;
+    }
+    .lms-brand__logo-frame { width: 48px; height: 48px; }
+    .lms-brand__logo { width: 42px; height: 42px; }
+    .lms-nav { margin-right: 0; padding-right: 8px; }
+    .lms-nav-link { padding-left: 2px; gap: 13px; }
+    .lms-sidebar__footer { padding: 12px 0; }
+    .lms-sidebar-user { gap: 12px; padding-left: 0; }
+    .lms-sidebar-actions a,
+    .lms-sidebar-actions button { padding-left: 2px; gap: 13px; }
+    .lms-brand__text,
+    .lms-nav-link > span,
+    .lms-sidebar-user__body,
+    .lms-sidebar-actions a > span,
+    .lms-sidebar-actions button > span {
+        white-space: nowrap;
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 120ms ease 60ms, transform 180ms ease;
+    }
+    .lms-brand__text strong { white-space: normal; }
+    .lms-nav-section__label {
+        transition: opacity 120ms ease;
+    }
+    body.lms-body .is-sidebar-collapsed .lms-sidebar { width: 88px; }
+    .is-sidebar-collapsed .lms-brand__text,
+    .is-sidebar-collapsed .lms-nav-link > span,
+    .is-sidebar-collapsed .lms-sidebar-user__body,
+    .is-sidebar-collapsed .lms-sidebar-actions a > span,
+    .is-sidebar-collapsed .lms-sidebar-actions button > span {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-6px);
+        transition-delay: 0s;
+    }
+    .is-sidebar-collapsed .lms-nav-section__label {
+        opacity: 0;
+    }
+    .lms-sidebar-toggle {
+        position: absolute;
+        z-index: 2;
+        top: 12px;
+        right: 10px;
+        display: grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        border: 1px solid #45414d;
+        border-radius: 50%;
+        color: #d9cce5;
+        background: #202026;
+        cursor: pointer;
+    }
+    .lms-sidebar-toggle svg {
+        width: 14px;
+        height: 14px;
+        transition: transform 180ms ease;
+    }
+    .is-sidebar-collapsed .lms-sidebar-toggle svg {
+        transform: rotate(180deg);
+    }
+}
+@media (min-width: 1024px) and (max-width: 1180px) {
+    .lms-shell { --sidebar-width: 230px; }
+    body.lms-body .lms-shell.is-sidebar-collapsed {
+        grid-template-columns: 104px minmax(0, 1fr);
+    }
 }
 @media (prefers-reduced-motion: reduce) {
-    .lms-sidebar { animation: none; }
-}
-
-@media (min-width: 1024px) {
-    .is-sidebar-collapsed .lms-sidebar { animation: none; }
+    .lms-sidebar,
+    .lms-sidebar *,
+    .lms-shell { transition: none !important; }
 }
