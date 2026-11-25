@@ -520,7 +520,7 @@ body.is-menu-locked {
     }
     .lms-brand__logo-frame { width: 48px; height: 48px; }
     .lms-brand__logo { width: 42px; height: 42px; }
-    .lms-nav { margin-right: 0; padding-right: 8px; }
+    .lms-nav { margin-right: 0; padding-right: 8px; flex-shrink: 1; }
     .lms-nav-link { padding-left: 2px; gap: 13px; }
     .lms-sidebar__footer { padding: 12px 0; }
     .lms-sidebar-user { gap: 12px; padding-left: 0; }
