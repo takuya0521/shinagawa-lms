@@ -428,49 +428,13 @@ body.is-menu-locked {
     }
 }
 
-/* 参考画像のチャコール背景と紫の選択光。 */
-.lms-sidebar {
-    --lms-text: #f3f0f8;
-    --lms-muted: #aaa7b3;
-    --lms-muted-light: #797581;
-    --lms-sidebar-text: #aaa7b3;
-    --lms-primary: #ae50f5;
-    --lms-primary-dark: #e4c5ff;
-    --lms-primary-soft: transparent;
-    --lms-border: #36343e;
-    --lms-surface: #17171d;
-    background: linear-gradient(155deg, #24242a, #141419 80%);
-    border-color: #36343e;
-    box-shadow: 0 12px 30px #14101924;
-}
-.lms-sidebar .lms-brand__logo-frame {
-    background: #fff;
-    border-color: #4c4656;
-}
-.lms-sidebar .lms-brand__text small {
-    color: #aaa7b3;
-}
-.lms-sidebar .lms-sidebar__footer {
-    background: transparent;
-    box-shadow: none;
-    border: 0;
-    border-top: 1px solid #ffffff10;
-    border-radius: 0;
-}
-.lms-sidebar .lms-sidebar-user__avatar {
-    background: #ffffff0a;
-}
-.lms-sidebar .lms-nav-link {
-    border-color: transparent;
-    border-radius: 10px;
-}
-.lms-sidebar .lms-nav-link:hover {
-    color: #f5edff;
-    background: #ffffff06;
-}
+/* LMSの配色に合わせた淡いピンクの選択光。 */
 .lms-sidebar .lms-nav-link.is-active {
-    color: #faf5ff;
-    background: linear-gradient(90deg, #a244e52b, #a244e50c 65%, transparent);
+    color: var(--lms-primary-dark);
+    background: linear-gradient(90deg,
+        color-mix(in srgb, var(--lms-primary) 18%, transparent),
+        color-mix(in srgb, var(--lms-primary) 4%, transparent) 75%,
+        transparent);
     border-color: transparent;
     box-shadow: none;
 }
@@ -480,12 +444,12 @@ body.is-menu-locked {
     bottom: 10px;
     width: 3px;
     opacity: 1;
-    background: #bf60ff;
-    box-shadow: 0 0 7px #b443ff, 0 0 17px #b443ff99;
+    background: var(--lms-primary);
+    box-shadow: 0 0 7px color-mix(in srgb, var(--lms-primary) 65%, transparent),
+        0 0 17px color-mix(in srgb, var(--lms-primary) 35%, transparent);
 }
 .lms-sidebar .lms-nav-link.is-active .lms-nav-icon {
-    color: #faf5ff;
-    filter: drop-shadow(0 0 5px #b443ff88);
+    color: var(--lms-primary-dark);
 }
 .lms-sidebar .lms-nav-link > .lms-nav-icon,
 .lms-sidebar .lms-sidebar-actions .lms-nav-icon {
@@ -564,10 +528,10 @@ body.is-menu-locked {
         width: 26px;
         height: 26px;
         padding: 0;
-        border: 1px solid #45414d;
+        border: 1px solid var(--lms-border);
         border-radius: 50%;
-        color: #d9cce5;
-        background: #202026;
+        color: var(--lms-primary-dark);
+        background: var(--lms-surface);
         cursor: pointer;
     }
     .lms-sidebar-toggle svg {
