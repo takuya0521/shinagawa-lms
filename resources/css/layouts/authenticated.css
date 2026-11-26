@@ -468,7 +468,7 @@ body.is-menu-locked {
         box-sizing: border-box;
         width: var(--sidebar-width);
         padding: 48px 12px 16px;
-        contain: layout paint;
+        contain: layout;
         transition: width 220ms cubic-bezier(.2, .8, .2, 1);
     }
     .lms-brand,
