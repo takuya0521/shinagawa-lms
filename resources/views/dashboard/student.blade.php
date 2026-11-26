@@ -247,7 +247,8 @@
 
                 @if ($attendance['total'] > 0)
                     <div class="student-dashboard-attendance">
-                        <div class="student-dashboard-attendance__main">
+                        <div class="student-dashboard-attendance__main dashboard-attendance-ring"
+                            style="--dashboard-rate: {{ max(0, min(100, (float) $attendance['rate'])) }}%">
                             <span>出席率</span>
                             <strong>{{ $attendance['rate'] }}%</strong>
                             <small>{{ $attendance['attended'] }}/{{ $attendance['total'] }}件 出席相当</small>

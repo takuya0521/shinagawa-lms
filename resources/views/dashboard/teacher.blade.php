@@ -6,12 +6,13 @@
 @section('header-title', '教員ダッシュボード')
 
 @section('content')
-    <div class="space-y-6">
-        <section class="p-8 lms-panel">
-            <h1 class="text-2xl font-bold">{{ $teacher->user->name }}先生</h1>
+    <div class="space-y-6 dashboard-workspace">
+        <section class="dashboard-welcome">
+            <div><h2>{{ $teacher->user->name }}先生</h2><p>本日の担当授業と出欠を確認しましょう。</p></div>
+            <time datetime="{{ $today->toDateString() }}">{{ $today->format('Y年m月d日') }}</time>
         </section>
 
-        <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section class="dashboard-stat-grid" aria-label="担当授業の状況">
             <a href="{{ route('teacher.courses.index') }}" class="p-6 lms-panel lms-panel--interactive">
                 <p class="text-sm font-semibold lms-text-neutral-muted">担当授業</p>
                 <p class="mt-2 text-3xl font-bold">{{ $assignedCourseCount }}<span class="ml-1 text-base">件</span></p>
@@ -37,6 +38,9 @@
             </a>
         </section>
 
+        @include('dashboard._activity', ['slots' => $todaySlots])
+
+        <div class="dashboard-detail-grid">
         <section class="p-6 lms-panel">
             <div class="flex items-center justify-between gap-4">
                 <div>
@@ -158,5 +162,6 @@
                 @endforelse
             </div>
         </section>
+        </div>
     </div>
 @endsection

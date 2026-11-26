@@ -629,3 +629,41 @@
     font-size: 10px;
     line-height: 1.6;
 }
+
+/* 生徒トップも共通のコンパクトなカードに揃える。 */
+body.page-dashboard-student .student-dashboard { gap: 20px; }
+body.page-dashboard-student .student-dashboard-overview {
+    min-height: 0;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 3px 12px #40323904;
+}
+body.page-dashboard-student .student-dashboard-overview__heading h2 { font-size: 22px; }
+body.page-dashboard-student .student-dashboard-overview__details div { backdrop-filter: none; background: #fcf8fa; border-radius: 10px; }
+body.page-dashboard-student .student-dashboard-panel,
+body.page-dashboard-student .student-dashboard-summary,
+body.page-dashboard-student .student-dashboard-services {
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 3px 12px #40323904;
+}
+body.page-dashboard-student .student-dashboard-summary-grid { grid-row: 2; }
+body.page-dashboard-student .student-dashboard-notice { box-shadow: none; border-radius: 10px; background: #fdfbfd; }
+body.page-dashboard-student .dashboard-attendance-ring {
+    width: 144px;
+    height: 144px;
+    min-width: 144px;
+    min-height: 144px;
+    margin: auto;
+    align-self: center;
+    border-radius: 50%;
+    padding: 22px 8px;
+    background:
+        radial-gradient(closest-side, white 80%, transparent 81%),
+        conic-gradient(var(--lms-primary) var(--dashboard-rate), #f5edf1 0);
+}
+body.page-dashboard-student .dashboard-attendance-ring strong { color: var(--lms-primary-dark); }
+@media (max-width: 680px) {
+    body.page-dashboard-student .student-dashboard-overview__heading h2 { font-size: 19px; }
+}

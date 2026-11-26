@@ -6,9 +6,16 @@
 @section('header-title', '管理者ダッシュボード')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="space-y-6 dashboard-workspace">
+        <header class="dashboard-welcome">
+            <div>
+                <h2>こんにちは、{{ auth()->user()->name }}さん</h2>
+                <p>本日の学校の状況を確認しましょう。</p>
+            </div>
+            <time datetime="{{ $today->toDateString() }}">{{ $today->format('Y年m月d日') }}</time>
+        </header>
 
-        <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section class="dashboard-stat-grid" aria-label="学校の状況">
             <a href="{{ route('admin.timetable-slots.index') }}" class="p-6 lms-panel lms-panel--interactive">
                 <p class="text-sm font-semibold lms-text-neutral-muted">本日の授業</p>
                 <p
@@ -44,35 +51,9 @@
             </a>
         </section>
 
-        <section class="p-6 lms-panel">
-            <h2 class="text-xl font-bold">管理メニュー</h2>
-            <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                @foreach ([
-                    ['route' => 'admin.users.index', 'label' => 'ユーザー管理'],
-                    ['route' => 'admin.students.index', 'label' => '生徒管理'],
-                    ['route' => 'admin.teachers.index', 'label' => '教員管理'],
-                    ['route' => 'admin.class-groups.index', 'label' => 'クラス管理'],
-                    ['route' => 'admin.subjects.index', 'label' => '科目管理'],
-                    ['route' => 'admin.courses.index', 'label' => '授業管理'],
-                    ['route' => 'admin.course-teacher-assignments.index', 'label' => '担当教員設定'],
-                    ['route' => 'admin.timetable-slots.index', 'label' => '時間割管理'],
-                    ['route' => 'admin.attendance.index', 'label' => '出欠管理'],
-                    ['route' => 'admin.evaluations.index', 'label' => '成績管理'],
-                    ['route' => 'admin.interviews.index', 'label' => '面談記録'],
-                    ['route' => 'admin.announcements.index', 'label' => '掲示板管理'],
-                    ['route' => 'admin.external-links.index', 'label' => '外部リンク管理'],
-                    ['route' => 'admin.operation-logs.index', 'label' => '操作ログ確認'],
-                ] as $menu)
-                    <a
-                        href="{{ route($menu['route']) }}"
-                        class="rounded-xl border lms-border-neutral-subtle px-4 py-4 font-semibold
-                            lms-hover-bg-neutral-subtle"
-                    >{{ $menu['label'] }}</a>
-                @endforeach
-            </div>
-        </section>
+        @include('dashboard._activity', ['slots' => $todaySlots])
 
-        <div class="grid gap-6 lg:grid-cols-2">
+        <div class="grid gap-6 lg:grid-cols-2 dashboard-detail-grid">
             <section class="p-6 lms-panel">
                 <div class="flex items-center justify-between gap-4">
                     <div>
@@ -159,5 +140,33 @@
                 </div>
             </section>
         </div>
+        <section class="p-6 lms-panel">
+            <h2 class="text-xl font-bold">管理メニュー</h2>
+            <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                @foreach ([
+                    ['route' => 'admin.users.index', 'label' => 'ユーザー管理'],
+                    ['route' => 'admin.students.index', 'label' => '生徒管理'],
+                    ['route' => 'admin.teachers.index', 'label' => '教員管理'],
+                    ['route' => 'admin.class-groups.index', 'label' => 'クラス管理'],
+                    ['route' => 'admin.subjects.index', 'label' => '科目管理'],
+                    ['route' => 'admin.courses.index', 'label' => '授業管理'],
+                    ['route' => 'admin.course-teacher-assignments.index', 'label' => '担当教員設定'],
+                    ['route' => 'admin.timetable-slots.index', 'label' => '時間割管理'],
+                    ['route' => 'admin.attendance.index', 'label' => '出欠管理'],
+                    ['route' => 'admin.evaluations.index', 'label' => '成績管理'],
+                    ['route' => 'admin.interviews.index', 'label' => '面談記録'],
+                    ['route' => 'admin.announcements.index', 'label' => '掲示板管理'],
+                    ['route' => 'admin.external-links.index', 'label' => '外部リンク管理'],
+                    ['route' => 'admin.operation-logs.index', 'label' => '操作ログ確認'],
+                ] as $menu)
+                    <a
+                        href="{{ route($menu['route']) }}"
+                        class="rounded-xl border lms-border-neutral-subtle px-4 py-4 font-semibold
+                            lms-hover-bg-neutral-subtle"
+                    >{{ $menu['label'] }}</a>
+                @endforeach
+            </div>
+        </section>
+
     </div>
 @endsection
