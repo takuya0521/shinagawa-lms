@@ -220,6 +220,13 @@ if (dashboard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches 
                 ], { duration: 650, delay: delay + 100, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
                 bar.style.transformOrigin = 'bottom';
             }
+            for (const ring of card.querySelectorAll('.dashboard-progress-ring, .dashboard-attendance-ring')) {
+                const target = ring.style.getPropertyValue('--dashboard-rate').trim();
+                ring.animate([
+                    { '--dashboard-fill': '0%' },
+                    { '--dashboard-fill': target },
+                ], { duration: 850, delay: delay + 120, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+            }
             const numbers = card.querySelectorAll(
                 '.dashboard-progress-ring > strong, .student-dashboard-evaluation__main > strong, ' +
                 '.student-dashboard-attendance__main > strong'
@@ -232,4 +239,22 @@ if (dashboard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches 
         }
     }, { threshold: 0.1 });
     cards.forEach(card => observer.observe(card));
+}
+
+const dashboardThemeToggle = document.querySelector('[data-dashboard-theme]');
+if (dashboardThemeToggle instanceof HTMLButtonElement) {
+    const applyDashboardTheme = dark => {
+        document.body.classList.toggle('dashboard-dark', dark);
+        dashboardThemeToggle.setAttribute('aria-pressed', String(dark));
+        dashboardThemeToggle.setAttribute('aria-label', dark ? 'ライト表示に切り替える' : 'ダーク表示に切り替える');
+        dashboardThemeToggle.querySelector('[data-dashboard-theme-label]').textContent = dark ? 'ライト表示' : 'ダーク表示';
+    };
+    try {
+        applyDashboardTheme(localStorage.getItem('lms-dashboard-theme') === 'dark');
+    } catch { applyDashboardTheme(false); }
+    dashboardThemeToggle.addEventListener('click', () => {
+        const dark = !document.body.classList.contains('dashboard-dark');
+        applyDashboardTheme(dark);
+        try { localStorage.setItem('lms-dashboard-theme', dark ? 'dark' : 'light'); } catch {}
+    });
 }

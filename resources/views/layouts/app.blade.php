@@ -135,6 +135,17 @@
                         <h1>@yield('header-title')</h1>
                     </div>
                 </div>
+                @if (request()->routeIs('admin.dashboard', 'teacher.dashboard', 'student.dashboard'))
+                    <div class="dashboard-topbar-actions">
+                        <button type="button" class="dashboard-theme-toggle" data-dashboard-theme
+                            aria-label="ダーク表示に切り替える" aria-pressed="false">
+                            <span data-dashboard-theme-label>ダーク表示</span>
+                        </button>
+                        <span class="dashboard-profile" aria-label="{{ $loginUser->name }}">
+                            {{ \Illuminate\Support\Str::substr($loginUser->name, 0, 1) }}
+                        </span>
+                    </div>
+                @endif
             </header>
 
             <main class="lms-content">
