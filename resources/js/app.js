@@ -165,3 +165,71 @@ if (sidebarToggle instanceof HTMLButtonElement && shell instanceof HTMLElement) 
         sidebarToggle.setAttribute('aria-label', collapsed ? 'メニューを展開する' : 'メニューを折りたたむ');
     });
 }
+
+function animateDashboardNumber(element, delay) {
+    const text = Array.from(element.childNodes).find(node =>
+        node.nodeType === Node.TEXT_NODE && /^\s*[\d,]+(?:\.\d+)?\s*$/.test(node.textContent)
+    );
+    if (!text) return;
+
+    const original = text.textContent;
+    const target = Number(original.trim().replaceAll(',', ''));
+    const decimals = original.trim().split('.')[1]?.length ?? 0;
+    const formatter = new Intl.NumberFormat('ja-JP', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+    });
+
+    text.textContent = formatter.format(0);
+
+    window.setTimeout(() => {
+        const started = performance.now();
+        const update = now => {
+            const progress = Math.min(1, (now - started) / 700);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            text.textContent = progress === 1 ? original : formatter.format(target * eased);
+            if (progress < 1) window.requestAnimationFrame(update);
+        };
+        window.requestAnimationFrame(update);
+    }, delay);
+}
+
+const dashboard = document.querySelector('.dashboard-workspace, .student-dashboard');
+if (dashboard && !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+    typeof IntersectionObserver !== 'undefined') {
+    const cards = dashboard.querySelectorAll(
+        '.dashboard-stat-grid > a, .dashboard-analytics > section, .dashboard-detail-grid > section, .dashboard-workspace > section.lms-panel, ' +
+        '.student-dashboard-overview, .student-dashboard-summary, .student-dashboard-panel, .student-dashboard-services'
+    );
+    const observer = new IntersectionObserver(entries => {
+        let stagger = 0;
+        for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const card = entry.target;
+            observer.unobserve(card);
+            const delay = stagger++ * 65;
+            card.animate([
+                { opacity: 0, transform: 'translateY(16px)' },
+                { opacity: 1, transform: 'translateY(0)' },
+            ], { duration: 420, delay, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+
+            for (const bar of card.querySelectorAll('.dashboard-bar-track > span')) {
+                bar.animate([
+                    { transform: 'scaleY(0)' },
+                    { transform: 'scaleY(1)' },
+                ], { duration: 650, delay: delay + 100, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+                bar.style.transformOrigin = 'bottom';
+            }
+            const numbers = card.querySelectorAll(
+                '.dashboard-progress-ring > strong, .student-dashboard-evaluation__main > strong, ' +
+                '.student-dashboard-attendance__main > strong'
+            );
+            for (const number of numbers) animateDashboardNumber(number, delay + 100);
+            if (card.matches('.dashboard-stat-grid > a')) {
+                const number = card.querySelector('p:nth-child(2)');
+                if (number) animateDashboardNumber(number, delay + 100);
+            }
+        }
+    }, { threshold: 0.1 });
+    cards.forEach(card => observer.observe(card));
+}
